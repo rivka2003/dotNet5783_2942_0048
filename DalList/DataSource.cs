@@ -60,7 +60,7 @@ namespace Dal
                     randomSizeClothes = (SizeClothes)SizeCloth.GetValue(random.Next(SizeCloth.Length));
                     Product value = new Product()
                     {
-                        ID = random.Next(1000000000),
+                        ID = random.Next(100000, 1000000000),
                         InStock = random.Next(1, 4),
                         Name = "Product" + j,
                         Price = 100,
