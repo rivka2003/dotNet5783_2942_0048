@@ -10,13 +10,14 @@ public class DalOrder
     //CRUD for Order
 
     /// <summary>
-    /// A function to add order
+    /// A function to add order, and return the ID
     /// </summary>
     /// <param name="or"></param>
-    public void Create(Order or)
+    public int Create(Order or)
     {
-        or.ID = Config.OrderSequenceID;
+        or.ID = Config.getOrderSequenceID();
         DataSource.Orders.Add(or);
+        return or.ID;
     }
     /// <summary>
     /// A function that returns all the orders
@@ -24,7 +25,13 @@ public class DalOrder
     /// <returns></returns>
     public List<Order> RequestAll()
     {
-        return DataSource.Orders;
+        List<Order> NewOrders = new List<Order>();
+        for (int i = 0; i < DataSource.Orders.Count; i++)
+        {
+            NewOrders.Add(DataSource.Orders[i]);
+
+        }
+        return NewOrders;
     }
     /// <summary>
     /// A function that returns a spacific order by the specific ID
@@ -35,8 +42,7 @@ public class DalOrder
     public Order RequestById(int ID)
     {
         if (!DataSource.Orders.Exists(i => i.ID == ID))
-            throw new Exception("the student is not exist");
-
+            throw new Exception("the order does not exist");
         return DataSource.Orders.Find(i => i.ID == ID);
     }
     /// <summary>
@@ -48,22 +54,20 @@ public class DalOrder
     {
         ///if Order dosnt exist throw exception 
         if (!DataSource.Orders.Exists(i => i.ID == or.ID))
-            throw new Exception("cannot update a student, is not exists");
-        Order orToRemove = DataSource.Orders.Find(i => i.ID == or.ID);
-        or.ID = orToRemove.ID;
-        DataSource.Orders.Remove(orToRemove);
-        DataSource.Orders.Add(or);
+            throw new Exception("cannot update an order, does not exists");
+        for (int i = 0; i < DataSource.Orders.Count; i++)
+        {
+            if (or.ID == DataSource.Orders[i].ID)
+                DataSource.Orders[i] = or;
+        }
     }
     /// <summary>
     /// A function to delete the order that we have received
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
-    public void Delete(Order or)
+    public void Delete(int id)
     {
-        ///if Order dosnt exist throw exception 
-        if (!DataSource.Orders.Exists(i => i.ID == or.ID))
-            throw new Exception("cannot delete a student, is not exists");
-        DataSource.Orders.Remove(or); //or set Active..
+        DataSource.Orders.Remove(RequestById(id)); //or set Active..
     }
 }

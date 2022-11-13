@@ -7,15 +7,16 @@ public class DalProduct
     //CRUD for Product
 
     /// <summary>
-    /// A function to add product
+    /// A function to add product, and return the ID
     /// </summary>
     /// <param name="pro"></param>
-    public void Create(Product pro)
+    public int Create(Product pro)
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i.ID == pro.ID))
             throw new Exception("cannot create a student, is already exists");
         DataSource.Products.Add(pro);
+        return pro.ID;
     }
     /// <summary>
     /// A function that returns all the products
@@ -23,7 +24,12 @@ public class DalProduct
     /// <returns></returns>
     public List<Product> RequestAll()
     {
-        return DataSource.Products;
+        List<Product> NewProducts = new List<Product>();
+        for (int i = 0; i < DataSource.Products.Count; i++)
+        {
+            NewProducts.Add(DataSource.Products[i]);
+        }
+        return NewProducts;
     }
     /// <summary>
     /// A function that returns a spacific product by the ID
@@ -34,8 +40,7 @@ public class DalProduct
     public Product RequestById(int id)
     {
         if (!DataSource.Products.Exists(i => i.ID == id))
-            throw new Exception("the student is not exist");
-
+            throw new Exception("the product does not exist");
         return DataSource.Products.Find(i => i.ID == id);
     }
     /// <summary>
@@ -47,22 +52,20 @@ public class DalProduct
     {
         ///if product dosnt exist throw exception 
         if (!DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("cannot update a student, is not exists");
-        Product sToRemove = DataSource.Products.Find(i => i.ID == pro.ID);
-        DataSource.Products.Remove(sToRemove);
-        DataSource.Products.Add(pro);
-
+            throw new Exception("cannot update a product, does not exists");
+        for (int i = 0; i < DataSource.Products.Count; i++)
+        {
+            if (pro.ID == DataSource.Products[i].ID)
+                DataSource.Products[i] = pro;
+        }
     }
     /// <summary>
     /// A function to delete the product that we have received
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="Exception"></exception>
-    public void Delete(Product pro)
+    public void Delete(int id)
     {
-        ///if product dosnt exist throw exception 
-        if (!DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("cannot delete a student, is not exists");
-        DataSource.Products.Remove(pro); //or set Active..
+        DataSource.Products.Remove(RequestById(id));
     }
 }

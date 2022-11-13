@@ -24,7 +24,7 @@ public struct OrderItem
     /// </summary>
     public int Amount { get; set; }
     /// <summary>
-    /// The amount of items that have ordered
+    /// The amount that I have ordered from this product
     /// </summary>
     /// <returns></returns>
     public override string ToString() => $@"

@@ -20,7 +20,7 @@ public struct Product
     /// <summary>
     /// The amount of products available from the product
     /// </summary>
-    public bool Status { get; set; } /// <summary>
+    public Status status { get; set; } /// <summary>
     /// check if to do with enum
     /// True - there is a product in stock
     /// False - there is no products at all
@@ -50,7 +50,7 @@ public struct Product
     /// The color of the product
     /// </summary>
     /// <returns></returns>
-    public SizeClothes sizeClothing { get; set; }
+    public SizeClothing sizeClothing { get; set; }
     /// <summary>
     /// The size of the Clothing
     /// </summary>
@@ -59,14 +59,45 @@ public struct Product
     /// The size of the shoes
     /// </summary>
     /// <returns></returns>
-    public override string ToString() => $@"
-    ID: {ID}
-    Name: {Name}
-    Price: {Price}
-    Amount in stock: {InStock}
-    Status: {Status}
-    category: {category}
-    Gender: {gender}
-    ";
+    public string Description { get; set; }
+    /// <summary>
+    /// The Description of the product
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        if (category is (Category)0)
+        {
+            return $@"
+            ID: {ID}
+            Name: {Name}
+            Price: {Price}
+            Amount in stock: {InStock}
+            Status: {status}
+            Description: {Description}
+            Gender: {gender}
+            Color: {color}
+            Category: {category}
+            Clothing: {clothing}
+            Size of clothing: {sizeClothing}
+            ";
+        }
+        else
+        {
+            return $@"
+            ID: {ID}
+            Name: {Name}
+            Price: {Price}
+            Amount in stock: {InStock}
+            Status: {status}
+            Description: {Description}
+            Gender: {gender}
+            Color: {color}
+            Category: {category}
+            Shoes: {shoes}
+            Size of shoes: {(int)sizeShoes}
+            ";
+        }
+    }
     ///printing product details function
 }
