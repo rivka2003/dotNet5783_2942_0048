@@ -88,7 +88,7 @@ public class DalOrderItem
         }
     }
     /// <summary>
-    /// A function to delete the orderItem that we have received
+    /// A function to delete the orderItem that we have received his ID
     /// </summary>
     /// <param name="orIt"></param>
     /// <exception cref="Exception"></exception>

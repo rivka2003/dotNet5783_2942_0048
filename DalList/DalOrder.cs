@@ -62,12 +62,12 @@ public class DalOrder
         }
     }
     /// <summary>
-    /// A function to delete the order that we have received
+    /// A function to delete the order that we have received his ID
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Orders.Remove(RequestById(id)); //or set Active..
+        DataSource.Orders.Remove(RequestById(id)); 
     }
 }

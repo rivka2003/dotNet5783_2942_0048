@@ -6,6 +6,9 @@ namespace DalTest
 {
     class Program
     {
+        /// <summary>
+        /// Creating variables to get access to the CRUD
+        /// </summary>
         private static DalOrder order = new DalOrder();
         private static DalOrderItem orderItem = new DalOrderItem();
         private static DalProduct product = new DalProduct();
@@ -14,6 +17,7 @@ namespace DalTest
         static void Main(string[] args)
         {
             Choice choice = new Choice();
+            ///A loop that ran as long as the requested value for exiting the main program was not received
             do
             {
                 Program program = new Program();
@@ -22,6 +26,7 @@ namespace DalTest
 1: Product
 2: Order
 3: OrderItem");
+                /// Conversion of the received value to the desired type
                 Choice.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
                 {
@@ -42,7 +47,9 @@ namespace DalTest
             } while (choice != 0);
 
         }
-
+        /// <summary>
+        /// A function within which all the user's choices regarding the product list are handled
+        /// </summary>
         void ProductSwitch()
         {
             Product theProduct = new Product();
@@ -56,6 +63,7 @@ namespace DalTest
 3: Print the List
 4: Updat
 5: Delete");
+                /// Conversion of the received value to the desired type
                 Choice2.TryParse(Console.ReadLine(), out choice2);
                 try
                 {
@@ -63,17 +71,22 @@ namespace DalTest
                     {
                         case Choice2.Exit:
                             return;
-                        case Choice2.Add:
+                        case Choice2.Add: // Adding a product
                             creatProduct(ref theProduct);
-                            theProduct.ID = random.Next(100000, 999999); // לוודא שבאמת מגרילים מספר
+                            Console.WriteLine("Enter the product ID:");
+                            int id;
+                            /// Conversion of the received value to the desired type
+                            int.TryParse(Console.ReadLine(), out id);
+                            theProduct.ID = id;
                             Console.WriteLine("The product ID is:");
                             Console.WriteLine(product.Create(theProduct));
                             break;
                         case Choice2.Print:
                             Console.WriteLine("Enter the product ID:");
-                            int id;
-                            int.TryParse(Console.ReadLine(), out id);
-                            Console.WriteLine(product.RequestById(id));
+                            int id1;
+                            /// Conversion of the received value to the desired type
+                            int.TryParse(Console.ReadLine(), out id1);
+                            Console.WriteLine(product.RequestById(id1));
                             break;
                         case Choice2.PrintList:
                             foreach (var pro in product.RequestAll())
@@ -81,18 +94,20 @@ namespace DalTest
                             break;
                         case Choice2.Update:
                             Console.WriteLine("Enter the ID of the product that you want to update");
-                            int id1;
-                            int.TryParse(Console.ReadLine(), out id1);
-                            Console.WriteLine(product.RequestById(id1));
-                            theProduct.ID = id1;
+                            int id2;
+                            /// Conversion of the received value to the desired type
+                            int.TryParse(Console.ReadLine(), out id2);
+                            Console.WriteLine(product.RequestById(id2));
+                            theProduct.ID = id2;
                             creatProduct(ref theProduct);
                             product.Update(theProduct);
                             break;
                         case Choice2.Delete:
                             Console.WriteLine("Enter the ID of the product that you wants to delete:");
-                            int id2;
-                            int.TryParse(Console.ReadLine(), out id2);
-                            product.Delete(id2);
+                            int id3;
+                            /// Conversion of the received value to the desired type
+                            int.TryParse(Console.ReadLine(), out id3);
+                            product.Delete(id3);
                             break;
                         default:
                             break;
@@ -113,11 +128,13 @@ namespace DalTest
             TheProduct.Name = Console.ReadLine();
             Console.WriteLine("Enter the price of the product");
             double price;
+            /// Conversion of the received value to the desired type
             double.TryParse(Console.ReadLine(), out price);
             TheProduct.Price = price;
             TheProduct.status = 0;
             Console.WriteLine("Enter the amount that in stock (1-4):");
             int inStock;
+            /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out inStock);
             TheProduct.InStock = inStock;
             Console.WriteLine($@"Enter the gender type:
@@ -126,12 +143,14 @@ namespace DalTest
 2: Boys
 3: Girls");
             Gender choice3 = new Gender();
+            /// Conversion of the received value to the desired type
             Gender.TryParse(Console.ReadLine(), out choice3);
             TheProduct.gender = choice3;
             Console.WriteLine($@"Enter the Category of the product:
 0: Clothing
 1: Shoes");
             Category choice4 = new Category();
+            /// Conversion of the received value to the desired type
             Category.TryParse(Console.ReadLine(), out choice4);
             TheProduct.category = choice4;
             if (choice4 is (Category)0)
@@ -165,6 +184,7 @@ namespace DalTest
 9: Jackets
 10: SportWear");
                 }
+                /// Conversion of the received value to the desired type
                 Clothing.TryParse(Console.ReadLine(), out c);
                 TheProduct.clothing = c;
                 Console.WriteLine($@"Enter the size of the clothing:
@@ -174,6 +194,7 @@ namespace DalTest
 3: L
 4: XL");
                 SizeClothing sc = new SizeClothing();
+                /// Conversion of the received value to the desired type
                 SizeClothing.TryParse(Console.ReadLine(), out sc);
                 TheProduct.sizeClothing = sc;
             }
@@ -197,6 +218,7 @@ namespace DalTest
 3: Sport
 4: Sandals");
                 }
+                /// Conversion of the received value to the desired type
                 Shoes.TryParse(Console.ReadLine(), out s);
                 TheProduct.shoes = s;
                 Console.WriteLine($@"Enter the shoes type:
@@ -207,6 +229,7 @@ namespace DalTest
 40
 41");
                 SizeShoes ss;
+                /// Conversion of the received value to the desired type
                 SizeShoes.TryParse(Console.ReadLine(), out ss);
                 TheProduct.sizeShoes = ss;
             }
@@ -228,6 +251,7 @@ namespace DalTest
 14: Silver
 15: Colored");
             Color cl = new Color();
+            /// Conversion of the received value to the desired type
             Color.TryParse(Console.ReadLine(), out cl);
             TheProduct.color = cl;
             Console.WriteLine("Enter the description of the product:");
@@ -248,6 +272,7 @@ namespace DalTest
 3: Print the List
 4: Updat
 5: Delete");
+                /// Conversion of the received value to the desired type
                 Choice2.TryParse(Console.ReadLine(), out choice2);
                 try
                 {
@@ -257,11 +282,13 @@ namespace DalTest
                             return;
                         case Choice2.Add:
                             creatOrder(ref theOrder);
+                            Console.WriteLine("The order ID is:");
                             Console.WriteLine(order.Create(theOrder));
                             break;
                         case Choice2.Print:
                             Console.WriteLine("Enter the ordr ID:");
                             int id;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(order.RequestById(id));
                             break;
@@ -272,6 +299,7 @@ namespace DalTest
                         case Choice2.Update:
                             Console.WriteLine("Enter the ID of the order that you want to update");
                             int id1;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
                             Console.WriteLine(order.RequestById(id1));
                             theOrder.ID = id1;
@@ -281,6 +309,7 @@ namespace DalTest
                         case Choice2.Delete:
                             Console.WriteLine("Enter the ID of the order that you wants to delete:");
                             int id2;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id2);
                             order.Delete(id2);
                             break;
@@ -309,14 +338,17 @@ namespace DalTest
             TheOrder.CustomerAddress = adress;
             Console.WriteLine("Enter the order date:");
             DateTime orderDate = new DateTime();
+            /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out orderDate);
             TheOrder.OrderDate = orderDate;
             Console.WriteLine("Enter the shipping date:");
             DateTime shippingDate = new DateTime();
+            /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out shippingDate);
             TheOrder.ShipDate = shippingDate;
             Console.WriteLine("Enter the delivery date:");
             DateTime deliveryDate = new DateTime();
+            /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out deliveryDate);
             TheOrder.DeliveryDate = deliveryDate;
         }
@@ -344,20 +376,24 @@ namespace DalTest
                             return;
                         case Choice3.Add:
                             creatOrderItem(ref theOrderItem);
+                            Console.WriteLine("The order item ID is:");
                             Console.WriteLine(orderItem.Create(theOrderItem));
                             break;
                         case Choice3.PrintByID:
                             Console.WriteLine("Enter the ordr item ID:");
                             int id;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(orderItem.RequestById(id));
                             break;
                         case Choice3.PrintByOrderAndProductID:
                             Console.WriteLine("Enter the order ID:");
                             int orID;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out orID);
                             Console.WriteLine("Enter the product ID:");
                             int proID;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out proID);
                             Console.WriteLine(orderItem.RequestByOrderAndProductID(orID, proID));
                             break;
@@ -368,6 +404,7 @@ namespace DalTest
                         case Choice3.PrintByOrderID:
                             Console.WriteLine("Enter the order ID:");
                             int orderID;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out orderID);
                             foreach (var orIt in orderItem.RequestAllByOrderID(orderID))
                                 Console.WriteLine(orIt);
@@ -375,6 +412,7 @@ namespace DalTest
                         case Choice3.Update:
                             Console.WriteLine("Enter the ID of the order item that you want to update");
                             int id1;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
                             Console.WriteLine(orderItem.RequestById(id1));
                             theOrderItem.ID = id1;
@@ -384,6 +422,7 @@ namespace DalTest
                         case Choice3.Delete:
                             Console.WriteLine("Enter the ID of the order item that you wants to delete:");
                             int id2;
+                            /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id2);
                             orderItem.Delete(id2);
                             break;
@@ -402,18 +441,22 @@ namespace DalTest
             Console.WriteLine("Enter the order item details:");
             Console.WriteLine("Enter the product ID:");
             int productID;
+            /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out productID);
             TheOrderItem.ProductID = productID;
             Console.WriteLine("Enter the order ID:");
             int orderID;
+            /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out orderID);
             TheOrderItem.OrderID = orderID;
             Console.WriteLine("Enter the price of the order item:");
             int price;
+            /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out price);
             TheOrderItem.Price = price;
             Console.WriteLine("Enter the amount of the product:");
             int amount;
+            /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out amount);
             TheOrderItem.Amount = amount;
         }

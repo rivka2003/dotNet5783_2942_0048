@@ -14,7 +14,7 @@ public class DalProduct
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("cannot create a student, is already exists");
+            throw new Exception("cannot create a product, is already exists");
         DataSource.Products.Add(pro);
         return pro.ID;
     }
@@ -60,7 +60,7 @@ public class DalProduct
         }
     }
     /// <summary>
-    /// A function to delete the product that we have received
+    /// A function to delete the product that we have received his ID
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="Exception"></exception>

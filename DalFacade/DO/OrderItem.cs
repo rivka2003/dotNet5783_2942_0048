@@ -34,5 +34,5 @@ public struct OrderItem
     Price: {Price}
     Amount: {Amount}
     ";
-    ///printing product details function
+    ///printing order item details function
 }
