@@ -17,7 +17,7 @@ namespace DalTest
         static void Main(string[] args)
         {
             Choice choice = new Choice();
-            ///A loop that ran as long as the requested value for exiting the main program was not received
+            ///A loop that run as long as the requested value for exiting the main program was not received
             do
             {
                 Program program = new Program();
@@ -28,18 +28,18 @@ namespace DalTest
 3: OrderItem");
                 /// Conversion of the received value to the desired type
                 Choice.TryParse(Console.ReadLine(), out choice);
-                switch (choice)
+                switch (choice)///choose option from the main menu:
                 {
                     case Choice.Exit:
                         break;
                     case Choice.Product:
-                        program.ProductSwitch();
+                        program.ProductSwitch();///jump to inner menu of product's actions
                         break;
                     case Choice.Order:
-                        program.OrderSwitch();
+                        program.OrderSwitch();///jump to inner menu of order's actions
                         break;
                     case Choice.OrderItem:
-                        program.OrderItemSwitch();
+                        program.OrderItemSwitch();///jump to inner menu of order item's actions
                         break;
                     default:
                         break;
@@ -352,6 +352,9 @@ namespace DalTest
             DateTime.TryParse(Console.ReadLine(), out deliveryDate);
             TheOrder.DeliveryDate = deliveryDate;
         }
+        /// <summary>
+        /// A function within which all the user's choices regarding the order items list are handled
+        /// </summary>
         void OrderItemSwitch()
         {
             OrderItem theOrderItem = new OrderItem();
