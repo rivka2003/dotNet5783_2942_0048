@@ -69,7 +69,7 @@ namespace DalTest
                 {
                     switch (choice2)
                     {
-                        case Choice2.Exit:
+                        case Choice2.Exit: /// A case to exit the order back to the main
                             return;
                         case Choice2.Add: // Adding a product
                             creatProduct(ref theProduct);
@@ -81,18 +81,18 @@ namespace DalTest
                             Console.WriteLine("The product ID is:");
                             Console.WriteLine(product.Create(theProduct));
                             break;
-                        case Choice2.Print:
+                        case Choice2.Print: ///print the product with the recieved id
                             Console.WriteLine("Enter the product ID:");
                             int id1;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
                             Console.WriteLine(product.RequestById(id1));
                             break;
-                        case Choice2.PrintList:
+                        case Choice2.PrintList: ///printing the full product list
                             foreach (var pro in product.RequestAll())
                                 Console.WriteLine(pro);
                             break;
-                        case Choice2.Update:
+                        case Choice2.Update: ///updating the product
                             Console.WriteLine("Enter the ID of the product that you want to update");
                             int id2;
                             /// Conversion of the received value to the desired type
@@ -102,7 +102,7 @@ namespace DalTest
                             creatProduct(ref theProduct);
                             product.Update(theProduct);
                             break;
-                        case Choice2.Delete:
+                        case Choice2.Delete: ///deleting the product according to the recieved id
                             Console.WriteLine("Enter the ID of the product that you wants to delete:");
                             int id3;
                             /// Conversion of the received value to the desired type
@@ -115,7 +115,7 @@ namespace DalTest
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             } while (choice2 != 0);
 
@@ -278,25 +278,25 @@ namespace DalTest
                 {
                     switch (choice2)
                     {
-                        case Choice2.Exit:
+                        case Choice2.Exit:/// A case to exit the order back to the main
                             return;
-                        case Choice2.Add:
+                        case Choice2.Add: ///add a new order item
                             creatOrder(ref theOrder);
                             Console.WriteLine("The order ID is:");
                             Console.WriteLine(order.Create(theOrder));
                             break;
-                        case Choice2.Print:
+                        case Choice2.Print: ///print the order with the recieved id
                             Console.WriteLine("Enter the ordr ID:");
                             int id;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(order.RequestById(id));
                             break;
-                        case Choice2.PrintList:
+                        case Choice2.PrintList: ///printing the full order list
                             foreach (var or in order.RequestAll())
                                 Console.WriteLine(or);
                             break;
-                        case Choice2.Update:
+                        case Choice2.Update: ///updating the order
                             Console.WriteLine("Enter the ID of the order that you want to update");
                             int id1;
                             /// Conversion of the received value to the desired type
@@ -306,7 +306,7 @@ namespace DalTest
                             creatOrder(ref theOrder);
                             order.Update(theOrder);
                             break;
-                        case Choice2.Delete:
+                        case Choice2.Delete: ///deleting the order according to the recieved id
                             Console.WriteLine("Enter the ID of the order that you wants to delete:");
                             int id2;
                             /// Conversion of the received value to the desired type
@@ -319,7 +319,7 @@ namespace DalTest
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             } while (choice2 != 0);
         }
@@ -375,21 +375,21 @@ namespace DalTest
                 {
                     switch (choice3)
                     {
-                        case Choice3.Exit:
+                        case Choice3.Exit:///exiting from the order item function
                             return;
-                        case Choice3.Add:
+                        case Choice3.Add:///add a new order item
                             creatOrderItem(ref theOrderItem);
                             Console.WriteLine("The order item ID is:");
                             Console.WriteLine(orderItem.Create(theOrderItem));
                             break;
-                        case Choice3.PrintByID:
+                        case Choice3.PrintByID:///print the order item with the recieved id
                             Console.WriteLine("Enter the ordr item ID:");
                             int id;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(orderItem.RequestById(id));
                             break;
-                        case Choice3.PrintByOrderAndProductID:
+                        case Choice3.PrintByOrderAndProductID:///print the order item according to the recieved two ids
                             Console.WriteLine("Enter the order ID:");
                             int orID;
                             /// Conversion of the received value to the desired type
@@ -400,11 +400,11 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out proID);
                             Console.WriteLine(orderItem.RequestByOrderAndProductID(orID, proID));
                             break;
-                        case Choice3.PrintList:
+                        case Choice3.PrintList:///printing the full order item list
                             foreach (var orIt in orderItem.RequestAll())
                                 Console.WriteLine(orIt);
                             break;
-                        case Choice3.PrintByOrderID:
+                        case Choice3.PrintByOrderID:///printing according to the order items id
                             Console.WriteLine("Enter the order ID:");
                             int orderID;
                             /// Conversion of the received value to the desired type
@@ -412,7 +412,7 @@ namespace DalTest
                             foreach (var orIt in orderItem.RequestAllByOrderID(orderID))
                                 Console.WriteLine(orIt);
                             break;
-                        case Choice3.Update:
+                        case Choice3.Update:///updating the order item
                             Console.WriteLine("Enter the ID of the order item that you want to update");
                             int id1;
                             /// Conversion of the received value to the desired type
@@ -422,7 +422,7 @@ namespace DalTest
                             creatOrderItem(ref theOrderItem);
                             orderItem.Update(theOrderItem);
                             break;
-                        case Choice3.Delete:
+                        case Choice3.Delete:///deleting the order item according to the recieved id
                             Console.WriteLine("Enter the ID of the order item that you wants to delete:");
                             int id2;
                             /// Conversion of the received value to the desired type
@@ -433,12 +433,16 @@ namespace DalTest
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ex)///if it run into an issue during the switch
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             } while (choice3 != 0);
         }
+        /// <summary>
+        /// A function that creats an orderItem
+        /// </summary>
+        /// <param name="TheOrderItem"></param>
         void creatOrderItem(ref OrderItem TheOrderItem)
         {
             Console.WriteLine("Enter the order item details:");
