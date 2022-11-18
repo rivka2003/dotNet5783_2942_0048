@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Specialized;
-using Dal;
+﻿using Dal;
+using DalApi;
 using DO;
 namespace DalTest
 {
@@ -9,11 +8,8 @@ namespace DalTest
         /// <summary>
         /// Creating variables to get access to the CRUD
         /// </summary>
-        private static DalOrder order = new DalOrder();
-        private static DalOrderItem orderItem = new DalOrderItem();
-        private static DalProduct product = new DalProduct();
+        private static IDal dalList = new DalList();
         static readonly Random random = new Random(); /// for the random numbers
-
         static void Main(string[] args)
         {
             Choice choice = new Choice();
@@ -79,17 +75,31 @@ namespace DalTest
                             int.TryParse(Console.ReadLine(), out id);
                             theProduct.ID = id;
                             Console.WriteLine("The product ID is:");
-                            Console.WriteLine(product.Create(theProduct));
+                            try
+                            {
+                                Console.WriteLine(dalList.Product.Add(theProduct));
+                            }
+                            catch (Exception)
+                            {
+                                throw new ExistingObject();
+                            }
                             break;
                         case Choice2.Print: ///print the product with the recieved id
                             Console.WriteLine("Enter the product ID:");
                             int id1;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
-                            Console.WriteLine(product.RequestById(id1));
+                            try
+                            {
+                                Console.WriteLine(dalList.Product.RequestById(id1));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice2.PrintList: ///printing the full product list
-                            foreach (var pro in product.RequestAll())
+                            foreach (var pro in dalList.Product.Get())
                                 Console.WriteLine(pro);
                             break;
                         case Choice2.Update: ///updating the product
@@ -97,26 +107,39 @@ namespace DalTest
                             int id2;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id2);
-                            Console.WriteLine(product.RequestById(id2));
+                            try
+                            {
+                                Console.WriteLine(dalList.Product.RequestById(id2));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             theProduct.ID = id2;
                             creatProduct(ref theProduct);
-                            product.Update(theProduct);
+                            try
+                            {
+                                dalList.Product.Update(theProduct);
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice2.Delete: ///deleting the product according to the recieved id
                             Console.WriteLine("Enter the ID of the product that you wants to delete:");
                             int id3;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id3);
-                            product.Delete(id3);
+                            dalList.Product.Delete(id3);
                             break;
                         default:
                             break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (NonFoundObject) { }
+                catch (ExistingObject) { }
+                finally { Console.WriteLine("Problem found!"); }
             } while (choice2 != 0);
 
         }
@@ -283,17 +306,24 @@ namespace DalTest
                         case Choice2.Add: ///add a new order item
                             creatOrder(ref theOrder);
                             Console.WriteLine("The order ID is:");
-                            Console.WriteLine(order.Create(theOrder));
+                            Console.WriteLine(dalList.Order.Add(theOrder));
                             break;
                         case Choice2.Print: ///print the order with the recieved id
                             Console.WriteLine("Enter the ordr ID:");
                             int id;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
-                            Console.WriteLine(order.RequestById(id));
+                            try
+                            {
+                                Console.WriteLine(dalList.Order.RequestById(id));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice2.PrintList: ///printing the full order list
-                            foreach (var or in order.RequestAll())
+                            foreach (var or in dalList.Order.Get())
                                 Console.WriteLine(or);
                             break;
                         case Choice2.Update: ///updating the order
@@ -301,26 +331,41 @@ namespace DalTest
                             int id1;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
-                            Console.WriteLine(order.RequestById(id1));
+                            try
+                            {
+                                Console.WriteLine(dalList.Order.RequestById(id1));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             theOrder.ID = id1;
                             creatOrder(ref theOrder);
-                            order.Update(theOrder);
+                            try
+                            {
+                                dalList.Order.Update(theOrder);
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice2.Delete: ///deleting the order according to the recieved id
                             Console.WriteLine("Enter the ID of the order that you wants to delete:");
                             int id2;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id2);
-                            order.Delete(id2);
+                            dalList.Order.Delete(id2);
                             break;
                         default:
                             break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (NonFoundObject)
+                { }
+                catch (ExistingObject)
+                { }
+                finally { Console.WriteLine("Problem found!"); }
             } while (choice2 != 0);
         }
 
@@ -380,14 +425,21 @@ namespace DalTest
                         case Choice3.Add:///add a new order item
                             creatOrderItem(ref theOrderItem);
                             Console.WriteLine("The order item ID is:");
-                            Console.WriteLine(orderItem.Create(theOrderItem));
+                            Console.WriteLine(dalList.OrderItem.Add(theOrderItem));
                             break;
                         case Choice3.PrintByID:///print the order item with the recieved id
                             Console.WriteLine("Enter the ordr item ID:");
                             int id;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id);
-                            Console.WriteLine(orderItem.RequestById(id));
+                            try
+                            {
+                                Console.WriteLine(dalList.OrderItem.RequestById(id));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice3.PrintByOrderAndProductID:///print the order item according to the recieved two ids
                             Console.WriteLine("Enter the order ID:");
@@ -398,10 +450,17 @@ namespace DalTest
                             int proID;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out proID);
-                            Console.WriteLine(orderItem.RequestByOrderAndProductID(orID, proID));
+                            try
+                            {
+                                Console.WriteLine(dalList.OrderItem.RequestByOrderAndProductID(orID, proID));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice3.PrintList:///printing the full order item list
-                            foreach (var orIt in orderItem.RequestAll())
+                            foreach (var orIt in dalList.OrderItem.Get())
                                 Console.WriteLine(orIt);
                             break;
                         case Choice3.PrintByOrderID:///printing according to the order items id
@@ -409,34 +468,54 @@ namespace DalTest
                             int orderID;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out orderID);
-                            foreach (var orIt in orderItem.RequestAllByOrderID(orderID))
-                                Console.WriteLine(orIt);
+                            try
+                            {
+                                foreach (var orIt in dalList.OrderItem.RequestAllByOrderID(orderID))
+                                    Console.WriteLine(orIt);
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice3.Update:///updating the order item
                             Console.WriteLine("Enter the ID of the order item that you want to update");
                             int id1;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id1);
-                            Console.WriteLine(orderItem.RequestById(id1));
+                            try
+                            {
+                                Console.WriteLine(dalList.OrderItem.RequestById(id1));
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             theOrderItem.ID = id1;
                             creatOrderItem(ref theOrderItem);
-                            orderItem.Update(theOrderItem);
+                            try
+                            {
+                                dalList.OrderItem.Update(theOrderItem);
+                            }
+                            catch (Exception)
+                            {
+                                throw new NonFoundObject();
+                            }
                             break;
                         case Choice3.Delete:///deleting the order item according to the recieved id
                             Console.WriteLine("Enter the ID of the order item that you wants to delete:");
                             int id2;
                             /// Conversion of the received value to the desired type
                             int.TryParse(Console.ReadLine(), out id2);
-                            orderItem.Delete(id2);
+                            dalList.OrderItem.Delete(id2);
                             break;
                         default:
                             break;
                     }
                 }
-                catch (Exception ex)///if it run into an issue during the switch
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (NonFoundObject) { }
+                catch (ExistingObject) { }
+                finally { Console.WriteLine("Problem found!"); }
             } while (choice3 != 0);
         }
         /// <summary>

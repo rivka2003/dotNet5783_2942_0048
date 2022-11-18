@@ -1,10 +1,10 @@
-﻿using Dal;
-using DO;
+﻿using DO;
+using DalApi;
 using static Dal.DataSource;
 
 namespace Dal;
 
-public class DalOrderItem
+internal class DalOrderItem : IOrderItem
 {
     //CRUD for OrderItem
 
@@ -12,7 +12,7 @@ public class DalOrderItem
     /// A function to add orderItem, and return the ID
     /// </summary>
     /// <param name="orIt"></param>
-    public int Create(OrderItem orIt)
+    public int Add(OrderItem orIt)
     {
         orIt.ID = Config.getOrderItemSequenceID();
         DataSource.OrderItems.Add(orIt);
@@ -22,7 +22,7 @@ public class DalOrderItem
     /// A function that returns all the orderItems
     /// </summary>
     /// <returns></returns>
-    public List<OrderItem> RequestAll()
+    public IEnumerable<OrderItem> Get()
     {
         List<OrderItem> NewOrderItems = new List<OrderItem>();
         for (int i = 0; i < DataSource.OrderItems.Count; i++)
@@ -32,10 +32,10 @@ public class DalOrderItem
         return NewOrderItems;
     }
 
-    public List<OrderItem> RequestAllByOrderID(int orID)
+    public IEnumerable<OrderItem> RequestAllByOrderID(int orID)
     {
         if (!DataSource.OrderItems.Exists(i => i.OrderID == orID))
-            throw new Exception("the order item does not exist");
+            throw new Exception("The orderItem does not exist");
         List<OrderItem> byOrderID = new List<OrderItem>();
         for (int i = 0; i < DataSource.OrderItems.Count; i++)
         {
@@ -55,7 +55,7 @@ public class DalOrderItem
     public OrderItem RequestById(int ID)
     {
         if (!DataSource.OrderItems.Exists(i => i.ID == ID))
-            throw new Exception("the order item does not exist");
+            throw new Exception("The orderItem does not exist");
         return DataSource.OrderItems.Find(i => i.ID == ID);
     }
     /// <summary>
@@ -68,7 +68,7 @@ public class DalOrderItem
     public OrderItem RequestByOrderAndProductID(int orID, int proID)
     {
         if (!DataSource.OrderItems.Exists(i => i.OrderID == orID && i.ProductID == proID))
-            throw new Exception("the order item does not exist");
+            throw new Exception("The orderItem does not exist");
         return DataSource.OrderItems.Find(i => i.OrderID == orID && i.ProductID == proID);
     }
     /// <summary>
@@ -80,7 +80,7 @@ public class DalOrderItem
     {
         ///if productItem dosnt exist throw exception 
         if (!DataSource.OrderItems.Exists(i => i.ID == orIt.ID))
-            throw new Exception("cannot update an order item, does not exists");
+            throw new Exception("Cannot update an order, does not exist");
         for (int i = 0; i < DataSource.OrderItems.Count; i++)
         {
             if (orIt.ID == DataSource.OrderItems[i].ID)

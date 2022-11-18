@@ -1,8 +1,8 @@
-﻿using Dal;
-using DO;
+﻿using DO;
+using DalApi;
 namespace Dal;
 
-public class DalProduct
+internal class DalProduct : IProduct
 {
     //CRUD for Product
 
@@ -10,11 +10,11 @@ public class DalProduct
     /// A function to add product, and return the ID
     /// </summary>
     /// <param name="pro"></param>
-    public int Create(Product pro)
+    public int Add(Product pro)
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("cannot create a product, is already exists");
+            throw new Exception("Cannot creat a product, is already exist");
         DataSource.Products.Add(pro);
         return pro.ID;
     }
@@ -22,7 +22,7 @@ public class DalProduct
     /// A function that returns all the products
     /// </summary>
     /// <returns></returns>
-    public List<Product> RequestAll()
+    public IEnumerable<Product> Get()
     {
         List<Product> NewProducts = new List<Product>();
         for (int i = 0; i < DataSource.Products.Count; i++)
@@ -40,7 +40,7 @@ public class DalProduct
     public Product RequestById(int id)
     {
         if (!DataSource.Products.Exists(i => i.ID == id))
-            throw new Exception("the product does not exist");
+            throw new Exception("The product does not exist");
         return DataSource.Products.Find(i => i.ID == id);
     }
     /// <summary>
@@ -52,7 +52,7 @@ public class DalProduct
     {
         ///if product dosnt exist throw exception 
         if (!DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("cannot update a product, does not exists");
+            throw new Exception("Cannot update a product, does not exist");
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
             if (pro.ID == DataSource.Products[i].ID)

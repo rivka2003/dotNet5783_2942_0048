@@ -4,7 +4,7 @@ namespace Stage0
 {
     partial class Program
     {
-        static void main(string[] srgs)
+        static void Main(string[] srgs)
         {
             Welcome0048();
             Welcome2942();

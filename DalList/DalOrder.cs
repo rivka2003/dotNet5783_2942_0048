@@ -1,11 +1,10 @@
-﻿using Dal;
-using DO;
-using System.Runtime.CompilerServices;
+﻿using DO;
+using DalApi;
 using static Dal.DataSource;
 
 namespace Dal;
 
-public class DalOrder
+internal class DalOrder : IOrder
 {
     //CRUD for Order
 
@@ -13,7 +12,7 @@ public class DalOrder
     /// A function to add order, and return the ID
     /// </summary>
     /// <param name="or"></param>
-    public int Create(Order or)
+    public int Add(Order or)
     {
         or.ID = Config.getOrderSequenceID();
         DataSource.Orders.Add(or);
@@ -23,13 +22,12 @@ public class DalOrder
     /// A function that returns all the orders
     /// </summary>
     /// <returns></returns>
-    public List<Order> RequestAll()
+    public IEnumerable<Order> Get()
     {
         List<Order> NewOrders = new List<Order>();
         for (int i = 0; i < DataSource.Orders.Count; i++)
         {
             NewOrders.Add(DataSource.Orders[i]);
-
         }
         return NewOrders;
     }
@@ -42,7 +40,7 @@ public class DalOrder
     public Order RequestById(int ID)
     {
         if (!DataSource.Orders.Exists(i => i.ID == ID))
-            throw new Exception("the order does not exist");
+            throw new Exception("The order does not exist");
         return DataSource.Orders.Find(i => i.ID == ID);
     }
     /// <summary>
@@ -54,7 +52,7 @@ public class DalOrder
     {
         ///if Order dosnt exist throw exception 
         if (!DataSource.Orders.Exists(i => i.ID == or.ID))
-            throw new Exception("cannot update an order, does not exists");
+            throw new Exception("Cannot update an order, does not exist");
         for (int i = 0; i < DataSource.Orders.Count; i++)
         {
             if (or.ID == DataSource.Orders[i].ID)
