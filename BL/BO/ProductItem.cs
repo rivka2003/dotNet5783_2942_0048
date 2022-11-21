@@ -25,7 +25,7 @@ namespace BO
         /// </summary>
         public BO.Category category { get; set; }
         /// <summary>
-        /// The amount from the product that in the cart
+        /// The amount of the product that in the cart
         /// </summary>
         public int Amount { get; set; }
         /// <summary>

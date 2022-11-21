@@ -9,8 +9,8 @@ namespace BlTest
             BO.Product product = new BO.Product();
             DO.Product productDo = new DO.Product();
             object obj = productDo;
-            product.category = BO.Category.Clothing;
-            product.clothing = BO.Clothing.Coats;
+            product.category = BO.Category.Shoes;
+            product.shoes = BO.Shoes.Boots;
             product.InStock = 700;
             product.ID = 8000;
             product.Name = "fnvhud";

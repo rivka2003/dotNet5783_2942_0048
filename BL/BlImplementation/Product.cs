@@ -20,7 +20,7 @@ namespace BlImplementation
             List<BO.ProductForList> newListOfProducts = new List<BO.ProductForList>();
             for(int i = 0; i < listOfProducts.Count();i++)
             {
-                newListOfProducts[i].CopyPropTo(listOfProducts[i]);
+                listOfProducts[i].CopyPropTo(newListOfProducts[i]);
             }
             return newListOfProducts;
         }
@@ -35,7 +35,7 @@ namespace BlImplementation
             { throw new Exception("not found"); }
             if(ID > 0)
             {
-                productBo.CopyPropTo(productDo);
+                productDo.CopyPropTo(productBo);
             }
             return productBo;
         }
@@ -50,7 +50,7 @@ namespace BlImplementation
             { throw new Exception("not found"); }
             if (ID > 0)
             {
-                proItm.CopyPropTo(proDo);
+                proDo.CopyPropTo(proItm);
                 BO.OrderItem orderItem = product.Items.First(i => i.ID == ID);
                 if (orderItem is not null)
                 {
@@ -69,7 +69,7 @@ namespace BlImplementation
             DO.Product productDo = new DO.Product();
             if (product.ID > 0 && product.Name != " " && product.Price > 0 && product.InStock >= 0)
             {
-                productDo.CopyPropTo(product);
+                product.CopyPropTo(productDo);
                 try
                 { Dal.Product.Add(productDo); }
                 catch (DO.ExistingObject)
@@ -96,12 +96,12 @@ namespace BlImplementation
            }
         }
 
-        public void UpdateProduct(BO.Product UpdeteProduct)
+        public void UpdateProduct(BO.Product updateProduct)
         {
             DO.Product productDo = new DO.Product();
-            if (UpdeteProduct.ID > 0 && UpdeteProduct.Name != " " && UpdeteProduct.Price > 0 && UpdeteProduct.InStock >= 0)
+            if (updateProduct.ID > 0 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
             {
-                productDo.CopyPropTo(UpdateProduct);
+                updateProduct.CopyPropTo(productDo);
                 try
                 { Dal.Product.Update(productDo); }
                 catch (DO.NonFoundObject)
