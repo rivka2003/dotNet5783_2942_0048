@@ -23,7 +23,7 @@ namespace BO
         /// <summary>
         /// The category of the product
         /// </summary>
-        public Category category { get; set; }
+        public BO.Category category { get; set; }
         public BO.Gender gender { get; set; }
         /// <summary>
         /// The Gender tip of the product

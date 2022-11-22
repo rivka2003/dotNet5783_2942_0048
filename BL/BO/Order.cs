@@ -45,7 +45,7 @@ namespace BO
         /// <summary>
         /// The date when the order was delivered
         /// </summary>
-        public IEnumerable<BO.OrderItem> Items { get; set; }
+        public List<BO.OrderItem> Items { get; set; }
         /// <summary>
         /// The list of all the items from the order
         /// </summary>

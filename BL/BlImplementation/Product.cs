@@ -9,19 +9,22 @@ using CopyPropertisTo;
 using Dal;
 using DalApi;
 using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
         public IDal Dal = new DalList();
-        public IEnumerable<BO.ProductForList> AllList(List<DO.Product> listOfProducts)
+        public IEnumerable<BO.ProductForList> AllList()
         {
-            List<BO.ProductForList> newListOfProducts = new List<BO.ProductForList>();
-            for(int i = 0; i < listOfProducts.Count();i++)
-            {
-                listOfProducts[i].CopyPropTo(newListOfProducts[i]);
-            }
+            var listOfProducts = Dal.Product.Get();
+            BO.ProductForList proForLst = new BO.ProductForList();
+            IEnumerable<BO.ProductForList> newListOfProducts = listOfProducts.Select(item => item = item.CopyPropTo(proForLst));
+            //for(int i = 0; i < listOfProducts.Count();i++)
+            //{
+            //    listOfProducts[i].CopyPropTo(newListOfProducts[i]);
+            //}
             return newListOfProducts;
         }
 
@@ -64,12 +67,20 @@ namespace BlImplementation
             return proItm;
         }
 
-        public void AddProduct(BO.Product product)
+        public void AddProduct(BO.Product productBo)
         {
             DO.Product productDo = new DO.Product();
-            if (product.ID > 0 && product.Name != " " && product.Price > 0 && product.InStock >= 0)
+            try
             {
-                product.CopyPropTo(productDo);
+                productDo = Dal.Product.RequestById(productBo.ID);
+            }
+            catch (DO.NonFoundObject)
+            { throw new Exception("not exist"); }
+            if (productBo.ID > 0 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
+            {
+                productBo.CopyPropToStruct(productDo);
+                productBo.CopyPropTo(productDo);
+                productDo.status = DO.Status.Exist;
                 try
                 { Dal.Product.Add(productDo); }
                 catch (DO.ExistingObject)
@@ -99,9 +110,17 @@ namespace BlImplementation
         public void UpdateProduct(BO.Product updateProduct)
         {
             DO.Product productDo = new DO.Product();
+            try
+            {
+               productDo =  Dal.Product.RequestById(updateProduct.ID);
+            }
+            catch (DO.NonFoundObject)
+            { throw new Exception("not exist"); }
             if (updateProduct.ID > 0 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
             {
+                updateProduct.CopyPropToStruct(productDo);
                 updateProduct.CopyPropTo(productDo);
+                productDo.status = DO.Status.Exist;
                 try
                 { Dal.Product.Update(productDo); }
                 catch (DO.NonFoundObject)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,10 @@ namespace BO
         /// <summary>
         /// List of tuple
         /// </summary>
-        public IEnumerable<Tuple<DateTime, BO.OrderStatus>>  StatusList { get; set; }
+        public List<Tuple<DateTime, BO.OrderStatus>>  OrderProgress { get; set; }
         public override string ToString() => $@"
         ID: {ID}
-        Status: {Status}";
+        Status: {Status}
+        OrderProgress: {}"; // לטפל בהדפסה
     }
 }

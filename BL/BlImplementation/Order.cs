@@ -10,12 +10,14 @@ using DalApi;
 
 namespace BlImplementation
 {
-    public class Order : BlApi.IOrder
+    internal class Order : BlApi.IOrder
     {
         public IDal Dal = new DalList();
-        public IEnumerable<List<BO.OrderForList>> AllList(List<DO.Order> listOfOrders)
+        public IEnumerable<BO.OrderForList> AllList()
         {
-            return null;
+            var listOfOrders = Dal.Order.Get();
+            BO.OrderForList orForLst = new BO.OrderForList();
+            IEnumerable<BO.OrderForList> newListOfOrders = listOfOrders.Select(item => (OrderForList)item = );
         }
 
         public BO.OrderForList OrderDetails(int ID)

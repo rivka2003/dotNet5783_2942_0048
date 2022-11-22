@@ -23,7 +23,7 @@ namespace BO
         /// <summary>
         /// The list of all the items from the order
         /// </summary>
-        public IEnumerable<BO.OrderItem> Items { get; set; }
+        public List<BO.OrderItem> Items { get; set; }
         /// <summary>
         /// The total price of the cart
         /// </summary>
