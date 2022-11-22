@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CopyPropertisTo
 {
-    public static class Copy
+    static public class Tools
     {
         public static void CopyPropTo<Source, Target>(this Source source, Target target)
         {
@@ -25,6 +25,16 @@ namespace CopyPropertisTo
                     propertyInfoTarget[item.Name].SetValue(target, item.GetValue(source));
                 }
             }
+        }
+
+        public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
+        {
+            object obj = target;
+
+            source.CopyPropTo(obj);
+
+            return (Target)obj;
+
         }
     }
 }
