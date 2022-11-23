@@ -103,7 +103,7 @@ namespace BlImplementation
            }
            else
            {
-                throw new Exception("is exist");
+                throw new Exception("is exist!");
            }
         }
 
