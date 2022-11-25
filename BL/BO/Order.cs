@@ -31,7 +31,7 @@ namespace BO
         /// </summary>
         public BO.OrderStatus Status { get; set; }
         /// <summary>
-        /// The status of the order
+        /// The Status of the order
         /// </summary>
         public DateTime PaymentDate { get; set; }
         /// <summary>

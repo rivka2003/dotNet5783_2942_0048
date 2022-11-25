@@ -22,37 +22,18 @@ internal class DalOrderItem : IOrderItem
     /// A function that returns all the orderItems
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<OrderItem> Get()
+    public IEnumerable<OrderItem> GetAll()
     {
-        List<OrderItem> NewOrderItems = new List<OrderItem>();
-        for (int i = 0; i < DataSource.OrderItems.Count; i++)
-        {
-            NewOrderItems.Add(DataSource.OrderItems[i]);
-        }
-        return NewOrderItems;
+        return RequestAllByPredicate();
     }
 
-    public IEnumerable<OrderItem> RequestAllByOrderID(int orID)
-    {
-        if (!DataSource.OrderItems.Exists(i => i.OrderID == orID))
-            throw new Exception("The orderItem does not exist");
-        List<OrderItem> byOrderID = new List<OrderItem>();
-        for (int i = 0; i < DataSource.OrderItems.Count; i++)
-        {
-            if (DataSource.OrderItems[i].OrderID == orID)
-            {
-                byOrderID.Add(DataSource.OrderItems[i]);
-            }
-        }
-        return byOrderID;
-    }
     /// <summary>
     /// A function that returns a spacific orderItem by the specific ID
     /// </summary>
     /// <param name="ID"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public OrderItem RequestById(int ID)
+    public OrderItem Get(int ID)
     {
         if (!DataSource.OrderItems.Exists(i => i.ID == ID))
             throw new Exception("The orderItem does not exist");
@@ -94,6 +75,17 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.OrderItems.Remove(RequestById(id));
+        DataSource.OrderItems.Remove(Get(id));
+    }
+    /// <summary>
+    /// function that gets predicate and checks the condition and returns the collection acordingly
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public IEnumerable<OrderItem> RequestAllByPredicate(Predicate<OrderItem> predicate = null)
+    {
+        bool checkNull = predicate is null;
+        return DataSource.OrderItems.Where(orderItem => checkNull? true: predicate(orderItem)); // לבדוק את התנאי הפנימי
     }
 }

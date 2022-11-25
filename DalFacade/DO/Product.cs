@@ -20,43 +20,43 @@ public struct Product
     /// <summary>
     /// The amount of products available from the product
     /// </summary>
-    public Status status { get; set; } /// <summary>
-    /// check if to do with enum
-    /// True - there is a product in stock
-    /// False - there is no products at all
-    /// </summary>
-    public Category category { get; set; }
+    public Status Status { get; set; } /// <summary>
+                                       /// check if to do with enum
+                                       /// True - there is a product in stock
+                                       /// False - there is no products at all
+                                       /// </summary>
+    public Category Category { get; set; }
     /// <summary>
-    /// The category of the product
+    /// The Category of the product
     /// </summary>
     /// <returns></returns>
-    public Gender gender { get; set; }
+    public Gender Gender { get; set; }
     /// <summary>
     /// The Gender tip of the product
     /// </summary>
     /// <returns></returns>
-    public Clothing clothing { get; set; }
+    public Clothing Clothing { get; set; }
     /// <summary>
     /// Cloth tip 
     /// </summary>
     /// <returns></returns>
-    public Shoes shoes { get; set; }
+    public Shoes Shoes { get; set; }
     /// <summary>
     /// Shoe tip
     /// </summary>
     /// <returns></returns>
-    public Color color { get; set; }
+    public Color Color { get; set; }
     /// <summary>
-    /// The color of the product
+    /// The Color of the product
     /// </summary>
     /// <returns></returns>
-    public SizeClothing sizeClothing { get; set; }
+    public SizeClothing SizeClothing { get; set; }
     /// <summary>
     /// The size of the Clothing
     /// </summary>
-    public SizeShoes sizeShoes { get; set; }
+    public SizeShoes SizeShoes { get; set; }
     /// <summary>
-    /// The size of the shoes
+    /// The size of the Shoes
     /// </summary>
     /// <returns></returns>
     public string Description { get; set; }
@@ -66,38 +66,20 @@ public struct Product
     /// <returns></returns>
     public override string ToString()
     {
-        if (category is (Category)0)
-        {
-            return $@"
-            ID: {ID}
-            Name: {Name}
-            Price: {Price}
-            Amount in stock: {InStock}
-            Status: {status}
-            Description: {Description}
-            Gender: {gender}
-            Color: {color}
-            Category: {category}
-            Clothing: {clothing}
-            Size of clothing: {sizeClothing}
-            ";
-        }
-        else
-        {
-            return $@"
-            ID: {ID}
-            Name: {Name}
-            Price: {Price}
-            Amount in stock: {InStock}
-            Status: {status}
-            Description: {Description}
-            Gender: {gender}
-            Color: {color}
-            Category: {category}
-            Shoes: {shoes}
-            Size of shoes: {(int)sizeShoes}
-            ";
-        }
+        string str = Category is Category.Clothing ?
+      @$"Clothing : {Clothing}
+         Size of Clothing: {SizeClothing}" :
+      @$"Shoes: {Shoes} 
+         Size of Shoes: {(int)SizeShoes}";
+        return $@"
+         ID: {ID}
+         Name: {Name}
+         Price: {Price}
+         Amount in stock: {InStock}
+         Description: {Description}
+         Gender: {Gender}
+         Color: {Color}
+         Category: {Category}
+         ";
     }
-    ///printing product details function
 }

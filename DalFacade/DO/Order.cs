@@ -33,14 +33,6 @@ public struct Order
     /// </summary>
     public DateTime DeliveryDate { get; set; }
     /// Delivery arrival date
-    public override string ToString() => $@"
-    ID: {ID}
-    Name: {CustomerName}
-    Email: {CustomerEmail}
-    Address: {CustomerAddress}
-    Order date: {OrderDate}
-    Ship date: {ShipDate}
-    Delivery date: {DeliveryDate}
-    ";
+    public override string ToString() => this.ToStringProperty();
     /// printing order details function
 }

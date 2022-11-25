@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BlImplementation
 {
-    internal class Tools
+    internal class OrderManager
     {
+        public void AddingProduct(BO.Cart Item)
+        {
+
+        }
     }
 }

@@ -22,7 +22,7 @@ internal class DalOrder : IOrder
     /// A function that returns all the orders
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Order> Get()
+    public IEnumerable<Order> GetAll()
     {
         List<Order> NewOrders = new List<Order>();
         for (int i = 0; i < DataSource.Orders.Count; i++)
@@ -37,7 +37,7 @@ internal class DalOrder : IOrder
     /// <param name="ID"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Order RequestById(int ID)
+    public Order Get(int ID)
     {
         if (!DataSource.Orders.Exists(i => i.ID == ID))
             throw new Exception("The order does not exist");
@@ -66,6 +66,6 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Orders.Remove(RequestById(id)); 
+        DataSource.Orders.Remove(Get(id)); 
     }
 }

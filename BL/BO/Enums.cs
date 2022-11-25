@@ -14,4 +14,8 @@ namespace BO
     public enum Color { Black, White, Green, Yellow, Red, Blue, Beige, Brown, Jeans, Orange, Pink, Purple, Gray, Gold, Silver, Colored }
     public enum SizeClothing { XS, S, M, L, XL }
     public enum SizeShoes { xs = 36, s, m, l, xl, xxl }
+    public enum Choice { Exit, Product, Order, Cart }
+    public enum ProductChoice { Exit, Add, PrintDaetailsForCustomer, PrintDetailsForManagaer, PrintList, Updat, Delete }
+    public enum OrderChoice { Exit, PrintOrderDetails, PrintTheList, UpdateShipDate, UpdateDeliveryDate, TrackingOrder }
+    public enum CartChoice { Exit, AddProduct, UpdateAmount, OrderMaking}
 }

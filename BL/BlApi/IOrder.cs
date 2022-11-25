@@ -13,13 +13,13 @@ namespace BlApi
         /// </summary>
         /// <param name="listOfOrders"></param>
         /// <returns></returns>
-        public IEnumerable<BO.OrderForList> AllList();
+        public IEnumerable<BO.OrderForList> GetAll();
         /// <summary>
         /// Request order details of the order by the given ID and returns the order object
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public BO.OrderForList OrderDetails(int ID);
+        public BO.Order OrderDetails(int ID);
         /// <summary>
         /// Updats the ship date of the order
         /// </summary>
@@ -33,7 +33,7 @@ namespace BlApi
         /// <returns></returns>
         public BO.Order UpdateDeliveryDate(int ID);
         /// <summary>
-        /// Returning the status of the orer
+        /// Returning the Status of the orer
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>

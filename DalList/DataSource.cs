@@ -63,7 +63,7 @@ namespace Dal
                 randomCategory = (Category)Categories.GetValue(random.Next(Categories.Length));
                 randomGender = (Gender)Genders.GetValue(random.Next(Genders.Length));
                 randomColor = (Color)Colors.GetValue(random.Next(Colors.Length));
-                value.category = randomCategory;
+                value.Category = randomCategory;
                 value.ID = random.Next(100000, 999999);
                 /// A loop that says that as long as the id exists in the list, it is necessary to generate a new id
                 while (Products.Exists(i => i.ID == value.ID))
@@ -72,53 +72,53 @@ namespace Dal
                 if (i <= 0.05 * 10)
                 {
                     value.InStock = 0;
-                    value.status = (Status)1;
+                    value.Status = Status.NotExist;
                 }
                 else
                 {
                     value.InStock = random.Next(1, 4);
-                    value.status = 0;
+                    value.Status = Status.Exist;
                 }
                 value.Name = "Product" + i;
                 value.Price = 100;
-                value.color = randomColor;
+                value.Color = randomColor;
                 value.Description = "New!";
-                ///If the drawn category is "Clothing"
+                ///If the drawn Category is "Clothing"
                 if (randomCategory is (Category)0)
                 {
                     randomSizeClothes = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length));
-                    value.sizeClothing = randomSizeClothes;
-                    /// If the category drawn is "men" or "boys"
+                    value.SizeClothing = randomSizeClothes;
+                    /// If the Category drawn is "men" or "boys"
                     if (randomGender is (Gender)1 or (Gender)2)
                     {
                         randomClothes = (Clothing)Clothes.GetValue(random.Next(2, Clothes.Length));
-                        value.gender = randomGender;
-                        value.clothing = randomClothes;
+                        value.Gender = randomGender;
+                        value.Clothing = randomClothes;
                     }
                     else
                     {
                         randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length));
-                        value.gender = randomGender;
-                        value.clothing = randomClothes;
+                        value.Gender = randomGender;
+                        value.Clothing = randomClothes;
                     }
                 }
-                ///If the category is "shoes"
+                ///If the Category is "Shoes"
                 else
                 {
                     randomSizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length));
-                    value.sizeShoes = randomSizeShoes;
-                    /// If the category is "Men" or "Boys" or "Girls"
+                    value.SizeShoes = randomSizeShoes;
+                    /// If the Category is "Men" or "Boys" or "Girls"
                     if (randomGender is (Gender)1 or (Gender)2 or (Gender)3)
                     {
                         randomShoes = (Shoes)Shoe.GetValue(random.Next(1, Shoe.Length));
-                        value.gender = randomGender;
-                        value.shoes = randomShoes;
+                        value.Gender = randomGender;
+                        value.Shoes = randomShoes;
                     }
                     else
                     {
                         randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length));
-                        value.gender = randomGender;
-                        value.shoes = randomShoes;
+                        value.Gender = randomGender;
+                        value.Shoes = randomShoes;
                     }
                 }
                 Products.Add(value);
@@ -132,12 +132,14 @@ namespace Dal
             ///A loop that goes through all the places in the list
             for (int i = 1; i <= 20; i++)
             {
-                Order value = new Order();
-                value.ID = Config.getOrderSequenceID();
-                value.CustomerName = "Order" + i;
-                value.CustomerAddress = "Menachem Begin" + i;
-                value.CustomerEmail = "Customer" + i + "@gmail.com";
-                value.OrderDate = DateTime.Now + new TimeSpan(random.Next(1, 24), random.Next(1, 60), random.Next(0, 60));
+                Order value = new Order()
+                {
+                    ID = Config.getOrderSequenceID(),
+                    CustomerName = "Order" + i,
+                    CustomerAddress = "Menachem Begin" + i,
+                    CustomerEmail = "Customer" + i + "@gmail.com",
+                    OrderDate = DateTime.Now + new TimeSpan(random.Next(1, 24), random.Next(1, 60), random.Next(0, 60))
+                };
                 /// If the order is within the 80% that were shipped
                 if (i <= 0.8 * 20)
                 {

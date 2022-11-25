@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CopyPropertisTo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,12 +33,6 @@ namespace BO
         /// The total price of the product (by the price of it and the amount)
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString() => $@"
-        ID: {ID}
-        Name: {Name}
-        ProductID: {ProductID}
-        Price: {Price}
-        Amount: {Amount}
-        TotalPrice: {TotalPrice}";
+        public override string ToString() => this.ToStringProperty();
     }
 }

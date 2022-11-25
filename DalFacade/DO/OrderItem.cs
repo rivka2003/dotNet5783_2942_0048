@@ -1,7 +1,4 @@
 ﻿
-
-using System.Xml.Linq;
-
 namespace DO;
 
 public struct OrderItem
@@ -27,12 +24,6 @@ public struct OrderItem
     /// The amount that I have ordered from this product
     /// </summary>
     /// <returns></returns>
-    public override string ToString() => $@"
-    ID: {ID}
-    Product ID: {ProductID}
-    Order ID: {OrderID}
-    Price: {Price}
-    Amount: {Amount}
-    ";
+    public override string ToString() => this.ToStringProperty();
     ///printing order item details function
 }

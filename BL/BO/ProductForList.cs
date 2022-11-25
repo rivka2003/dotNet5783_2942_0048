@@ -21,36 +21,36 @@ namespace BO
         /// </summary>
         public double Price { get; set; }
         /// <summary>
-        /// The category of the product
+        /// The Category of the product
         /// </summary>
-        public BO.Category category { get; set; }
-        public BO.Gender gender { get; set; }
+        public BO.Category Category { get; set; }
+        public BO.Gender Gender { get; set; }
         /// <summary>
         /// The Gender tip of the product
         /// </summary>
         /// <returns></returns>
-        public BO.Clothing clothing { get; set; }
+        public BO.Clothing Clothing { get; set; }
         /// <summary>
         /// Cloth tip 
         /// </summary>
         /// <returns></returns>
-        public BO.Shoes shoes { get; set; }
+        public BO.Shoes Shoes { get; set; }
         /// <summary>
         /// Shoe tip
         /// </summary>
         /// <returns></returns>
-        public BO.Color color { get; set; }
+        public BO.Color Color { get; set; }
         /// <summary>
-        /// The color of the product
+        /// The Color of the product
         /// </summary>
         /// <returns></returns>
-        public BO.SizeClothing sizeClothing { get; set; }
+        public BO.SizeClothing SizeClothing { get; set; }
         /// <summary>
         /// The size of the Clothing
         /// </summary>
-        public BO.SizeShoes sizeShoes { get; set; }
+        public BO.SizeShoes SizeShoes { get; set; }
         /// <summary>
-        /// The size of the shoes
+        /// The size of the Shoes
         /// </summary>
         /// <returns></returns>
         public string Description { get; set; }
@@ -60,34 +60,21 @@ namespace BO
         /// <returns></returns>
         public override string ToString()
         {
-            if (category is (BO.Category)0)
-            {
-                return $@"
+            string str = Category is BO.Category.Clothing ?
+         @$"Clothing : {Clothing}
+            Size of Clothing: {SizeClothing}" :
+         @$"Shoes: {Shoes} 
+            Size of Shoes: {(int)SizeShoes}";
+
+            return $@"
             ID: {ID}
             Name: {Name}
             Price: {Price}
-            Category: {category}
+            Category: {Category}
             Description: {Description}
-            Gender: {gender}
-            Color: {color}
-            Clothing: {clothing}
-            Size of clothing: {sizeClothing}
-            ";
-            }
-            else
-            {
-                return $@"
-            ID: {ID}
-            Name: {Name}
-            Price: {Price}
-            Category: {category}
-            Description: {Description}
-            Gender: {gender}
-            Color: {color}
-            Shoes: {shoes}
-            Size of shoes: {(int)sizeShoes}
-            ";
-            }
+            Gender: {Gender}
+            Color: {Color}
+            {str}";
         }
     }
 }

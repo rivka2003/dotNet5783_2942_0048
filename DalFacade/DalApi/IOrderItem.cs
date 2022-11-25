@@ -3,7 +3,7 @@ namespace DalApi
 {
     public interface IOrderItem : ICrude<OrderItem>
     {
-        IEnumerable<OrderItem> RequestAllByOrderID(int value);
         OrderItem RequestByOrderAndProductID(int value1, int value2);
+        IEnumerable<OrderItem> RequestAllByPredicate(Predicate<OrderItem> predicate);
     }
 }

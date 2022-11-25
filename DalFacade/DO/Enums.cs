@@ -13,6 +13,6 @@ namespace DO
     public enum SizeClothing { XS, S, M, L, XL}
     public enum SizeShoes { xs = 36, s, m, l, xl, xxl}
     public enum Choice { Exit, Product, Order, OrderItem }
-    public enum Choice2 { Exit, Add, Print, PrintList, Update, Delete}
+    public enum OrderChoice { Exit, Add, Print, PrintList, Update, Delete}
     public enum Choice3 { Exit, Add, PrintByID, PrintByOrderAndProductID, PrintList, PrintByOrderID, Update, Delete }
 }

@@ -14,16 +14,16 @@ namespace BO
         /// </summary>
         public int ID { get; set; }
         /// <summary>
-        /// The status of the order
+        /// The Status of the order
         /// </summary>
         public BO.OrderStatus Status { get; set; }
         /// <summary>
         /// List of tuple
         /// </summary>
-        public List<Tuple<DateTime, BO.OrderStatus>>  OrderProgress { get; set; }
+        public List<(DateTime, BO.OrderStatus)>  OrderProgress { get; set; }
         public override string ToString() => $@"
         ID: {ID}
         Status: {Status}
-        OrderProgress: {}"; // לטפל בהדפסה
+        OrderProgress: {string.Join(", ", OrderProgress)}";
     }
 }

@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using BlApi;
 using CopyPropertisTo;
-using Dal;
-using DalApi;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Office2016.Drawing.Charts;
 
 namespace BlImplementation
 {
     internal class Cart : ICart
     {
-        public IDal Dal = new DalList();
+        public DalApi.IDal Dal = new Dal.DalList();
         public IBl Ibl = new Bl();
         public BO.Cart AddProductToCart(BO.Cart Item, int productID)
         {
@@ -23,8 +14,8 @@ namespace BlImplementation
             BO.OrderItem orderItemBo = new BO.OrderItem();
             try
             { productBo = Ibl.Product.ProductDetailsForManager(productID); }
-            catch (DO.NonFoundObject)
-            { throw new Exception("not found"); }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
             if (productBo.InStock > 0)
             {
                 if (!Item.Items.Exists(i => i.ProductID == productID))
@@ -45,11 +36,11 @@ namespace BlImplementation
                 }
             }
             else
-                throw new Exception("Not int stock");
+                throw new BO.NotInStock();
             return Item;
         }
 
-        public void OrderMaking(BO.Cart Item, string Name, string Email, string Address)
+        public void OrderMaking(BO.Cart Item)
         {
             BO.Product productBo = new BO.Product();
             for(int i = 0; i < Item.Items.Count(); i++)
@@ -58,10 +49,12 @@ namespace BlImplementation
                 {
                     productBo = Ibl.Product.ProductDetailsForManager(Item.Items[i].ProductID);
                 }
-                catch(DO.NonFoundObject)
-                { throw new Exception("not found"); }
+                catch(DO.NonFoundObjectDo)
+                { throw new BO.NonFoundObjectBo(); }
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                MatchCollection matchCollection = regex.Matches(Item.CustomerEmail);
                 if (Item.Items[i].Amount > 0 && productBo.InStock > 0 &&  Item.CustomerEmail != " " && 
-                    Item.CustomerName != " " && Item.CustomerAddress != " ")
+                    Item.CustomerName != " " && Item.CustomerAddress != " " && matchCollection.Count < 1)
                 {
                     BO.Order orderBo = new BO.Order()
                     {
@@ -79,8 +72,8 @@ namespace BlImplementation
                     int ID;
                     try
                     { ID = Dal.Order.Add(orderDo); }
-                    catch(DO.ExistingObject)
-                    { throw new Exception("already exists"); }
+                    catch(DO.ExistingObjectDo)
+                    { throw new BO.ExistingObjectBo(); }
                     BO.OrderItem orderItemBo = new BO.OrderItem() { ID = ID, Name = Item.CustomerName,
                     ProductID = Item.Items[i].ProductID, Amount = Item.Items[i].Amount, Price = Item.Items[i].Price,
                     TotalPrice = Item.Items[i].TotalPrice};
@@ -89,15 +82,18 @@ namespace BlImplementation
                     orderItemBo.CopyPropTo(orderItemDo);
                     try
                     { Dal.OrderItem.Add(orderItemDo); }
-                    catch (DO.ExistingObject)
-                    { throw new Exception("already exists"); }
+                    catch (DO.ExistingObjectDo)
+                    { throw new BO.ExistingObjectBo(); }
                     DO.Product productDo = new DO.Product();
-                    productDo = Dal.Product.RequestById(Item.Items[i].ProductID);
+                    try
+                    { productDo = Dal.Product.Get(Item.Items[i].ProductID); }
+                    catch
+                    { throw new BO.NonFoundObjectBo(); }
                     productDo.InStock -= Item.Items[i].Amount;
                     try
                     { Dal.Product.Update(productDo); }
-                    catch(DO.NonFoundObject)
-                    { throw new Exception("not exist"); }
+                    catch(DO.NonFoundObjectDo)
+                    { throw new BO.NonFoundObjectBo(); }
                 }
             }
         }
@@ -131,14 +127,14 @@ namespace BlImplementation
                                 Item.TotalPrice += Item.Items[i].ProductID * diffrence;
                             }
                         }
+                        else
+                        { throw new BO.SameAmount(); }
                         break;
                     }
-                    else
-                        throw new Exception("not chang");
                 }
             }
             else
-                throw new Exception("not Exist");
+                throw new BO.NonFoundObjectBo();
             return Item;
         }
     }

@@ -1,31 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
-using CopyPropertisTo;
+﻿using CopyPropertisTo;
 using Dal;
-using DalApi;
-using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace BlImplementation
 {
     internal class Product : BlApi.IProduct
     {
-        public IDal Dal = new DalList();
-        public IEnumerable<BO.ProductForList> AllList()
+        public DalApi.IDal Dal = new Dal.DalList();
+        public IEnumerable<BO.ProductForList> GetAll()
         {
-            var listOfProducts = Dal.Product.Get();
-            BO.ProductForList proForLst = new BO.ProductForList();
-            IEnumerable<BO.ProductForList> newListOfProducts = listOfProducts.Select(item => item = item.CopyPropTo(proForLst));
-            //for(int i = 0; i < listOfProducts.Count();i++)
-            //{
-            //    listOfProducts[i].CopyPropTo(newListOfProducts[i]);
-            //}
-            return newListOfProducts;
+            return Dal.Product.GetAll().CopyPropToList<DO.Product, BO.ProductForList> ();
         }
 
         public BO.Product ProductDetailsForManager(int ID)
@@ -33,9 +16,9 @@ namespace BlImplementation
             BO.Product productBo = new BO.Product();
             DO.Product productDo = new DO.Product();
             try
-            { productDo = Dal.Product.RequestById(ID); }
-            catch(DO.NonFoundObject) 
-            { throw new Exception("not found"); }
+            { productDo = Dal.Product.Get(ID); }
+            catch(DO.NonFoundObjectDo) 
+            { throw new BO.NonFoundObjectBo(); }
             if(ID > 0)
             {
                 productDo.CopyPropTo(productBo);
@@ -48,9 +31,9 @@ namespace BlImplementation
             BO.ProductItem proItm = new BO.ProductItem();
             DO.Product proDo = new DO.Product();
             try
-            { proDo = Dal.Product.RequestById(ID); }
-            catch (DO.NonFoundObject)
-            { throw new Exception("not found"); }
+            { proDo = Dal.Product.Get(ID); }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
             if (ID > 0)
             {
                 proDo.CopyPropTo(proItm);
@@ -72,65 +55,65 @@ namespace BlImplementation
             DO.Product productDo = new DO.Product();
             try
             {
-                productDo = Dal.Product.RequestById(productBo.ID);
+                productDo = Dal.Product.Get(productBo.ID);
             }
-            catch (DO.NonFoundObject)
-            { throw new Exception("not exist"); }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
             if (productBo.ID > 0 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
             {
                 productBo.CopyPropToStruct(productDo);
                 productBo.CopyPropTo(productDo);
-                productDo.status = DO.Status.Exist;
+                productDo.Status = DO.Status.Exist;
                 try
                 { Dal.Product.Add(productDo); }
-                catch (DO.ExistingObject)
-                { throw new Exception("Already Exist"); }
+                catch (DO.ExistingObjectDo)
+                { throw new BO.ExistingObjectBo(); }
             }
             else
-                throw new Exception("not valid");
+                throw new BO.NotValid();
         }
 
-        public void DeleteProduct(int ID)
+        public void DeleteProduct(int ID) 
         {
-           if(!Dal.OrderItem.Get().Any())
+           if (!Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem.ProductID == ID).Any())
            {
                 try
                 {
                     Dal.Product.Delete(ID);
                 }
-                catch(DO.NonFoundObject)
-                { throw new Exception("not exist"); }
+                catch(DO.NonFoundObjectDo)
+                { throw new BO.NonFoundObjectBo(); }
            }
            else
            {
-                throw new Exception("is exist!");
+                throw new BO.ExistingObjectBo();
            }
         }
 
-        public void UpdateProduct(BO.Product updateProduct)
+        public BO.Product UpdateProduct(BO.Product updateProduct)
         {
             DO.Product productDo = new DO.Product();
             try
             {
-               productDo =  Dal.Product.RequestById(updateProduct.ID);
+               productDo =  Dal.Product.Get(updateProduct.ID);
             }
-            catch (DO.NonFoundObject)
-            { throw new Exception("not exist"); }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
             if (updateProduct.ID > 0 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
             {
                 updateProduct.CopyPropToStruct(productDo);
                 updateProduct.CopyPropTo(productDo);
-                productDo.status = DO.Status.Exist;
+                productDo.Status = DO.Status.Exist;
                 try
                 { Dal.Product.Update(productDo); }
-                catch (DO.NonFoundObject)
-                { throw new Exception("Not Exist"); }
-
+                catch (DO.NonFoundObjectDo)
+                { throw new BO.NonFoundObjectBo(); }
             }
             else
             {
-                throw new Exception("not valid");
+                throw new BO.NotValid();
             }
+            return updateProduct;
         }
     }
 }

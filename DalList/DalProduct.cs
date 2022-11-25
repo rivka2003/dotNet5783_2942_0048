@@ -22,7 +22,7 @@ internal class DalProduct : IProduct
     /// A function that returns all the products
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Product> Get()
+    public IEnumerable<Product> GetAll()
     {
         List<Product> NewProducts = new List<Product>();
         for (int i = 0; i < DataSource.Products.Count; i++)
@@ -37,7 +37,7 @@ internal class DalProduct : IProduct
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public Product RequestById(int id)
+    public Product Get(int id)
     {
         if (!DataSource.Products.Exists(i => i.ID == id))
             throw new Exception("The product does not exist");
@@ -66,6 +66,6 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Products.Remove(RequestById(id));
+        DataSource.Products.Remove(Get(id));
     }
 }

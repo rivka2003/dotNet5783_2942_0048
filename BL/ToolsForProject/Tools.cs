@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace CopyPropertisTo
 {
-    static public class Tools
+    static internal class Tools
     {
-        public static void CopyPropTo<Source, Target>(this Source source, Target target)
+        internal static Target CopyPropTo<Source, Target>(this Source source, Target target)
         {
             Dictionary<string, PropertyInfo> propertyInfoTarget = target.GetType().GetProperties().ToDictionary(p => p.Name, p => p);
             IEnumerable<PropertyInfo> propertyInfoSource = source.GetType().GetProperties().
@@ -25,16 +25,43 @@ namespace CopyPropertisTo
                     propertyInfoTarget[item.Name].SetValue(target, item.GetValue(source));
                 }
             }
+            return target;
         }
 
-        public static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
+        internal static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
         {
             object obj = target;
 
             source.CopyPropTo(obj);
 
             return (Target)obj;
+        }
 
+        internal static IEnumerable<Target> CopyPropToList<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+        {
+            return from source in sources
+                   select source.CopyPropTo(new Target());
+        }
+
+        internal static IEnumerable<Target> CopyPropToListOfStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
+        {
+            return from source in sources
+                   select source.CopyPropTo(new Target());
+        }
+
+        internal static string ToStringProperty<T>(this T property)
+        {
+            string str = "";
+            foreach (PropertyInfo item in property.GetType().GetProperties())
+            {
+                if (item.PropertyType.IsArray) // לבדוק אם בסדר שמדפיס הפוך ברקורסיה
+                {
+                    ToStringProperty(item.GetValue(property, null));
+                }
+                str += "\n" + item.Name +
+                          ": " + item.GetValue(property, null);
+            }
+            return str;
         }
     }
 }

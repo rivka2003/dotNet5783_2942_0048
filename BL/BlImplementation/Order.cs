@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
-using BO;
+﻿using BlApi;
 using CopyPropertisTo;
-using Dal;
-using DalApi;
-using DO;
 
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
     {
-        public IDal Dal = new DalList();
-        public IEnumerable<BO.OrderForList> AllList()
+        public DalApi.IDal Dal = new Dal.DalList();
+        public IBl Ibl = new Bl();
+        public IEnumerable<BO.OrderForList> GetAll()
         {
-            var listOfOrders = Dal.Order.Get();
-            BO.OrderForList orForLst = new BO.OrderForList();
-            IEnumerable<BO.OrderForList> newListOfOrders = listOfOrders.Select(item => (OrderForList)item = );
+            return Dal.Order.GetAll().CopyPropToList<DO.Order, BO.OrderForList> ();
         }
 
         /// <summary>
@@ -35,80 +25,91 @@ namespace BlImplementation
             DO.Order OrderDo = new DO.Order();
             if (ID > 0)
             {
-                try 
-                { 
-                      OrderDo = Dal.Order.RequestById(ID); 
+                try
+                {
+                    OrderDo = Dal.Order.Get(ID);
                 }
-                catch (DO.NonFoundObject)
-                { throw new Exception("not found"); }
-            
-            {
+                catch (DO.NonFoundObjectDo)
+                { throw new BO.NonFoundObjectBo(); }
                 OrderDo.CopyPropTo(OrderBo);
             }
-            
             return OrderBo;
         }
-             
-        public BO.OrderTracking TrackingOrder(int ID)
+
+        public BO.Order UpdeteShipDate(int ID)
         {
-                BO.Order OrderBo = new BO.Order();
-                DO.Order OrderDo = new DO.Order();
+            BO.Order OrderBo = new BO.Order();
+            DO.Order OrderDo = new DO.Order();
+            try
+            {
+                OrderDo = Dal.Order.Get(ID);
+                OrderBo = Ibl.Order.OrderDetails(ID);
+            }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
+
+            if(OrderDo.ShipDate == DateTime.MinValue)///if it didnt pass)
+            {
+                OrderDo.ShipDate = OrderDo.OrderDate + TimeSpan.FromDays(4);
+                OrderBo.ShipDate = OrderBo.OrderDate + TimeSpan.FromDays(4);
                 try
-                    {
-                        OrderDo = Dal.Order.RequestById(ID);
-                    }
-                catch (DO.NonFoundObject)
-                    { throw new Exception("not found"); }
-
-                if(OrderDo.ShipDate<DateTime.Now())///if it didnt pass)
-                {
-                    OrderDo.///updates
-                        ///also update logical layer
-
-                }
-
-                    
-
-                
-                return OrderBo;
+                { Dal.Order.Update(OrderDo); }
+                catch
+                { throw new BO.NonFoundObjectBo(); }
+            }
+            else
+            { throw new BO.AlreadyUpdated(); }
+            return OrderBo;
         }
 
         public BO.Order UpdateDeliveryDate(int ID)
         {
-
-                BO.Order OrderBo = new BO.Order();
-                DO.Order OrderDo = new DO.Order();
-                try
-                {
-                    OrderDo = Dal.Order.RequestById(ID);
-                }
-                catch (DO.NonFoundObject)
-                { throw new Exception("not found"); }
-                if(OrderDo.ShipDate///passed but OrderDo.status==0)
-                        {
-                    OrderDo.ShipDate///update;
-                    ///update in the logical layer as well
-                        }
-                return OrderBo;
-
+            BO.Order OrderBo = new BO.Order();
+            DO.Order OrderDo = new DO.Order();
+            try
+            {
+                OrderDo = Dal.Order.Get(ID);
+                OrderBo = Ibl.Order.OrderDetails(ID);
             }
-
-            public BO.Order UpdeteShipDate(int ID)
-        {
-                BO.Order OrderBo = new BO.Order();
-                DO.Order OrderDo = new DO.Order();
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
+            if (OrderDo.DeliveryDate == DateTime.MinValue)
+            {
+                OrderDo.DeliveryDate = OrderDo.OrderDate + TimeSpan.FromDays(4);
+                OrderBo.DeliveryDate = OrderBo.OrderDate + TimeSpan.FromDays(4);
                 try
-                {
-                    OrderDo = Dal.Order.RequestById(ID);
-                }
-                catch (DO.NonFoundObject)
-                { throw new Exception("not found"); }
-                return OrderBo;
+                { Dal.Order.Update(OrderDo); }
+                catch (DO.NonFoundObjectDo)
+                { throw new BO.NonFoundObjectBo(); }
             }
+            else
+                throw new BO.AlreadyUpdated();
+            return OrderBo;
+        }
 
-        IEnumerable<OrderForList> BlApi.IOrder.AllList(List<DO.Order> listOfOrders)
+        public BO.OrderTracking TrackingOrder(int ID)
         {
-            throw new NotImplementedException();
+            DO.Order OrderDo = new DO.Order();
+            BO.Order OrderBo = new BO.Order();
+            try
+            {
+                OrderDo = Dal.Order.Get(ID);
+                OrderBo = Ibl.Order.OrderDetails(ID);
+            }
+            catch (DO.NonFoundObjectDo)
+            { throw new BO.NonFoundObjectBo(); }
+            BO.OrderTracking orderTracking = new BO.OrderTracking()
+            {
+                ID = ID,
+                Status = OrderBo.Status,
+                OrderProgress = new List<(DateTime, BO.OrderStatus)>   
+                {
+                    (OrderBo.OrderDate, BO.OrderStatus.Confirmed),
+                    (OrderBo.ShipDate, BO.OrderStatus.Shipped),
+                    (OrderBo.DeliveryDate, BO.OrderStatus.Delivered)
+                }
+            };
+            return orderTracking;
         }
     }
 }

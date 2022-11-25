@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CopyPropertisTo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace BO
         /// </summary>
         public string CustomerName { get; set; }
         /// <summary>
-        /// The status of the order
+        /// The Status of the order
         /// </summary>
         public BO.OrderStatus Status { get; set; }
         /// <summary>
@@ -28,11 +29,6 @@ namespace BO
         /// The total price of the order
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString() => $@"
-        ID: {ID}
-        CustomerName: {CustomerName}
-        Status: {Status}
-        AmountOfItems: {AmountOfItems}
-        TotalPrice: {TotalPrice}";
+        public override string ToString() => this.ToStringProperty();
     }
 }

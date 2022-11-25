@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 namespace DO
 {
     [Serializable]
-    public class NonFoundObject : Exception
+    public class NonFoundObjectDo : Exception
     {
-        public NonFoundObject() : base() { }
-        public NonFoundObject(string message) : base(message) { }
-        public NonFoundObject(string message, Exception inner) : base(message, inner) { }
-        protected NonFoundObject (SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public NonFoundObjectDo() : base() { }
+        public NonFoundObjectDo(string message) : base(message) { }
+        public NonFoundObjectDo(string message, Exception inner) : base(message, inner) { }
+        protected NonFoundObjectDo (SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
             "The object does not exist!";
     }
 
-    public class  ExistingObject :Exception
+    public class  ExistingObjectDo :Exception
     {
-        public ExistingObject() : base() { }
-        public ExistingObject(string message) : base(message) { }
-        public ExistingObject(string message, Exception inner) : base(message, inner) { }
-        protected ExistingObject(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public ExistingObjectDo() : base() { }
+        public ExistingObjectDo(string message) : base(message) { }
+        public ExistingObjectDo(string message, Exception inner) : base(message, inner) { }
+        protected ExistingObjectDo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
             "The object is already exist!";
     }

@@ -14,7 +14,7 @@ namespace BlApi
         /// </summary>
         /// <param name="listOfProducts"></param>
         /// <returns></returns>
-        public IEnumerable<BO.ProductForList> AllList();
+        public IEnumerable<BO.ProductForList> GetAll();
         /// <summary>
         /// Return the product details by the ID
         /// </summary>
@@ -42,6 +42,6 @@ namespace BlApi
         /// The function updates the product to the product that she have resived
         /// </summary>
         /// <param name="UpdeteProduct"></param>
-        public void UpdateProduct(BO.Product UpdeteProduct);
+        public BO.Product UpdateProduct(BO.Product UpdeteProduct);
     }
 }
