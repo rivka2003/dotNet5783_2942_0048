@@ -14,7 +14,7 @@ internal class DalOrder : IOrder
     /// <param name="or"></param>
     public int Add(Order or)
     {
-        or.ID = Config.getOrderSequenceID();
+        or.ID = getOrderSequenceID();
         DataSource.Orders.Add(or);
         return or.ID;
     }
@@ -25,9 +25,9 @@ internal class DalOrder : IOrder
     public IEnumerable<Order> GetAll()
     {
         List<Order> NewOrders = new List<Order>();
-        for (int i = 0; i < DataSource.Orders.Count; i++)
+        for (int i = 0; i < Orders.Count; i++)
         {
-            NewOrders.Add(DataSource.Orders[i]);
+            NewOrders.Add(Orders[i]);
         }
         return NewOrders;
     }
@@ -40,7 +40,7 @@ internal class DalOrder : IOrder
     public Order Get(int ID)
     {
         if (!DataSource.Orders.Exists(i => i.ID == ID))
-            throw new Exception("The order does not exist");
+            throw new NonFoundObjectDo();
         return DataSource.Orders.Find(i => i.ID == ID);
     }
     /// <summary>
@@ -52,7 +52,7 @@ internal class DalOrder : IOrder
     {
         ///if Order dosnt exist throw exception 
         if (!DataSource.Orders.Exists(i => i.ID == or.ID))
-            throw new Exception("Cannot update an order, does not exist");
+            throw new NonFoundObjectDo();
         for (int i = 0; i < DataSource.Orders.Count; i++)
         {
             if (or.ID == DataSource.Orders[i].ID)

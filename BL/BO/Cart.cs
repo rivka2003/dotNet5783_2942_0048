@@ -29,10 +29,11 @@ namespace BO
         /// </summary>
         public double TotalPrice { get; set; }
         public override string ToString() => $@"
-        CustomerName: {CustomerName}
-        CustomerEmail: {CustomerEmail}
-        CustomerAddress: {CustomerAddress}
-        Items: {string.Join(", ", Items)}
-        TotalPrice: {TotalPrice}";
+Customer name: {CustomerName}
+Customer email: {CustomerEmail}
+Customer address: {CustomerAddress}
+Items: {string.Join("\n", Items)}
+Total price: {TotalPrice}
+";
     }
 }

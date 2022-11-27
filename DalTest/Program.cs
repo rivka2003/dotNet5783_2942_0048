@@ -173,34 +173,21 @@ namespace DalTest
             if (choice4 is (Category)0)
             {
                 Clothing c = new Clothing();
-                if (!(choice3 is (Gender)1 or (Gender)2))
-                {
-                    Console.WriteLine($@"Enter the Clothing type:
-0: Skirts
-1: Dresses
-2: Blazers
-3: Hoodies
-4: Sweatshirts
-5: Shirts
-6: Socks
-7: Pants
-8: Cauts
-9: Jackets
-10: SportWear");
-                }
-                else
-                {
-                    Console.WriteLine($@"Enter the Clothing type:
-2: Blazers
-3: Hoodies
-4: Sweatshirts
-5: Shirts
-6: Socks
-7: Pants
-8: Cauts
-9: Jackets
-10: SportWear");
-                }
+                string SkirtsAndDress = choice3 is Gender.Women or Gender.Girls ? @"
+9: Skirts
+10: Dresses" :
+"";
+                Console.WriteLine($@"Enter the Clothing type:
+0: Blazers
+1: Hoodies
+2: Sweatshirts
+3: Shirts
+4: Socks
+5: Pants
+6: Cauts
+7: Jackets
+8: SportWear
+{SkirtsAndDress}");
                 /// Conversion of the received value to the desired type
                 Clothing.TryParse(Console.ReadLine(), out c);
                 TheProduct.Clothing = c;
@@ -218,23 +205,15 @@ namespace DalTest
             else
             {
                 Shoes s = new Shoes();
-                if (choice3 is (Gender)0)
-                {
-                    Console.WriteLine($@"Enter the Shoe's type:
-0: Heels
-1: Sneakers
-2: Boots
-3: Sport
-4: Sandals");
-                }
-                else
-                {
-                    Console.WriteLine($@"Enter the Shoe's type:
-1: Sneakers
-2: Boots
-3: Sport
-4: Sandals");
-                }
+                string Heels = choice3 is Gender.Women ? @"
+4: Heels" :
+"";
+                Console.WriteLine($@"Enter the Shoe's type:
+0: Sneakers
+1: Boots
+2: Sport
+3: Sandals
+{Heels}");
                 /// Conversion of the received value to the desired type
                 Shoes.TryParse(Console.ReadLine(), out s);
                 TheProduct.Shoes = s;

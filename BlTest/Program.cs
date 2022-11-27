@@ -1,24 +1,22 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
-using CopyPropertisTo;
-using Dal;
-using DO;
-using DocumentFormat.OpenXml.Office2010.Excel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlTest
 {
     internal class Program
     {
         private static IBl blApi = new Bl();
-        private static BO.Cart cart = new BO.Cart();
+        private static BO.Cart cart = new BO.Cart 
+        { CustomerAddress = " ", CustomerEmail = " ", CustomerName = " ", 
+            TotalPrice = 0, Items = new List<OrderItem>()};
         static void Main(string[] args)
         {
             BO.Choice choice = new BO.Choice();
             ///A loop that run as long as the requested value for exiting the main program was not received
             do
             {
-                Program program = new Program();
                 Console.WriteLine($@"Enter your Choice:
 0: Exit
 1: Product
@@ -31,13 +29,13 @@ namespace BlTest
                     case BO.Choice.Exit:
                         break;
                     case BO.Choice.Product:
-                        program.ProductSwitch();///jump to inner menu of product's actions
+                       ProductSwitch();///jump to inner menu of product's actions
                         break;
                     case BO.Choice.Order:
-                        program.OrderSwitch();///jump to inner menu of order's actions
+                       OrderSwitch();///jump to inner menu of order's actions
                         break;
                     case BO.Choice.Cart:
-                        program.CartSwitch();///jump to inner menu of cart's actions
+                        CartSwitch();///jump to inner menu of cart's actions
                         break;
                     default:
                         break;
@@ -49,7 +47,7 @@ namespace BlTest
         /// <summary>
         /// A function within which all the user's choices regarding the product list are handled
         /// </summary>
-        void ProductSwitch()
+        static void ProductSwitch()
         {
             BO.Product theProduct = new BO.Product();
             BO.ProductChoice productChoice = new BO.ProductChoice();
@@ -60,9 +58,9 @@ namespace BlTest
 1: Add
 2: Print details for customer
 3: Print details for manager
-3: Print the List
-4: Updat
-5: Delete");
+4: Print the List
+5: Updat
+6: Delete");
                 /// Conversion of the received value to the desired type
                 BO.ProductChoice.TryParse(Console.ReadLine(), out productChoice);
                 switch (productChoice)
@@ -76,14 +74,15 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
                         theProduct.ID = id;
-                        Console.WriteLine("The product ID is:");
+
                         try
                         { blApi.Product.AddProduct(theProduct); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        catch (BO.ExistingObjectBo)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NotValid ex)
+                        { Console.WriteLine(ex.Message); }
+                        catch (BO.ExistingObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+
+                        Console.WriteLine("The product ID is:");
                         Console.WriteLine(theProduct.ID);
                         break;
                     case BO.ProductChoice.PrintDaetailsForCustomer: ///print the product details for the customer  with the recieved id and cart object
@@ -91,22 +90,28 @@ namespace BlTest
                         int id1;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
+
                         try
                         { Console.WriteLine(blApi.Product.ProductDetailsForCustomer(id1, cart)); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+                        catch (BO.NotValid ex)
+                        { Console.WriteLine(ex.Message); }
+
                         break;
                     case BO.ProductChoice.PrintDetailsForManagaer: // print the product details for manager with the recieved id
                         Console.WriteLine("Enter the product ID:");
                         int id2;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
+
                         try
                         { Console.WriteLine(blApi.Product.ProductDetailsForManager(id2)); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NonFoundObjectBo ex) when(ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+                        catch(BO.NotValid ex)
+                        { Console.WriteLine(ex.Message); }
+
                         break;
                     case BO.ProductChoice.PrintList: ///printing the full product list
                         foreach (var pro in blApi.Product.GetAll())
@@ -117,56 +122,68 @@ namespace BlTest
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
+
                         try
                         { Console.WriteLine(blApi.Product.ProductDetailsForManager(id3)); }
-                        catch (BO.NotInStock)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+                        catch(BO.NotValid ex)
+                        { Console.WriteLine(ex.Message); }
+
                         theProduct.ID = id3;
                         creatProduct(ref theProduct);
+                        Console.WriteLine("The updated product is:");
+
                         try
                         {
-                            Console.WriteLine("The updated product is:");
                             Console.WriteLine(blApi.Product.UpdateProduct(theProduct));
                         }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        catch (BO.NotValid)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+                        catch (BO.NotValid ex)
+                        { Console.WriteLine(ex.Message); }
+
                         break;
                     case BO.ProductChoice.Delete: ///deleting the product according to the recieved id
                         Console.WriteLine("Enter the ID of the product that you wants to delete:");
                         int id4;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id4);
+
                         try
                         { blApi.Product.DeleteProduct(id4); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+                        catch(BO.ExistingObjectBo ex) when (ex.InnerException is not null)
+                        { Console.WriteLine(ex.InnerException.Message); }
+
                         break;
                     default:
                         break;
                 }
             } while (productChoice != 0);
-
         }
 
-        void creatProduct(ref BO.Product TheProduct)
+       static void creatProduct(ref BO.Product TheProduct)
         {
             Console.WriteLine("Enter the product details:");
             Console.WriteLine("Enter the name of the product: ");
             TheProduct.Name = Console.ReadLine();
-            Console.WriteLine("Enter the price of the product");
+            if (TheProduct.Name == " ")
+                throw new BO.NotValid();
+            Console.WriteLine("Enter the price of the product:");
             double price;
             /// Conversion of the received value to the desired type
             double.TryParse(Console.ReadLine(), out price);
+            if (price < 0)
+                throw new BO.NotValid();
             TheProduct.Price = price;
-            Console.WriteLine("Enter the amount that in stock (1-4):");
+            Console.WriteLine("Enter the amount that in stock:");
             int inStock;
             /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out inStock);
+            if (inStock < 0)
+                throw new BO.NotValid();
             TheProduct.InStock = inStock;
             Console.WriteLine($@"Enter the Gender type:
 0: Women
@@ -187,34 +204,21 @@ namespace BlTest
             if (cat is BO.Category.Clothing)
             {
                 BO.Clothing c = new BO.Clothing();
-                if (g is BO.Gender.Women or BO.Gender.Girls)
-                {
-                    Console.WriteLine($@"Enter the Clothing type:
-0: Skirts
-1: Dresses
-2: Blazers
-3: Hoodies
-4: Sweatshirts
-5: Shirts
-6: Socks
-7: Pants
-8: Cauts
-9: Jackets
-10: SportWear");
-                }
-                else
-                {
-                    Console.WriteLine($@"Enter the Clothing type:
-2: Blazers
-3: Hoodies
-4: Sweatshirts
-5: Shirts
-6: Socks
-7: Pants
-8: Cauts
-9: Jackets
-10: SportWear");
-                }
+                string SkirtsAndDress = g is BO.Gender.Women or BO.Gender.Girls ? 
+@"9: Skirts
+10: Dresses" :
+"";
+                Console.WriteLine($@"Enter the Clothing type:
+0: Blazers
+1: Hoodies
+2: Sweatshirts
+3: Shirts
+4: Socks
+5: Pants
+6: Cauts
+7: Jackets
+8: SportWear
+{SkirtsAndDress}");
                 /// Conversion of the received value to the desired type
                 BO.Clothing.TryParse(Console.ReadLine(), out c);
                 TheProduct.Clothing = c;
@@ -232,23 +236,15 @@ namespace BlTest
             else
             {
                 BO.Shoes s = new BO.Shoes();
-                if (g is BO.Gender.Women)
-                {
-                    Console.WriteLine($@"Enter the Shoe's type:
-0: Heels
-1: Sneakers
-2: Boots
-3: Sport
-4: Sandals");
-                }
-                else
-                {
-                    Console.WriteLine($@"Enter the Shoe's type:
-1: Sneakers
-2: Boots
-3: Sport
-4: Sandals");
-                }
+                string Heels = g is BO.Gender.Women ? 
+@"4: Heels" :
+"";
+                Console.WriteLine($@"Enter the Shoe's type:
+0: Sneakers
+1: Boots
+2: Sport
+3: Sandals
+{Heels}");
                 /// Conversion of the received value to the desired type
                 BO.Shoes.TryParse(Console.ReadLine(), out s);
                 TheProduct.Shoes = s;
@@ -290,7 +286,7 @@ namespace BlTest
             TheProduct.Description = str;
         }
 
-        void OrderSwitch()
+        static void OrderSwitch()
         {
             BO.Order theOrder = new BO.Order();
             BO.OrderChoice orderChoice = new BO.OrderChoice();
@@ -318,7 +314,6 @@ namespace BlTest
                         { Console.WriteLine(blApi.Order.OrderDetails(id)); }
                         catch (BO.NonFoundObjectBo)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
                         break;
                     case BO.OrderChoice.PrintTheList: ///printing the full order list
                         foreach (var or in blApi.Order.GetAll())
@@ -336,7 +331,6 @@ namespace BlTest
                         { }
                         catch (BO.AlreadyUpdated)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
                         break;
                     case BO.OrderChoice.UpdateDeliveryDate: ///update the delivery date
                         Console.WriteLine("Enter the ID of the order that you want to update the ship date:");
@@ -350,7 +344,6 @@ namespace BlTest
                         { }
                         catch (BO.AlreadyUpdated)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
                         break;
                     case BO.OrderChoice.TrackingOrder: ///prints the tracking status
                         Console.WriteLine("Enter the ID of the order that you wants to get the tracking status:");
@@ -361,7 +354,6 @@ namespace BlTest
                         { Console.WriteLine(blApi.Order.TrackingOrder(id3)); }
                         catch (BO.NotInStock)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
                         break;
                     default:
                         break;
@@ -369,7 +361,7 @@ namespace BlTest
             } while (orderChoice != 0);
         }
 
-        void CartSwitch()
+        static void CartSwitch()
         {
             BO.Cart theCart = new BO.Cart();
             BO.CartChoice cartChoice = new BO.CartChoice();
@@ -397,7 +389,6 @@ namespace BlTest
                         {}
                         catch (BO.NotInStock)
                         {}
-                        finally { Console.WriteLine("Problem found!"); }
                         Console.WriteLine("The cart after the addition:");
                         Console.WriteLine(cart);
                         break;
@@ -416,7 +407,6 @@ namespace BlTest
                         { }
                         catch(BO.SameAmount)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
                         Console.WriteLine("The cart after the update:");
                         Console.WriteLine(cart);
                         break;
@@ -427,13 +417,26 @@ namespace BlTest
                         { }
                         catch(BO.ExistingObjectBo)
                         { }
-                        finally { Console.WriteLine("Problem found!"); }
+                        Console.WriteLine("Enter your name:");
+                        string Name = Console.ReadLine();
+                        cart.CustomerName = Name;
+                        Console.WriteLine("Enter your email:");
+                        string email = Console.ReadLine();
+                        cart.CustomerEmail = email;
+                        Console.WriteLine("Enter your address:");
+                        string address = Console.ReadLine();
+                        cart.CustomerAddress = address;
                         Console.WriteLine("Succesfuly made!");
                         break;
                     default:
                         break;
                 }
             } while (cartChoice != 0);
+        }
+
+        static void CheckInput(string str)
+        {
+            
         }
     }
 }

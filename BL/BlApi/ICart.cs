@@ -14,7 +14,7 @@ namespace BlApi
         /// </summary>
         /// <param name="Item"></param>
         /// <returns></returns>
-        public BO.Cart AddProductToCart(BO.Cart Item, int productID);
+        public BO.Cart AddProductToCart(BO.Cart cart, int productID);
         /// <summary>
         /// Updetes the amount of the item in the cart
         /// </summary>
@@ -22,7 +22,7 @@ namespace BlApi
         /// <param name="ID"></param>
         /// <param name="Amount"></param>
         /// <returns></returns>
-        public BO.Cart UpdateAmountProduct(BO.Cart Item, int ID, int Amount);
+        public BO.Cart UpdateAmountProduct(BO.Cart cartt, int ID, int Amount);
         /// <summary>
         /// Making a new order by the details that it got
         /// </summary>
@@ -30,6 +30,6 @@ namespace BlApi
         /// <param name="Name"></param>
         /// <param name="Email"></param>
         /// <param name="Address"></param>
-        public void OrderMaking(BO.Cart Item);
+        public void OrderMaking(BO.Cart cart);
     }
 }

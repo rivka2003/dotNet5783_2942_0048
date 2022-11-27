@@ -14,7 +14,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orIt"></param>
     public int Add(OrderItem orIt)
     {
-        orIt.ID = Config.getOrderItemSequenceID();
+        orIt.ID = getOrderItemSequenceID();
         DataSource.OrderItems.Add(orIt);
         return orIt.ID;
     }
@@ -36,7 +36,7 @@ internal class DalOrderItem : IOrderItem
     public OrderItem Get(int ID)
     {
         if (!DataSource.OrderItems.Exists(i => i.ID == ID))
-            throw new Exception("The orderItem does not exist");
+            throw new NonFoundObjectDo();
         return DataSource.OrderItems.Find(i => i.ID == ID);
     }
     /// <summary>
@@ -49,7 +49,7 @@ internal class DalOrderItem : IOrderItem
     public OrderItem RequestByOrderAndProductID(int orID, int proID)
     {
         if (!DataSource.OrderItems.Exists(i => i.OrderID == orID && i.ProductID == proID))
-            throw new Exception("The orderItem does not exist");
+            throw new NonFoundObjectDo();
         return DataSource.OrderItems.Find(i => i.OrderID == orID && i.ProductID == proID);
     }
     /// <summary>
@@ -61,7 +61,7 @@ internal class DalOrderItem : IOrderItem
     {
         ///if productItem dosnt exist throw exception 
         if (!DataSource.OrderItems.Exists(i => i.ID == orIt.ID))
-            throw new Exception("Cannot update an order, does not exist");
+            throw new NonFoundObjectDo();
         for (int i = 0; i < DataSource.OrderItems.Count; i++)
         {
             if (orIt.ID == DataSource.OrderItems[i].ID)

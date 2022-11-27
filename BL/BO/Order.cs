@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CopyPropertisTo;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,17 +58,19 @@ namespace BO
         public override string ToString()
         {
             return $@"
-             ID: {ID}
-             CustomerName: {CustomerName}
-             CustomerEmail: {CustomerEmail}
-             CustomerAddress: {CustomerAddress}
-             OrderDate: {OrderDate}
-             Status: {Status}
-             PaymentDate: {PaymentDate}
-             ShipDate: {ShipDate}
-             DeliveryDate: {DeliveryDate}
-             Items: {string.Join(", ", Items)}
-             TotalPrice: {TotalPrice}";
+ID: {ID}
+Customer name: {CustomerName}
+Customer email: {CustomerEmail}
+Customer address: {CustomerAddress}
+Order date: {OrderDate}
+Status: {Status}
+Payment date: {PaymentDate}
+Ship date: {ShipDate}
+Delivery date: {DeliveryDate}
+Items: {string.Join("\n", Items)}
+
+Total price: {TotalPrice}
+";
         }
-    }
+}
 }

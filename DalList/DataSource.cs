@@ -8,20 +8,17 @@ namespace Dal
         /// <summary>
         /// Making the Config class to make a run number
         /// </summary>
-        internal static class Config
-        {
-            /// <summary>
-            /// The running number of the order item
-            /// </summary>
-            private static int orderItemSequenceID = 1;
-            /// <summary>
-            /// The running number of the order
-            /// </summary>
-            private static int orderSequenceID = 1;
-            internal static int getOrderItemSequenceID() { return orderItemSequenceID++; }
-            internal static int getOrderSequenceID() { return orderSequenceID++; }
+        /// <summary>
+        /// The running number of the order item
+        /// </summary>
+        private static int orderItemSequenceID = 1;
+        /// <summary>
+        /// The running number of the order
+        /// </summary>
+        private static int orderSequenceID = 1;
+        internal static int getOrderItemSequenceID() { return orderItemSequenceID++; }
+        internal static int getOrderSequenceID() { return orderSequenceID++; }
 
-        }
         /// <summary>
         /// Our three lists
         /// </summary>
@@ -130,24 +127,24 @@ namespace Dal
         private static void InitOrder()
         {
             ///A loop that goes through all the places in the list
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= 40; i++)
             {
                 Order value = new Order()
                 {
-                    ID = Config.getOrderSequenceID(),
+                    ID = getOrderSequenceID(),
                     CustomerName = "Order" + i,
                     CustomerAddress = "Menachem Begin" + i,
                     CustomerEmail = "Customer" + i + "@gmail.com",
                     OrderDate = DateTime.Now + new TimeSpan(random.Next(1, 24), random.Next(1, 60), random.Next(0, 60))
                 };
                 /// If the order is within the 80% that were shipped
-                if (i <= 0.8 * 20)
+                if (i <= 0.8 * 40)
                 {
-                    value.ShipDate = value.OrderDate - TimeSpan.FromDays(random.Next(2, 4));
+                    value.ShipDate = value.OrderDate + TimeSpan.FromDays(random.Next(2, 4));
                     /// If the order is within the 60% that reached the orderer
-                    if (i <= 0.6 * 20)
+                    if (i <= 0.6 * 40)
                     {
-                        value.DeliveryDate = value.ShipDate - TimeSpan.FromDays(random.Next(2, 4));
+                        value.DeliveryDate = value.ShipDate + TimeSpan.FromDays(random.Next(2, 4));
                     }
                     else
                     {
@@ -172,11 +169,11 @@ namespace Dal
             {
                 OrderItem orderItem = new OrderItem();
 
-                orderItem.OrderID = Orders[random.Next(0,20)].ID;
+                orderItem.OrderID = Orders[random.Next(0, 40)].ID;
                 /// If this order number exists within the list of order items then generate a new order number
                 while (OrderItems.Exists(i => i.OrderID == orderItem.OrderID))
                 {
-                    orderItem.OrderID = Orders[random.Next(0, 20)].ID;
+                    orderItem.OrderID = Orders[random.Next(0, 40)].ID;
                 }
                 /// The amount of products in each order
                 int amountOfProducts = random.Next(1, 4);
@@ -185,7 +182,7 @@ namespace Dal
                 {
                     Product product = new Product();
                     product = Products[random.Next(0, 10)];// take some product
-                    orderItem.ID = Config.getOrderItemSequenceID();
+                    orderItem.ID = getOrderItemSequenceID();
                     orderItem.ProductID = product.ID;
                     orderItem.Amount = random.Next(1, 6);
                     orderItem.Price = orderItem.Amount * product.Price;

@@ -14,7 +14,7 @@ internal class DalProduct : IProduct
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("Cannot creat a product, is already exist");
+            throw new ExistingObjectDo();
         DataSource.Products.Add(pro);
         return pro.ID;
     }
@@ -40,7 +40,7 @@ internal class DalProduct : IProduct
     public Product Get(int id)
     {
         if (!DataSource.Products.Exists(i => i.ID == id))
-            throw new Exception("The product does not exist");
+            throw new NonFoundObjectDo();
         return DataSource.Products.Find(i => i.ID == id);
     }
     /// <summary>
@@ -52,7 +52,7 @@ internal class DalProduct : IProduct
     {
         ///if product dosnt exist throw exception 
         if (!DataSource.Products.Exists(i => i.ID == pro.ID))
-            throw new Exception("Cannot update a product, does not exist");
+            throw new NonFoundObjectDo();
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
             if (pro.ID == DataSource.Products[i].ID)

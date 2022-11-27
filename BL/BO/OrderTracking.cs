@@ -22,8 +22,9 @@ namespace BO
         /// </summary>
         public List<(DateTime, BO.OrderStatus)>  OrderProgress { get; set; }
         public override string ToString() => $@"
-        ID: {ID}
-        Status: {Status}
-        OrderProgress: {string.Join(", ", OrderProgress)}";
+ID: {ID}
+Status: {Status}
+Order progress: {string.Join("\n", OrderProgress)}
+";
     }
 }

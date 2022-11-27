@@ -66,21 +66,22 @@ namespace BO
         public override string ToString()
         {
             string str = Category is BO.Category.Clothing ?
-          @$"Clothing : {Clothing}
-             Size of Clothing: {SizeClothing}" :
-          @$"Shoes: {Shoes} 
-             Size of Shoes: {(int)SizeShoes}";
+@$"Clothing : {Clothing}
+Size of Clothing: {SizeClothing}" :
+@$"Shoes: {Shoes} 
+Size of Shoes: {(int)SizeShoes}";
 
             return $@"
-            ID: {ID}
-            Name: {Name}
-            Price: {Price}
-            Category: {Category}
-            Amount in stock: {InStock}
-            Description: {Description}
-            Gender: {Gender}
-            Color: {Color}
-            {str}";
+ID: {ID}
+Name: {Name}
+Price: {Price}
+Category: {Category}
+Amount in stock: {InStock}
+Description: {Description}
+Gender: {Gender}
+Color: {Color}
+{str}
+";
         }
     }
 }
