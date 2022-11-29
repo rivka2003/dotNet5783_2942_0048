@@ -44,17 +44,7 @@ namespace BlTest
                             break;
                     }
                 }
-                catch (BO.NotValid ex)
-                { Console.WriteLine(ex); }
-                catch (BO.ExistingObjectBo ex) when (ex.InnerException is not null)
-                { Console.WriteLine(ex); }
-                catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
-                { Console.WriteLine(ex); }
-                catch (BO.AlreadyUpdated ex)
-                { Console.WriteLine(ex); }
-                catch (BO.NotInStock ex)
-                { Console.WriteLine(ex); }
-                catch (BO.InExistingOrder ex)
+                catch (Exception ex)
                 { Console.WriteLine(ex); }
             } while (choice != 0);
         }
