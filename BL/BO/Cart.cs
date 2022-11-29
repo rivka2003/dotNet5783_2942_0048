@@ -28,12 +28,15 @@ namespace BO
         /// The total price of the cart
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString() => $@"
+        public override string ToString()
+        {
+return$@"
 Customer name: {CustomerName}
 Customer email: {CustomerEmail}
 Customer address: {CustomerAddress}
 Items: {string.Join("\n", Items)}
 Total price: {TotalPrice}
 ";
+        }
     }
 }

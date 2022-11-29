@@ -31,7 +31,7 @@ namespace BO
         /// <summary>
         /// If the product is in stock or not
         /// </summary>
-        public bool InStock { get; set; }
+        public InStock InStock { get; set; }
         public BO.Gender Gender { get; set; }
         /// <summary>
         /// The Gender tip of the product
@@ -39,12 +39,12 @@ namespace BO
         /// <returns></returns>
         public BO.Clothing Clothing { get; set; }
         /// <summary>
-        /// Cloth tip 
+        /// Cloth tipe 
         /// </summary>
         /// <returns></returns>
         public BO.Shoes Shoes { get; set; }
         /// <summary>
-        /// Shoe tip
+        /// Shoe tipe
         /// </summary>
         /// <returns></returns>
         public BO.Color Color { get; set; }
@@ -83,6 +83,7 @@ Amount in cart: {Amount}
 Gender: {Gender}
 Color: {Color}
 Description: {Description}
+In Stock: {InStock}
 {str}
 ";
         }

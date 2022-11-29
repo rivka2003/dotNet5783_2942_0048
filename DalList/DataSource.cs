@@ -127,7 +127,7 @@ namespace Dal
         private static void InitOrder()
         {
             ///A loop that goes through all the places in the list
-            for (int i = 1; i <= 40; i++)
+            for (int i = 1; i <= 20; i++)
             {
                 Order value = new Order()
                 {
@@ -138,11 +138,11 @@ namespace Dal
                     OrderDate = DateTime.Now + new TimeSpan(random.Next(1, 24), random.Next(1, 60), random.Next(0, 60))
                 };
                 /// If the order is within the 80% that were shipped
-                if (i <= 0.8 * 40)
+                if (i <= 0.8 * 20)
                 {
                     value.ShipDate = value.OrderDate + TimeSpan.FromDays(random.Next(2, 4));
                     /// If the order is within the 60% that reached the orderer
-                    if (i <= 0.6 * 40)
+                    if (i <= 0.6 * 20)
                     {
                         value.DeliveryDate = value.ShipDate + TimeSpan.FromDays(random.Next(2, 4));
                     }
@@ -165,20 +165,17 @@ namespace Dal
         private static void InitOrderItem()
         {
             /// A loop that goes through all the places in the list
-            for (int i = 0; i < 40;)
+            for (int i = 0; i < 40; i++)
             {
                 OrderItem orderItem = new OrderItem();
 
-                orderItem.OrderID = Orders[random.Next(0, 40)].ID;
-                /// If this order number exists within the list of order items then generate a new order number
-                while (OrderItems.Exists(i => i.OrderID == orderItem.OrderID))
-                {
-                    orderItem.OrderID = Orders[random.Next(0, 40)].ID;
-                }
-                /// The amount of products in each order
-                int amountOfProducts = random.Next(1, 4);
-                /// A loop that creates in each iteration a new product for the same order number
-                for (int j = 0; j < amountOfProducts; j++)
+                // all the first 20 orders have at list one product
+                if (i < 20)
+                    orderItem.OrderID = Orders[i].ID;
+                else /// If this order number exists within the list of order items then generate a new order number
+                    orderItem.OrderID = Orders[random.Next(0, 20)].ID;
+                // every order that has less than 5 products
+                if (OrderItems.FindAll(item => item.OrderID == orderItem.OrderID).Count() < 5)
                 {
                     Product product = new Product();
                     product = Products[random.Next(0, 10)];// take some product
@@ -188,8 +185,8 @@ namespace Dal
                     orderItem.Price = orderItem.Amount * product.Price;
                     OrderItems.Add(orderItem);
                 }
-                /// Subtracting the amount of products added to the list of order items from i
-                i += amountOfProducts;
+                else
+                    i--;
             }
         }
     }

@@ -22,7 +22,7 @@ namespace BlApi
         /// <returns></returns>
         public BO.Product ProductDetailsForManager(int ID);
         /// <summary>
-        /// The function gets a product from the cart and presenting the details of the product
+        /// The function gets a product from the cart and presenting the details of the product to the customer
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="product"></param>

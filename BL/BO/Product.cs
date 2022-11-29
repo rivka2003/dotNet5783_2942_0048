@@ -36,12 +36,12 @@ namespace BO
         /// <returns></returns>
         public BO.Clothing Clothing { get; set; }
         /// <summary>
-        /// Cloth tip 
+        /// Cloth tipe
         /// </summary>
         /// <returns></returns>
         public BO.Shoes Shoes { get; set; }
         /// <summary>
-        /// Shoe tip
+        /// Shoe tipe
         /// </summary>
         /// <returns></returns>
         public BO.Color Color { get; set; }
