@@ -8,15 +8,23 @@ namespace BlImplementation
     {
         public DalApi.IDal Dal = new Dal.DalList();
         public IBl Ibl = new Bl();
+        /// <summary>
+        /// adding a product with the given id to the cart
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        /// <exception cref="BO.NonFoundObjectBo"></exception>
+        /// <exception cref="BO.NotInStock"></exception>
         public BO.Cart AddProductToCart(BO.Cart cart, int productID)
         {
             DO.Product productDo;
 
-            try
+            try///making sure the oroduct exists in the products list
             { productDo = Dal.Product.Get(productID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
-
+            
             if (productDo.InStock > 0)
             {
                 BO.OrderItem orderItemBo = cart.Items.FirstOrDefault(i => i.ProductID == productID)!;
@@ -45,27 +53,32 @@ namespace BlImplementation
 
             return cart;
         }
-
+        /// <summary>
+        /// making an order
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <exception cref="BO.NonFoundObjectBo"></exception>
+        /// <exception cref="BO.ExistingObjectBo"></exception>
         public void OrderMaking(BO.Cart Item)
         {
             BO.Product productBo = new BO.Product();
 
-            for(int i = 0; i < Item.Items.Count(); i++)
+            for(int i = 0; i < Item.Items.Count(); i++)///for each item
             {
-                try
+                try///try to pu the data in product bo
                 {
                     productBo = Ibl.Product.ProductDetailsForManager(Item.Items[i].ProductID);
                 }
-                catch(DO.NonFoundObjectDo ex)
+                catch(DO.NonFoundObjectDo ex)///if run into issue throw error message
                 { throw new BO.NonFoundObjectBo("", ex); }
 
-                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");///checking if email address is valid
                 MatchCollection matchCollection = regex.Matches(Item.CustomerEmail);
 
                 if (Item.Items[i].Amount > 0 && productBo.InStock > 0 &&  Item.CustomerEmail != " " && 
-                    Item.CustomerName != " " && Item.CustomerAddress != " " && matchCollection.Count < 1)
+                    Item.CustomerName != " " && Item.CustomerAddress != " " && matchCollection.Count < 1)///if all the items details were given and are correct
                 {
-                    BO.Order orderBo = new BO.Order()
+                    BO.Order orderBo = new BO.Order()///initialize with basic values
                     {
                         Status = BO.OrderStatus.Confirmed,
                         OrderDate = DateTime.Now,
@@ -81,7 +94,7 @@ namespace BlImplementation
 
                     int ID;
 
-                    try
+                    try///try to add the made order
                     { ID = Dal.Order.Add(orderDo); }
                     catch(DO.ExistingObjectDo ex)
                     { throw new BO.ExistingObjectBo("", ex); }
@@ -92,51 +105,58 @@ namespace BlImplementation
                     DO.OrderItem orderItemDo = new DO.OrderItem();
                     orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
 
-                    try
+                    try///try to add the made order item
                     { Dal.OrderItem.Add(orderItemDo); }
                     catch (DO.ExistingObjectDo ex)
                     { throw new BO.ExistingObjectBo("", ex); }
 
                     DO.Product productDo = new DO.Product();
 
-                    try
+                    try///try to receive the product according to its id
                     { productDo = Dal.Product.Get(Item.Items[i].ProductID); }
                     catch(DO.NonFoundObjectDo ex)
                     { throw new BO.NonFoundObjectBo("", ex); }
 
                     productDo.InStock -= Item.Items[i].Amount;
 
-                    try
+                    try///try to update the product
                     { Dal.Product.Update(productDo); }
                     catch(DO.NonFoundObjectDo ex)
                     { throw new BO.NonFoundObjectBo("", ex); }
                 }
             }
         }
-
+        /// <summary>
+        /// updating the amount in the recieved cart with the given id to the new amount
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productId"></param>
+        /// <param name="Amount"></param>
+        /// <returns></returns>
+        /// <exception cref="BO.NonFoundObjectBo"></exception>
         public BO.Cart UpdateAmountProduct(BO.Cart cart, int productId, int Amount)
         {
-            if (cart.Items.Exists(i => i.ProductID == productId))
+            if (cart.Items.Exists(i => i.ProductID == productId))///if this product is actually excisting in the given cart
             {
-                for (int i = 0; i < cart.Items.Count(); i++)
+                for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
                 {
-                    if (cart.Items[i].ProductID == productId)
+                    if (cart.Items[i].ProductID == productId)///search the product
                     {
-                        int diffrence = Amount - cart.Items[i].Amount;
-                        if (diffrence != 0)
+                        int diffrence = Amount - cart.Items[i].Amount;///saving the difference between the old and new amount
+                        if (diffrence != 0)///if its just the same skip the process and no changes needed
                         {
-                            if (Amount == 0)
+                            if (Amount == 0)///new amount empty the products
                             {
                                 cart.TotalPrice -= cart.Items[i].TotalPrice;
                                 cart.Items.Remove(cart.Items[i]);
                             }
-                            else if (diffrence < 0)
+                            else if (diffrence < 0)///new amount is smaller
                             {
                                 cart.Items[i].Amount += diffrence; // edding a negitiv number
                                 cart.Items[i].TotalPrice += cart.Items[i].Price * diffrence;
                                 cart.TotalPrice += cart.Items[i].Price * diffrence;
                             }
-                            else
+                            else///new amount is larger
                             {
                                 cart.Items[i].Amount += diffrence;
                                 cart.Items[i].TotalPrice = cart.Items[i].Price * cart.Items[i].Amount;
@@ -147,7 +167,7 @@ namespace BlImplementation
                     }
                 }
             }
-            else
+            else///the product isnt in the cart
                 throw new BO.NonFoundObjectBo();
 
             return cart;
