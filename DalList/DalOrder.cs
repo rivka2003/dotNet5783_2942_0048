@@ -1,6 +1,7 @@
 ﻿using DO;
 using DalApi;
 using static Dal.DataSource;
+using System.Linq;
 
 namespace Dal;
 
@@ -15,33 +16,8 @@ internal class DalOrder : IOrder
     public int Add(Order or)
     {
         or.ID = getOrderSequenceID();
-        DataSource.Orders.Add(or);
+        Orders.Add(or);
         return or.ID;
-    }
-    /// <summary>
-    /// A function that returns all the orders
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<Order> GetAll()
-    {
-        List<Order> NewOrders = new List<Order>();
-        for (int i = 0; i < Orders.Count; i++)
-        {
-            NewOrders.Add(Orders[i]);
-        }
-        return NewOrders;
-    }
-    /// <summary>
-    /// A function that returns a spacific order by the specific ID
-    /// </summary>
-    /// <param name="ID"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public Order Get(int ID)
-    {
-        if (!DataSource.Orders.Exists(i => i.ID == ID))
-            throw new NonFoundObjectDo();
-        return DataSource.Orders.Find(i => i.ID == ID);
     }
     /// <summary>
     /// A function that updats the order by the new parameter that we received
@@ -51,12 +27,12 @@ internal class DalOrder : IOrder
     public void Update(Order or)
     {
         ///if Order dosnt exist throw exception 
-        if (!DataSource.Orders.Exists(i => i.ID == or.ID))
+        if (!Orders.Exists(i => i?.ID == or.ID))
             throw new NonFoundObjectDo();
-        for (int i = 0; i < DataSource.Orders.Count; i++)
+        for (int i = 0; i < Orders.Count; i++)
         {
-            if (or.ID == DataSource.Orders[i].ID)
-                DataSource.Orders[i] = or;
+            if (or.ID == Orders[i]?.ID)
+                Orders[i] = or;
         }
     }
     /// <summary>
@@ -66,6 +42,26 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Orders.Remove(Get(id)); 
+        Orders.Remove(RequestByPredicate(order => order!.Value.ID == id)); 
+    }
+    /// <summary>
+    /// function that gets predicate and checks the condition and returns the collection acordingly
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null!)
+    {
+        bool checkNull = predicate is null;
+        return Orders.Where(order => checkNull ? true : predicate!(order));
+    }
+
+    public Order RequestByPredicate(Func<Order?, bool>? predicate)
+    {
+        if (Orders.FirstOrDefault(predicate!) is Order order)
+        {
+            return order;
+        }
+        throw new NonFoundObjectDo();
     }
 }

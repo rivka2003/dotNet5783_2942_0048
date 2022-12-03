@@ -1,9 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Diagnostics.CodeAnalysis;
-
 namespace BlTest
 {
     internal class Program
@@ -11,7 +8,7 @@ namespace BlTest
         private static IBl blApi = new Bl();
         private static BO.Cart cart = new BO.Cart 
         { CustomerAddress = " ", CustomerEmail = " ", CustomerName = " ", 
-            TotalPrice = 0, Items = new List<OrderItem>()};
+            TotalPrice = 0, Items = null};
         static void Main(string[] args)
         {
             BO.Choice choice = new BO.Choice();
@@ -54,7 +51,7 @@ namespace BlTest
         /// </summary>
         static void ProductSwitch()
         {
-            BO.Product theProduct = new BO.Product();
+            BO.Product theProduct = new Product();
             BO.ProductChoice productChoice = new BO.ProductChoice();
             do
             {
@@ -240,7 +237,7 @@ namespace BlTest
             BO.Color.TryParse(Console.ReadLine(), out cl);
             TheProduct.Color = cl;
             Console.WriteLine("Enter the description of the product:");
-            string str = Console.ReadLine();
+            string str = Console.ReadLine()!;
             TheProduct.Description = str;
         }
         /// <summary>
@@ -248,7 +245,7 @@ namespace BlTest
         /// </summary>
         static void OrderSwitch()
         {
-            BO.Order theOrder = new BO.Order();
+            BO.Order theOrder = new Order();
             BO.OrderChoice orderChoice = new BO.OrderChoice();
             do
             {
@@ -309,7 +306,6 @@ namespace BlTest
         /// </summary>
         static void CartSwitch()
         {
-            BO.Cart theCart = new BO.Cart();
             BO.CartChoice cartChoice = new BO.CartChoice();
             do
             {
@@ -334,7 +330,7 @@ namespace BlTest
                         int.TryParse(Console.ReadLine(), out id);
                         cart = blApi.Cart.AddProductToCart(cart, id);
                         Console.WriteLine("The cart after the addition:");
-                        Console.WriteLine(string.Join("\n", cart.Items));
+                        Console.WriteLine(string.Join("\n", cart.Items!));
                         break;
                     case CartChoice.DeleteAProduct: /// delete a product from the cart
                         Console.WriteLine("Enter the product ID that you want to delete:");
@@ -342,9 +338,9 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
                         /// see if the product exits in the the cart
-                        if (cart.Items.Exists(orderItem => orderItem.ProductID == id1))
+                        if (cart.Items!.Exists(orderItem => orderItem!.ProductID == id1))
                         {
-                            BO.OrderItem orderItem = cart.Items.Find(orderIt => orderIt.ProductID == id1)!;
+                            BO.OrderItem orderItem = cart.Items.Find(orderIt => orderIt!.ProductID == id1)!;
                             cart.Items.Remove(orderItem);
                         }
                         else
@@ -354,7 +350,7 @@ namespace BlTest
                         break;
                     case CartChoice.ProductsInCart: /// return all the products that are in the cart
                         Console.WriteLine("The products that are in the cart are:");
-                        Console.WriteLine(string.Join("\n", cart.Items));
+                        Console.WriteLine(string.Join("\n", cart.Items!));
                         break;
                     case CartChoice.UpdateAmount: /// update the amount of the product that is in the cart
                         Console.WriteLine("Enter the product ID that you want to update it's amount");
@@ -371,24 +367,24 @@ namespace BlTest
                         break;
                     case CartChoice.OrderMaking: /// make the order by the detail of the cart
                         Console.WriteLine("Enter your name:");
-                        string Name = Console.ReadLine();
+                        string Name = Console.ReadLine()!;
                         cart.CustomerName = Name;
                         Console.WriteLine("Enter your email:");
-                        string email = Console.ReadLine();
+                        string email = Console.ReadLine()!;
                         cart.CustomerEmail = email;
                         Console.WriteLine("Enter your address:");
-                        string address = Console.ReadLine();
+                        string address = Console.ReadLine()!;
                         cart.CustomerAddress = address;
                         blApi.Cart.OrderMaking(cart);
                         Console.WriteLine("Succesfuly made!");
-                        cart.Items.Clear();
+                        cart.Items!.Clear();
                         cart.CustomerName = " ";
                         cart.CustomerEmail = " ";
                         cart.CustomerAddress = " ";
                         cart.TotalPrice = 0;
                         break;
                     case CartChoice.EmptyCart: /// empty all the products in the cart
-                        cart.Items.Clear();
+                        cart.Items!.Clear();
                         cart.CustomerName = " ";
                         cart.CustomerEmail = " ";
                         cart.CustomerAddress = " ";

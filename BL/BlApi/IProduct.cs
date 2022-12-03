@@ -14,7 +14,7 @@ namespace BlApi
         /// </summary>
         /// <param name="listOfProducts"></param>
         /// <returns></returns>
-        public IEnumerable<BO.ProductForList> GetAll();
+        public IEnumerable<BO.ProductForList?> GetAll();
         /// <summary>
         /// Return the product details by the ID
         /// </summary>

@@ -1,5 +1,4 @@
 ﻿using DO;
-using System.Collections.Generic;
 
 namespace Dal
 {
@@ -22,14 +21,16 @@ namespace Dal
         /// <summary>
         /// Our three lists
         /// </summary>
-        internal static List<Product> Products = new List<Product>();
-        internal static List<Order> Orders = new List<Order>();
-        internal static List<OrderItem> OrderItems = new List<OrderItem>();
+        internal static List<Product?> Products { set; get; } = new List<Product?>();
+        internal static List<Order?> Orders { set; get; } = new List<Order?>();
+        internal static List<OrderItem?> OrderItems { set; get; } = new List<OrderItem?>();     
+
         static readonly Random random = new Random(); /// for the random numbers
         static DataSource() /// constructor
         {
             s_Initialize();
         }
+
         /// <summary>
         /// A function that calls initialization functions
         /// </summary>
@@ -54,16 +55,17 @@ namespace Dal
             Gender randomGender = new Gender(); SizeClothing randomSizeClothes = new SizeClothing();
             SizeShoes randomSizeShoes = new SizeShoes();
             ///A loop that goes through each element in the list
+            ///
             for (int i = 1; i <= 10; i++)
             {
                 Product value = new Product();
-                randomCategory = (Category)Categories.GetValue(random.Next(Categories.Length));
-                randomGender = (Gender)Genders.GetValue(random.Next(Genders.Length));
-                randomColor = (Color)Colors.GetValue(random.Next(Colors.Length));
+                randomCategory = (Category)Categories.GetValue(random.Next(Categories.Length))!;
+                randomGender = (Gender)Genders.GetValue(random.Next(Genders.Length))!;
+                randomColor = (Color)Colors.GetValue(random.Next(Colors.Length))!;
                 value.Category = randomCategory;
                 value.ID = random.Next(100000, 999999);
                 /// A loop that says that as long as the id exists in the list, it is necessary to generate a new id
-                while (Products.Exists(i => i.ID == value.ID))
+                while (Products.Exists(i => i?.ID == value.ID))
                     value.ID = random.Next(100000, 999999);
                 /// 5% of the products will be empty and there will be no stock of them
                 if (i <= 0.05 * 10)
@@ -83,18 +85,18 @@ namespace Dal
                 ///If the drawn Category is "Clothing"
                 if (randomCategory is (Category)0)
                 {
-                    randomSizeClothes = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length));
+                    randomSizeClothes = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length))!;
                     value.SizeClothing = randomSizeClothes;
                     /// If the Category drawn is "men" or "boys"
                     if (randomGender is (Gender)1 or (Gender)2)
                     {
-                        randomClothes = (Clothing)Clothes.GetValue(random.Next(2, Clothes.Length));
+                        randomClothes = (Clothing)Clothes.GetValue(random.Next(2, Clothes.Length))!;
                         value.Gender = randomGender;
                         value.Clothing = randomClothes;
                     }
                     else
                     {
-                        randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length));
+                        randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length))!;
                         value.Gender = randomGender;
                         value.Clothing = randomClothes;
                     }
@@ -102,18 +104,18 @@ namespace Dal
                 ///If the Category is "Shoes"
                 else
                 {
-                    randomSizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length));
+                    randomSizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length))!;
                     value.SizeShoes = randomSizeShoes;
                     /// If the Category is "Men" or "Boys" or "Girls"
                     if (randomGender is (Gender)1 or (Gender)2 or (Gender)3)
                     {
-                        randomShoes = (Shoes)Shoe.GetValue(random.Next(1, Shoe.Length));
+                        randomShoes = (Shoes)Shoe.GetValue(random.Next(1, Shoe.Length))!;
                         value.Gender = randomGender;
                         value.Shoes = randomShoes;
                     }
                     else
                     {
-                        randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length));
+                        randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length))!;
                         value.Gender = randomGender;
                         value.Shoes = randomShoes;
                     }
@@ -148,13 +150,13 @@ namespace Dal
                     }
                     else
                     {
-                        value.DeliveryDate = DateTime.MinValue;
+                        value.DeliveryDate = null;
                     }
                 }
                 else
                 {
-                    value.ShipDate = DateTime.MinValue;
-                    value.DeliveryDate = DateTime.MinValue;
+                    value.ShipDate = null;
+                    value.DeliveryDate = null;
                 }
                 Orders.Add(value);
             }
@@ -171,14 +173,14 @@ namespace Dal
 
                 // all the first 20 orders have at list one product
                 if (i < 20)
-                    orderItem.OrderID = Orders[i].ID;
+                    orderItem.OrderID = Orders[i]!.Value.ID;
                 else /// If this order number exists within the list of order items then generate a new order number
-                    orderItem.OrderID = Orders[random.Next(0, 20)].ID;
+                    orderItem.OrderID = Orders[random.Next(0, 20)]!.Value.ID;
                 // every order that has less than 5 products
-                if (OrderItems.FindAll(item => item.OrderID == orderItem.OrderID).Count() < 5)
+                if (OrderItems.FindAll(item => item?.OrderID == orderItem.OrderID).Count() < 5)
                 {
                     Product product = new Product();
-                    product = Products[random.Next(0, 10)];// take some product
+                    product = (Product)Products[random.Next(0, 10)]!;// take some product
                     orderItem.ID = getOrderItemSequenceID();
                     orderItem.ProductID = product.ID;
                     orderItem.Amount = random.Next(1, 6);

@@ -1,12 +1,12 @@
 ﻿
 namespace DalApi
 {
-    public interface ICrude <T>
+    public interface ICrude <T> where T: struct
     {
         int Add(T value);
-        IEnumerable<T> GetAll();
-        T Get(int value);
         void Delete(int value);
         void Update(T value);
+        IEnumerable<T?> RequestAllByPredicate(Func<T?, bool>?  predicate = null);
+        T RequestByPredicate(Func<T?, bool>? predicate);
     }
 }

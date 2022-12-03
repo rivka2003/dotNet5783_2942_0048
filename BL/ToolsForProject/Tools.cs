@@ -56,7 +56,7 @@ namespace CopyPropertisTo
         /// <typeparam name="Target"></typeparam>
         /// <param name="sources"></param>
         /// <returns></returns>
-        internal static IEnumerable<Target> CopyPropToList<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+        internal static IEnumerable<Target?> CopyPropToList<Source, Target>(this IEnumerable<Source?> sources) where Target : new()
         {
             return from source in sources
                    select source.CopyPropTo(new Target());
@@ -70,7 +70,7 @@ namespace CopyPropertisTo
         internal static string ToStringProperty<T>(this T property)
         {
             string str = "";
-            var items = property.GetType().GetProperties();
+            var items = property!.GetType().GetProperties();
 
             /// for every property print the name and the value of the priperty
             foreach (PropertyInfo item in items)

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using BlApi;
 using CopyPropertisTo;
 
@@ -22,17 +21,17 @@ namespace BlImplementation
             DO.Product productDo;
 
             try///making sure the oroduct exists in the products list
-            { productDo = Dal.Product.Get(productID); }
+            { productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == productID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
             if (productDo.InStock > 0) /// making sure that ther is any product in stock
             {
-                BO.OrderItem orderItemBo = cart.Items.FirstOrDefault(i => i.ProductID == productID)!;
+                BO.OrderItem orderItemBo = cart.Items!.FirstOrDefault(i => i!.ProductID == productID)!;
 
                 if (orderItemBo is null) /// if there is no items in the cart
                 {
-                    cart.Items.Add(new BO.OrderItem /// insert the order item in to the cart whith basics
+                    cart.Items!.Add(new BO.OrderItem /// insert the order item in to the cart whith basics
                     {
                         ProductID = productID,
                         Name = productDo.Name,
@@ -62,74 +61,65 @@ namespace BlImplementation
         /// <exception cref="BO.ExistingObjectBo"></exception>
         public void OrderMaking(BO.Cart cart)
         {
-            BO.Product productBo = new BO.Product();
-
-            for(int i = 0; i < cart.Items.Count(); i++)///for each item
+            try
             {
-                try///try to pu the data in product bo
+                BO.Product productBo = new BO.Product();
+
+                for (int i = 0; i < cart.Items!.Count(); i++)///for each item
                 {
-                    productBo = Ibl.Product.ProductDetailsForManager(cart.Items[i].ProductID);
-                }
-                catch (DO.NonFoundObjectDo ex)///if run into issue throw error message
-                { throw new BO.NonFoundObjectBo("", ex); }
+                    productBo = Ibl.Product.ProductDetailsForManager(cart.Items![i]!.ProductID);
 
-                if (cart.Items[i].Amount > 0 && productBo.InStock > 0 && cart.CustomerEmail != " " &&
-                    cart.CustomerName != " " && cart.CustomerAddress != " " && new EmailAddressAttribute().IsValid(cart.CustomerEmail) == true)///if all the items details were given and are correct and valid
-                {
-                    BO.Order orderBo = new BO.Order()///initialize with basic values
+                    if (cart.Items[i]!.Amount > 0 && productBo.InStock > 0 && cart.CustomerEmail != " " &&
+                        cart.CustomerName != " " && cart.CustomerAddress != " " && new EmailAddressAttribute().IsValid(cart.CustomerEmail) == true)///if all the items details were given and are correct and valid
                     {
-                        Status = BO.OrderStatus.Confirmed,
-                        OrderDate = DateTime.Now,
-                        DeliveryDate = DateTime.MinValue,
-                        PaymentDate = DateTime.MinValue,
-                        ShipDate = DateTime.MinValue,
-                        Items = cart.Items
-                    };
+                        BO.Order orderBo = new BO.Order()///initialize with basic values
+                        {
+                            Status = BO.OrderStatus.Confirmed,
+                            OrderDate = DateTime.Now,
+                            DeliveryDate = null,
+                            PaymentDate = null,
+                            ShipDate = null,
+                            Items = cart.Items
+                        };
 
-                    orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
-                    DO.Order orderDo = new DO.Order();
-                    orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
+                        orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
+                        DO.Order orderDo = new DO.Order();
+                        orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
 
-                    int ID;
-                    try///try to add the made order
-                    { ID = Dal.Order.Add(orderDo); }
-                    catch (DO.ExistingObjectDo ex)
-                    { throw new BO.ExistingObjectBo("", ex); }
+                        int ID;
+                        ID = Dal.Order.Add(orderDo);
 
-                    BO.OrderItem orderItemBo = new BO.OrderItem()
-                    {
-                        ID = ID,
-                        Name = cart.CustomerName,
-                        ProductID = cart.Items[i].ProductID,
-                        Amount = cart.Items[i].Amount,
-                        Price = cart.Items[i].Price,
-                        TotalPrice = cart.Items[i].TotalPrice
-                    };
-                    DO.OrderItem orderItemDo = new DO.OrderItem();
-                    orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
+                        BO.OrderItem orderItemBo = new BO.OrderItem()
+                        {
+                            ID = ID,
+                            Name = cart.CustomerName,
+                            ProductID = cart.Items[i]!.ProductID,
+                            Amount = cart.Items[i]!.Amount,
+                            Price = cart.Items[i]!.Price,
+                            TotalPrice = cart.Items[i]!.TotalPrice
+                        };
+                        DO.OrderItem orderItemDo = new DO.OrderItem();
+                        orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
+                        Dal.OrderItem.Add(orderItemDo);
 
-                    try///try to add the made order item
-                    { Dal.OrderItem.Add(orderItemDo); }
-                    catch (DO.ExistingObjectDo ex)
-                    { throw new BO.ExistingObjectBo("", ex); }
 
-                    DO.Product productDo = new DO.Product();
+                        DO.Product productDo = new DO.Product();
 
-                    try///try to receive the product according to its id
-                    { productDo = Dal.Product.Get(cart.Items[i].ProductID); }
-                    catch (DO.NonFoundObjectDo ex)
-                    { throw new BO.NonFoundObjectBo("", ex); }
+                        productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == cart.Items[i]!.ProductID);
 
-                    productDo.InStock -= cart.Items[i].Amount;
+                        productDo.InStock -= cart.Items[i]!.Amount;
 
-                    try///try to update the product
-                    { Dal.Product.Update(productDo); }
-                    catch (DO.NonFoundObjectDo ex)
-                    { throw new BO.NonFoundObjectBo("", ex); }
+                        Dal.Product.Update(productDo);
+                    }
+                    else
+                        throw new BO.NotValid();
                 }
-                else
-                    throw new BO.NotValid();
             }
+            catch (DO.NonFoundObjectDo ex)///if run into issue throw error message
+            { throw new BO.NonFoundObjectBo("", ex); }
+            catch (DO.ExistingObjectDo ex)
+            { throw new BO.ExistingObjectBo("", ex); }
+
         }
         /// <summary>
         /// updating the amount in the recieved cart with the given id to the new amount
@@ -141,31 +131,31 @@ namespace BlImplementation
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         public BO.Cart UpdateAmountProduct(BO.Cart cart, int productId, int Amount)
         {
-            if (cart.Items.Exists(i => i.ProductID == productId))///if this product is actually excisting in the given cart
+            if (cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
             {
                 for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
                 {
-                    if (cart.Items[i].ProductID == productId)///search the product
+                    if (cart.Items[i]!.ProductID == productId)///search the product
                     {
-                        int diffrence = Amount - cart.Items[i].Amount;///saving the difference between the old and new amount
+                        int diffrence = Amount - cart.Items[i]!.Amount;///saving the difference between the old and new amount
                         if (diffrence != 0)///if its just the same skip the process and no changes needed
                         {
                             if (Amount == 0)///new amount empty the products
                             {
-                                cart.TotalPrice -= cart.Items[i].TotalPrice;
+                                cart.TotalPrice -= cart.Items[i]!.TotalPrice;
                                 cart.Items.Remove(cart.Items[i]);
                             }
                             else if (diffrence < 0)///new amount is smaller
                             {
-                                cart.Items[i].Amount += diffrence; // edding a negitiv number
-                                cart.Items[i].TotalPrice += cart.Items[i].Price * diffrence;
-                                cart.TotalPrice += cart.Items[i].Price * diffrence;
+                                cart.Items[i]!.Amount += diffrence; // edding a negitiv number
+                                cart.Items[i]!.TotalPrice += cart.Items[i]!.Price * diffrence;
+                                cart.TotalPrice += cart.Items[i]!.Price * diffrence;
                             }
                             else///new amount is larger
                             {
-                                cart.Items[i].Amount += diffrence;
-                                cart.Items[i].TotalPrice = cart.Items[i].Price * cart.Items[i].Amount;
-                                cart.TotalPrice += cart.Items[i].ProductID * diffrence;
+                                cart.Items[i]!.Amount += diffrence;
+                                cart.Items[i]!.TotalPrice = cart.Items[i]!.Price * cart.Items[i]!.Amount;
+                                cart.TotalPrice += cart.Items[i]!.ProductID * diffrence;
                             }
                         }
                         break;

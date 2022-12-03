@@ -16,11 +16,11 @@ namespace BO
         /// <summary>
         /// The Status of the order
         /// </summary>
-        public BO.OrderStatus Status { get; set; }
+        public BO.OrderStatus? Status { get; set; }
         /// <summary>
         /// List of tuple
         /// </summary>
-        public List<(DateTime, BO.OrderStatus)>  OrderProgress { get; set; }
+        public List<(DateTime?, BO.OrderStatus?)>?  OrderProgress { get; set; }
         public override string ToString() => $@"
 ID: {ID}
 Status: {Status}

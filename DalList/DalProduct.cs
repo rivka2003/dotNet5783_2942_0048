@@ -13,35 +13,10 @@ internal class DalProduct : IProduct
     public int Add(Product pro)
     {
         //if product exist throw exception 
-        if (DataSource.Products.Exists(i => i.ID == pro.ID))
+        if (DataSource.Products.Exists(i => i!.Value.ID == pro.ID))
             throw new ExistingObjectDo();
         DataSource.Products.Add(pro);
         return pro.ID;
-    }
-    /// <summary>
-    /// A function that returns all the products
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<Product> GetAll()
-    {
-        List<Product> NewProducts = new List<Product>();
-        for (int i = 0; i < DataSource.Products.Count; i++)
-        {
-            NewProducts.Add(DataSource.Products[i]);
-        }
-        return NewProducts;
-    }
-    /// <summary>
-    /// A function that returns a spacific product by the ID
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public Product Get(int id)
-    {
-        if (!DataSource.Products.Exists(i => i.ID == id))
-            throw new NonFoundObjectDo();
-        return DataSource.Products.Find(i => i.ID == id);
     }
     /// <summary>
     /// A function that updats the product by the new parameter that we received
@@ -51,14 +26,15 @@ internal class DalProduct : IProduct
     public void Update(Product pro)
     {
         ///if product dosnt exist throw exception 
-        if (!DataSource.Products.Exists(i => i.ID == pro.ID))
+        if (!DataSource.Products.Exists(i => i!.Value.ID == pro.ID))
             throw new NonFoundObjectDo();
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
-            if (pro.ID == DataSource.Products[i].ID)
+            if (pro.ID == DataSource.Products[i]!.Value.ID)
                 DataSource.Products[i] = pro;
         }
     }
+
     /// <summary>
     /// A function to delete the product that we have received his ID
     /// </summary>
@@ -66,6 +42,26 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Products.Remove(Get(id));
+        DataSource.Products.Remove(RequestByPredicate(product => product!.Value.ID == id));
+    }
+    /// <summary>
+    /// function that gets predicate and checks the condition and returns the collection acordingly
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? predicate = null)
+    {
+        bool checkNull = predicate is null;
+        return DataSource.Products.Where(product => checkNull ? true : predicate!(product));
+    }
+
+    public Product RequestByPredicate(Func<Product?, bool>? predicate)
+    {
+        if (DataSource.Products.FirstOrDefault(predicate!) is Product product)
+        {
+            return product;
+        }
+        throw new NonFoundObjectDo();
     }
 }

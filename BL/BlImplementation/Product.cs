@@ -9,9 +9,9 @@ namespace BlImplementation
         /// returning all the products as a collection
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.ProductForList> GetAll()
+        public IEnumerable<BO.ProductForList?> GetAll()
         {
-            return Dal.Product.GetAll().CopyPropToList<DO.Product, BO.ProductForList>();
+            return Dal.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, BO.ProductForList>();
         }
         /// <summary>
         /// returning the details of an order needed for a manager view
@@ -25,7 +25,7 @@ namespace BlImplementation
             BO.Product productBo = new BO.Product();
             DO.Product productDo;
             try /// trying to get the product from the Dal
-            { productDo = Dal.Product.Get(ID);
+            { productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID);
             }
             catch(DO.NonFoundObjectDo ex) 
             { throw new BO.NonFoundObjectBo("", ex); }
@@ -50,14 +50,14 @@ namespace BlImplementation
             DO.Product proDo;
 
             try /// tryng to get the product from the Dal
-            { proDo = Dal.Product.Get(ID); }
+            { proDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
             if (ID > 0) /// checking that the ID is valid
             {
                 proDo.CopyPropTo(proItm);
-                BO.OrderItem orderItem = cart.Items.FirstOrDefault(i => i.ID == ID)!;
+                BO.OrderItem orderItem = cart.Items!.FirstOrDefault(i => i!.ID == ID)!;
                 if (orderItem is not null) ///checking if there are any items in the cart
                 {
                     proItm.Amount = orderItem.Amount;
@@ -103,7 +103,7 @@ namespace BlImplementation
         public void DeleteProduct(int ID) 
         {
             /// checking by predicat if there are any orders that contains this product right now
-           if (Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem.ProductID == ID).Any())
+           if (Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem?.ProductID == ID).Any())
            {
                 try /// trying to delete the product from the DO
                 {
@@ -127,7 +127,7 @@ namespace BlImplementation
             DO.Product productDo;
             try /// trying to get the product from the Dal
             {
-               productDo =  Dal.Product.Get(updateProduct.ID);
+               productDo =  Dal.Product.RequestByPredicate(product => product!.Value.ID == updateProduct.ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }

@@ -15,7 +15,7 @@ namespace BO
         /// <summary>
         /// The name of the product
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// The price of the product
         /// </summary>
@@ -23,7 +23,7 @@ namespace BO
         /// <summary>
         /// The Category of the product
         /// </summary>
-        public BO.Category Category { get; set; }
+        public BO.Category? Category { get; set; }
         /// <summary>
         /// The amount of the product that in the cart
         /// </summary>
@@ -31,37 +31,37 @@ namespace BO
         /// <summary>
         /// If the product is in stock or not
         /// </summary>
-        public InStock InStock { get; set; }
-        public BO.Gender Gender { get; set; }
+        public BO.InStock? InStock { get; set; }
+        public BO.Gender? Gender { get; set; }
         /// <summary>
         /// The Gender tip of the product
         /// </summary>
         /// <returns></returns>
-        public BO.Clothing Clothing { get; set; }
+        public BO.Clothing? Clothing { get; set; }
         /// <summary>
         /// Cloth tipe 
         /// </summary>
         /// <returns></returns>
-        public BO.Shoes Shoes { get; set; }
+        public BO.Shoes? Shoes { get; set; }
         /// <summary>
         /// Shoe tipe
         /// </summary>
         /// <returns></returns>
-        public BO.Color Color { get; set; }
+        public BO.Color? Color { get; set; }
         /// <summary>
         /// The Color of the product
         /// </summary>
         /// <returns></returns>
-        public BO.SizeClothing SizeClothing { get; set; }
+        public BO.SizeClothing? SizeClothing { get; set; }
         /// <summary>
         /// The size of the Clothing
         /// </summary>
-        public BO.SizeShoes SizeShoes { get; set; }
+        public BO.SizeShoes? SizeShoes { get; set; }
         /// <summary>
         /// The size of the Shoes
         /// </summary>
         /// <returns></returns>
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// The Description of the product
         /// </summary>
@@ -72,7 +72,7 @@ namespace BO
 @$"Clothing : {Clothing}
 Size of Clothing: {SizeClothing}" :
 @$"Shoes: {Shoes} 
-Size of Shoes: {(int)SizeShoes}";
+Size of Shoes: {(SizeShoes.HasValue ? (int)SizeShoes : 0)}";
 
             return $@"
 ID: {ID}

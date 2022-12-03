@@ -13,7 +13,7 @@ namespace BlApi
         /// </summary>
         /// <param name="listOfOrders"></param>
         /// <returns></returns>
-        public IEnumerable<BO.OrderForList> GetAll();
+        public IEnumerable<BO.OrderForList?> GetAll();
         /// <summary>
         /// Request order details of the order by the given ID and returns the order object
         /// </summary>
