@@ -1,25 +1,28 @@
-﻿using BO;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace CopyPropertisTo
 {
     static internal class Tools
     {
+        /// <summary>
+        ///  a function that copy frome the "source" to the "target" (two different objects) the same properties
+        /// </summary>
+        /// <typeparam name="Source"></typeparam>
+        /// <typeparam name="Target"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         internal static Target CopyPropTo<Source, Target>(this Source source, Target target)
         {
+            ///getting the target properties
             Dictionary<string, PropertyInfo> propertyInfoTarget = target!.GetType().GetProperties().ToDictionary(p => p.Name, p => p);
+            ///getting the source properties
             IEnumerable<PropertyInfo> propertyInfoSource = source!.GetType().GetProperties();
 
+            /// for every property tha is in the source
             foreach (var sourcePropertyInfo in propertyInfoSource)
             {
+                ///checks if the target conteins the property info to reset the property
                 if (propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name)
                     && (sourcePropertyInfo.PropertyType == propertyInfoTarget[sourcePropertyInfo.Name].PropertyType
                     || sourcePropertyInfo.PropertyType.IsEnum)
@@ -30,7 +33,14 @@ namespace CopyPropertisTo
             }
             return target;
         }
-
+        /// <summary>
+        /// a function that is sending the "target" as object when the "target" is a struct
+        /// </summary>
+        /// <typeparam name="Source"></typeparam>
+        /// <typeparam name="Target"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         internal static Target CopyPropToStruct<Source, Target>(this Source source, Target target) where Target : struct
         {
             object obj = target;
@@ -39,24 +49,30 @@ namespace CopyPropertisTo
 
             return (Target)obj;
         }
-
-        internal static IEnumerable<Target> CopyPropToList<Source, Target>(this IEnumerable<Source> sources) where Target : new()
+        /// <summary>
+        /// copy the list of "sources" to a new list of "targets" 
+        /// </summary>
+        /// <typeparam name="Source"></typeparam>
+        /// <typeparam name="Target"></typeparam>
+        /// <param name="sources"></param>
+        /// <returns></returns>
+        internal static IEnumerable<Target?> CopyPropToList<Source, Target>(this IEnumerable<Source?> sources) where Target : new()
         {
             return from source in sources
                    select source.CopyPropTo(new Target());
         }
-
-        internal static IEnumerable<Target> CopyPropToListOfStruct<Source, Target>(this IEnumerable<Source> sources) where Target : struct
-        {
-            return from source in sources
-                   select source.CopyPropTo(new Target());
-        }
-
+        /// <summary>
+        /// an extention method for to string function
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <returns></returns>
         internal static string ToStringProperty<T>(this T property)
         {
             string str = "";
-            var items = property.GetType().GetProperties();
+            var items = property!.GetType().GetProperties();
 
+            /// for every property print the name and the value of the priperty
             foreach (PropertyInfo item in items)
             {
                 //if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) 

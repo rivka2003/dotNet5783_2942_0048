@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    public enum InStock { No, Yes }
     public enum Category { Clothing, Shoes }
     public enum OrderStatus { Confirmed, Shipped, Delivered }
     public enum Gender { Women, Men, Boys, Girls }
@@ -17,5 +19,5 @@ namespace BO
     public enum Choice { Exit, Product, Order, Cart }
     public enum ProductChoice { Exit, Add, PrintDaetailsForCustomer, PrintDetailsForManagaer, PrintList, Updat, Delete }
     public enum OrderChoice { Exit, PrintOrderDetails, PrintTheList, UpdateShipDate, UpdateDeliveryDate, TrackingOrder }
-    public enum CartChoice { Exit, AddProduct, UpdateAmount, OrderMaking}
+    public enum CartChoice { Exit, AddProduct, DeleteAProduct, ProductsInCart, UpdateAmount, OrderMaking, EmptyCart}
 }

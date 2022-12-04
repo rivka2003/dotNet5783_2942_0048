@@ -1,8 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
-using System.Diagnostics.CodeAnalysis;
-
 namespace BlTest
 {
     internal class Program
@@ -10,7 +8,7 @@ namespace BlTest
         private static IBl blApi = new Bl();
         private static BO.Cart cart = new BO.Cart 
         { CustomerAddress = " ", CustomerEmail = " ", CustomerName = " ", 
-            TotalPrice = 0, Items = new List<OrderItem>()};
+            TotalPrice = 0, Items = null};
         static void Main(string[] args)
         {
             BO.Choice choice = new BO.Choice();
@@ -24,24 +22,28 @@ namespace BlTest
 3: Cart");
                 /// Conversion of the received value to the desired type
                 BO.Choice.TryParse(Console.ReadLine(), out choice);
-                switch (choice)///choose option from the main menu:
+                try
                 {
-                    case BO.Choice.Exit:
-                        break;
-                    case BO.Choice.Product:
-                       ProductSwitch();///jump to inner menu of product's actions
-                        break;
-                    case BO.Choice.Order:
-                       OrderSwitch();///jump to inner menu of order's actions
-                        break;
-                    case BO.Choice.Cart:
-                        CartSwitch();///jump to inner menu of cart's actions
-                        break;
-                    default:
-                        break;
+                    switch (choice)///choose option from the main menu:
+                    {
+                        case BO.Choice.Exit:
+                            break;
+                        case BO.Choice.Product:
+                            ProductSwitch();///jump to inner menu of product's actions
+                            break;
+                        case BO.Choice.Order:
+                            OrderSwitch();///jump to inner menu of order's actions
+                            break;
+                        case BO.Choice.Cart:
+                            CartSwitch();///jump to inner menu of cart's actions
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                catch (Exception ex)
+                { Console.WriteLine(ex); }
             } while (choice != 0);
-
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace BlTest
         /// </summary>
         static void ProductSwitch()
         {
-            BO.Product theProduct = new BO.Product();
+            BO.Product theProduct = new Product();
             BO.ProductChoice productChoice = new BO.ProductChoice();
             do
             {
@@ -74,14 +76,7 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
                         theProduct.ID = id;
-
-                        try
-                        { blApi.Product.AddProduct(theProduct); }
-                        catch (BO.NotValid ex)
-                        { Console.WriteLine(ex.Message); }
-                        catch (BO.ExistingObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-
+                        blApi.Product.AddProduct(theProduct);
                         Console.WriteLine("The product ID is:");
                         Console.WriteLine(theProduct.ID);
                         break;
@@ -90,28 +85,14 @@ namespace BlTest
                         int id1;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
-
-                        try
-                        { Console.WriteLine(blApi.Product.ProductDetailsForCustomer(id1, cart)); }
-                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-                        catch (BO.NotValid ex)
-                        { Console.WriteLine(ex.Message); }
-
+                        Console.WriteLine(blApi.Product.ProductDetailsForCustomer(id1, cart));
                         break;
                     case BO.ProductChoice.PrintDetailsForManagaer: // print the product details for manager with the recieved id
                         Console.WriteLine("Enter the product ID:");
                         int id2;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
-
-                        try
-                        { Console.WriteLine(blApi.Product.ProductDetailsForManager(id2)); }
-                        catch (BO.NonFoundObjectBo ex) when(ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-                        catch(BO.NotValid ex)
-                        { Console.WriteLine(ex.Message); }
-
+                        Console.WriteLine(blApi.Product.ProductDetailsForManager(id2));
                         break;
                     case BO.ProductChoice.PrintList: ///printing the full product list
                         foreach (var pro in blApi.Product.GetAll())
@@ -122,68 +103,42 @@ namespace BlTest
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
-
-                        try
-                        { Console.WriteLine(blApi.Product.ProductDetailsForManager(id3)); }
-                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-                        catch(BO.NotValid ex)
-                        { Console.WriteLine(ex.Message); }
-
+                        Console.WriteLine(blApi.Product.ProductDetailsForManager(id3));
                         theProduct.ID = id3;
                         creatProduct(ref theProduct);
                         Console.WriteLine("The updated product is:");
-
-                        try
-                        {
-                            Console.WriteLine(blApi.Product.UpdateProduct(theProduct));
-                        }
-                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-                        catch (BO.NotValid ex)
-                        { Console.WriteLine(ex.Message); }
-
+                        Console.WriteLine(blApi.Product.UpdateProduct(theProduct));
                         break;
                     case BO.ProductChoice.Delete: ///deleting the product according to the recieved id
                         Console.WriteLine("Enter the ID of the product that you wants to delete:");
                         int id4;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id4);
-
-                        try
-                        { blApi.Product.DeleteProduct(id4); }
-                        catch (BO.NonFoundObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-                        catch(BO.ExistingObjectBo ex) when (ex.InnerException is not null)
-                        { Console.WriteLine(ex.InnerException.Message); }
-
+                        blApi.Product.DeleteProduct(id4);
                         break;
                     default:
                         break;
                 }
             } while (productChoice != 0);
         }
-
+        /// <summary>
+        /// a function that makes a product by the input 
+        /// </summary>
+        /// <param name="TheProduct"></param>
        static void creatProduct(ref BO.Product TheProduct)
         {
             Console.WriteLine("Enter the product details:");
             Console.WriteLine("Enter the name of the product: ");
             TheProduct.Name = Console.ReadLine();
-            if (TheProduct.Name == " ")
-                throw new BO.NotValid();
             Console.WriteLine("Enter the price of the product:");
             double price;
             /// Conversion of the received value to the desired type
             double.TryParse(Console.ReadLine(), out price);
-            if (price < 0)
-                throw new BO.NotValid();
             TheProduct.Price = price;
             Console.WriteLine("Enter the amount that in stock:");
             int inStock;
             /// Conversion of the received value to the desired type
             int.TryParse(Console.ReadLine(), out inStock);
-            if (inStock < 0)
-                throw new BO.NotValid();
             TheProduct.InStock = inStock;
             Console.WriteLine($@"Enter the Gender type:
 0: Women
@@ -282,13 +237,15 @@ namespace BlTest
             BO.Color.TryParse(Console.ReadLine(), out cl);
             TheProduct.Color = cl;
             Console.WriteLine("Enter the description of the product:");
-            string str = Console.ReadLine();
+            string str = Console.ReadLine()!;
             TheProduct.Description = str;
         }
-
+        /// <summary>
+        /// A function within which all the user's choices are handled
+        /// </summary>
         static void OrderSwitch()
         {
-            BO.Order theOrder = new BO.Order();
+            BO.Order theOrder = new Order();
             BO.OrderChoice orderChoice = new BO.OrderChoice();
             do
             {
@@ -310,10 +267,7 @@ namespace BlTest
                         int id;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
-                        try
-                        { Console.WriteLine(blApi.Order.OrderDetails(id)); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
+                        Console.WriteLine(blApi.Order.OrderDetails(id));
                         break;
                     case BO.OrderChoice.PrintTheList: ///printing the full order list
                         foreach (var or in blApi.Order.GetAll())
@@ -325,12 +279,7 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
                         Console.WriteLine("The updeted order is:");
-                        try
-                        { Console.WriteLine(blApi.Order.UpdeteShipDate(id1)); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        catch (BO.AlreadyUpdated)
-                        { }
+                        Console.WriteLine(blApi.Order.UpdeteShipDate(id1));
                         break;
                     case BO.OrderChoice.UpdateDeliveryDate: ///update the delivery date
                         Console.WriteLine("Enter the ID of the order that you want to update the ship date:");
@@ -338,105 +287,113 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
                         Console.WriteLine("The updeted order is:");
-                        try
-                        { Console.WriteLine(blApi.Order.UpdateDeliveryDate(id2)); }
-                        catch (BO.NonFoundObjectBo)
-                        { }
-                        catch (BO.AlreadyUpdated)
-                        { }
+                        Console.WriteLine(blApi.Order.UpdateDeliveryDate(id2));
                         break;
                     case BO.OrderChoice.TrackingOrder: ///prints the tracking status
                         Console.WriteLine("Enter the ID of the order that you wants to get the tracking status:");
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
-                        try
-                        { Console.WriteLine(blApi.Order.TrackingOrder(id3)); }
-                        catch (BO.NotInStock)
-                        { }
+                        Console.WriteLine(blApi.Order.TrackingOrder(id3));
                         break;
                     default:
                         break;
                 }
             } while (orderChoice != 0);
         }
-
+        /// <summary>
+        /// A function within which all the user's choices are handled
+        /// </summary>
         static void CartSwitch()
         {
-            BO.Cart theCart = new BO.Cart();
             BO.CartChoice cartChoice = new BO.CartChoice();
             do
             {
                 Console.WriteLine($@"Enter your Choice:
 0: Exit
 1: Add a product
-2: Update the amount of the product
-3: Make a new order");
+2: Delete a product
+3: The products int the cart
+4: Update the amount of the product
+5: Make a new order
+6. Empty the cart");
                 /// Conversion of the received value to the desired type
                 BO.CartChoice.TryParse(Console.ReadLine(), out cartChoice);
                 switch (cartChoice)
                 {
                     case CartChoice.Exit:
                         return;
-                    case CartChoice.AddProduct:
+                    case CartChoice.AddProduct:/// add a product to the cart
                         Console.WriteLine("Enter the product ID that you want to add:");
                         int id;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
-                        try
-                        { cart = blApi.Cart.AddProductToCart(cart, id); }
-                        catch (BO.NonFoundObjectBo)
-                        {}
-                        catch (BO.NotInStock)
-                        {}
+                        cart = blApi.Cart.AddProductToCart(cart, id);
                         Console.WriteLine("The cart after the addition:");
-                        Console.WriteLine(cart);
+                        Console.WriteLine(string.Join("\n", cart.Items!));
                         break;
-                    case CartChoice.UpdateAmount:
-                        Console.WriteLine("Enter the product ID that you want to update it's amount");
+                    case CartChoice.DeleteAProduct: /// delete a product from the cart
+                        Console.WriteLine("Enter the product ID that you want to delete:");
                         int id1;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
+                        /// see if the product exits in the the cart
+                        if (cart.Items!.Exists(orderItem => orderItem!.ProductID == id1))
+                        {
+                            BO.OrderItem orderItem = cart.Items.Find(orderIt => orderIt!.ProductID == id1)!;
+                            cart.Items.Remove(orderItem);
+                        }
+                        else
+                            throw new BO.NonFoundObjectBo(); 
+                        Console.WriteLine("The cart after the deletion:");
+                        Console.WriteLine(string.Join("\n", cart.Items));
+                        break;
+                    case CartChoice.ProductsInCart: /// return all the products that are in the cart
+                        Console.WriteLine("The products that are in the cart are:");
+                        Console.WriteLine(string.Join("\n", cart.Items!));
+                        break;
+                    case CartChoice.UpdateAmount: /// update the amount of the product that is in the cart
+                        Console.WriteLine("Enter the product ID that you want to update it's amount");
+                        int id2;
+                        /// Conversion of the received value to the desired type
+                        int.TryParse(Console.ReadLine(), out id2);
                         Console.WriteLine("Enter the new amount:");
                         int amount;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out amount);
-                        try
-                        { cart = blApi.Cart.UpdateAmountProduct(cart, id1, amount); }
-                        catch(BO.NonFoundObjectBo)
-                        { }
-                        catch(BO.SameAmount)
-                        { }
+                        cart = blApi.Cart.UpdateAmountProduct(cart, id2, amount);
                         Console.WriteLine("The cart after the update:");
                         Console.WriteLine(cart);
                         break;
-                    case CartChoice.OrderMaking:
-                        try
-                        { blApi.Cart.OrderMaking(cart); }
-                        catch(BO.NonFoundObjectBo)
-                        { }
-                        catch(BO.ExistingObjectBo)
-                        { }
+                    case CartChoice.OrderMaking: /// make the order by the detail of the cart
                         Console.WriteLine("Enter your name:");
-                        string Name = Console.ReadLine();
+                        string Name = Console.ReadLine()!;
                         cart.CustomerName = Name;
                         Console.WriteLine("Enter your email:");
-                        string email = Console.ReadLine();
+                        string email = Console.ReadLine()!;
                         cart.CustomerEmail = email;
                         Console.WriteLine("Enter your address:");
-                        string address = Console.ReadLine();
+                        string address = Console.ReadLine()!;
                         cart.CustomerAddress = address;
+                        blApi.Cart.OrderMaking(cart);
                         Console.WriteLine("Succesfuly made!");
+                        cart.Items!.Clear();
+                        cart.CustomerName = " ";
+                        cart.CustomerEmail = " ";
+                        cart.CustomerAddress = " ";
+                        cart.TotalPrice = 0;
+                        break;
+                    case CartChoice.EmptyCart: /// empty all the products in the cart
+                        cart.Items!.Clear();
+                        cart.CustomerName = " ";
+                        cart.CustomerEmail = " ";
+                        cart.CustomerAddress = " ";
+                        cart.TotalPrice = 0;
                         break;
                     default:
                         break;
                 }
             } while (cartChoice != 0);
-        }
-
-        static void CheckInput(string str)
-        {
-            
         }
     }
 }

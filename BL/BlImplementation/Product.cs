@@ -9,9 +9,9 @@ namespace BlImplementation
         /// returning all the products as a collection
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.ProductForList> GetAll()
+        public IEnumerable<BO.ProductForList?> GetAll()
         {
-            return Dal.Product.GetAll().CopyPropToList<DO.Product, BO.ProductForList>();
+            return Dal.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, BO.ProductForList>();
         }
         /// <summary>
         /// returning the details of an order needed for a manager view
@@ -24,54 +24,50 @@ namespace BlImplementation
         {
             BO.Product productBo = new BO.Product();
             DO.Product productDo;
-            try
-            { productDo = Dal.Product.Get(ID);
+            try /// trying to get the product from the Dal
+            { productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID);
             }
             catch(DO.NonFoundObjectDo ex) 
             { throw new BO.NonFoundObjectBo("", ex); }
 
-            if (ID > 0)
+            if (ID > 0) /// checking that the ID is valid
             {
-                productDo.CopyPropTo(productBo);
+                productDo.CopyPropTo(productBo); ///copyng product from DO to BO
             }
             else
                 throw new BO.NotValid();
             return productBo;
         }
         /// <summary>
-        /// returning the details of an order needed for a customer view
+        /// The function gets a product from the cart and presenting the details of the product to the customer
         /// </summary>
         /// <param name="ID"></param>
-        /// <param name="cart"></param>
+        /// <param name="product"></param>
         /// <returns></returns>
-        /// <exception cref="BO.NonFoundObjectBo"></exception>
-        /// <exception cref="BO.NotValid"></exception>
         public BO.ProductItem ProductDetailsForCustomer(int ID, BO.Cart cart)
         {
             BO.ProductItem proItm = new BO.ProductItem();
             DO.Product proDo;
 
-            try
-            { proDo = Dal.Product.Get(ID); }
+            try /// tryng to get the product from the Dal
+            { proDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
-            if (ID > 0)
+            if (ID > 0) /// checking that the ID is valid
             {
                 proDo.CopyPropTo(proItm);
-                BO.OrderItem orderItem = cart.Items.FirstOrDefault(i => i.ID == ID)!;
-
-                if (orderItem is not null)
+                BO.OrderItem orderItem = cart.Items!.FirstOrDefault(i => i!.ID == ID)!;
+                if (orderItem is not null) ///checking if there are any items in the cart
                 {
                     proItm.Amount = orderItem.Amount;
                 }
-
-                if (proDo.InStock != 0)
+                if (proDo.InStock != 0) ///checking that the stock is not empty
                 {
-                    proItm.InStock = true;
+                    proItm.InStock = BO.InStock.Yes;
                 }
             }
-            else
+            else /// if the ID is not valid..
                 throw new BO.NotValid();
             return proItm;
         }
@@ -84,17 +80,18 @@ namespace BlImplementation
         public void AddProduct(BO.Product productBo)
         {
             DO.Product productDo = new DO.Product();
+            /// checking if all the product details are valid
             if (productBo.ID > 0 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
             {
                 productDo = productBo.CopyPropToStruct(productDo);
                 productDo.Status = DO.Status.Exist;
 
-                try
+                try /// tryng to add the product in to the list in the DO
                 { Dal.Product.Add(productDo); }
                 catch (DO.ExistingObjectDo ex)
                 { throw new BO.ExistingObjectBo("", ex); }
             }
-            else
+            else /// if one of the details is not valid
                 throw new BO.NotValid();
         }
         /// <summary>
@@ -105,17 +102,18 @@ namespace BlImplementation
         /// <exception cref="BO.ExistingObjectBo"></exception>
         public void DeleteProduct(int ID) 
         {
-           if (!Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem.ProductID == ID).Any())
+            /// checking by predicat if there are any orders that contains this product right now
+           if (Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem?.ProductID == ID).Any())
            {
-                try
+                try /// trying to delete the product from the DO
                 {
                     Dal.Product.Delete(ID);
                 }
                 catch(DO.NonFoundObjectDo ex)
                 { throw new BO.NonFoundObjectBo("", ex); }
            }
-           else
-              throw new BO.ExistingObjectBo();
+           else /// if there is any order with this product
+              throw new BO.InExistingOrder();
         }
         /// <summary>
         /// updating a product according to the new product with same id that was recieved
@@ -127,24 +125,24 @@ namespace BlImplementation
         public BO.Product UpdateProduct(BO.Product updateProduct)
         {
             DO.Product productDo;
-            try
+            try /// trying to get the product from the Dal
             {
-               productDo =  Dal.Product.Get(updateProduct.ID);
+               productDo =  Dal.Product.RequestByPredicate(product => product!.Value.ID == updateProduct.ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
-
+            /// checking if all the fields in the product are valid
             if (updateProduct.ID > 0 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
             {
                 productDo = updateProduct.CopyPropToStruct(productDo);
                 productDo.Status = DO.Status.Exist;
 
-                try
+                try /// trying to update the product in the DO
                 { Dal.Product.Update(productDo); }
                 catch (DO.NonFoundObjectDo ex)
                 { throw new BO.NonFoundObjectBo("", ex); }
             }
-            else
+            else /// if even one of the fields is not valid
                 throw new BO.NotValid();
             return updateProduct;
         }

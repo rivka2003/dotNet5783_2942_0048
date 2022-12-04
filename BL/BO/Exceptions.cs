@@ -11,7 +11,7 @@ namespace BO
         protected NonFoundObjectBo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
             $@"NonFoundObjectBo: The BO object does not exist!
-               NonFoundObjectDo: The DO object does not exist! 
+NonFoundObjectDo: The DO object does not exist! 
             ";
     }
 
@@ -23,7 +23,7 @@ namespace BO
         protected ExistingObjectBo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
             $@"ExistingObjectBo: The BO object is already exist!
-               ExistingObjectDo: The DO object is already exist! 
+ExistingObjectDo: The DO object is already exist! 
             ";
     }
 
@@ -57,13 +57,13 @@ namespace BO
             "AlreadyUpdated: The date has already updated!";
     }
 
-    public class SameAmount : Exception
+    public class InExistingOrder : Exception
     {
-        public SameAmount() : base() { }
-        public SameAmount(string message) : base(message) { }
-        public SameAmount(string message, Exception inner) : base(message, inner) { }
-        protected SameAmount(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public InExistingOrder() : base() { }
+        public InExistingOrder(string message) : base(message) { }
+        public InExistingOrder(string message, Exception inner) : base(message, inner) { }
+        protected InExistingOrder(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            "SameAmount: The amount is just the same!";
+            "InExistingOrder: The product exists in another order";
     }
 }

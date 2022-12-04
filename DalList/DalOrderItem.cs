@@ -19,27 +19,6 @@ internal class DalOrderItem : IOrderItem
         return orIt.ID;
     }
     /// <summary>
-    /// A function that returns all the orderItems
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<OrderItem> GetAll()
-    {
-        return RequestAllByPredicate();
-    }
-
-    /// <summary>
-    /// A function that returns a spacific orderItem by the specific ID
-    /// </summary>
-    /// <param name="ID"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public OrderItem Get(int ID)
-    {
-        if (!DataSource.OrderItems.Exists(i => i.ID == ID))
-            throw new NonFoundObjectDo();
-        return DataSource.OrderItems.Find(i => i.ID == ID);
-    }
-    /// <summary>
     /// The function returns the value by the order ID and the product ID
     /// </summary>
     /// <param name="or"></param>
@@ -48,9 +27,9 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem RequestByOrderAndProductID(int orID, int proID)
     {
-        if (!DataSource.OrderItems.Exists(i => i.OrderID == orID && i.ProductID == proID))
+        if (!OrderItems.Exists(i => i!.Value.OrderID == orID && i.Value.ProductID == proID))
             throw new NonFoundObjectDo();
-        return DataSource.OrderItems.Find(i => i.OrderID == orID && i.ProductID == proID);
+        return OrderItems.Find(i => i?.OrderID == orID && i?.ProductID == proID)!.Value;
     }
     /// <summary>
     /// A function that updats the orderItem by the new parameter that we received
@@ -60,12 +39,12 @@ internal class DalOrderItem : IOrderItem
     public void Update(OrderItem orIt)
     {
         ///if productItem dosnt exist throw exception 
-        if (!DataSource.OrderItems.Exists(i => i.ID == orIt.ID))
+        if (!OrderItems.Exists(i => i!.Value.ID == orIt.ID))
             throw new NonFoundObjectDo();
-        for (int i = 0; i < DataSource.OrderItems.Count; i++)
+        for (int i = 0; i < OrderItems.Count; i++)
         {
-            if (orIt.ID == DataSource.OrderItems[i].ID)
-                DataSource.OrderItems[i] = orIt;
+            if (orIt.ID == OrderItems[i]!.Value.ID)
+                OrderItems[i] = orIt;
         }
     }
     /// <summary>
@@ -75,7 +54,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.OrderItems.Remove(Get(id));
+        OrderItems.Remove(RequestByPredicate(orderItem => orderItem!.Value.ID == id));
     }
     /// <summary>
     /// function that gets predicate and checks the condition and returns the collection acordingly
@@ -83,9 +62,18 @@ internal class DalOrderItem : IOrderItem
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public IEnumerable<OrderItem> RequestAllByPredicate(Predicate<OrderItem> predicate = null)
+    public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null!)
     {
         bool checkNull = predicate is null;
-        return DataSource.OrderItems.Where(orderItem => checkNull? true: predicate(orderItem)); // לבדוק את התנאי הפנימי
+        return OrderItems.Where(orderItem => checkNull? true: predicate!(orderItem)); 
+    }
+
+    public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
+    {
+        if (OrderItems.FirstOrDefault(predicate!) is OrderItem orderItem)
+        {
+            return orderItem;
+        }
+        throw new NonFoundObjectDo();
     }
 }

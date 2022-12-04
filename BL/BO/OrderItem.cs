@@ -16,7 +16,7 @@ namespace BO
         /// <summary>
         /// The name of the product
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// The ID of the product
         /// </summary>
