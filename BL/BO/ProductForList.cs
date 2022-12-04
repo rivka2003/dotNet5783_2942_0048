@@ -61,9 +61,9 @@ namespace BO
         public override string ToString()
         {
             string str = Category is BO.Category.Clothing ?
-@$"Clothing : {Clothing}
-Size of Clothing: {SizeClothing}" :
-@$"Shoes: {Shoes} 
+@$"Clothing : {Clothing!.Value}
+Size of Clothing: {SizeClothing!.Value}" :
+@$"Shoes: {Shoes!.Value} 
 Size of Shoes: {(SizeShoes.HasValue ? (int)SizeShoes.Value : 0)}";
 
             return $@"

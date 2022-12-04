@@ -1,17 +1,14 @@
 ﻿using BlApi;
+using BlImplementation;
+using BO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL
 {
@@ -20,18 +17,34 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
-        private IBl bl;
+        private IBl bl = new Bl();
 
-
+        private IEnumerable<BO.ProductForList> productForLists;
         public ProductForList(IBl bl)
-        {
+        {  
             InitializeComponent();
-            this.bl = bl;
 
+            this.bl = bl;
             productsLv.ItemsSource = bl.Product.GetAll();
+            productForLists = bl.Product.GetAll();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            TypeSelector_Copy.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategorySelector.SelectedItem is BO.Category category)
+            {
+                productsLv.ItemsSource = productForLists.Where(x => x.Category == category);
+            }
+        }
+
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

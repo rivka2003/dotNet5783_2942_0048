@@ -28,6 +28,9 @@ namespace PL
             InitializeComponent();
         }
 
-        private void Products_Button_Click(object sender, RoutedEventArgs e) => new ProductForList(_bl).Show();
+        private void Products_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductForList(_bl).Show();
+        }
     }
 }

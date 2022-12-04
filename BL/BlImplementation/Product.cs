@@ -5,6 +5,7 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         public DalApi.IDal Dal = new Dal.DalList();
+
         /// <summary>
         /// returning all the products as a collection
         /// </summary>
@@ -13,6 +14,7 @@ namespace BlImplementation
         {
             return Dal.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, BO.ProductForList>();
         }
+
         /// <summary>
         /// returning the details of an order needed for a manager view
         /// </summary>
