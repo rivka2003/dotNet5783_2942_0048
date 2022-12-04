@@ -22,11 +22,21 @@ namespace CopyPropertisTo
             /// for every property tha is in the source
             foreach (var sourcePropertyInfo in propertyInfoSource)
             {
+                //Type t = Nullable.GetUnderlyingType(sourcePropertyInfo.PropertyType)!; 
+                
+                //if (t is not null && t.IsEnum && propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name))
+                //{
+                //    object v = sourcePropertyInfo.GetValue(source);
+                //    propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, v);
+                //    //Type t1 = Nullable.GetUnderlyingType(propertyInfoTarget[sourcePropertyInfo.Name].PropertyType)!;
+                //    //propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourcePropertyInfo.GetValue(source));
+                //}
+
                 ///checks if the target conteins the property info to reset the property
                 if (propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name)
                     && (sourcePropertyInfo.PropertyType == propertyInfoTarget[sourcePropertyInfo.Name].PropertyType
-                    || sourcePropertyInfo.PropertyType.IsEnum)
-                    && (sourcePropertyInfo.PropertyType == typeof(string) || !sourcePropertyInfo.PropertyType.IsClass))
+                    //|| (t is not null && t.IsEnum)
+                    && (sourcePropertyInfo.PropertyType == typeof(string)) || !sourcePropertyInfo.PropertyType.IsClass))
                 {
                     propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourcePropertyInfo.GetValue(source));
                 }
@@ -49,6 +59,7 @@ namespace CopyPropertisTo
 
             return (Target)obj;
         }
+
         /// <summary>
         /// copy the list of "sources" to a new list of "targets" 
         /// </summary>
@@ -61,6 +72,7 @@ namespace CopyPropertisTo
             return from source in sources
                    select source.CopyPropTo(new Target());
         }
+
         /// <summary>
         /// an extention method for to string function
         /// </summary>

@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="ProductForList" Height="640" Width="800">
 
+    <Window.Resources>
+        <Style x:Key="comboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFF10A0A" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    
     <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto">
 
@@ -15,21 +29,23 @@ VerticalAlignment="Stretch" Width="auto">
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions >
 
-        <ListView Name="productsLv" Grid.Column="1" Margin="10,-10,-10,10">
+        <ListView Name="productsLv" />
 
-        </ListView>
-        <ComboBox x:Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column ="1" SelectionChanged="CategorySelector_SelectionChanged">
-            
+        <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,0,0,551" Grid.Column="1" Foreground="#FF124375" BorderBrush="#FFB41414">
+    
         </ComboBox>
-
-        <Label x:Name="CategoryLabel" Content="Category" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top" Height="66" Width="118" FontFamily="Bodoni MT Poster Compressed" FontSize="48"/>
-        <ListView x:Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="62,227,200,246">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        
+        <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="0,99,0,452" Grid.Column="1" Foreground="#FF124375" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="400">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF10A0A" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        
+        <Label x:Name="CategoryLabel" Content="Category" HorizontalAlignment="Center" Margin="0,16,0,0" VerticalAlignment="Top" Height="41" Width="124" FontFamily="Bookman Old Style" FontSize="22" Grid.Column="1" Foreground="#FF124375" FontWeight="Bold"/>
+        <Label x:Name="CategoryLabel_Copy" Content="Type" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Height="41" Width="71" FontFamily="Bookman Old Style" FontSize="22" Grid.Column="1" Foreground="#FF124375" FontWeight="Bold"/>
     </Grid>
 
 </Window>
