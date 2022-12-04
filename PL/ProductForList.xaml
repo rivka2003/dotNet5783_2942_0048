@@ -24,24 +24,25 @@
     <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-10,0,10,0">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="181*"/>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions >
 
-        <ListView Name="productsLv" />
+        <ListView Name="productsLv" Grid.ColumnSpan="2" />
 
-        <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,0,0,551" Grid.Column="1" Foreground="#FF124375" BorderBrush="#FFB41414">
+        <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,0,0,551" Grid.Column="2" Foreground="#FF124375" BorderBrush="#FFB41414">
 
         </ComboBox>
 
-        <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="0,99,0,452" Grid.Column="1" Foreground="#FF124375" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="400" Background="#FFD01919"/>
+        <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="0,99,0,452" Grid.Column="2" Foreground="#FF124375" BorderBrush="#FFB41414" HorizontalAlignment="Center" Width="400" Background="#FFD01919"/>
 
-        <Label x:Name="CategoryLabel" Content="          Category" HorizontalAlignment="Center" VerticalAlignment="Top" Height="73" Width="400" FontFamily="Century" FontSize="36" Grid.Column="1" Foreground="White" FontWeight="Bold">
+        <Label x:Name="CategoryLabel" Content="          Category" HorizontalAlignment="Center" VerticalAlignment="Top" Height="73" Width="400" FontFamily="Century" FontSize="36" Grid.Column="2" Foreground="White" FontWeight="Bold">
             <Label.Background>
                 <ImageBrush ImageSource="/תמונה של WhatsApp‏ 2022-12-04 בשעה 15.19.16.jpg"/>
             </Label.Background>
         </Label>
-        <Label x:Name="CategoryLabel_Copy" Content="                Type" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Height="73" Width="400" FontFamily="Constantia" FontSize="36" Grid.Column="1" Foreground="White" FontWeight="Bold">
+        <Label x:Name="CategoryLabel_Copy" Content="                Type" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Height="73" Width="400" FontFamily="Constantia" FontSize="36" Grid.Column="2" Foreground="White" FontWeight="Bold">
             <Label.Background>
                 <ImageBrush ImageSource="/תמונה של WhatsApp‏ 2022-12-04 בשעה 15.19.16.jpg"/>
             </Label.Background>
