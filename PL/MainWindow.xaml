@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="ProductListWindow" Content="products" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="87" Width="270" Click="Products_Button_Click" Margin="0,169,0,0"/>
+    <Grid Background="#FF708BE7">
+        <Button x:Name="ProductListWindow" Content="products" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="87" Width="270" Click="Products_Button_Click" Margin="0,169,0,0" Background="#FFCB86D4" FontWeight="Bold" FontFamily="Elephant" FontSize="36" Foreground="#FFC4C1C1"/>
 
     </Grid>
 </Window>
