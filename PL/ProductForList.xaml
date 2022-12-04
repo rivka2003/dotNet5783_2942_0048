@@ -12,7 +12,7 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFF10A0A"/>
                         <GradientStop Color="#FFF10A0A" Offset="1"/>
                     </LinearGradientBrush>
                 </Setter.Value>
@@ -22,6 +22,11 @@
 
 
     <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-10,0,10,0">
+    <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
+        <Grid.Background>
+            <ImageBrush TileMode="None"/>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="181*"/>
@@ -31,9 +36,9 @@
 
         <ListView Name="productsLv" Grid.ColumnSpan="2" />
 
-        <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="0,0,0,551" Grid.Column="2" Foreground="#FF124375" BorderBrush="#FFB41414">
+        <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="235,15,36,574" Foreground="#FF124375" BorderBrush="#FFB41414" Grid.Column="1"/>
 
-        </ComboBox>
+        <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="235,65,0,524" Grid.Column="1" Foreground="#FF124375" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="129" Background="#FFD01919"/>
 
         <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="0,99,0,452" Grid.Column="2" Foreground="#FF124375" BorderBrush="#FFB41414" HorizontalAlignment="Center" Width="400" Background="#FFD01919"/>
 
@@ -45,6 +50,22 @@
         <Label x:Name="CategoryLabel_Copy" Content="                Type" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Height="73" Width="400" FontFamily="Constantia" FontSize="36" Grid.Column="2" Foreground="White" FontWeight="Bold">
             <Label.Background>
                 <ImageBrush ImageSource="/תמונה של WhatsApp‏ 2022-12-04 בשעה 15.19.16.jpg"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="CategoryLabel" Content="Category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="82" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="258,15,0,0" Grid.Column="1">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Label x:Name="CategoryLabel_Copy" Content="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="54" FontFamily="Century" FontSize="16" Foreground="White" Margin="272,65,0,0" Grid.Column="1" FontWeight="Bold">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
             </Label.Background>
         </Label>
     </Grid>
