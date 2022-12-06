@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="Product" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Grid/>
 </Window>

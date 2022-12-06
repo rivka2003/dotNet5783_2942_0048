@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using CopyPropertisTo;
+using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,6 @@ namespace BO
         /// List of tuple
         /// </summary>
         public List<(DateTime?, BO.OrderStatus?)>?  OrderProgress { get; set; }
-        public override string ToString() => $@"
-ID: {ID}
-Status: {Status}
-Order progress: {string.Join("\n", OrderProgress)}
-";
+        public override string ToString() => this.ToStringProperty();
     }
 }

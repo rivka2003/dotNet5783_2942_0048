@@ -33,22 +33,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <ListView Name="productsLv" Foreground="White" Background="Black" />
+            <ListView Name="productsLv" Foreground="White" Background="Black" Margin="31,612,-31,0" Grid.ColumnSpan="2" Height="384" VerticalAlignment="Top" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" />
 
-            <ComboBox x:Name="CategorySelector" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategorySelector_SelectionChanged" Margin="235,15,36,574" Foreground="Black" BorderBrush="#FFB41414" Grid.Column="1"/>
-
-            <ComboBox x:Name="TypeSelector_Copy" SelectionChanged="TypeSelector_SelectionChanged" Margin="235,73,0,516" Grid.Column="1" Foreground="Black" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="129" Background="#FFD01919">
-                <Label x:Name="CategoryLabel_Copy" Content="Category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="82" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold">
-                    <Label.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="0"/>
-                            <GradientStop Color="Black" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Label.Background>
-                </Label>
+            <ComboBox x:Name="CategoryCB" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategoryCB_SelectionChanged" Margin="31,75,240,514" Foreground="Black" BorderBrush="#FFB41414">
             </ComboBox>
 
-            <Label x:Name="CategoryLabel" Content="     Category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="129" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="235,15,0,0" Grid.Column="1">
+            <ComboBox x:Name="TypeCB" SelectionChanged="TypeSelector_SelectionChanged" Margin="234,75,0,514" Foreground="Black" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="129" Background="#FFD01919"/>
+            <ComboBox x:Name="GenderCB" HorizontalAlignment="Left" Margin="336,10,0,0" VerticalAlignment="Top" Width="128" SelectionChanged="GenderCB_SelectionChanged" Height="34" Grid.ColumnSpan="2"/>
+
+            <Label x:Name="CategoryL" Content="     Category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="31,75,0,0">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -56,7 +49,34 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <Label x:Name="CategoryLabel_Copy1" Content="         Type" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="129" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="235,73,0,0" Grid.Column="1">
+            <Label x:Name="TypeL" Content="         Type" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="234,75,0,0">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <Label x:Name="GenderL" Content="      Gender" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="336,10,0,0" Grid.ColumnSpan="2">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <Button x:Name="chooseB"  Content="Choose!" Margin="335,142,336,0" VerticalAlignment="Top" Background="Black" Foreground="White" Height="35" Grid.ColumnSpan="2" FontFamily="Elephant" FontSize="16" Click="ChooseB"/>
+            <ComboBox x:Name="ColorCB" SelectionChanged="TypeSelector_SelectionChanged" Margin="47,82,0,507" Foreground="Black" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="128" Background="#FFD01919" Grid.Column="1"/>
+            <Label x:Name="ColorL" Content="        Color" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="46,82,0,0" Grid.Column="1">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <ComboBox x:Name="SizeCB" SelectionChanged="TypeSelector_SelectionChanged" Margin="245,80,0,509" Foreground="Black" BorderBrush="#FFB41414" HorizontalAlignment="Left" Width="128" Background="#FFD01919" Grid.Column="1"/>
+            <Label x:Name="SizeL" Content="        Size" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="245,80,0,0" Grid.Column="1">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>

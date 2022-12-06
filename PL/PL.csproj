@@ -13,19 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="תמונה של WhatsApp‏ 2022-12-04 בשעה 14.43.14.jpg" />
-    <None Remove="תמונה של WhatsApp‏ 2022-12-04 בשעה 14.53.18.jpg" />
-    <None Remove="תמונה של WhatsApp‏ 2022-12-04 בשעה 15.19.16.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="תמונה של WhatsApp‏ 2022-12-04 בשעה 14.43.14.jpg" />
-    <Resource Include="תמונה של WhatsApp‏ 2022-12-04 בשעה 14.53.18.jpg" />
-    <Resource Include="תמונה של WhatsApp‏ 2022-12-04 בשעה 15.19.16.jpg" />
   </ItemGroup>
 
 </Project>

@@ -19,10 +19,10 @@ namespace BlImplementation
             /// for every order (by the id) filling the data of the order
             return orders.Select(order =>
             {
-                var data = getData(order!.Value);
+                var data = getData((DO.Order)order!);
                 BO.OrderForList orderForList = new BO.OrderForList();
                 order.CopyPropTo(orderForList);
-                orderForList.Status = getOrderStatus((DO.Order)order);   
+                orderForList.Status = getOrderStatus((DO.Order)order!);   
                 (orderForList.AmountOfItems, orderForList.TotalPrice) = (data.Item1.Count(), data.Item2);
     
                 return orderForList;
@@ -39,7 +39,7 @@ namespace BlImplementation
             ///returns ienumerable of all the order items that are in the same order id
             IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.RequestAllByPredicate
               (orderItem => orderItem?.OrderID == order.ID);
-                return (orderItems, orderItems.Sum(o => o?.Price * o?.Amount)!.Value);
+                return (orderItems, (double)orderItems.Sum(o => o?.Price * o?.Amount)!);
         }
         /// <summary>
         /// a function that checks the order status
@@ -73,7 +73,7 @@ namespace BlImplementation
                 ///tryng to get the order from the DO
                 try
                 {
-                    OrderDo = Dal.Order.RequestByPredicate(order => order!.Value.ID == ID);
+                    OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
                 }
                 catch (DO.NonFoundObjectDo ex)
                 { throw new BO.NonFoundObjectBo("", ex); }
@@ -88,8 +88,8 @@ namespace BlImplementation
                 {
                     BO.OrderItem? orderItemBo = new OrderItem();
                     orderItem.CopyPropTo(orderItemBo);
-                    orderItemBo.Name = Dal.Product.RequestByPredicate(orderI => orderI!.Value.ID == orderItem!.Value.ProductID).Name;
-                    orderItemBo.TotalPrice = (orderItem?.Price * orderItem?.Amount)!.Value;
+                    orderItemBo.Name = Dal.Product.RequestByPredicate(orderI => orderI?.ID == orderItem?.ProductID).Name;
+                    orderItemBo.TotalPrice = (((double)(orderItem?.Price * orderItem?.Amount)!));
                     return orderItemBo;
                 }).ToList()!;
 
@@ -115,7 +115,7 @@ namespace BlImplementation
 
             try /// trying to get the order from Dal and the order details from the Ibl
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order!.Value.ID == ID);
+                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
@@ -154,7 +154,7 @@ namespace BlImplementation
 
             try /// trying to get the order from the DO and the order datails from the BO
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order!.Value.ID == ID);
+                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
@@ -192,7 +192,7 @@ namespace BlImplementation
 
             try /// trying to get the order from the DO and the order datails from the BO 
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order!.Value.ID == ID);
+                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)

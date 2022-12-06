@@ -22,23 +22,22 @@ namespace CopyPropertisTo
             /// for every property tha is in the source
             foreach (var sourcePropertyInfo in propertyInfoSource)
             {
-                //Type t = Nullable.GetUnderlyingType(sourcePropertyInfo.PropertyType)!; 
-                
-                //if (t is not null && t.IsEnum && propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name))
-                //{
-                //    object v = sourcePropertyInfo.GetValue(source);
-                //    propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, v);
-                //    //Type t1 = Nullable.GetUnderlyingType(propertyInfoTarget[sourcePropertyInfo.Name].PropertyType)!;
-                //    //propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourcePropertyInfo.GetValue(source));
-                //}
-
                 ///checks if the target conteins the property info to reset the property
                 if (propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name)
                     && (sourcePropertyInfo.PropertyType == propertyInfoTarget[sourcePropertyInfo.Name].PropertyType
-                    //|| (t is not null && t.IsEnum)
                     && (sourcePropertyInfo.PropertyType == typeof(string)) || !sourcePropertyInfo.PropertyType.IsClass))
                 {
-                    propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourcePropertyInfo.GetValue(source));
+                    Type s = Nullable.GetUnderlyingType(sourcePropertyInfo.PropertyType)!;
+                    Type t = Nullable.GetUnderlyingType(propertyInfoTarget[sourcePropertyInfo.Name].PropertyType)!;
+                    var sourceValue = sourcePropertyInfo.GetValue(source);
+
+                    if (sourceValue is not null)
+                    {
+                        if (s is not null && t is not null)
+                            propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, Enum.ToObject(t, sourceValue));
+                        else
+                            propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourceValue);
+                    }
                 }
             }
             return target;
@@ -82,28 +81,18 @@ namespace CopyPropertisTo
         internal static string ToStringProperty<T>(this T property)
         {
             string str = "";
-            var items = property!.GetType().GetProperties();
 
             /// for every property print the name and the value of the priperty
-            foreach (PropertyInfo item in items)
+            foreach (PropertyInfo item in typeof(T).GetProperties())
             {
-                //if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) 
-                //{
-                //    //List values = (List)sourcePropertyInfo.GetValue(property, null);
-                //    //ToStringProperty(sourcePropertyInfo.GetValue(property, null));
-
-                //   var objects = item.GetValue(property);
-
-                //    if (objects is not null)
-                //    {
-                //        foreach (var @object in (IEnumerable)objects)
-                //        {
-                //            ToStringProperty(@object);
-                //        }
-                //    }
-                //}
-                str += "\n" + item.Name +
-                          ": " + item.GetValue(property, null);
+                str += "\n" + item.Name + ": ";
+                if (item.GetValue(property, null) is IEnumerable<object>)
+                {
+                    IEnumerable<object> lst = (IEnumerable<object>)item.GetValue(obj: property, null)!;
+                    str += String.Join(" ", lst);
+                }
+                else
+                    str += item.GetValue(property, null);
             }
             return str;
         }

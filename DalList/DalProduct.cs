@@ -13,7 +13,7 @@ internal class DalProduct : IProduct
     public int Add(Product pro)
     {
         //if product exist throw exception 
-        if (DataSource.Products.Exists(i => i!.Value.ID == pro.ID))
+        if (DataSource.Products.Exists(i => i?.ID == pro.ID))
             throw new ExistingObjectDo();
         DataSource.Products.Add(pro);
         return pro.ID;
@@ -26,11 +26,11 @@ internal class DalProduct : IProduct
     public void Update(Product pro)
     {
         ///if product dosnt exist throw exception 
-        if (!DataSource.Products.Exists(i => i!.Value.ID == pro.ID))
+        if (!DataSource.Products.Exists(i => i?.ID == pro.ID))
             throw new NonFoundObjectDo();
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
-            if (pro.ID == DataSource.Products[i]!.Value.ID)
+            if (pro.ID == DataSource.Products[i]?.ID)
                 DataSource.Products[i] = pro;
         }
     }
@@ -42,7 +42,7 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        DataSource.Products.Remove(RequestByPredicate(product => product!.Value.ID == id));
+        DataSource.Products.Remove(RequestByPredicate(product => product?.ID == id));
     }
     /// <summary>
     /// function that gets predicate and checks the condition and returns the collection acordingly

@@ -173,9 +173,9 @@ namespace Dal
 
                 // all the first 20 orders have at list one product
                 if (i < 20)
-                    orderItem.OrderID = Orders[i]!.Value.ID;
+                    orderItem.OrderID = Orders[i]?.ID ?? 0;
                 else /// If this order number exists within the list of order items then generate a new order number
-                    orderItem.OrderID = Orders[random.Next(0, 20)]!.Value.ID;
+                    orderItem.OrderID = Orders[random.Next(0, 20)]?.ID ?? 0;
                 // every order that has less than 5 products
                 if (OrderItems.FindAll(item => item?.OrderID == orderItem.OrderID).Count() < 5)
                 {

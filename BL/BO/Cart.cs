@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CopyPropertisTo;
 
 namespace BO
 {
@@ -28,15 +24,6 @@ namespace BO
         /// The total price of the cart
         /// </summary>
         public double TotalPrice { get; set; }
-        public override string ToString()
-        {
-return$@"
-Customer name: {CustomerName}
-Customer email: {CustomerEmail}
-Customer address: {CustomerAddress}
-Items: {string.Join("\n", Items)}
-Total price: {TotalPrice}
-";
-        }
+        public override string ToString() => this.ToStringProperty();
     }
 }
