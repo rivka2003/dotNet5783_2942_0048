@@ -31,7 +31,7 @@ namespace PL
 
             this.bl = bl;
             productsLv.ItemsSource = bl.Product.GetAll();
-            productForLists = bl.Product.GetAll();
+            productForLists = bl.Product.GetAll()!;
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.SelectedItem = Enum.GetValues(typeof(BO.Color));
@@ -39,7 +39,6 @@ namespace PL
 
         private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //CategoryCB.Visibility = Visibility.Hidden;
             CategoryCB.Visibility = Visibility.Hidden;
             TypeCB.Visibility = Visibility.Hidden;
             ColorCB.Visibility = Visibility.Hidden;
