@@ -27,7 +27,7 @@ namespace BlImplementation
             BO.Product productBo = new BO.Product();
             DO.Product productDo;
             try /// trying to get the product from the Dal
-            { productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID);
+            { productDo = Dal.Product.RequestByPredicate(product => product?.ID == ID);
             }
             catch(DO.NonFoundObjectDo ex) 
             { throw new BO.NonFoundObjectBo("", ex); }
@@ -52,7 +52,7 @@ namespace BlImplementation
             DO.Product proDo;
 
             try /// tryng to get the product from the Dal
-            { proDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == ID); }
+            { proDo = Dal.Product.RequestByPredicate(product => product?.ID == ID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
@@ -129,7 +129,7 @@ namespace BlImplementation
             DO.Product productDo;
             try /// trying to get the product from the Dal
             {
-               productDo =  Dal.Product.RequestByPredicate(product => product!.Value.ID == updateProduct.ID);
+               productDo =  Dal.Product.RequestByPredicate(product => product?.ID == updateProduct.ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }

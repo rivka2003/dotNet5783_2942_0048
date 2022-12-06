@@ -89,7 +89,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product!.Value.ID == id1));
+                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product?.ID == id1));
                         }
                         catch (Exception)
                         {
@@ -107,7 +107,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id2);
                         try
                         {
-                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product!.Value.ID == id2));
+                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product?.ID == id2));
                         }
                         catch (Exception)
                         {
@@ -286,7 +286,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id);
                         try
                         {
-                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order!.Value.ID == id));
+                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order?.ID == id));
                         }
                         catch (Exception)
                         {
@@ -304,7 +304,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order!.Value.ID == id1));
+                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order?.ID == id1));
                         }
                         catch (Exception)
                         {
@@ -397,7 +397,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id);
                         try
                         {
-                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem!.Value.ID == id));
+                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id));
                         }
                         catch (Exception)
                         {
@@ -449,7 +449,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem!.Value.ID == id1));
+                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id1));
                         }
                         catch (Exception)
                         {

@@ -19,19 +19,6 @@ internal class DalOrderItem : IOrderItem
         return orIt.ID;
     }
     /// <summary>
-    /// The function returns the value by the order ID and the product ID
-    /// </summary>
-    /// <param name="or"></param>
-    /// <param name="pro"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public OrderItem RequestByOrderAndProductID(int orID, int proID)
-    {
-        if (!OrderItems.Exists(i => i!.Value.OrderID == orID && i.Value.ProductID == proID))
-            throw new NonFoundObjectDo();
-        return OrderItems.Find(i => i?.OrderID == orID && i?.ProductID == proID)!.Value;
-    }
-    /// <summary>
     /// A function that updats the orderItem by the new parameter that we received
     /// </summary>
     /// <param name="orIt"></param>
@@ -39,11 +26,11 @@ internal class DalOrderItem : IOrderItem
     public void Update(OrderItem orIt)
     {
         ///if productItem dosnt exist throw exception 
-        if (!OrderItems.Exists(i => i!.Value.ID == orIt.ID))
+        if (!OrderItems.Exists(i => i?.ID == orIt.ID))
             throw new NonFoundObjectDo();
         for (int i = 0; i < OrderItems.Count; i++)
         {
-            if (orIt.ID == OrderItems[i]!.Value.ID)
+            if (orIt.ID == OrderItems[i]?.ID)
                 OrderItems[i] = orIt;
         }
     }
@@ -54,7 +41,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        OrderItems.Remove(RequestByPredicate(orderItem => orderItem!.Value.ID == id));
+        OrderItems.Remove(RequestByPredicate(orderItem => orderItem?.ID == id));
     }
     /// <summary>
     /// function that gets predicate and checks the condition and returns the collection acordingly

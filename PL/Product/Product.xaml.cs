@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BlImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,11 @@ namespace PL.Product
     /// </summary>
     public partial class Product : Window
     {
-        private IBl bl;
+        private IBl bl = new Bl();
         public Product(IBl bl)
         {
             InitializeComponent();
             this.bl = bl;
-            
         }
     }
 }

@@ -42,7 +42,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        Orders.Remove(RequestByPredicate(order => order!.Value.ID == id)); 
+        Orders.Remove(RequestByPredicate(order => order?.ID == id)); 
     }
     /// <summary>
     /// function that gets predicate and checks the condition and returns the collection acordingly

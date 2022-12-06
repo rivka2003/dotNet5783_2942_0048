@@ -21,7 +21,7 @@ namespace BlImplementation
             DO.Product productDo;
 
             try///making sure the oroduct exists in the products list
-            { productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == productID); }
+            { productDo = Dal.Product.RequestByPredicate(product => product?.ID == productID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
@@ -105,7 +105,7 @@ namespace BlImplementation
 
                         DO.Product productDo = new DO.Product();
 
-                        productDo = Dal.Product.RequestByPredicate(product => product!.Value.ID == cart.Items[i]!.ProductID);
+                        productDo = Dal.Product.RequestByPredicate(product => product?.ID == cart.Items[i]!.ProductID);
 
                         productDo.InStock -= cart.Items[i]!.Amount;
 

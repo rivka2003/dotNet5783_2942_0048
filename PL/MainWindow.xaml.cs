@@ -33,9 +33,9 @@ namespace PL
             new ProductForList(_bl).Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductForList(_bl).Show();
+            
         }
     }
 }
