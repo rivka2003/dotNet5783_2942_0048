@@ -21,7 +21,7 @@
     </Window.Resources>
 
 
-    <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-10,0,10,0">
+    <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
 
             <Grid.Background>
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <ListView Name="productsLv" Foreground="White" Background="Black" Margin="31,612,-31,0" Grid.ColumnSpan="2" Height="384" VerticalAlignment="Top" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" />
+            <ListView Name="productsLv" Foreground="White" Background="Black" Margin="0,240,0,0" Grid.ColumnSpan="2" Height="384" VerticalAlignment="Top" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" />
 
             <ComboBox x:Name="CategoryCB" Style="{StaticResource comboBoxStyle}" SelectionChanged="CategoryCB_SelectionChanged" Margin="31,75,240,514" Foreground="Black" BorderBrush="#FFB41414">
             </ComboBox>
