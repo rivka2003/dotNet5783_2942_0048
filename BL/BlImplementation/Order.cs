@@ -19,7 +19,7 @@ namespace BlImplementation
             /// for every order (by the id) filling the data of the order
             return orders.Select(order =>
             {
-                var data = getData(order);
+                var data = getData((DO.Order)order!);
                 BO.OrderForList orderForList = new BO.OrderForList();
                 order.CopyPropTo(orderForList);
                 orderForList.Status = getOrderStatus((DO.Order)order!);   
@@ -39,7 +39,7 @@ namespace BlImplementation
             ///returns ienumerable of all the order items that are in the same order id
             IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.RequestAllByPredicate
               (orderItem => orderItem?.OrderID == order.ID);
-                return (orderItems, orderItems.Sum(o => o?.Price * o?.Amount));
+                return (orderItems, (double)orderItems.Sum(o => o?.Price * o?.Amount)!);
         }
         /// <summary>
         /// a function that checks the order status
@@ -89,7 +89,7 @@ namespace BlImplementation
                     BO.OrderItem? orderItemBo = new OrderItem();
                     orderItem.CopyPropTo(orderItemBo);
                     orderItemBo.Name = Dal.Product.RequestByPredicate(orderI => orderI?.ID == orderItem?.ProductID).Name;
-                    orderItemBo.TotalPrice = ((orderItem?.Price * orderItem?.Amount));
+                    orderItemBo.TotalPrice = (((double)(orderItem?.Price * orderItem?.Amount)!));
                     return orderItemBo;
                 }).ToList()!;
 
