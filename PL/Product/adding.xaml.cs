@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace PL.Product
 {
     /// <summary>
-    /// Interaction logic for adding.xaml
+    /// Interaction logic for adding.xaml.
     /// </summary>
     public partial class adding : Window
     {
