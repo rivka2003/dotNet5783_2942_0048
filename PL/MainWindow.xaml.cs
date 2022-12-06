@@ -35,7 +35,7 @@ namespace PL
 
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            new adding(IBl blֹ).Show();
         }
 
        

@@ -1,4 +1,6 @@
-﻿<Window x:Class="PL.Product.Product"
+﻿<Window 
+    
+    x:Class="PL.Product.Product"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,5 +8,6 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="Product" Height="450" Width="800">
-    <Grid/>
+
+    <Grid Margin="0,0,0,-6"/>
 </Window>

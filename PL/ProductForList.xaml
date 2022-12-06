@@ -85,5 +85,6 @@
                 </Label.Background>
             </Label>
         </Grid>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="831,209,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

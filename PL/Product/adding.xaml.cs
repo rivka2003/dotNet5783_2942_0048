@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +18,21 @@ using System.Windows.Shapes;
 namespace PL.Product
 {
     /// <summary>
-    /// Interaction logic for Product.xaml
+    /// Interaction logic for adding.xaml
     /// </summary>
-    public partial class Product : Window
+    public partial class adding : Window
     {
-        private IBl bl = new Bl();
-        public Product(IBl bl)
+        private BO.Category category = new BO.Category();
+        
+        public adding(IBl bl)
         {
             InitializeComponent();
-            this.bl = bl;
+          
         }
 
+        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }
