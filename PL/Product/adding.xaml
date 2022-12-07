@@ -11,13 +11,14 @@
         <Label x:Name="lblNAME" Content="NAME" HorizontalAlignment="Left" Margin="120,123,0,0" VerticalAlignment="Top" Width="44"/>
         <Label x:Name="lblPRICE" Content="PRICE" HorizontalAlignment="Left" Margin="120,192,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCATEGORY" Content="CATEGORY" HorizontalAlignment="Left" Margin="120,264,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="cbINSTOCK" Content="IN STOCK" HorizontalAlignment="Left" Margin="120,348,0,0" VerticalAlignment="Top" Checked="cbINSTOCK_Checked"/>
         <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="187,131,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="187,196,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Left" Margin="217,268,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged"/>
         <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="605,363,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click"/>
         <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="187,65,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120" TextChanged="tbID_TextChanged"/>
         <Label x:Name="lblTITLE" Content="ADDING A NEW PRODUCT" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblINSTOCK" Content="IN STOCK" HorizontalAlignment="Left" Margin="131,324,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="217,324,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

@@ -110,7 +110,7 @@ namespace PL
 
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            new Update(bl).Show();
+            ///new Update(bl).Show();
         }
 
         private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)

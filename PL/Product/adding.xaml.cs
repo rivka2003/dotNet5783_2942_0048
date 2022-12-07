@@ -40,8 +40,7 @@ namespace PL.Product
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (tbID.Text.Length >= 9)
-            //   product.ID = tbID.;
+            
         }
 
         private void cbINSTOCK_Checked(object sender, RoutedEventArgs e)
@@ -51,6 +50,14 @@ namespace PL.Product
 
         private void btnSAVE_Click(object sender, RoutedEventArgs e)
         {
+            if (tbID.Text.Length >= 9)
+                product.ID = int.Parse(tbID.Text);
+            product.Name = tbNAME.Text;
+            product.Price = int.Parse(tbPRICE.Text);
+            ///CATEGORIESM/
+            product.InStock= int.Parse(tbINSTOCK.Text);
+
+
             _bl.Product.AddProduct(product);
         }
 
