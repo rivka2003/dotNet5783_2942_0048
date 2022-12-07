@@ -34,11 +34,7 @@ namespace PL
             productForLists = bl.Product.GetAll()!;
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            ColorCB.SelectedItem = Enum.GetValues(typeof(BO.Color));
-        }
-
-        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
             CategoryCB.Visibility = Visibility.Hidden;
             TypeCB.Visibility = Visibility.Hidden;
             ColorCB.Visibility = Visibility.Hidden;
@@ -47,8 +43,13 @@ namespace PL
             TypeL.Visibility = Visibility.Hidden;
             ColorL.Visibility = Visibility.Hidden;
             SizeL.Visibility = Visibility.Hidden;
+            chooseB.Visibility = Visibility.Hidden;
+        }
+
+        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             gender = (Gender)GenderCB.SelectedItem;
-            productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender);
+           // productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender);
             if (gender == BO.Gender.Women)
             {
                 //TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
@@ -66,20 +67,25 @@ namespace PL
             TypeCB.Visibility = Visibility.Visible;
             ColorCB.Visibility = Visibility.Visible;
             SizeCB.Visibility = Visibility.Visible;
+            chooseB.Visibility = Visibility.Visible;
+            if (category == Category.Clothing)
+            {
+                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+            }
+            else
+            {
+                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                SizeCB.ItemsSource= Enum.GetValues(typeof(BO.SizeShoes));
+            }
         }
 
         private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (category == Category.Clothing)
-            {
-                TypeCB.SelectedItem = Enum.GetValues(typeof(BO.Clothing));
                 clothing = (Clothing)TypeCB.SelectedItem;
-            }
             else
-            {
-                TypeCB.SelectedItem = Enum.GetValues(typeof(BO.Shoes));
                 shoes = (Shoes)TypeCB.SelectedItem;
-            }
         }
 
         private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,15 +96,9 @@ namespace PL
         private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (category == Category.Clothing)
-            {
-                SizeCB.SelectedItem = Enum.GetValues(typeof(BO.SizeClothing));
                 sizeClothing = (SizeClothing)SizeCB.SelectedItem;
-            }
             else
-            {
-                SizeCB.SelectedItem = Enum.GetValues(typeof(BO.SizeShoes));
                 sizeShoes = (SizeShoes)SizeCB.SelectedItem;
-            }
         }
 
         private void ChooseB(object sender, RoutedEventArgs e)
@@ -110,7 +110,7 @@ namespace PL
 
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            //new BO.Product().Show();
+            new Update(bl).Show();
         }
 
         private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
