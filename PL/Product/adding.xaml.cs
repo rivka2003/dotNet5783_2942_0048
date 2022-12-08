@@ -26,18 +26,28 @@ namespace PL.Product
     {
         private IBl _bl = new Bl();
 
-        private BO.Category category = new BO.Category();
         private BO.Product product = new BO.Product();
         
         public adding(IBl bl)
         {
             InitializeComponent();
+            _bl = bl;
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
         }
 
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            category = (Category)cbCATEGORY.SelectedItem;
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+            }
+            else
+            {
+                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
+                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+            }
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
@@ -50,7 +60,12 @@ namespace PL.Product
             
         }
 
-        private void btnSAVE_Click(object sender, RoutedEventArgs e)
+        private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnSAVE_Click(object sender, RoutedEventArgs e) // שגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
         {
             if (tbID.Text.Length >= 9)
                 product.ID = int.Parse(tbID.Text);
@@ -58,64 +73,20 @@ namespace PL.Product
             product.Price = int.Parse(tbPRICE.Text);
             ///CATEGORIESM/
             product.InStock= int.Parse(tbINSTOCK.Text);
-
+            product.Category = (BO.Category)cbCATEGORY.SelectedItem;
+            product.Color = (BO.Color)cbCOLOR.SelectedItem;
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            }
+            else
+            {
+                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            }
 
             _bl.Product.AddProduct(product);
-        }
-
-        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            gender = (Gender)GenderCB.SelectedItem;
-            // productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender);
-            if (gender == BO.Gender.Women)
-            {
-                //TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-            }
-            CategoryCB.Visibility = Visibility.Visible;
-            CategoryL.Visibility = Visibility.Visible;
-        }
-
-        private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            category = (Category)CategoryCB.SelectedItem;
-            TypeL.Visibility = Visibility.Visible;
-            ColorL.Visibility = Visibility.Visible;
-            SizeL.Visibility = Visibility.Visible;
-            TypeCB.Visibility = Visibility.Visible;
-            ColorCB.Visibility = Visibility.Visible;
-            SizeCB.Visibility = Visibility.Visible;
-            chooseB.Visibility = Visibility.Visible;
-            if (category == Category.Clothing)
-            {
-                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
-            }
-            else
-            {
-                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
-                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
-            }
-        }
-
-        private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (category == Category.Clothing)
-                clothing = (Clothing)TypeCB.SelectedItem;
-            else
-                shoes = (Shoes)TypeCB.SelectedItem;
-        }
-
-        private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            color = (Color)ColorCB.SelectedItem;
-        }
-
-        private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (category == Category.Clothing)
-                sizeClothing = (SizeClothing)SizeCB.SelectedItem;
-            else
-                sizeShoes = (SizeShoes)SizeCB.SelectedItem;
         }
 
      

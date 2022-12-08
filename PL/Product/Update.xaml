@@ -6,7 +6,57 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="Update" Height="450" Width="800">
-    <Grid>
-        
+        <Grid Margin="0,71,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+
+        <Label x:Name="lblNAME" Content="Name:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="44" Grid.Row="1" Grid.Column="0"/>
+
+        <Label x:Name="lblPRICE" Content="Price:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+
+        <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+
+        <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+
+        <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" Grid.Column="3"/>
+
+        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="6" Grid.Column="3"/>
+
+        <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+
+        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="122,-60,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" FontWeight="Bold"/>
+
+        <Label x:Name="lblINSTOCK" Content="In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+
+        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+
+        <ComboBox x:Name="cbTYPE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbTYPE_SelectionChanged" Grid.Row="1" Grid.Column="3"/>
+
+        <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+
+        <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="3"/>
+
+        <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+
+        <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="3"/>
+
+        <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2"/>
+
     </Grid>
 </Window>

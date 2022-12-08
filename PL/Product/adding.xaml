@@ -6,29 +6,57 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="adding" Height="450" Width="800">
-    <Grid>
-        <Label x:Name="lblID" Content="ID" HorizontalAlignment="Left" Margin="120,61,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblNAME" Content="NAME" HorizontalAlignment="Left" Margin="120,123,0,0" VerticalAlignment="Top" Width="44"/>
-        <Label x:Name="lblPRICE" Content="PRICE" HorizontalAlignment="Left" Margin="120,192,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCATEGORY" Content="CATEGORY" HorizontalAlignment="Left" Margin="531,169,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.503,2.762"/>
-        <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="187,131,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="187,196,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Left" Margin="639,171,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged"/>
-        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="400,359,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click"/>
-        <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="187,65,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120" TextChanged="tbID_TextChanged"/>
-        <Label x:Name="lblTITLE" Content="ADDING A NEW PRODUCT" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblINSTOCK" Content="IN STOCK" HorizontalAlignment="Left" Margin="112,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.213,0.721"/>
-        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="187,272,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cbTYPE" HorizontalAlignment="Left" Margin="639,230,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cbSIZE" HorizontalAlignment="Left" Margin="639,343,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.525,2.188"/>
-        <Label x:Name="lblTYPE" Content="TYPE
-               " HorizontalAlignment="Left" Margin="566,234,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.213,0.541"/>
-        <Label x:Name="lblSIZE" Content="SIZE" HorizontalAlignment="Left" Margin="566,339,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.491,-0.153"/>
-        <Label x:Name="lblGENDER" Content="GENDER
-               " HorizontalAlignment="Left" Margin="542,115,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.158,0.554"/>
-        <ComboBox x:Name="cbGENDER" HorizontalAlignment="Left" Margin="639,115,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbGENDER_SelectionChanged"/>
-        <Label x:Name="lblCOLOR" Content="COLOR" HorizontalAlignment="Left" Margin="560,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.281,1.234"/>
-        <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Left" Margin="639,290,0,0" VerticalAlignment="Top" Width="120"/>
+    <Grid Margin="0,71,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+
+        <Label x:Name="lblNAME" Content="Name:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="44" Grid.Row="1" Grid.Column="0"/>
+
+        <Label x:Name="lblPRICE" Content="Price:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+
+        <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+
+        <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+
+        <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" Grid.Column="3"/>
+
+        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="6" Grid.Column="3"/>
+
+        <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+
+        <Label x:Name="lblTITLE" Content="Adding a new product:" HorizontalAlignment="Left" Margin="122,-60,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" FontWeight="Bold"/>
+
+        <Label x:Name="lblINSTOCK" Content="In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+
+        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+
+        <ComboBox x:Name="cbTYPE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbTYPE_SelectionChanged" Grid.Row="1" Grid.Column="3"/>
+
+        <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+
+        <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="3"/>
+
+        <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+
+        <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="3"/>
+
+        <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2"/>
 
     </Grid>
 </Window>
