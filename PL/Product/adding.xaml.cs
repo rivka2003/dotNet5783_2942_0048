@@ -50,22 +50,9 @@ namespace PL.Product
             }
         }
 
-        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
+        
 
-        private void cbINSTOCK_Checked(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btnSAVE_Click(object sender, RoutedEventArgs e) // שגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
+        private void btnSAVE_Click(object sender, RoutedEventArgs e) // mשגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
         {
             if (tbID.Text.Length >= 9)
                 product.ID = int.Parse(tbID.Text);
