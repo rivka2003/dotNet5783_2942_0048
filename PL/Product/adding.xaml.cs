@@ -58,7 +58,6 @@ namespace PL.Product
                 product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
             product.Price = int.Parse(tbPRICE.Text);
-            ///CATEGORIESM/
             product.InStock= int.Parse(tbINSTOCK.Text);
             product.Category = (BO.Category)cbCATEGORY.SelectedItem;
             product.Color = (BO.Color)cbCOLOR.SelectedItem;
