@@ -1,6 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
-using BO;
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +16,6 @@ namespace PL
     {
         private IBl bl = new Bl();
 
-        private BO.Gender gender = new BO.Gender();
-        private BO.Category category = new BO.Category();
-        private BO.Clothing clothing = new BO.Clothing();
-        private BO.Shoes shoes = new BO.Shoes();
-        private BO.Color color = new BO.Color();
-        private BO.SizeClothing sizeClothing = new BO.SizeClothing();
-        private BO.SizeShoes sizeShoes = new BO.SizeShoes();
-
         private IEnumerable<BO.ProductForList> productForLists;
         public ProductForList(IBl bl)
         {
@@ -32,85 +24,80 @@ namespace PL
             this.bl = bl;
             productsLv.ItemsSource = bl.Product.GetAll();
             productForLists = bl.Product.GetAll()!;
+
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
-            CategoryCB.Visibility = Visibility.Hidden;
-            TypeCB.Visibility = Visibility.Hidden;
-            ColorCB.Visibility = Visibility.Hidden;
-            SizeCB.Visibility = Visibility.Hidden;
-            CategoryL.Visibility = Visibility.Hidden;
-            TypeL.Visibility = Visibility.Hidden;
-            ColorL.Visibility = Visibility.Hidden;
-            SizeL.Visibility = Visibility.Hidden;
-            chooseB.Visibility = Visibility.Hidden;
+
+            GenderCB.SelectedIndex = 0;
+            CategoryCB.SelectedIndex = 0;
+            ColorCB.SelectedIndex = 0;
         }
 
         private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            gender = (Gender)GenderCB.SelectedItem;
-           // productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender);
-            if (gender == BO.Gender.Women)
-            {
-                //TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-            }
-            CategoryCB.Visibility = Visibility.Visible;
-            CategoryL.Visibility = Visibility.Visible;
         }
 
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            category = (Category)CategoryCB.SelectedItem;
-            TypeL.Visibility = Visibility.Visible;
-            ColorL.Visibility = Visibility.Visible;
-            SizeL.Visibility = Visibility.Visible;
-            TypeCB.Visibility = Visibility.Visible;
-            ColorCB.Visibility = Visibility.Visible;
-            SizeCB.Visibility = Visibility.Visible;
-            chooseB.Visibility = Visibility.Visible;
-            if (category == Category.Clothing)
+            if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
-                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                if ((GenderCB.SelectedItem is not BO.Gender.Women) && (GenderCB.SelectedItem is not BO.Gender.Girls))
+                {
+                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                    TypeCB.Items.RemoveAt(10);// שגיאת ריצה איך לתקן
+                    TypeCB.Items.RemoveAt(9); // שגיאת ריצה איך לתקן
+                }
             }
             else
             {
                 TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                if (GenderCB.SelectedItem is not BO.Gender.Women)
+                {
+                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                    TypeCB.Items.RemoveAt(4); // שגיאת ריצה איך לתקן
+                } 
                 SizeCB.ItemsSource= Enum.GetValues(typeof(BO.SizeShoes));
             }
+
+            TypeCB.SelectedIndex = 0;
+            SizeCB.SelectedIndex = 0;
         }
 
         private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (category == Category.Clothing)
-                clothing = (Clothing)TypeCB.SelectedItem;
-            else
-                shoes = (Shoes)TypeCB.SelectedItem;
         }
 
         private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            color = (Color)ColorCB.SelectedItem;
         }
 
         private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (category == Category.Clothing)
-                sizeClothing = (SizeClothing)SizeCB.SelectedItem;
-            else
-                sizeShoes = (SizeShoes)SizeCB.SelectedItem;
         }
 
         private void ChooseB(object sender, RoutedEventArgs e)
         {
-            productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender && item.Category == category &&
-            (item.Clothing == clothing || item.Shoes == shoes) && item.Color == color &&(item.SizeClothing == sizeClothing
-            || item.SizeShoes == sizeShoes));
+            if (CategoryCB.SelectedItem is BO.Category.Clothing)
+            {
+                productsLv.ItemsSource = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+                item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem);
+            }
+            else
+            {
+                productsLv.ItemsSource = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem);
+            }
         }
 
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ///new Update(bl).Show();
+            int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
+            new Update(ID).Show();
         }
 
         private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
