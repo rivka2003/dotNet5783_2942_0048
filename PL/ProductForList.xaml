@@ -22,99 +22,52 @@
     <Grid>
         <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid Name="InGridOne" Height="auto" Grid.Row="0" Width="auto">
+            <Grid Name="InGrid" Height="auto" Grid.Column="1" Width="auto">
                 <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="Black" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
-
-                    <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="GenderCB_SelectionChanged" Height="34" Grid.Row="1" Grid.Column="0"/>
-
-                    <Label x:Name="CategoryL" Content="Category" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="Black" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
-
-                    <ComboBox x:Name="CategoryCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1">
-                    </ComboBox>
-
-                </Grid>
-            </Grid>
-
-            <Grid Name="InGrodSecond" Height="auto" Grid.Row="1" Width="auto">
-                <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="Black" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
+                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0"/>
 
-                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0"/>
+                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0"/>
 
-                    <Label x:Name="SizeL" Content="Size" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="Black" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
+                    <ComboBox x:Name="CategoryCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0"/>
 
-                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1"/>
+                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"/>
 
-                    <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="Black" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
+                    <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="GenderCB_SelectionChanged" Height="34" Grid.Row="0" Grid.Column="0"/>
 
-                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="2"/>
+                    <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+
+                    <Label x:Name="CategoryL" Content="Category" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="#FF030303" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+
+                    <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+
+                    <Label x:Name="SizeL" Content="Size" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+
+                    <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+
+                    <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="6" Grid.Column="0"/>
                 </Grid>
             </Grid>
-            <ListView Name="productsLv" Foreground="White" Background="Black" Margin="0,0,0,0" Height="500" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" />
-
-            <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Background="Black" Foreground="White" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="2"/>
+            <ListView Name="productsLv" Foreground="Black" Background="{x:Null}" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" />
         </Grid>
     </Grid>
 </Window>
