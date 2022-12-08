@@ -50,12 +50,34 @@ namespace PL.Product
             }
         }
 
-        
 
-        private void btnSAVE_Click(object sender, RoutedEventArgs e) // mשגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
+
+        private void btnADD_Click(object sender, RoutedEventArgs e) // mשגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
         {
-            if (tbID.Text.Length >= 9)
-                product.ID = int.Parse(tbID.Text);
+            if (tbID.Text == " ")
+            {
+                MessageBox.Show("Not valid ID-EMPTY");
+                return;
+            }
+            if (tbNAME.Text == " ")
+            {
+                MessageBox.Show("Not valid name-EMPTY");
+                return;
+            }
+            if (tbPRICE.Text == " ")
+            {
+                MessageBox.Show("Not valid price-EMPTY");
+                return;
+            }
+            if (tbINSTOCK.Text == " ")
+            {
+                MessageBox.Show("Not valid in stock-EMPTY");
+                return;
+            }
+           
+            if (tbID.Text.Length == 6 )
+                ///איך נותנים לו הזדמנות להקיש לפני שממשיכים הלאה
+            product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
             product.Price = int.Parse(tbPRICE.Text);
             product.InStock= int.Parse(tbINSTOCK.Text);
@@ -71,10 +93,34 @@ namespace PL.Product
                 product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
                 product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
             }
+            try { _bl.Product.AddProduct(product); }
+            catch (Exception)///PRINTING ERROR MESSAGE ACCORDING TO THE PROBLEMATIC INPUT OR THE EMPTY PROPERTY
+            {
+                if ( tbID.Text.Length != 6)
+                    MessageBox.Show("Not valid ID- Should contain 6 digits");
+                if (product.Name ==" ")
+                    MessageBox.Show("Not valid name- Can't be empty");
+                if (product.Price <= 0)
+                    MessageBox.Show("Not valid price- Should be positive");
+                if (product.InStock < 0)
+                    MessageBox.Show("Not valid data in atock");
 
-            _bl.Product.AddProduct(product);
+            }
+
+            
+           
         }
 
-     
+        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+       
     }
 }

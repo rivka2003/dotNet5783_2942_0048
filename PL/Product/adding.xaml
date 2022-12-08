@@ -36,7 +36,7 @@
 
         <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" Grid.Column="3"/>
 
-        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="6" Grid.Column="3"/>
+        <Button x:Name="btnADD" Content="ADD" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="34" Width="68" Click="btnADD_Click" Grid.Row="6" Grid.Column="3"/>
 
         <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
 
