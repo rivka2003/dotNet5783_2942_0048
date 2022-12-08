@@ -1,6 +1,8 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
+using DO;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +61,61 @@ namespace PL.Product
 
 
             _bl.Product.AddProduct(product);
+        }
+
+        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            gender = (Gender)GenderCB.SelectedItem;
+            // productsLv.ItemsSource = productForLists.Where(item => item.Gender == gender);
+            if (gender == BO.Gender.Women)
+            {
+                //TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+            }
+            CategoryCB.Visibility = Visibility.Visible;
+            CategoryL.Visibility = Visibility.Visible;
+        }
+
+        private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            category = (Category)CategoryCB.SelectedItem;
+            TypeL.Visibility = Visibility.Visible;
+            ColorL.Visibility = Visibility.Visible;
+            SizeL.Visibility = Visibility.Visible;
+            TypeCB.Visibility = Visibility.Visible;
+            ColorCB.Visibility = Visibility.Visible;
+            SizeCB.Visibility = Visibility.Visible;
+            chooseB.Visibility = Visibility.Visible;
+            if (category == Category.Clothing)
+            {
+                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+            }
+            else
+            {
+                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
+            }
+        }
+
+        private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (category == Category.Clothing)
+                clothing = (Clothing)TypeCB.SelectedItem;
+            else
+                shoes = (Shoes)TypeCB.SelectedItem;
+        }
+
+        private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            color = (Color)ColorCB.SelectedItem;
+        }
+
+        private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (category == Category.Clothing)
+                sizeClothing = (SizeClothing)SizeCB.SelectedItem;
+            else
+                sizeShoes = (SizeShoes)SizeCB.SelectedItem;
         }
 
      

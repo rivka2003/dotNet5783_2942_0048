@@ -10,15 +10,25 @@
         <Label x:Name="lblID" Content="ID" HorizontalAlignment="Left" Margin="120,61,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblNAME" Content="NAME" HorizontalAlignment="Left" Margin="120,123,0,0" VerticalAlignment="Top" Width="44"/>
         <Label x:Name="lblPRICE" Content="PRICE" HorizontalAlignment="Left" Margin="120,192,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblCATEGORY" Content="CATEGORY" HorizontalAlignment="Left" Margin="120,264,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCATEGORY" Content="CATEGORY" HorizontalAlignment="Left" Margin="531,169,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.503,2.762"/>
         <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="187,131,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="187,196,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Left" Margin="217,268,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged"/>
-        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="605,363,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click"/>
+        <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Left" Margin="639,171,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged"/>
+        <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="400,359,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click"/>
         <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="187,65,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120" TextChanged="tbID_TextChanged"/>
         <Label x:Name="lblTITLE" Content="ADDING A NEW PRODUCT" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblINSTOCK" Content="IN STOCK" HorizontalAlignment="Left" Margin="131,324,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="217,324,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lblINSTOCK" Content="IN STOCK" HorizontalAlignment="Left" Margin="112,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.213,0.721"/>
+        <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="187,272,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cbTYPE" HorizontalAlignment="Left" Margin="639,230,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cbSIZE" HorizontalAlignment="Left" Margin="639,343,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.525,2.188"/>
+        <Label x:Name="lblTYPE" Content="TYPE
+               " HorizontalAlignment="Left" Margin="566,234,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.213,0.541"/>
+        <Label x:Name="lblSIZE" Content="SIZE" HorizontalAlignment="Left" Margin="566,339,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.491,-0.153"/>
+        <Label x:Name="lblGENDER" Content="GENDER
+               " HorizontalAlignment="Left" Margin="542,115,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.158,0.554"/>
+        <ComboBox x:Name="cbGENDER" HorizontalAlignment="Left" Margin="639,115,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbGENDER_SelectionChanged"/>
+        <Label x:Name="lblCOLOR" Content="COLOR" HorizontalAlignment="Left" Margin="560,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.281,1.234"/>
+        <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Left" Margin="639,290,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
