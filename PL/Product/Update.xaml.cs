@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using DO;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,7 +51,7 @@ namespace PL.Product
 
         private void btnUPDATE_Click(object sender, RoutedEventArgs e)
         {
-            if (tbID.Text == " ")
+            if (tbID.Text == " " || tbID.Text.Length > 8)
             {
                 MessageBox.Show("Not valid ID-EMPTY");
                 return;
@@ -65,12 +66,11 @@ namespace PL.Product
                 MessageBox.Show("Not valid price-EMPTY");
                 return;
             }
-            if (tbINSTOCK.Text == " ")
+            if (tbINSTOCK.Text == " " || tbINSTOCK.Text.Length > 8)
             {
                 MessageBox.Show("Not valid in stock-EMPTY");
                 return;
             }
-            ///איך נותנים לו הזדמנות להקיש לפני שממשיכים הלאה
             BO.Product product = new BO.Product();
             if (tbID.Text.Length == 6)
                 product.ID = int.Parse(tbID.Text);
@@ -108,8 +108,9 @@ namespace PL.Product
                     MessageBox.Show("Not valid data in atock");
 
             }
+         
 
-            
+
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)

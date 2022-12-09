@@ -65,6 +65,7 @@
                     <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
 
                     <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="6" Grid.Column="0"/>
+                    <Button Grid.Column="1" Content="btnUPDATE" HorizontalAlignment="Left" Margin="32,23,0,0" Grid.Row="6" VerticalAlignment="Top" Click="Button_Click"/>
                 </Grid>
             </Grid>
             <ListView Name="productsLv" Foreground="Black" Background="{x:Null}" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" />
