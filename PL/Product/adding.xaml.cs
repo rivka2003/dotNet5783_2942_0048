@@ -94,7 +94,11 @@ namespace PL.Product
                 product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
                 product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
             }
-            try { _bl.Product.AddProduct(product); }
+            try 
+            { 
+                _bl.Product.AddProduct(product); 
+                Close();
+            }
             catch (BO.NotValid)///PRINTING ERROR MESSAGE ACCORDING TO THE PROBLEMATIC INPUT OR THE EMPTY PROPERTY
             {
                 if ( tbID.Text.Length != 6)
@@ -110,7 +114,7 @@ namespace PL.Product
             {
                 MessageBox.Show("The product is already exist!");
             }
-            Close();
+           
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
