@@ -27,6 +27,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image2.png"/>
+            </Grid.Background>
+
             <Grid Name="InGrid" Height="auto" Grid.Column="1" Width="auto">
                 <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
                     <Grid.RowDefinitions>
@@ -54,22 +58,23 @@
 
                     <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="GenderCB_SelectionChanged" Height="34" Grid.Row="0" Grid.Column="0"/>
 
-                    <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+                    <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
-                    <Label x:Name="CategoryL" Content="Category" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="#FF030303" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+                    <Label x:Name="CategoryL" Content="Category" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
-                    <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+                    <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
-                    <Label x:Name="SizeL" Content="Size" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+                    <Label x:Name="SizeL" Content="Size" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
-                    <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="4" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}"/>
+                    <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="4" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
-                    <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="Black" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="6" Grid.Column="0"/>
-                    
-                    <Button x:Name="AddProductWindoe" Content="Add new product" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Click="Add_Product_Button_Click" Height="35" Width="180" Foreground="Black" Background="{x:Null}" FontFamily="Elephant" FontSize="20" Grid.Row="7" Grid.Column="1"/>
+                    <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="6" Grid.Column="0" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
+
+                    <Button x:Name="AddProductWindoe" Content="Add new product" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Click="Add_Product_Button_Click" Height="35" Width="180" FontFamily="Elephant" FontSize="20" Grid.Row="7" Grid.Column="1" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
                 </Grid>
             </Grid>
-            <ListView Name="productsLv" Foreground="Black" Background="{x:Null}" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" />
+            <ListView Name="productsLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+            </ListView>
         </Grid>
     </Grid>
 </Window>

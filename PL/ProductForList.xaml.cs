@@ -28,10 +28,14 @@ namespace PL
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+            TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
 
             GenderCB.SelectedIndex = 0;
             CategoryCB.SelectedIndex = 0;
             ColorCB.SelectedIndex = 0;
+            TypeCB.SelectedIndex = 0;
+            SizeCB.SelectedIndex = 0;
         }
 
         private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -59,8 +63,6 @@ namespace PL
                 }
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
             }
-            TypeCB.SelectedIndex = 0;
-            SizeCB.SelectedIndex = 0;
         }
 
         private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,7 +106,7 @@ namespace PL
 
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new adding(bl).Show();
+            new adding(bl).ShowDialog();
             productsLv.ItemsSource = bl.Product.GetAll();
         }
     }
