@@ -46,9 +46,8 @@ namespace PL
                 TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
                 if ((GenderCB.SelectedItem is not BO.Gender.Women) && (GenderCB.SelectedItem is not BO.Gender.Girls))
                 {
-                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-                    TypeCB.Items.RemoveAt(10);// שגיאת ריצה איך לתקן
-                    TypeCB.Items.RemoveAt(9); // שגיאת ריצה איך לתקן
+                    TypeCB.Items.RemoveAt(10);
+                    TypeCB.Items.RemoveAt(9);
                 }
             }
             else
@@ -56,12 +55,10 @@ namespace PL
                 TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
-                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-                    TypeCB.Items.RemoveAt(4); // שגיאת ריצה איך לתקן
-                } 
-                SizeCB.ItemsSource= Enum.GetValues(typeof(BO.SizeShoes));
+                    TypeCB.Items.RemoveAt(4);
+                }
+                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
             }
-
             TypeCB.SelectedIndex = 0;
             SizeCB.SelectedIndex = 0;
         }
@@ -75,6 +72,10 @@ namespace PL
         }
 
         private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
 
@@ -97,12 +98,14 @@ namespace PL
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
-            new Update(ID).Show();
+            new Update(ID).ShowDialog();
+            productsLv.ItemsSource = bl.Product.GetAll();
         }
 
-        private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            new adding(bl).Show();
+            productsLv.ItemsSource = bl.Product.GetAll();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

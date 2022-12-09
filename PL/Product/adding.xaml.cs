@@ -94,30 +94,23 @@ namespace PL.Product
                 product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
                 product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
             }
-            try 
+            try { _bl.Product.AddProduct(product); }
+            catch (BO.NotValid)///PRINTING ERROR MESSAGE ACCORDING TO THE PROBLEMATIC INPUT OR THE EMPTY PROPERTY
             {
-                _bl.Product.AddProduct(product);
-                MessageBox.Show("addded succesfully");
-                this.Close();
-            }
-            catch (NotValid)///PRINTING ERROR MESSAGE ACCORDING TO THE PROBLEMATIC INPUT OR THE EMPTY PROPERTY
-            {
-                if (tbID.Text.Length != 6)
-                    MessageBox.Show("Not valid ID- Should contain 6 digits");
-                if (product.Name == " ")
-                    MessageBox.Show("Not valid name- Can't be empty");
+                if ( tbID.Text.Length != 6)
+                    MessageBox.Show("Not valid ID- Should contain 6 digits!");
+                if (product.Name ==" ")
+                    MessageBox.Show("Not valid name- Can't be empty!");
                 if (product.Price <= 0)
-                    MessageBox.Show("Not valid price- Should be positive");
+                    MessageBox.Show("Not valid price- Should be positive!");
                 if (product.InStock < 0)
-                    MessageBox.Show("Not valid data in atock");
+                    MessageBox.Show("Not valid data in atock!");
             }
-            catch (ExistingObjectDo) { MessageBox.Show("OBJECT ALREADY EXCIST"); }////NEED TO CHECK THIS
-           
-            
-
-
-
-
+            catch(BO.ExistingObjectBo)
+            {
+                MessageBox.Show("The product is already exist!");
+            }
+            Close();
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
