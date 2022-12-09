@@ -78,8 +78,29 @@ namespace PL.Product
                 MessageBox.Show("Not valid in stock-EMPTY");
                 return;
             }
+            if (cbCATEGORY.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid category-EMPTY");
+                return;
+            }
+            if (cbCOLOR.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid color-EMPTY");
+                return;
+            }
+            if (cbTYPE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid type-EMPTY");
+                return;
+            }
+            if (cbSIZE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid size-EMPTY");
+                return;
+            }
+            ///איך נותנים לו הזדמנות להקיש לפני שממשיכים הלאה
             BO.Product product = new BO.Product();
-            if (tbID.Text.Length == 6)
+            if (tbID.Text.Length == 7)// לבדוק את התנאי
                 product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
             product.Price = int.Parse(tbPRICE.Text);
@@ -100,12 +121,12 @@ namespace PL.Product
             try
             {
                 _bl.Product.UpdateProduct(product);
+                MessageBox.Show("Updated succesfuly!");
+               Close();
             }
-            catch(Exception)
+            catch(BO.NotValid)
             {
-
-
-                if (tbID.Text.Length != 6)
+                if (tbID.Text.Length != 7)
                     MessageBox.Show("Not valid ID- Should contain 6 digits");
                 if (product.Name == " ")
                     MessageBox.Show("Not valid name- Can't be empty");
@@ -114,7 +135,10 @@ namespace PL.Product
                 if (product.InStock < 0)
                     MessageBox.Show("Not valid data in atock");
             }
-            Close();
+            catch(BO.NonFoundObjectBo)
+            {
+                MessageBox.Show("The object is not found");
+            }
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)

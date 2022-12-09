@@ -54,7 +54,7 @@ namespace PL.Product
 
         private void btnADD_Click(object sender, RoutedEventArgs e) // mשגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
         {
-            if (tbID.Text == " "|| tbID.Text.Length >8)
+            if (tbID.Text == " " || tbID.Text.Length > 8)
             {
                 MessageBox.Show("Not valid ID-EMPTY");
                 return;
@@ -69,16 +69,34 @@ namespace PL.Product
                 MessageBox.Show("Not valid price-EMPTY");
                 return;
             }
-            if (tbINSTOCK.Text == " "|| tbINSTOCK.Text.Length > 8)
+            if (tbINSTOCK.Text == " " || tbINSTOCK.Text.Length > 8)
             {
-                MessageBox.Show("Not valid in stock-EMPTY");
+                MessageBox.Show("Not valid amount in stock-EMPTY");
                 return;
             }
-           
-             
-           
-            if (tbID.Text.Length == 6 )
-                 product.ID = int.Parse(tbID.Text);
+            if(cbCATEGORY.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid category-EMPTY");
+                return;
+            }
+            if (cbCOLOR.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid color-EMPTY");
+                return;
+            }
+            if (cbTYPE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid type-EMPTY");
+                return;
+            }
+            if (cbSIZE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid size-EMPTY");
+                return;
+            }
+
+            if (tbID.Text.Length == 7)
+                product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
             product.Price = int.Parse(tbPRICE.Text);
             product.InStock= int.Parse(tbINSTOCK.Text);
@@ -94,14 +112,15 @@ namespace PL.Product
                 product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
                 product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
             }
-            try 
-            { 
-                _bl.Product.AddProduct(product); 
-                Close();
+            try
+            {
+                _bl.Product.AddProduct(product);
+                MessageBox.Show("Added succesfuly");
+               Close();
             }
             catch (BO.NotValid)///PRINTING ERROR MESSAGE ACCORDING TO THE PROBLEMATIC INPUT OR THE EMPTY PROPERTY
             {
-                if ( tbID.Text.Length != 6)
+                if ( tbID.Text.Length != 7)
                     MessageBox.Show("Not valid ID- Should contain 6 digits!");
                 if (product.Name ==" ")
                     MessageBox.Show("Not valid name- Can't be empty!");
@@ -114,7 +133,6 @@ namespace PL.Product
             {
                 MessageBox.Show("The product is already exist!");
             }
-           
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)

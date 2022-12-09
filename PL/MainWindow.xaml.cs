@@ -14,7 +14,6 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            imege.Visibility = Visibility.Visible;
         }
 
         private void Products_Button_Click(object sender, RoutedEventArgs e)
