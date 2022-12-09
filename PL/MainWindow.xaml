@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,-19,0,0">
-        <Button x:Name="ProductListWindow" Content="products" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="76" Width="265" Click="Products_Button_Click" Margin="0,169,0,0" FontFamily="Elephant" FontSize="36" Foreground="#FFF3F3F3" Background="Black"/>
-
-        <Button x:Name="AddProductWindoe" Content="Add new Product" HorizontalAlignment="Right" Margin="0,5,5,374" Padding="5" Click="Add_Product_Button_Click" Foreground="White" Background="Black" FontFamily="Elephant" FontSize="24"/>
+        <Image x:Name="imege" Source="/Image1.png" Stretch="Fill"/>
+        <Button x:Name="ProductListWindow" Content="Welcome to the galaxi of fation!" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="76" Width="600" Click="Products_Button_Click" Margin="0,169,0,0" FontFamily="Elephant" FontSize="36" Foreground="White" Background="{x:Null}"/>
     </Grid>
 </Window>

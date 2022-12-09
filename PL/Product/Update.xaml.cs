@@ -20,17 +20,24 @@ namespace PL.Product
             tbNAME.Text = product.Name;
             tbPRICE.Text = product.Price.ToString();
             tbINSTOCK.Text = product.InStock.ToString();
-            cbCATEGORY.Text = product.Category.ToString();
-            cbCOLOR.Text = product.Color.ToString();
+            cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            cbCATEGORY.SelectedItem = product.Category;
+            cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            cbCOLOR.SelectedItem = product.Color;
+
             if(product.Category is BO.Category.Clothing)
             {
-                cbSIZE.Text = product.SizeClothing.ToString();
-                cbTYPE.Text = product.Clothing.ToString();
+                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+                cbSIZE.SelectedItem = product.SizeClothing;
+                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                cbTYPE.SelectedItem = product.Clothing;
             }
             else
             {
-                cbSIZE.Text = product.SizeShoes.ToString();
-                cbTYPE.Text = product.Shoes.ToString();
+                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
+                cbSIZE.SelectedItem = product.SizeShoes;
+                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                cbTYPE.SelectedItem = product.Shoes;
             }
         }
 
@@ -106,10 +113,8 @@ namespace PL.Product
                     MessageBox.Show("Not valid price- Should be positive");
                 if (product.InStock < 0)
                     MessageBox.Show("Not valid data in atock");
-
             }
-
-            
+            Close();
         }
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
