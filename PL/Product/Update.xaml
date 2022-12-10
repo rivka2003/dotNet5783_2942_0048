@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Update" Height="450" Width="800">
     <Window.Background>
-        <ImageBrush ImageSource="/Product/Image1.png"/>
+        <ImageBrush ImageSource="/Product/Image3.png"/>
     </Window.Background>
     <Grid Margin="0,71,0,0">
 

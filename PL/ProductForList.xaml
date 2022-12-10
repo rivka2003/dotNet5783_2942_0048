@@ -19,7 +19,7 @@
         </Style>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="/Image3.png"/>
+        <ImageBrush ImageSource="/Image7.png"/>
     </Window.Background>
 
     <Grid>
