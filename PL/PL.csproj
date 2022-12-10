@@ -14,9 +14,7 @@
 
   <ItemGroup>
     <None Remove="Image1.png" />
-    <None Remove="Image2.png" />
     <None Remove="Image3.png" />
-    <None Remove="Image4.png" />
     <None Remove="Image5.png" />
     <None Remove="Image6.png" />
     <None Remove="Image7.png" />
@@ -32,9 +30,7 @@
 
   <ItemGroup>
     <Resource Include="Image1.png" />
-    <Resource Include="Image2.png" />
     <Resource Include="Image3.png" />
-    <Resource Include="Image4.png" />
     <Resource Include="Image5.png" />
     <Resource Include="Image6.png" />
     <Resource Include="Image7.png" />

@@ -23,6 +23,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -38,13 +39,17 @@
 
             <Label x:Name="lblINSTOCK" Content="Amount In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
+            <Label x:Name="lblDESCRIPTION" Content="Description:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
+
             <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
 
-            <TextBox x:Name="tbPRICE" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
 
-            <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigits"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
 
-            <TextBox x:Name="tbINSTOCK" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+
+            <TextBox x:Name="tbDESCRIPTION" HorizontalAlignment="Left" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="178" Grid.Row="4" Grid.Column="1"/>
         </Grid>
 
         <Grid x:Name="inGridSecond" Grid.Column="1">

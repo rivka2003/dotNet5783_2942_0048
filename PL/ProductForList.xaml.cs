@@ -1,8 +1,11 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using PL.Product;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,21 +50,38 @@ namespace PL
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
-                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
                 if ((GenderCB.SelectedItem is not BO.Gender.Women) && (GenderCB.SelectedItem is not BO.Gender.Girls))
                 {
-                    TypeCB.Items.RemoveAt(10);
-                    TypeCB.Items.RemoveAt(9);
+                    Array items = Enum.GetValues(typeof(BO.Clothing));
+
+                    foreach (BO.Clothing item in items)
+                    {
+                        if(item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
+                        {
+                            TypeCB.Items.Add(item);
+                        }
+                    }
                 }
+                else
+                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
             }
             else
             {
-                TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
-                    TypeCB.Items.RemoveAt(4);
+                    Array items = Enum.GetValues(typeof(BO.Shoes));
+
+                    foreach (BO.Shoes item in items)
+                    {
+                        if (item is not BO.Shoes.Heels)
+                        {
+                            TypeCB.Items.Add(item);
+                        }
+                    }
                 }
-                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
+                else
+                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                SizeCB.ItemsSource = new int[] {36,37,38,39,40,41,42,43,44,45};
             }
         }
 
@@ -108,6 +128,11 @@ namespace PL
         {
             new adding(bl).ShowDialog();
             productsLv.ItemsSource = bl.Product.GetAll();
+        }
+
+        private void ClearB(object sender, RoutedEventArgs e)
+        {
+            productsLv.ItemsSource = productForLists.Select(item => item);
         }
     }
 }
