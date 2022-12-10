@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="0,-16,0,0">
+    <Grid Margin="0,0,0,0">
         <Grid.Background>
-            <ImageBrush ImageSource="/Image1.png"/>
+            <ImageBrush ImageSource="/Image6.png"/>
         </Grid.Background>
-        <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fation!" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="76" Width="709" Click="Products_Button_Click" Margin="0,169,0,0" FontFamily="Elephant" FontSize="36" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fation!" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="76" Width="709" Click="Products_Button_Click" Margin="65,83,0,0" FontFamily="Elephant" FontSize="36" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
     </Grid>
 </Window>

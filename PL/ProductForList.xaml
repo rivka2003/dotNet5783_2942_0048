@@ -18,6 +18,9 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="/Image3.png"/>
+    </Window.Background>
 
     <Grid>
         <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
@@ -26,10 +29,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <Grid.Background>
-                <ImageBrush ImageSource="/Image2.png"/>
-            </Grid.Background>
 
             <Grid Name="InGrid" Height="auto" Grid.Column="1" Width="auto">
                 <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">

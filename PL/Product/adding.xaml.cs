@@ -32,6 +32,7 @@ namespace PL.Product
         {
             InitializeComponent();
             _bl = bl;
+            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
         }

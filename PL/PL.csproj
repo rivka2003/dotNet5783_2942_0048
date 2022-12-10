@@ -13,7 +13,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Image1.png" />
+    <None Remove="Image2.png" />
+    <None Remove="Image3.png" />
+    <None Remove="Image6.png" />
+    <None Remove="Product\Image1.png" />
+    <None Remove="Product\Image4.png" />
+    <None Remove="Product\Image5.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image1.png" />
+    <Resource Include="Image2.png" />
+    <Resource Include="Image3.png" />
+    <Resource Include="Image6.png" />
+    <Resource Include="Product\Image1.png" />
+    <Resource Include="Product\Image4.png" />
+    <Resource Include="Product\Image5.png" />
   </ItemGroup>
 
 </Project>

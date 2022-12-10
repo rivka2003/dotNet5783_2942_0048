@@ -25,6 +25,8 @@ namespace PL.Product
             cbCATEGORY.SelectedItem = product.Category;
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
             cbCOLOR.SelectedItem = product.Color;
+            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
+            cbGENDER.SelectedItem = product.Gender;
 
             if(product.Category is BO.Category.Clothing)
             {
@@ -78,6 +80,11 @@ namespace PL.Product
                 MessageBox.Show("Not valid in stock-EMPTY");
                 return;
             }
+            if (cbGENDER.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid gender-EMPTY");
+                return;
+            }
             if (cbCATEGORY.SelectedItem == null)
             {
                 MessageBox.Show("Not valid category-EMPTY");
@@ -108,6 +115,7 @@ namespace PL.Product
             product.InStock = int.Parse(tbINSTOCK.Text);
             product.Category = (BO.Category)cbCATEGORY.SelectedItem;
             product.Color = (BO.Color)cbCOLOR.SelectedItem;
+            product.Gender = (BO.Gender)cbGENDER.SelectedItem;
             if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
             {
                 product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
