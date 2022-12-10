@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="Update" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="/Product/Image1.png"/>
+    </Window.Background>
     <Grid Margin="0,71,0,0">
 
         <Grid.ColumnDefinitions>
@@ -27,41 +30,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblNAME" Content="Name:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="46" Grid.Row="1" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblNAME" Content="Name:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="46" Grid.Row="1" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblPRICE" Content="Price:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblPRICE" Content="Price:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblINSTOCK" Content="Amount In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black" Offset="0.248"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblINSTOCK" Content="Amount In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
             <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
 
@@ -87,50 +62,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" FontFamily="Elephant">
-                <Label.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Label.Foreground>
-            </Label>
+            <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
             <ComboBox x:Name="cbGENDER" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" Grid.Column="1"/>
 
@@ -142,23 +82,9 @@
 
             <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
 
-            <Button x:Name="btnUPDATE" Content="UPDATE" HorizontalAlignment="Left" Margin="-35,16,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnUPDATE_Click" Grid.Row="5" Foreground="White" FontFamily="Elephant">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="Red" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+            <Button x:Name="btnUPDATE" Content="UPDATE" HorizontalAlignment="Left" Margin="-35,16,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnUPDATE_Click" Grid.Row="5" Foreground="Red" FontFamily="Elephant" BorderBrush="{x:Null}" Background="{x:Null}"/>
         </Grid>
 
-        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="299,-56,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="Red" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
+        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="299,-56,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Foreground="White"/>
     </Grid>
 </Window>
