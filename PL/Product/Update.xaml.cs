@@ -105,7 +105,7 @@ namespace PL.Product
                 MessageBox.Show("Not valid size-EMPTY");
                 return;
             }
-            ///איך נותנים לו הזדמנות להקיש לפני שממשיכים הלאה
+            
             BO.Product product = new BO.Product();
             if (tbID.Text.Length == 7)// לבדוק את התנאי
                 product.ID = int.Parse(tbID.Text);

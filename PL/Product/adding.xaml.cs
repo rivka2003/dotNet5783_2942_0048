@@ -132,7 +132,7 @@ namespace PL.Product
             }
             catch(BO.ExistingObjectBo)
             {
-                MessageBox.Show("The product is already exist!");
+                MessageBox.Show("The product already exist!");
             }
         }
 
