@@ -41,22 +41,19 @@ namespace PL
             SizeCB.SelectedIndex = 0;
         }
 
-        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            TypeCB.Items.Clear();
+            TypeCB.ItemsSource = null;
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
-                TypeCB.Items.Clear();
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 Array items = Enum.GetValues(typeof(BO.Clothing));
-                if ((GenderCB.SelectedItem is not BO.Gender.Women) && (GenderCB.SelectedItem is not BO.Gender.Girls))
+                if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
                 {
                     foreach (BO.Clothing item in items)
                     {
-                        if(item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
+                        if (item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
                         {
                             TypeCB.Items.Add(item);
                         }
@@ -64,7 +61,7 @@ namespace PL
                 }
                 else
                 {
-                    foreach (BO.Clothing  item in items)
+                    foreach (BO.Clothing item in items)
                     {
                         TypeCB.Items.Add(item);
                     }
@@ -72,7 +69,6 @@ namespace PL
             }
             else
             {
-                TypeCB.Items.Clear();
                 Array items = Enum.GetValues(typeof(BO.Shoes));
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
@@ -91,7 +87,7 @@ namespace PL
                         TypeCB.Items.Add(item);
                     }
                 }
-                SizeCB.ItemsSource = new int[] {36,37,38,39,40,41,42,43,44,45};
+                SizeCB.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
             }
         }
 
@@ -143,6 +139,11 @@ namespace PL
         private void ClearB(object sender, RoutedEventArgs e)
         {
             productsLv.ItemsSource = productForLists.Select(item => item);
+        }
+
+        private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -47,15 +47,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0"/>
+                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="ColorCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0"/>
 
-                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0"/>
+                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="SizeCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0"/>
 
                     <ComboBox x:Name="CategoryCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0"/>
 
-                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"/>
+                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="TypeCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"/>
 
-                    <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="GenderCB_SelectionChanged" Height="34" Grid.Row="0" Grid.Column="0"/>
+                    <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Grid.Row="0" Grid.Column="0"/>
 
                     <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Century" FontSize="16" FontWeight="Bold" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White"/>
 
