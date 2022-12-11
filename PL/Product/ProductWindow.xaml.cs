@@ -135,6 +135,12 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("^[A-Za-z]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void btnSAVE_Click(object sender, RoutedEventArgs e)
         {
             BO.Product product = new BO.Product();
