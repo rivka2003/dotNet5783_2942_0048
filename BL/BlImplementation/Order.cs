@@ -97,7 +97,7 @@ namespace BlImplementation
                 OrderBo.TotalPrice = OrderBo.Items.Sum(o => o!.Amount * o.Price);
             }
             else /// if the ID is not valid
-                throw new BO.NotValid();
+                throw new BO.NotValid("ID- Can't be a negative number");
 
             return OrderBo;
         }

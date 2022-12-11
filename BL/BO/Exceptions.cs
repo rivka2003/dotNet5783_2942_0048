@@ -34,7 +34,7 @@ ExistingObjectDo: The DO object is already exist!
         public NotValid(string message, Exception inner) : base(message, inner) { }
         protected NotValid(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            "NotValid: Not valid input!";
+            $"NotValid: Not valid {Message}";
     }
 
     public class NotInStock : Exception

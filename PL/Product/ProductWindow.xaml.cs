@@ -34,37 +34,26 @@ namespace PL.Product
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 cbSIZE.SelectedItem = product.SizeClothing;
-                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                Array items = Enum.GetValues(typeof(BO.Clothing));
+                foreach (BO.Clothing item in items)
+                {
+                    cbTYPE.Items.Add(item);
+                }
                 cbTYPE.SelectedItem = product.Clothing;
             }
             else
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
                 cbSIZE.SelectedItem = product.SizeShoes;
-                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                Array items = Enum.GetValues(typeof(BO.Clothing));
+                foreach (BO.Clothing item in items)
+                {
+                    cbTYPE.Items.Add(item);
+                }
                 cbTYPE.SelectedItem = product.Shoes;
             }
             btnSAVE.Content = "UPDATE";
-            lblCHECK1.Visibility = Visibility.Hidden;
-            lblCHECK2.Visibility = Visibility.Hidden;
-            lblCHECK3.Visibility = Visibility.Hidden;
-            lblCHECK4.Visibility = Visibility.Hidden;
-            lblCHECK5.Visibility = Visibility.Hidden;
-            lblCHECK6.Visibility = Visibility.Hidden;
-            lblCHECK7.Visibility = Visibility.Hidden;
-            lblCHECK8.Visibility = Visibility.Hidden;
-            lblCHECK9.Visibility = Visibility.Hidden;
-            lblCHECK10.Visibility = Visibility.Hidden;
-            lblx1.Visibility = Visibility.Hidden;
-            lblx2.Visibility = Visibility.Hidden;
-            lblx3.Visibility = Visibility.Hidden;
-            lblx4.Visibility = Visibility.Hidden;
-            lblx5.Visibility = Visibility.Hidden;
-            lblx6.Visibility = Visibility.Hidden;
-            lblx7.Visibility = Visibility.Hidden;
-            lblx8.Visibility = Visibility.Hidden;
-            lblx9.Visibility = Visibility.Hidden;
-            lblx10.Visibility = Visibility.Hidden;
+            tbID.IsReadOnly = true;
         }
 
         public ProductWindow(IBl bl)
@@ -74,37 +63,25 @@ namespace PL.Product
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
-
+            Array items = Enum.GetValues(typeof(BO.Clothing));
+            foreach (BO.Clothing item in items)
+            {
+                cbTYPE.Items.Add(item);
+            }
             cbGENDER.SelectedIndex = 0;
             cbCATEGORY.SelectedIndex = 0;
             cbCOLOR.SelectedIndex = 0;
             cbSIZE.SelectedIndex = 0;
             cbTYPE.SelectedIndex = 0;
             btnSAVE.Content = "ADD";
-            lblCHECK1.Visibility = Visibility.Hidden;
-            lblCHECK2.Visibility = Visibility.Hidden;
-            lblCHECK3.Visibility = Visibility.Hidden;
-            lblCHECK4.Visibility = Visibility.Hidden;
-            lblCHECK5.Visibility = Visibility.Hidden;
-            lblCHECK6.Visibility = Visibility.Hidden;
-            lblCHECK7.Visibility = Visibility.Hidden;
-            lblCHECK8.Visibility = Visibility.Hidden;
-            lblCHECK9.Visibility = Visibility.Hidden;
-            lblCHECK10.Visibility = Visibility.Hidden;
-            lblx1.Visibility = Visibility.Hidden;
-            lblx2.Visibility = Visibility.Hidden;
-            lblx3.Visibility = Visibility.Hidden;
-            lblx4.Visibility = Visibility.Hidden;
-            lblx5.Visibility = Visibility.Hidden;
-            lblx6.Visibility = Visibility.Hidden;
-            lblx7.Visibility = Visibility.Hidden;
-            lblx8.Visibility = Visibility.Hidden;
-            lblx9.Visibility = Visibility.Hidden;
-            lblx10.Visibility = Visibility.Hidden;
+            lblTITLE.Content = "Add a new product";
         }
 
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)///reset the enums according to the category
         {
+            if (lblCHECK7 is null || lblx7 is null)
+                return;
+
             if (cbCATEGORY.SelectedItem == null)
             {
                 lblCHECK7.Visibility = Visibility.Hidden;
@@ -117,15 +94,66 @@ namespace PL.Product
                 lblCHECK7.Visibility = Visibility.Visible;
             }
 
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            if (lblCHECK6 is null || lblx6 is null)
+                return;
+
+            if (cbGENDER.SelectedItem == null)
             {
-                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
-                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                lblCHECK6.Visibility = Visibility.Hidden;
+                lblx6.Visibility = Visibility.Visible;
+                return;
             }
             else
             {
-                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
-                cbTYPE.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                lblx6.Visibility = Visibility.Hidden;
+                lblCHECK6.Visibility = Visibility.Visible;
+            }
+
+            cbTYPE.Items.Clear();
+            cbTYPE.ItemsSource = null;
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+                Array items = Enum.GetValues(typeof(BO.Clothing));
+                if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
+                {
+                    foreach (BO.Clothing item in items)
+                    {
+                        if (item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
+                        {
+                            cbTYPE.Items.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (BO.Clothing item in items)
+                    {
+                        cbTYPE.Items.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                Array items = Enum.GetValues(typeof(BO.Shoes));
+                if (cbGENDER.SelectedItem is not BO.Gender.Women)
+                {
+                    foreach (BO.Shoes item in items)
+                    {
+                        if (item is not BO.Shoes.Heels)
+                        {
+                            cbTYPE.Items.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (BO.Shoes item in items)
+                    {
+                        cbTYPE.Items.Add(item);
+                    }
+                }
+                cbSIZE.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
             }
         }
 
@@ -135,9 +163,15 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new("^[A-Za-z]+");
+            Regex regex = new("^[A-Z,a-z]+ [0-9]*");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -164,6 +198,8 @@ namespace PL.Product
             }
             try
             {
+                if (btnSAVE is null)
+                    return;
                 if (btnSAVE.Content is "UPDATE")
                 {
                     _bl.Product.UpdateProduct(product);
@@ -176,31 +212,50 @@ namespace PL.Product
                 }
                 Close();
             }
-            catch (BO.NotValid)
+            catch (BO.NotValid ex)
             {
                 if (tbID.Text.Length != 7)
                 {
-                    MessageBox.Show("Not valid ID- Should contain 6 digits");
+                    MessageBox.Show(ex.Message);
+                    if (lblCHECK1 is null)
+                        return;
+
                     lblCHECK1.Visibility = Visibility.Hidden;
                     lblx1.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.Name == " ")
                 {
+                    MessageBox.Show(ex.Message);
+                    if (lblCHECK2 is null)
+                        return;
                     lblCHECK2.Visibility = Visibility.Hidden;
                     lblx2.Visibility = Visibility.Visible;
                     return;
                 }
+                if(product.Description == " ")
+                {
+                    MessageBox.Show(ex.Message);
+                    if (lblCHECK5 is null)
+                        return;
+                    lblCHECK5.Visibility = Visibility.Hidden;
+                    lblx5.Visibility = Visibility.Visible;
+                    return;
+                }
                 if (product.Price <= 0)
                 {
-                    MessageBox.Show("Not valid price- Should be positive");
+                    MessageBox.Show(ex.Message);
+                    if (lblCHECK3 is null)
+                        return;
                     lblCHECK3.Visibility = Visibility.Hidden;
                     lblx3.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.InStock < 0)
                 {
-                    MessageBox.Show("Not valid data in atock");
+                    MessageBox.Show(ex.Message);
+                    if (lblCHECK4 is null)
+                        return;
                     lblCHECK4.Visibility = Visibility.Hidden;
                     lblx4.Visibility = Visibility.Visible;
                     return;
@@ -218,12 +273,9 @@ namespace PL.Product
 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (btnSAVE.Content is "UPDATE")
-            {
-                tbID.IsReadOnly = true;
+            if (lblCHECK1 is null || lblx1 is null)
                 return;
-            }
-            if (tbID.Text == " " || tbID.Text.Length > 8)
+            if (tbID.Text == "" || tbID.Text.Length > 8)
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;
@@ -235,6 +287,8 @@ namespace PL.Product
 
         private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lblCHECK8 is null || lblx8 is null)
+                return;
             if (cbTYPE.SelectedItem == null)
             {
                 lblCHECK8.Visibility = Visibility.Hidden;
@@ -247,13 +301,23 @@ namespace PL.Product
 
         private void tbNAME_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (lblCHECK2 is null || lblx2 is null)
+                return;
+            if(tbNAME.Text == "")
+            {
+                lblCHECK2.Visibility = Visibility.Hidden;
+                lblx2.Visibility = Visibility.Visible;
+                return;
+            }
             lblx2.Visibility = Visibility.Hidden;
             lblCHECK2.Visibility = Visibility.Visible;
         }
 
         private void tbPRICE_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbPRICE.Text == " ")
+            if (lblCHECK3 is null || lblx3 is null)
+                return;
+            if (tbPRICE.Text == "")
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
@@ -265,7 +329,9 @@ namespace PL.Product
 
         private void tbINSTOCK_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbINSTOCK.Text == " " || tbINSTOCK.Text.Length > 8)
+            if (lblCHECK4 is null || lblx4 is null)
+                return;
+            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8)
             {
                 lblCHECK4.Visibility = Visibility.Hidden;
                 lblx4.Visibility = Visibility.Visible;
@@ -277,7 +343,9 @@ namespace PL.Product
 
         private void tbDESCRIPTION_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbDESCRIPTION.Text == " ")
+            if (lblCHECK5 is null || lblx5 is null)
+                return;
+            if (tbDESCRIPTION.Text == "")
             {
                 lblCHECK5.Visibility = Visibility.Hidden;
                 lblx5.Visibility = Visibility.Visible;
@@ -287,20 +355,10 @@ namespace PL.Product
             lblCHECK5.Visibility = Visibility.Visible;
         }
 
-        private void cbGENDER_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbGENDER.SelectedItem == null)
-            {
-                lblCHECK6.Visibility = Visibility.Hidden;
-                lblx6.Visibility = Visibility.Visible;
-                return;
-            }
-            lblx6.Visibility = Visibility.Hidden;
-            lblCHECK6.Visibility = Visibility.Visible;
-        }
-
         private void cbCOLOR_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lblCHECK9 is null || lblx9 is null)
+                return;
             if (cbCOLOR.SelectedItem == null)
             {
                 lblCHECK9.Visibility = Visibility.Hidden;
@@ -313,6 +371,8 @@ namespace PL.Product
 
         private void cbSIZE_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lblCHECK10 is null || lblx10 is null)
+                return;
             if (cbSIZE.SelectedItem == null)
             {
                 lblCHECK10.Visibility = Visibility.Hidden;

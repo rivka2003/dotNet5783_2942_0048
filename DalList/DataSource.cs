@@ -83,14 +83,14 @@ namespace Dal
                 value.Color = randomColor;
                 value.Description = "New!";
                 ///If the drawn Category is "Clothing"
-                if (randomCategory is (Category)0)
+                if (randomCategory is Category.Clothing)
                 {
                     randomSizeClothes = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length))!;
                     value.SizeClothing = randomSizeClothes;
                     /// If the Category drawn is "men" or "boys"
-                    if (randomGender is (Gender)1 or (Gender)2)
+                    if (randomGender is Gender.Men or Gender.Boys)
                     {
-                        randomClothes = (Clothing)Clothes.GetValue(random.Next(2, Clothes.Length))!;
+                        randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length - 2))!;
                         value.Gender = randomGender;
                         value.Clothing = randomClothes;
                     }
@@ -107,9 +107,9 @@ namespace Dal
                     randomSizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length))!;
                     value.SizeShoes = randomSizeShoes;
                     /// If the Category is "Men" or "Boys" or "Girls"
-                    if (randomGender is (Gender)1 or (Gender)2 or (Gender)3)
+                    if (randomGender is not Gender.Women)
                     {
-                        randomShoes = (Shoes)Shoe.GetValue(random.Next(1, Shoe.Length))!;
+                        randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length - 1))!;
                         value.Gender = randomGender;
                         value.Shoes = randomShoes;
                     }
