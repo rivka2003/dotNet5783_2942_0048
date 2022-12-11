@@ -2,8 +2,10 @@
 using BlImplementation;
 using DO;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL.Product
 {
@@ -27,6 +29,7 @@ namespace PL.Product
             cbCOLOR.SelectedItem = product.Color;
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbGENDER.SelectedItem = product.Gender;
+            tbDESCRIPTION.Text = product.Description;
 
             if(product.Category is BO.Category.Clothing)
             {
@@ -58,6 +61,12 @@ namespace PL.Product
             }
         }
 
+        private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void btnUPDATE_Click(object sender, RoutedEventArgs e)
         {
             if (tbID.Text == " " || tbID.Text.Length > 8)
@@ -78,6 +87,11 @@ namespace PL.Product
             if (tbINSTOCK.Text == " " || tbINSTOCK.Text.Length > 8)
             {
                 MessageBox.Show("Not valid in stock-EMPTY");
+                return;
+            }
+            if (tbDESCRIPTION.Text == " ")
+            {
+                MessageBox.Show("Not valid description-EMPTY");
                 return;
             }
             if (cbGENDER.SelectedItem == null)
@@ -107,7 +121,7 @@ namespace PL.Product
             }
             
             BO.Product product = new BO.Product();
-            if (tbID.Text.Length == 7)// לבדוק את התנאי
+            if (tbID.Text.Length == 6)// לבדוק את התנאי
                 product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
             product.Price = int.Parse(tbPRICE.Text);
@@ -116,6 +130,7 @@ namespace PL.Product
             product.Category = (BO.Category)cbCATEGORY.SelectedItem;
             product.Color = (BO.Color)cbCOLOR.SelectedItem;
             product.Gender = (BO.Gender)cbGENDER.SelectedItem;
+            product.Description = tbDESCRIPTION.Text;
             if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
             {
                 product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
@@ -145,7 +160,7 @@ namespace PL.Product
             }
             catch(BO.NonFoundObjectBo)
             {
-                MessageBox.Show("The object is not found");
+                MessageBox.Show("The object does not found");
             }
         }
 
@@ -158,7 +173,5 @@ namespace PL.Product
         {
 
         }
-
-     
     }
 }

@@ -1,12 +1,7 @@
 ﻿using BlApi;
 using BlImplementation;
-using BO;
-using DO;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +30,12 @@ namespace PL.Product
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
+
+            cbGENDER.SelectedIndex = 0;
+            cbCATEGORY.SelectedIndex = 0;
+            cbCOLOR.SelectedIndex = 0;
+            cbSIZE.SelectedIndex = 0;
+            cbTYPE.SelectedIndex = 0;
         }
 
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,7 +52,11 @@ namespace PL.Product
             }
         }
 
-
+        private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
 
         private void btnADD_Click(object sender, RoutedEventArgs e) // mשגיאת ריצה בהוספת מוצר יש שגיאה בזריקת שגיאה בexistingObject
         {
@@ -75,7 +80,12 @@ namespace PL.Product
                 MessageBox.Show("Not valid amount in stock-EMPTY");
                 return;
             }
-            if(cbCATEGORY.SelectedItem == null)
+            if (tbDESCRIPTION.Text == " ")
+            {
+                MessageBox.Show("Not valid description-EMPTY");
+                return;
+            }
+            if (cbCATEGORY.SelectedItem == null)
             {
                 MessageBox.Show("Not valid category-EMPTY");
                 return;
@@ -103,6 +113,8 @@ namespace PL.Product
             product.InStock= int.Parse(tbINSTOCK.Text);
             product.Category = (BO.Category)cbCATEGORY.SelectedItem;
             product.Color = (BO.Color)cbCOLOR.SelectedItem;
+            product.Gender = (BO.Gender)cbGENDER.SelectedItem;
+            product.Description = tbDESCRIPTION.Text;
             if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
             {
                 product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;

@@ -69,6 +69,8 @@
 
                     <Button x:Name="chooseB"  Content="Choose!" Margin="0,0,0,0" VerticalAlignment="Center" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ChooseB" Grid.Row="6" Grid.Column="0" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
 
+                    <Button x:Name="clearB"  Content="Clear!" Margin="0,0,0,0" VerticalAlignment="Top" Height="35" Width="111" FontFamily="Elephant" FontSize="16" Click="ClearB" Grid.Row="6" Grid.Column="1" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
+                    
                     <Button x:Name="AddProductWindoe" Content="Add new product" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Click="Add_Product_Button_Click" Height="35" Width="180" FontFamily="Elephant" FontSize="20" Grid.Row="7" Grid.Column="1" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
                 </Grid>
             </Grid>
