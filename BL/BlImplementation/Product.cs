@@ -83,7 +83,7 @@ namespace BlImplementation
         {
             DO.Product productDo = new DO.Product();
             /// checking if all the product details are valid
-            if (productBo.ID > 0 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
+            if (productBo.ID >= 6 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
             {
                 productDo = productBo.CopyPropToStruct(productDo);
                 productDo.Status = DO.Status.Exist;
@@ -134,7 +134,7 @@ namespace BlImplementation
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
             /// checking if all the fields in the product are valid
-            if (updateProduct.ID > 0 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
+            if (updateProduct.ID >= 6 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
             {
                 productDo = updateProduct.CopyPropToStruct(productDo);
                 productDo.Status = DO.Status.Exist;

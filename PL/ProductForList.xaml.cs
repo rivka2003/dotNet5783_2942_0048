@@ -1,11 +1,8 @@
 ﻿using BlApi;
 using BlImplementation;
-using BO;
 using PL.Product;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,8 +29,11 @@ namespace PL
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
             SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
-            TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
-
+            Array items = Enum.GetValues(typeof(BO.Clothing));
+            foreach (BO.Clothing item in items)
+            {
+                TypeCB.Items.Add(item);
+            }
             GenderCB.SelectedIndex = 0;
             CategoryCB.SelectedIndex = 0;
             ColorCB.SelectedIndex = 0;
@@ -49,11 +49,11 @@ namespace PL
         {
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
+                TypeCB.Items.Clear();
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+                Array items = Enum.GetValues(typeof(BO.Clothing));
                 if ((GenderCB.SelectedItem is not BO.Gender.Women) && (GenderCB.SelectedItem is not BO.Gender.Girls))
                 {
-                    Array items = Enum.GetValues(typeof(BO.Clothing));
-
                     foreach (BO.Clothing item in items)
                     {
                         if(item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
@@ -63,14 +63,19 @@ namespace PL
                     }
                 }
                 else
-                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Clothing));
+                {
+                    foreach (BO.Clothing  item in items)
+                    {
+                        TypeCB.Items.Add(item);
+                    }
+                }
             }
             else
             {
+                TypeCB.Items.Clear();
+                Array items = Enum.GetValues(typeof(BO.Shoes));
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
-                    Array items = Enum.GetValues(typeof(BO.Shoes));
-
                     foreach (BO.Shoes item in items)
                     {
                         if (item is not BO.Shoes.Heels)
@@ -80,7 +85,12 @@ namespace PL
                     }
                 }
                 else
-                    TypeCB.ItemsSource = Enum.GetValues(typeof(BO.Shoes));
+                {
+                    foreach (BO.Shoes item in items)
+                    {
+                        TypeCB.Items.Add(item);
+                    }
+                }
                 SizeCB.ItemsSource = new int[] {36,37,38,39,40,41,42,43,44,45};
             }
         }
@@ -120,13 +130,13 @@ namespace PL
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
-            new Update(ID).ShowDialog();
+            new ProductWindow(ID).ShowDialog();
             productsLv.ItemsSource = bl.Product.GetAll();
         }
 
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new adding(bl).ShowDialog();
+            new ProductWindow(bl).ShowDialog();
             productsLv.ItemsSource = bl.Product.GetAll();
         }
 
