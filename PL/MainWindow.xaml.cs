@@ -16,6 +16,11 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// getting to main menue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Products_Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductForList(_bl).Show();

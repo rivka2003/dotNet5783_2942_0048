@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BlImplementation;
 using System;
+using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,9 +15,10 @@ namespace PL.Product
     public partial class ProductWindow : Window
     {
         private IBl _bl = new Bl();
-        public ProductWindow(int ID)///showing the current values
+        public ProductWindow(int ID)/// constructor to open an update window
         {
             InitializeComponent();
+            ///resets to show the current values
             BO.Product product = _bl.Product.ProductDetailsForManager(ID);
             tbID.Text = product.ID.ToString();
             tbNAME.Text = product.Name;
@@ -30,7 +32,8 @@ namespace PL.Product
             cbGENDER.SelectedItem = product.Gender;
             tbDESCRIPTION.Text = product.Description;
 
-            if (product.Category is BO.Category.Clothing)
+            ///resets the options of the second and third combo boxes according to what was chosen
+            if (product.Category is BO.Category.Clothing)///if first cb was chosen as clothing
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 cbSIZE.SelectedItem = product.SizeClothing;
@@ -41,7 +44,7 @@ namespace PL.Product
                 }
                 cbTYPE.SelectedItem = product.Clothing;
             }
-            else
+            else///if first cb was chosen as shoes
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
                 cbSIZE.SelectedItem = product.SizeShoes;
@@ -53,11 +56,12 @@ namespace PL.Product
                 cbTYPE.SelectedItem = product.Shoes;
             }
             btnSAVE.Content = "UPDATE";
-            tbID.IsReadOnly = true;
+            tbID.IsReadOnly = true;///unable changing the id 
         }
 
-        public ProductWindow(IBl bl)
+        public ProductWindow(IBl bl)/// constructor to open an update window
         {
+
             InitializeComponent();
             _bl = bl;
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
@@ -68,6 +72,7 @@ namespace PL.Product
             {
                 cbTYPE.Items.Add(item);
             }
+            ///resets to default values 
             cbGENDER.SelectedIndex = 0;
             cbCATEGORY.SelectedIndex = 0;
             cbCOLOR.SelectedIndex = 0;
@@ -77,8 +82,11 @@ namespace PL.Product
             lblTITLE.Content = "Add a new product";
         }
 
-        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)///reset the enums according to the category
+        ///reset the enums according to the category
+        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ///signs of v/x according to the values entered
+            
             if (lblCHECK7 is null || lblx7 is null)
                 return;
 
@@ -111,7 +119,7 @@ namespace PL.Product
 
             cbTYPE.Items.Clear();
             cbTYPE.ItemsSource = null;
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)///for clothing
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 Array items = Enum.GetValues(typeof(BO.Clothing));
@@ -133,7 +141,7 @@ namespace PL.Product
                     }
                 }
             }
-            else
+            else///for shoes
             {
                 Array items = Enum.GetValues(typeof(BO.Shoes));
                 if (cbGENDER.SelectedItem is not BO.Gender.Women)
@@ -157,6 +165,7 @@ namespace PL.Product
             }
         }
 
+        ///allowing only digits:
         private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new("[0-9]/.*[0-9]^");
@@ -175,8 +184,62 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void btnSAVE_Click(object sender, RoutedEventArgs e)
+        private void btnSAVE_Click(object sender, RoutedEventArgs e)///a common button for both updating and adding.
         {
+            ///general pre checkings over the text boxes
+            if (tbID.Text == "" || tbID.Text.Length > 8)
+            {
+                MessageBox.Show("Not valid ID-empty/too many digits");
+                return;
+            }
+            if (tbNAME.Text == "")
+            {
+                MessageBox.Show("Not valid name-EMPTY");
+                return;
+            }
+            if (tbPRICE.Text == "")
+            {
+                MessageBox.Show("Not valid price-EMPTY");
+                return;
+            }
+            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8)
+            {
+                MessageBox.Show("Not valid in stock-EMPTY");
+                return;
+            }
+            if (tbDESCRIPTION.Text == "")
+            {
+                MessageBox.Show("Not valid description-EMPTY");
+                return;
+            }
+            if (cbGENDER.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid gender-EMPTY");
+                return;
+            }
+            if (cbCATEGORY.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid category-EMPTY");
+                return;
+            }
+            if (cbCOLOR.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid color-EMPTY");
+                return;
+            }
+            if (cbTYPE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid type-EMPTY");
+                return;
+            }
+            if (cbSIZE.SelectedItem == null)
+            {
+                MessageBox.Show("Not valid size-EMPTY");
+                return;
+            }
+
+
+            ///if pre checks are valid. put data in the product and send that to previous layers check.
             BO.Product product = new BO.Product();
             product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
@@ -196,35 +259,41 @@ namespace PL.Product
                 product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
                 product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
             }
+
+
+            ///a try to update or add
             try
             {
                 if (btnSAVE is null)
                     return;
-                if (btnSAVE.Content is "UPDATE")
+                if (btnSAVE.Content is "UPDATE")///for updating
                 {
                     _bl.Product.UpdateProduct(product);
                     MessageBox.Show("Updated succesfuly!");
                 }
-                else
+                else///for adding
                 {
                     _bl.Product.AddProduct(product);
                     MessageBox.Show("Added succesfuly");
                 }
                 Close();
             }
+
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (BO.NotValid ex)
             {
+                
                 if (tbID.Text.Length != 7)
                 {
                     MessageBox.Show(ex.Message);
+
                     if (lblCHECK1 is null)
                         return;
-
                     lblCHECK1.Visibility = Visibility.Hidden;
                     lblx1.Visibility = Visibility.Visible;
                     return;
                 }
-                if (product.Name == " ")
+                if (product.Name == "")
                 {
                     MessageBox.Show(ex.Message);
                     if (lblCHECK2 is null)
@@ -233,7 +302,7 @@ namespace PL.Product
                     lblx2.Visibility = Visibility.Visible;
                     return;
                 }
-                if(product.Description == " ")
+                if (product.Description == "")
                 {
                     MessageBox.Show(ex.Message);
                     if (lblCHECK5 is null)
@@ -271,11 +340,18 @@ namespace PL.Product
             }
         }
 
+
+
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK1 is null || lblx1 is null)
                 return;
-            if (tbID.Text == "" || tbID.Text.Length > 8)
+            if (tbID.Text == "" || tbID.Text.Length !=6)
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;
@@ -285,6 +361,11 @@ namespace PL.Product
             lblCHECK1.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lblCHECK8 is null || lblx8 is null)
@@ -299,6 +380,12 @@ namespace PL.Product
             lblCHECK8.Visibility = Visibility.Visible;
         }
 
+
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbNAME_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK2 is null || lblx2 is null)
@@ -313,6 +400,11 @@ namespace PL.Product
             lblCHECK2.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbPRICE_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK3 is null || lblx3 is null)
@@ -327,6 +419,11 @@ namespace PL.Product
             lblCHECK3.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbINSTOCK_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK4 is null || lblx4 is null)
@@ -341,6 +438,11 @@ namespace PL.Product
             lblCHECK4.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbDESCRIPTION_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK5 is null || lblx5 is null)
@@ -355,6 +457,11 @@ namespace PL.Product
             lblCHECK5.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbCOLOR_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lblCHECK9 is null || lblx9 is null)
@@ -369,6 +476,11 @@ namespace PL.Product
             lblCHECK9.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbSIZE_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lblCHECK10 is null || lblx10 is null)

@@ -25,6 +25,8 @@ namespace PL
             productsLv.ItemsSource = bl.Product.GetAll();
             productForLists = bl.Product.GetAll()!;
 
+
+            ///resets the combo boxes options
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
@@ -34,6 +36,8 @@ namespace PL
             {
                 TypeCB.Items.Add(item);
             }
+
+            ///resets the combo boxes in default values
             GenderCB.SelectedIndex = 0;
             CategoryCB.SelectedIndex = 0;
             ColorCB.SelectedIndex = 0;
@@ -41,14 +45,21 @@ namespace PL
             SizeCB.SelectedIndex = 0;
         }
 
+
+        /// <summary>
+        /// checking the chosen first combo box and resets the rest of the cb accordingly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TypeCB.Items.Clear();
             TypeCB.ItemsSource = null;
-            if (CategoryCB.SelectedItem is BO.Category.Clothing)
+            if (CategoryCB.SelectedItem is BO.Category.Clothing)///in case clothing was chosen
             {
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 Array items = Enum.GetValues(typeof(BO.Clothing));
+                ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
                 {
                     foreach (BO.Clothing item in items)
@@ -67,9 +78,10 @@ namespace PL
                     }
                 }
             }
-            else
+            else///in case shoes was chosen
             {
                 Array items = Enum.GetValues(typeof(BO.Shoes));
+                ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
                     foreach (BO.Shoes item in items)
@@ -107,6 +119,11 @@ namespace PL
         {
         }
 
+        /// <summary>
+        /// sorting the presented data according to the user's choices
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChooseB(object sender, RoutedEventArgs e)
         {
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
@@ -123,6 +140,12 @@ namespace PL
             }
         }
 
+
+        /// <summary>
+        /// to update details of a specific product by double clicking the product in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
@@ -130,16 +153,28 @@ namespace PL
             productsLv.ItemsSource = bl.Product.GetAll();
         }
 
+        /// <summary>
+        /// to add a new product to the product's list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow(bl).ShowDialog();
             productsLv.ItemsSource = bl.Product.GetAll();
         }
 
+        /// <summary>
+        /// show the full list without a specific sort.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
             productsLv.ItemsSource = productForLists.Select(item => item);
         }
+
+
 
         private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
