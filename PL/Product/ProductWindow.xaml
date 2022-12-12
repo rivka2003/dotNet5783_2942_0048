@@ -41,15 +41,15 @@
 
             <Label x:Name="lblDESCRIPTION" Content="Description:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" FontFamily="Elephant" Foreground="White"/>
 
-            <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1" TextChanged="tbNAME_TextChanged"/>
+            <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1" TextChanged="tbNAME_TextChanged"/>
 
-            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1" TextChanged="tbPRICE_TextChanged"/>
+            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1" TextChanged="tbPRICE_TextChanged"/>
 
-            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
 
-            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1" TextChanged="tbINSTOCK_TextChanged"/>
+            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1" TextChanged="tbINSTOCK_TextChanged"/>
 
-            <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" TextWrapping="Wrap" Text=" " VerticalAlignment="Center" Width="178" Grid.Row="4" Grid.Column="1" TextChanged="tbDESCRIPTION_TextChanged"/>
+            <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="178" Grid.Row="4" Grid.Column="1" TextChanged="tbDESCRIPTION_TextChanged"/>
 
             <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
 
