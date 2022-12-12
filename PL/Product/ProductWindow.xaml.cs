@@ -219,7 +219,7 @@ namespace PL.Product
                 lblx2.Visibility = Visibility.Hidden;
                 lblCHECK2.Visibility = Visibility.Visible;
             }
-            if (tbPRICE.Text == "")
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
@@ -476,7 +476,7 @@ namespace PL.Product
         {
             if (lblCHECK3 is null || lblx3 is null)
                 return;
-            if (tbPRICE.Text == "")
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
