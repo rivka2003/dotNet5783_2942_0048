@@ -17,43 +17,33 @@ namespace PL.Product
         public ProductWindow(int ID)/// constructor to open an update window
         {
             InitializeComponent();
+
             ///resets to show the current values
             BO.Product product = _bl.Product.ProductDetailsForManager(ID);
             tbID.Text = product.ID.ToString();
             tbNAME.Text = product.Name;
             tbPRICE.Text = product.Price.ToString();
             tbINSTOCK.Text = product.InStock.ToString();
+            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
+            cbGENDER.SelectedItem = product.Gender;
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCATEGORY.SelectedItem = product.Category;
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
             cbCOLOR.SelectedItem = product.Color;
-            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            cbGENDER.SelectedItem = product.Gender;
             tbDESCRIPTION.Text = product.Description;
-
-            ///resets the options of the second and third combo boxes according to what was chosen
-            if (product.Category is BO.Category.Clothing) ///if first cb was chosen as clothing
+            if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 cbSIZE.SelectedItem = product.SizeClothing;
-                Array items = Enum.GetValues(typeof(BO.Clothing));
-                foreach (BO.Clothing item in items)
-                {
-                    cbTYPE.Items.Add(item);
-                }
                 cbTYPE.SelectedItem = product.Clothing;
             }
-            else ///if first cb was chosen as shoes
+            else ///if cb was chosen as shoes
             {
-                cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeShoes));
-                cbSIZE.SelectedItem = product.SizeShoes;
-                Array items = Enum.GetValues(typeof(BO.Clothing));
-                foreach (BO.Clothing item in items)
-                {
-                    cbTYPE.Items.Add(item);
-                }
+                cbSIZE.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+                cbSIZE.SelectedItem = (int)product.SizeShoes;
                 cbTYPE.SelectedItem = product.Shoes;
             }
+
             btnSAVE.Content = "UPDATE";
             tbID.IsEnabled = false; ///unable changing the id 
         }
@@ -68,6 +58,8 @@ namespace PL.Product
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
             Array items = Enum.GetValues(typeof(BO.Clothing));
+
+            /// Default filling of the combo box with values
             foreach (BO.Clothing item in items)
             {
                 cbTYPE.Items.Add(item);
@@ -117,14 +109,16 @@ namespace PL.Product
                 lblCHECK6.Visibility = Visibility.Visible;
             }
 
-            cbTYPE.Items.Clear();
+            cbTYPE.Items.Clear(); /// Clearing the combo box before re-adding
             cbTYPE.ItemsSource = null;
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///for clothing
+
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///if first cb was chosen as clothing
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 Array items = Enum.GetValues(typeof(BO.Clothing));
                 if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
                 {
+                    /// Filling the combo box according to the selected category and gender and the selected filter
                     foreach (BO.Clothing item in items)
                     {
                         if (item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
@@ -135,6 +129,7 @@ namespace PL.Product
                 }
                 else
                 {
+                    /// Filling the combo box according to the selected category and gender
                     foreach (BO.Clothing item in items)
                     {
                         cbTYPE.Items.Add(item);
@@ -146,6 +141,7 @@ namespace PL.Product
                 Array items = Enum.GetValues(typeof(BO.Shoes));
                 if (cbGENDER.SelectedItem is not BO.Gender.Women)
                 {
+                    /// Filling the combo box according to the selected category and gender and the selected filter
                     foreach (BO.Shoes item in items)
                     {
                         if (item is not BO.Shoes.Heels)
@@ -156,6 +152,7 @@ namespace PL.Product
                 }
                 else
                 {
+                    /// Filling the combo box according to the selected category and gender
                     foreach (BO.Shoes item in items)
                     {
                         cbTYPE.Items.Add(item);
@@ -315,7 +312,10 @@ namespace PL.Product
             BO.Product product = new BO.Product();
             product.ID = int.Parse(tbID.Text);
             product.Name = tbNAME.Text;
-            product.Price = int.Parse(tbPRICE.Text);
+            if(tbPRICE.Text.Contains("."))
+                product.Price = double.Parse(tbPRICE.Text);
+            else
+                product.Price = int.Parse(tbPRICE.Text);
             product.InStock = int.Parse(tbINSTOCK.Text);
             product.Category = (BO.Category)cbCATEGORY.SelectedItem;
             product.Color = (BO.Color)cbCOLOR.SelectedItem;
