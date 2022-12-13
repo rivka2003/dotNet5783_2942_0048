@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using PL.Product;
+﻿using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +12,10 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
-        private IBl bl = new Bl();
+        private BlApi.IBl? bl = BlApi.Factory.Get();
 
         private IEnumerable<BO.ProductForList> productForLists;
-        public ProductForList(IBl bl)
+        public ProductForList(BlApi.IBl bl)
         {
             InitializeComponent();
 
@@ -145,7 +143,7 @@ namespace PL
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
             new ProductWindow(ID).ShowDialog();
-            productsLv.ItemsSource = bl.Product.GetAll();
+            productsLv.ItemsSource = bl!.Product.GetAll();
         }
 
         /// <summary>
@@ -155,8 +153,8 @@ namespace PL
         /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductWindow(bl).ShowDialog();
-            productsLv.ItemsSource = bl.Product.GetAll();
+            new ProductWindow(bl!).ShowDialog();
+            productsLv.ItemsSource = bl!.Product.GetAll();
         }
 
         /// <summary>

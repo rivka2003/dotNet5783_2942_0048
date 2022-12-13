@@ -1,11 +1,10 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
+
 namespace BlTest
 {
     internal class Program
     {
-        private static IBl blApi = new Bl();
+        private static BlApi.IBl? blApi = BlApi.Factory.Get();
         private static BO.Cart cart = new BO.Cart 
         { CustomerAddress = " ", CustomerEmail = " ", CustomerName = " ", 
             TotalPrice = 0, Items = null};
@@ -76,7 +75,7 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
                         theProduct.ID = id;
-                        blApi.Product.AddProduct(theProduct);
+                        blApi!.Product.AddProduct(theProduct);
                         Console.WriteLine("The product ID is:");
                         Console.WriteLine(theProduct.ID);
                         break;
@@ -85,17 +84,17 @@ namespace BlTest
                         int id1;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
-                        Console.WriteLine(blApi.Product.ProductDetailsForCustomer(id1, cart));
+                        Console.WriteLine(blApi!.Product.ProductDetailsForCustomer(id1, cart));
                         break;
                     case BO.ProductChoice.PrintDetailsForManagaer: // print the product details for manager with the recieved id
                         Console.WriteLine("Enter the product ID:");
                         int id2;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
-                        Console.WriteLine(blApi.Product.ProductDetailsForManager(id2));
+                        Console.WriteLine(blApi!.Product.ProductDetailsForManager(id2));
                         break;
                     case BO.ProductChoice.PrintList: ///printing the full product list
-                        foreach (var pro in blApi.Product.GetAll())
+                        foreach (var pro in blApi!.Product.GetAll())
                             Console.WriteLine(pro);
                         break;
                     case BO.ProductChoice.Updat: ///updating the product
@@ -103,7 +102,7 @@ namespace BlTest
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
-                        Console.WriteLine(blApi.Product.ProductDetailsForManager(id3));
+                        Console.WriteLine(blApi!.Product.ProductDetailsForManager(id3));
                         theProduct.ID = id3;
                         creatProduct(ref theProduct);
                         Console.WriteLine("The updated product is:");
@@ -114,7 +113,7 @@ namespace BlTest
                         int id4;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id4);
-                        blApi.Product.DeleteProduct(id4);
+                        blApi!.Product.DeleteProduct(id4);
                         break;
                     default:
                         break;
@@ -267,10 +266,10 @@ namespace BlTest
                         int id;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
-                        Console.WriteLine(blApi.Order.OrderDetails(id));
+                        Console.WriteLine(blApi!.Order.OrderDetails(id));
                         break;
                     case BO.OrderChoice.PrintTheList: ///printing the full order list
-                        foreach (var or in blApi.Order.GetAll())
+                        foreach (var or in blApi!.Order.GetAll())
                             Console.WriteLine(or);
                         break;
                     case BO.OrderChoice.UpdateShipDate: // update the ship date
@@ -279,7 +278,7 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
                         Console.WriteLine("The updeted order is:");
-                        Console.WriteLine(blApi.Order.UpdeteShipDate(id1));
+                        Console.WriteLine(blApi!.Order.UpdeteShipDate(id1));
                         break;
                     case BO.OrderChoice.UpdateDeliveryDate: ///update the delivery date
                         Console.WriteLine("Enter the ID of the order that you want to update the ship date:");
@@ -287,14 +286,14 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
                         Console.WriteLine("The updeted order is:");
-                        Console.WriteLine(blApi.Order.UpdateDeliveryDate(id2));
+                        Console.WriteLine(blApi!.Order.UpdateDeliveryDate(id2));
                         break;
                     case BO.OrderChoice.TrackingOrder: ///prints the tracking status
                         Console.WriteLine("Enter the ID of the order that you wants to get the tracking status:");
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
-                        Console.WriteLine(blApi.Order.TrackingOrder(id3));
+                        Console.WriteLine(blApi!.Order.TrackingOrder(id3));
                         break;
                     default:
                         break;
@@ -328,7 +327,7 @@ namespace BlTest
                         int id;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
-                        cart = blApi.Cart.AddProductToCart(cart, id);
+                        cart = blApi!.Cart.AddProductToCart(cart, id);
                         Console.WriteLine("The cart after the addition:");
                         Console.WriteLine(string.Join("\n", cart.Items!));
                         break;
@@ -361,7 +360,7 @@ namespace BlTest
                         int amount;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out amount);
-                        cart = blApi.Cart.UpdateAmountProduct(cart, id2, amount);
+                        cart = blApi!.Cart.UpdateAmountProduct(cart, id2, amount);
                         Console.WriteLine("The cart after the update:");
                         Console.WriteLine(cart);
                         break;
@@ -375,7 +374,7 @@ namespace BlTest
                         Console.WriteLine("Enter your address:");
                         string address = Console.ReadLine()!;
                         cart.CustomerAddress = address;
-                        blApi.Cart.OrderMaking(cart);
+                        blApi!.Cart.OrderMaking(cart);
                         Console.WriteLine("Succesfuly made!");
                         cart.Items!.Clear();
                         cart.CustomerName = " ";

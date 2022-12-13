@@ -6,7 +6,7 @@ namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
     {
-        public DalApi.IDal Dal = new Dal.DalList();
+        public DalApi.IDal? Dal = DalApi.Factory.Get();
         public IBl Ibl = new Bl();
         /// <summary>
         /// Returns the entier list of products
@@ -15,7 +15,7 @@ namespace BlImplementation
         public IEnumerable<BO.OrderForList?> GetAll()
         {
             /// geting the entier list from the Dal
-            var orders = Dal.Order.RequestAllByPredicate();
+            var orders = Dal!.Order.RequestAllByPredicate();
             /// for every order (by the id) filling the data of the order
             return orders.Select(order =>
             {
@@ -37,7 +37,7 @@ namespace BlImplementation
         private (IEnumerable<DO.OrderItem?>, double) getData(DO.Order order)
         {
             ///returns ienumerable of all the order items that are in the same order id
-            IEnumerable<DO.OrderItem?> orderItems = Dal.OrderItem.RequestAllByPredicate
+            IEnumerable<DO.OrderItem?> orderItems = Dal!.OrderItem.RequestAllByPredicate
               (orderItem => orderItem?.OrderID == order.ID);
                 return (orderItems, (double)orderItems.Sum(o => o?.Price * o?.Amount)!);
         }
@@ -73,7 +73,7 @@ namespace BlImplementation
                 ///tryng to get the order from the DO
                 try
                 {
-                    OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
+                    OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 }
                 catch (DO.NonFoundObjectDo ex)
                 { throw new BO.NonFoundObjectBo("", ex); }
@@ -115,7 +115,7 @@ namespace BlImplementation
 
             try /// trying to get the order from Dal and the order details from the Ibl
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
+                OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
@@ -154,7 +154,7 @@ namespace BlImplementation
 
             try /// trying to get the order from the DO and the order datails from the BO
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
+                OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
@@ -192,7 +192,7 @@ namespace BlImplementation
 
             try /// trying to get the order from the DO and the order datails from the BO 
             {
-                OrderDo = Dal.Order.RequestByPredicate(order => order?.ID == ID);
+                OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = Ibl.Order.OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)

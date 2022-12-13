@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,13 +11,13 @@ namespace PL.Product
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private IBl _bl = new Bl();
+        private BlApi.IBl? bl = BlApi.Factory.Get();
         public ProductWindow(int ID)/// constructor to open an update window
         {
             InitializeComponent();
 
             ///resets to show the current values
-            BO.Product product = _bl.Product.ProductDetailsForManager(ID);
+            BO.Product product = bl.Product.ProductDetailsForManager(ID);
             tbID.Text = product.ID.ToString();
             tbNAME.Text = product.Name;
             tbPRICE.Text = product.Price.ToString();
@@ -40,7 +38,7 @@ namespace PL.Product
             else ///if cb was chosen as shoes
             {
                 cbSIZE.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
-                cbSIZE.SelectedItem = (int)product.SizeShoes;
+                cbSIZE.SelectedItem = (int)product.SizeShoes!;
                 cbTYPE.SelectedItem = product.Shoes;
             }
 
@@ -48,10 +46,10 @@ namespace PL.Product
             tbID.IsEnabled = false; ///unable changing the id 
         }
 
-        public ProductWindow(IBl bl) /// constructor to open the add window
+        public ProductWindow(BlApi.IBl _bl) /// constructor to open the add window
         {
             InitializeComponent();
-            _bl = bl;
+            bl = _bl;
 
             ///resets the combo boxes options
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
@@ -339,12 +337,12 @@ namespace PL.Product
                     return;
                 if (btnSAVE.Content is "UPDATE") ///for updating
                 {
-                    _bl.Product.UpdateProduct(product);
+                    bl!.Product.UpdateProduct(product);
                     MessageBox.Show("Updated succesfuly!");
                 }
                 else ///for adding
                 {
-                    _bl.Product.AddProduct(product);
+                    bl!.Product.AddProduct(product);
                     MessageBox.Show("Added succesfuly");
                 }
                 Close();
