@@ -31,8 +31,6 @@
   <ItemGroup>
     <Resource Include="Image1.png" />
     <Resource Include="Image3.png" />
-    <Resource Include="Image5.png" />
-    <Resource Include="Image6.png" />
     <Resource Include="Image7.png" />
     <Resource Include="Product\Image1.png" />
     <Resource Include="Product\Image3.png" />

@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Stage0
 {
     partial class Program
@@ -13,7 +12,7 @@ namespace Stage0
         private static void Welcome0048()
         {
             Console.WriteLine("Enter your name: ");
-            string userName = Console.ReadLine();
+            string userName = Console.ReadLine()!;
             Console.WriteLine("{0}, welcome to my first console application", userName);
         }
         static partial void Welcome2942();
