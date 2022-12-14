@@ -221,7 +221,7 @@ namespace PL.Product
                 lblx2.Visibility = Visibility.Hidden;
                 lblCHECK2.Visibility = Visibility.Visible;
             }
-            if (tbPRICE.Text == "")
+             if (tbPRICE.Text == "")
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
