@@ -188,7 +188,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new("^[A-Z,a-z]+ [0-9]*");
+            Regex regex = new("^[A-Z,a-z]+[0-9]*");
             e.Handled = regex.IsMatch(e.Text);
         }
 
