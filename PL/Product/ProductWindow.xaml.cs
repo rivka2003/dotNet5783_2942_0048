@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -190,7 +189,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new("^[A-Z,a-z]+[0-9]*");
+            Regex regex = new("^[A-Z,a-z]+ [0-9]*");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -219,7 +218,7 @@ namespace PL.Product
                 lblx2.Visibility = Visibility.Hidden;
                 lblCHECK2.Visibility = Visibility.Visible;
             }
-            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8 || tbPRICE.Text == " ")
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
@@ -355,7 +354,7 @@ namespace PL.Product
             {
                 if (tbID.Text.Length != 6)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("" + ex.Message);
 
                     if (lblCHECK1 is null)
                         return;
@@ -363,18 +362,18 @@ namespace PL.Product
                     lblx1.Visibility = Visibility.Visible;
                     return;
                 }
-                if (product.Name == "")
+                if (product.Name == " ")
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("" + ex.Message);
                     if (lblCHECK2 is null)
                         return;
                     lblCHECK2.Visibility = Visibility.Hidden;
                     lblx2.Visibility = Visibility.Visible;
                     return;
                 }
-                if (product.Description == "")
+                if (product.Description == " ")
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("" + ex.Message);
                     if (lblCHECK5 is null)
                         return;
                     lblCHECK5.Visibility = Visibility.Hidden;
@@ -383,7 +382,7 @@ namespace PL.Product
                 }
                 if (product.Price <= 0)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("" + ex.Message);
                     if (lblCHECK3 is null)
                         return;
                     lblCHECK3.Visibility = Visibility.Hidden;
@@ -392,7 +391,7 @@ namespace PL.Product
                 }
                 if (product.InStock < 0)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("" + ex.Message);
                     if (lblCHECK4 is null)
                         return;
                     lblCHECK4.Visibility = Visibility.Hidden;
@@ -402,11 +401,11 @@ namespace PL.Product
             }
             catch (BO.NonFoundObjectBo ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("" + ex.Message);
             }
             catch (BO.ExistingObjectBo ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("" + ex.Message);
             }
         }
 

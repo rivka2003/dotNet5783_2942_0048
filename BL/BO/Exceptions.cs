@@ -10,11 +10,10 @@ namespace BO
         public NonFoundObjectBo(string message, Exception inner) : base(message, inner) { }
         protected NonFoundObjectBo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            $@"NonFoundObjectBo: The BO object does not exist!
-NonFoundObjectDo: The DO object does not exist! 
+            $@"NonFoundObjectBo: The object does not exist!
+NonFoundObjectDo: The object does not exist! 
             ";
     }
-
     [Serializable]
     public class ExistingObjectBo : Exception
     {
@@ -23,11 +22,10 @@ NonFoundObjectDo: The DO object does not exist!
         public ExistingObjectBo(string message, Exception inner) : base(message, inner) { }
         protected ExistingObjectBo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            $@"ExistingObjectBo: The BO object is already exist!
-ExistingObjectDo: The DO object is already exist! 
+            $@"ExistingObjectBo: The object is already exist!
+ExistingObjectDo: The object is already exist! 
             ";
     }
-
     [Serializable]
     public class NotValid : Exception
     {
@@ -38,7 +36,6 @@ ExistingObjectDo: The DO object is already exist!
         override public string ToString() =>
             $"NotValid: Not valid {Message}";
     }
-
     [Serializable]
     public class NotInStock : Exception
     {
@@ -49,7 +46,6 @@ ExistingObjectDo: The DO object is already exist!
         override public string ToString() =>
             "NotInStock: Not in stock!";
     }
-
     [Serializable]
     public class AlreadyUpdated : Exception
     {
@@ -60,7 +56,6 @@ ExistingObjectDo: The DO object is already exist!
         override public string ToString() =>
             "AlreadyUpdated: The date has already updated!";
     }
-
     [Serializable]
     public class InExistingOrder : Exception
     {

@@ -1,7 +1,6 @@
 ﻿using DO;
 using DalApi;
 using static Dal.DataSource;
-using System.Linq;
 
 namespace Dal;
 
