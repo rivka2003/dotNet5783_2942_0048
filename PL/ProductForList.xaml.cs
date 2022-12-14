@@ -25,7 +25,6 @@ namespace PL
             productsLv.ItemsSource = bl.Product.GetAll();
             productForLists = bl.Product.GetAll()!;
 
-
             ///resets the combo boxes options
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
@@ -45,9 +44,8 @@ namespace PL
             SizeCB.SelectedIndex = 0;
         }
 
-
         /// <summary>
-        /// checking the chosen first combo box and resets the rest of the cb accordingly
+        /// checking the chosen first two combo box and resets the rest of the cb accordingly
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -55,10 +53,11 @@ namespace PL
         {
             TypeCB.Items.Clear();
             TypeCB.ItemsSource = null;
-            if (CategoryCB.SelectedItem is BO.Category.Clothing)///in case clothing was chosen
+            if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
                 Array items = Enum.GetValues(typeof(BO.Clothing));
+
                 ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
                 {
@@ -78,9 +77,10 @@ namespace PL
                     }
                 }
             }
-            else///in case shoes was chosen
+            else ///in case shoes was chosen
             {
                 Array items = Enum.GetValues(typeof(BO.Shoes));
+
                 ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
@@ -111,10 +111,6 @@ namespace PL
         {
         }
 
-        private void TypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
         private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
@@ -139,7 +135,6 @@ namespace PL
                 item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem);
             }
         }
-
 
         /// <summary>
         /// to update details of a specific product by double clicking the product in the list

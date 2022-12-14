@@ -15,9 +15,8 @@ namespace PL
         {
             InitializeComponent();
         }
-
         /// <summary>
-        /// getting to main menue
+        /// getting to the manager menue
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
