@@ -167,6 +167,8 @@ namespace PL
             productsLv.ItemsSource = productForLists.Select(item => item);
         }
 
+
+
         private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

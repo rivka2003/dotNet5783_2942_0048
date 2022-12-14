@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,6 +49,7 @@ namespace PL.Product
 
         public ProductWindow(BlApi.IBl _bl) /// constructor to open the add window
         {
+
             InitializeComponent();
             bl = _bl;
 
@@ -354,14 +356,14 @@ namespace PL.Product
                 if (tbID.Text.Length != 6)
                 {
                     MessageBox.Show(ex.Message);
+
                     if (lblCHECK1 is null)
                         return;
-
                     lblCHECK1.Visibility = Visibility.Hidden;
                     lblx1.Visibility = Visibility.Visible;
                     return;
                 }
-                if (product.Name == " ")
+                if (product.Name == "")
                 {
                     MessageBox.Show(ex.Message);
                     if (lblCHECK2 is null)
@@ -370,7 +372,7 @@ namespace PL.Product
                     lblx2.Visibility = Visibility.Visible;
                     return;
                 }
-                if(product.Description == " ")
+                if (product.Description == "")
                 {
                     MessageBox.Show(ex.Message);
                     if (lblCHECK5 is null)
