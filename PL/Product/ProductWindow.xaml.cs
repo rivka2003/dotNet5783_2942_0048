@@ -13,7 +13,7 @@ namespace PL.Product
     public partial class ProductWindow : Window
     {
         private BlApi.IBl? bl = BlApi.Factory.Get();
-        public ProductWindow(int ID)/// constructor to open an update window
+        public ProductWindow(int ID)/// constructor to open an update window/
         {
             InitializeComponent();
 
