@@ -1,5 +1,4 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
 namespace DalTest
 {
@@ -8,7 +7,7 @@ namespace DalTest
         /// <summary>
         /// Creating variables to get access to the CRUD
         /// </summary>
-        private static IDal dalList = new DalList();
+        private static IDal? dalList = Factory.Get();
         static readonly Random random = new Random(); /// for the random numbers
         static void Main(string[] args)
         {
@@ -75,7 +74,7 @@ namespace DalTest
                         Console.WriteLine("The product ID is:");
                         try
                         {
-                            Console.WriteLine(dalList.Product.Add(theProduct));
+                            Console.WriteLine(dalList!.Product.Add(theProduct));
                         }
                         catch (Exception)
                         {
@@ -89,7 +88,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product?.ID == id1));
+                            Console.WriteLine(dalList!.Product.RequestByPredicate(product => product?.ID == id1));
                         }
                         catch (Exception)
                         {
@@ -97,7 +96,7 @@ namespace DalTest
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full product list
-                        foreach (var pro in dalList.Product.RequestAllByPredicate())
+                        foreach (var pro in dalList!.Product.RequestAllByPredicate())
                             Console.WriteLine(pro);
                         break;
                     case OrderChoice.Update: ///updating the product
@@ -107,7 +106,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id2);
                         try
                         {
-                            Console.WriteLine(dalList.Product.RequestByPredicate(product => product?.ID == id2));
+                            Console.WriteLine(dalList!.Product.RequestByPredicate(product => product?.ID == id2));
                         }
                         catch (Exception)
                         {
@@ -129,7 +128,7 @@ namespace DalTest
                         int id3;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id3);
-                        dalList.Product.Delete(id3);
+                        dalList!.Product.Delete(id3);
                         break;
                     default:
                         break;
@@ -277,7 +276,7 @@ namespace DalTest
                     case OrderChoice.Add: ///add a new order item
                         creatOrder(ref theOrder);
                         Console.WriteLine("The order ID is:");
-                        Console.WriteLine(dalList.Order.Add(theOrder));
+                        Console.WriteLine(dalList!.Order.Add(theOrder));
                         break;
                     case OrderChoice.Print: ///print the order with the recieved id
                         Console.WriteLine("Enter the ordr ID:");
@@ -286,7 +285,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id);
                         try
                         {
-                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order?.ID == id));
+                            Console.WriteLine(dalList!.Order.RequestByPredicate(order => order?.ID == id));
                         }
                         catch (Exception)
                         {
@@ -294,7 +293,7 @@ namespace DalTest
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full order list
-                        foreach (var or in dalList.Order.RequestAllByPredicate())
+                        foreach (var or in dalList!.Order.RequestAllByPredicate())
                             Console.WriteLine(or);
                         break;
                     case OrderChoice.Update: ///updating the order
@@ -304,7 +303,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.Order.RequestByPredicate(order => order?.ID == id1));
+                            Console.WriteLine(dalList!.Order.RequestByPredicate(order => order?.ID == id1));
                         }
                         catch (Exception)
                         {
@@ -326,7 +325,7 @@ namespace DalTest
                         int id2;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
-                        dalList.Order.Delete(id2);
+                        dalList!.Order.Delete(id2);
                         break;
                     default:
                         break;
@@ -388,7 +387,7 @@ namespace DalTest
                     case Choice3.Add:///add a new order item
                         creatOrderItem(ref theOrderItem);
                         Console.WriteLine("The order item ID is:");
-                        Console.WriteLine(dalList.OrderItem.Add(theOrderItem));
+                        Console.WriteLine(dalList!.OrderItem.Add(theOrderItem));
                         break;
                     case Choice3.PrintByID:///print the order item with the recieved id
                         Console.WriteLine("Enter the ordr item ID:");
@@ -397,7 +396,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id);
                         try
                         {
-                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id));
+                            Console.WriteLine(dalList!.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id));
                         }
                         catch (Exception)
                         {
@@ -415,7 +414,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out proID);
                         try
                         {
-                            Console.WriteLine(dalList.OrderItem.RequestByOrderAndProductID(orID, proID));
+                            Console.WriteLine(dalList!.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == orID && orderItem?.ProductID == proID));
                         }
                         catch (Exception)
                         {
@@ -423,7 +422,7 @@ namespace DalTest
                         }
                         break;
                     case Choice3.PrintList:///printing the full order item list
-                        foreach (var orIt in dalList.OrderItem.RequestAllByPredicate())
+                        foreach (var orIt in dalList!.OrderItem.RequestAllByPredicate())
                             Console.WriteLine(orIt);
                         break;
                     case Choice3.PrintByOrderID:///printing according to the order items id
@@ -433,7 +432,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out orderID);
                         try
                         {
-                            var orderItems = dalList.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == orderID);
+                            var orderItems = dalList!.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == orderID);
                             foreach (var orIt in orderItems)
                                 Console.WriteLine(orIt);
                         }
@@ -449,7 +448,7 @@ namespace DalTest
                         int.TryParse(Console.ReadLine(), out id1);
                         try
                         {
-                            Console.WriteLine(dalList.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id1));
+                            Console.WriteLine(dalList!.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id1));
                         }
                         catch (Exception)
                         {
@@ -471,7 +470,7 @@ namespace DalTest
                         int id2;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id2);
-                        dalList.OrderItem.Delete(id2);
+                        dalList!.OrderItem.Delete(id2);
                         break;
                     default:
                         break;

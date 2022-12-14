@@ -6,7 +6,7 @@ namespace BlImplementation
 {
     internal class Cart : ICart
     {
-        public DalApi.IDal Dal = new Dal.DalList();
+        public DalApi.IDal? Dal = DalApi.Factory.Get();
         public IBl Ibl = new Bl();
         /// <summary>
         /// adding a product with the given id to the cart
@@ -21,7 +21,7 @@ namespace BlImplementation
             DO.Product productDo;
 
             try///making sure the oroduct exists in the products list
-            { productDo = Dal.Product.RequestByPredicate(product => product?.ID == productID); }
+            { productDo = Dal!.Product.RequestByPredicate(product => product?.ID == productID); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
@@ -87,7 +87,7 @@ namespace BlImplementation
                         orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
 
                         int ID;
-                        ID = Dal.Order.Add(orderDo);
+                        ID = Dal!.Order.Add(orderDo);
 
                         BO.OrderItem orderItemBo = new BO.OrderItem()
                         {

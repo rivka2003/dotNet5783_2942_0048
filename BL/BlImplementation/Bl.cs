@@ -2,7 +2,7 @@
 
 namespace BlImplementation
 {
-    public class Bl : IBl
+    internal class Bl : IBl
     {
         public Bl() { }
         public IProduct Product  => new Product();

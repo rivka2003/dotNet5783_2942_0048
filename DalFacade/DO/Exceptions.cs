@@ -18,6 +18,7 @@ namespace DO
             "The object does not exist!";
     }
 
+    [Serializable]
     public class  ExistingObjectDo :Exception
     {
         public ExistingObjectDo() : base() { }
@@ -26,5 +27,12 @@ namespace DO
         protected ExistingObjectDo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
             "The object is already exist!";
+    }
+
+    [Serializable]
+    public class DalConfigException : Exception
+    {
+        public DalConfigException(string msg) : base(msg) { }
+        public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
 }

@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -14,13 +12,13 @@ namespace PL.Product
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private IBl _bl = new Bl();
+        private BlApi.IBl? bl = BlApi.Factory.Get();
         public ProductWindow(int ID)/// constructor to open an update window
         {
             InitializeComponent();
 
             ///resets to show the current values
-            BO.Product product = _bl.Product.ProductDetailsForManager(ID);
+            BO.Product product = bl.Product.ProductDetailsForManager(ID);
             tbID.Text = product.ID.ToString();
             tbNAME.Text = product.Name;
             tbPRICE.Text = product.Price.ToString();
@@ -41,7 +39,7 @@ namespace PL.Product
             else ///if cb was chosen as shoes
             {
                 cbSIZE.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
-                cbSIZE.SelectedItem = (int)product.SizeShoes;
+                cbSIZE.SelectedItem = (int)product.SizeShoes!;
                 cbTYPE.SelectedItem = product.Shoes;
             }
 
@@ -49,11 +47,11 @@ namespace PL.Product
             tbID.IsEnabled = false; ///unable changing the id 
         }
 
-        public ProductWindow(IBl bl) /// constructor to open the add window
+        public ProductWindow(BlApi.IBl _bl) /// constructor to open the add window
         {
 
             InitializeComponent();
-            _bl = bl;
+            bl = _bl;
 
             ///resets the combo boxes options
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
@@ -221,7 +219,7 @@ namespace PL.Product
                 lblx2.Visibility = Visibility.Hidden;
                 lblCHECK2.Visibility = Visibility.Visible;
             }
-             if (tbPRICE.Text == "")
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
@@ -341,12 +339,12 @@ namespace PL.Product
                     return;
                 if (btnSAVE.Content is "UPDATE") ///for updating
                 {
-                    _bl.Product.UpdateProduct(product);
+                    bl!.Product.UpdateProduct(product);
                     MessageBox.Show("Updated succesfuly!");
                 }
                 else ///for adding
                 {
-                    _bl.Product.AddProduct(product);
+                    bl!.Product.AddProduct(product);
                     MessageBox.Show("Added succesfuly");
                 }
                 Close();
@@ -478,7 +476,7 @@ namespace PL.Product
         {
             if (lblCHECK3 is null || lblx3 is null)
                 return;
-            if (tbPRICE.Text == "")
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;

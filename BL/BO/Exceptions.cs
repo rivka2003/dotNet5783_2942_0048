@@ -15,6 +15,7 @@ NonFoundObjectDo: The DO object does not exist!
             ";
     }
 
+    [Serializable]
     public class ExistingObjectBo : Exception
     {
         public ExistingObjectBo() : base() { }
@@ -27,6 +28,7 @@ ExistingObjectDo: The DO object is already exist!
             ";
     }
 
+    [Serializable]
     public class NotValid : Exception
     {
         public NotValid() : base() { }
@@ -37,6 +39,7 @@ ExistingObjectDo: The DO object is already exist!
             $"NotValid: Not valid {Message}";
     }
 
+    [Serializable]
     public class NotInStock : Exception
     {
         public NotInStock() : base() { }
@@ -47,6 +50,7 @@ ExistingObjectDo: The DO object is already exist!
             "NotInStock: Not in stock!";
     }
 
+    [Serializable]
     public class AlreadyUpdated : Exception
     {
         public AlreadyUpdated() : base() { }
@@ -57,6 +61,7 @@ ExistingObjectDo: The DO object is already exist!
             "AlreadyUpdated: The date has already updated!";
     }
 
+    [Serializable]
     public class InExistingOrder : Exception
     {
         public InExistingOrder() : base() { }
