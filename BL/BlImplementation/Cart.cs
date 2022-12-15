@@ -7,7 +7,11 @@ namespace BlImplementation
     internal class Cart : ICart
     {
         public DalApi.IDal? Dal = DalApi.Factory.Get();
-        public IBl Ibl = new Bl();
+        private IProduct product = new Product();
+        public Cart(IProduct Product)
+        {
+            product = Product;
+        }
         /// <summary>
         /// adding a product with the given id to the cart
         /// </summary>
@@ -67,7 +71,7 @@ namespace BlImplementation
 
                 for (int i = 0; i < cart.Items!.Count(); i++)///for each item
                 {
-                    productBo = Ibl.Product.ProductDetailsForManager(cart.Items![i]!.ProductID);
+                    productBo = product.ProductDetailsForManager(cart.Items![i]!.ProductID);
 
                     if (cart.Items[i]!.Amount > 0 && productBo.InStock > 0 && cart.CustomerEmail != " " &&
                         cart.CustomerName != " " && cart.CustomerAddress != " " && new EmailAddressAttribute().IsValid(cart.CustomerEmail) == true)///if all the items details were given and are correct and valid

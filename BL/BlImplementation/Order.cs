@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using CopyPropertisTo;
 
 namespace BlImplementation
@@ -7,7 +6,6 @@ namespace BlImplementation
     internal class Order : BlApi.IOrder
     {
         public DalApi.IDal? Dal = DalApi.Factory.Get();
-        public IBl Ibl = new Bl();
         /// <summary>
         /// Returns the entier list of products
         /// </summary>
@@ -116,7 +114,7 @@ namespace BlImplementation
             try /// trying to get the order from Dal and the order details from the Ibl
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
-                OrderBo = Ibl.Order.OrderDetails(ID);
+                OrderBo = OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
@@ -155,7 +153,7 @@ namespace BlImplementation
             try /// trying to get the order from the DO and the order datails from the BO
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
-                OrderBo = Ibl.Order.OrderDetails(ID);
+                OrderBo = OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
@@ -193,7 +191,7 @@ namespace BlImplementation
             try /// trying to get the order from the DO and the order datails from the BO 
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
-                OrderBo = Ibl.Order.OrderDetails(ID);
+                OrderBo = OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }

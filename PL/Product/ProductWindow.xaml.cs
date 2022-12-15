@@ -196,7 +196,7 @@ namespace PL.Product
         private void btnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes
-            if (tbID.Text == "" || tbID.Text.Length > 6 || tbID.Text.Length < 6)
+            if (tbID.Text == "" || tbID.Text.Length > 8 || tbID.Text.Length < 6)
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;
@@ -352,9 +352,9 @@ namespace PL.Product
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (BO.NotValid ex)
             {
-                if (tbID.Text.Length != 6)
+                if (tbID.Text.Length > 8 || tbID.Text.Length < 6)
                 {
-                    MessageBox.Show("" + ex.Message);
+                    MessageBox.Show(ex.ToString());
 
                     if (lblCHECK1 is null)
                         return;
@@ -364,7 +364,7 @@ namespace PL.Product
                 }
                 if (product.Name == " ")
                 {
-                    MessageBox.Show("" + ex.Message);
+                    MessageBox.Show(ex.ToString());
                     if (lblCHECK2 is null)
                         return;
                     lblCHECK2.Visibility = Visibility.Hidden;
@@ -373,7 +373,7 @@ namespace PL.Product
                 }
                 if (product.Description == " ")
                 {
-                    MessageBox.Show("" + ex.Message);
+                    MessageBox.Show(ex.ToString());
                     if (lblCHECK5 is null)
                         return;
                     lblCHECK5.Visibility = Visibility.Hidden;
@@ -382,7 +382,7 @@ namespace PL.Product
                 }
                 if (product.Price <= 0)
                 {
-                    MessageBox.Show("" + ex.Message);
+                    MessageBox.Show(ex.ToString());
                     if (lblCHECK3 is null)
                         return;
                     lblCHECK3.Visibility = Visibility.Hidden;
@@ -391,7 +391,7 @@ namespace PL.Product
                 }
                 if (product.InStock < 0)
                 {
-                    MessageBox.Show("" + ex.Message);
+                    MessageBox.Show(ex.ToString());
                     if (lblCHECK4 is null)
                         return;
                     lblCHECK4.Visibility = Visibility.Hidden;
@@ -401,11 +401,11 @@ namespace PL.Product
             }
             catch (BO.NonFoundObjectBo ex)
             {
-                MessageBox.Show("" + ex.Message);
+                MessageBox.Show(ex.ToString());
             }
             catch (BO.ExistingObjectBo ex)
             {
-                MessageBox.Show("" + ex.Message);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -418,7 +418,7 @@ namespace PL.Product
         {
             if (lblCHECK1 is null || lblx1 is null)
                 return;
-            if (tbID.Text == "" || tbID.Text.Length > 6 || tbID.Text.Length < 6)
+            if (tbID.Text == "" || tbID.Text.Length > 8 || tbID.Text.Length < 6)
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;

@@ -32,12 +32,12 @@ namespace BlImplementation
             catch(DO.NonFoundObjectDo ex) 
             { throw new BO.NonFoundObjectBo("", ex); }
 
-            if (ID >= 100000 && ID < 1000000) /// checking that the ID is valid
+            if (ID >= 100000 && ID < 100000000) /// checking that the ID is valid
             {
                 productDo.CopyPropTo(productBo); ///copyng product from DO to BO
             }
             else
-                throw new BO.NotValid("ID - Should contain 6 digits / Can't be a negative number");
+                throw new BO.NotValid("ID - Should at least 6 digits / Can't be a negative number");
             return productBo;
         }
         /// <summary>
@@ -56,7 +56,7 @@ namespace BlImplementation
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
 
-            if (ID >= 100000 && ID < 1000000) /// checking that the ID is valid
+            if (ID >= 100000 && ID < 100000000) /// checking that the ID is valid
             {
                 proDo.CopyPropTo(proItm);
                 BO.OrderItem orderItem = cart.Items!.FirstOrDefault(i => i!.ID == ID)!;
@@ -70,7 +70,7 @@ namespace BlImplementation
                 }
             }
             else /// if the ID is not valid..
-                throw new BO.NotValid("ID - Should contain 6 digits / Can't be a negative number");
+                throw new BO.NotValid("ID - Should at least 6 digits / Can't be a negative number");
             return proItm;
         }
         /// <summary>
@@ -96,8 +96,8 @@ namespace BlImplementation
             /// if one of the details is not valid
             if (productBo.Description == " ")
                 throw new BO.NotValid("Description- Can't be empty");
-            if (productBo.ID < 100000 || productBo.ID >= 1000000)
-                throw new BO.NotValid("ID- Should contain 6 digits / Can't be a negative number");
+            if (productBo.ID < 100000 || productBo.ID >= 100000000)
+                throw new BO.NotValid("ID- Should at least 6 digits / Can't be a negative number");
             if (productBo.Name == " ")
                 throw new BO.NotValid("Name- Can't be empty");
             if (productBo.Price <= 0)
@@ -156,8 +156,8 @@ namespace BlImplementation
             /// if even one of the fields is not valid
             if (updateProduct.Description == " ")
                 throw new BO.NotValid("Description- Can't be empty");
-            if (updateProduct.ID < 100000 || updateProduct.ID >= 1000000)
-                throw new BO.NotValid("ID- Should contain 6 digits / Can't be a negative number");
+            if (updateProduct.ID < 100000 || updateProduct.ID >= 100000000)
+                throw new BO.NotValid("ID- Should at least 6 digits / Can't be a negative number");
             if (updateProduct.Name == " ")
                 throw new BO.NotValid("Name- Can't be empty");
             if(updateProduct.Price <= 0)

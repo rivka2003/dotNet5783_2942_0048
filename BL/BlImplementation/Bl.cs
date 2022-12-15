@@ -12,7 +12,7 @@ namespace BlImplementation
         {
             Product = new Product();
             Order = new Order();
-            Cart = new Cart();
+            Cart = new Cart(Product);
         }
     }
 }
