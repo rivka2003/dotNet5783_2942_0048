@@ -1,10 +1,12 @@
 ﻿using DalApi;
+using System.Diagnostics;
 
 namespace Dal
 {
     internal sealed class DalXml : IDal
     {
-        public static IDal Instance { get; } = new DalXml();
+        private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
+        public static DalXml Instance { get { return lazy.Value; } }
 
         public IProduct Product { get; }
         public IOrder Order { get; }
