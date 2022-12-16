@@ -20,14 +20,14 @@ internal class dalProduct : IProduct
         {
             List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
-            if (prodLst.Exists(x => x.Id == Or.Id))
+            if (prodLst.Exists(x => x.ID == Or.ID))
                 throw new DalAlreadyExistsException("Product");
 
             prodLst.Add(Or);
 
             XmlTools.SaveListToXMLSerializer(prodLst, path);
 
-            return Or.Id;
+            return Or.ID;
         }
 
         public void Delete(int id)

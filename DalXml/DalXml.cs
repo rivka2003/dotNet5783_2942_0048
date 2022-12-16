@@ -1,5 +1,4 @@
 ﻿using DalApi;
-using System.Diagnostics;
 
 namespace Dal
 {

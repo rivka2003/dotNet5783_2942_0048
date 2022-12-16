@@ -40,11 +40,11 @@ internal class dalOrder : IOrder
         //Read config file
         XElement configRoot = XElement.Load(configPath);
        
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
-        nextSeqNum++;
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSequenceID")!.Value);
         Or.ID = nextSeqNum;
+        nextSeqNum++;
         //update config file
-        configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
+        configRoot.Element("orderSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
         XElement Id = new XElement("Id", Or.ID);
@@ -59,7 +59,6 @@ internal class dalOrder : IOrder
         ordersRoot.Save(path);
 
         return Or.ID;
-
     }
 
     public void Delete(int id)

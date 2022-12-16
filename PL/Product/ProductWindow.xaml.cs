@@ -196,7 +196,7 @@ namespace PL.Product
         private void btnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes
-            if (tbID.Text == "" || tbID.Text.Length > 8 || tbID.Text.Length < 6)
+            if (tbID.Text == "" || tbID.Text.Length > 8 || tbID.Text.Length < 6 || tbPRICE.Text == " ")
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;
@@ -229,7 +229,7 @@ namespace PL.Product
                 lblx3.Visibility = Visibility.Hidden;
                 lblCHECK3.Visibility = Visibility.Visible;
             }
-            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8)
+            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8 || tbPRICE.Text == " ")
             {
                 lblCHECK4.Visibility = Visibility.Hidden;
                 lblx4.Visibility = Visibility.Visible;
