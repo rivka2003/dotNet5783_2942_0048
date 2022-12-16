@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Dal;
+using DalApi;
+using DO;
+
 internal class dalOrderItem : IOrderItem
     {
         string path = XmlTools.dir + "ordersItems.xml";
