@@ -36,7 +36,7 @@ internal class dalOrderItem : IOrderItem
             }
         }
 
-        public int Create(OrderItem Or)
+        public int Add(OrderItem Or)
         {
             throw new NotImplementedException();
         }
@@ -46,17 +46,12 @@ internal class dalOrderItem : IOrderItem
             throw new NotImplementedException();
         }
 
-        public OrderItem GetByCondition(Func<OrderItem?, bool>? cond)
+        public OrderItem RequestByPredicate(Func<OrderItem?, bool>? cond)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? cond = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public OrderItem RequestById(int id)
+        public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? cond = null)
         {
             throw new NotImplementedException();
         }

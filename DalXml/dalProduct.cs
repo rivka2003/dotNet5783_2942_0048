@@ -1,13 +1,5 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Dal;
 
@@ -16,7 +8,7 @@ internal class dalProduct : IProduct
     {
         string path = "products.xml";
 
-        public int Create(Product Or)
+        public int Add(Product Or)
         {
             List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
@@ -35,25 +27,20 @@ internal class dalProduct : IProduct
             throw new NotImplementedException();
         }
 
-        public Product GetByCondition(Func<Product?, bool>? cond)
+        public Product RequestByPredicate(Func<Product?, bool>? cond)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product?> RequestAll(Func<Product?, bool>? cond = null)
+        public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? cond = null)
         {
         List<DO.Product?> prodList = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path);
 
         if (cond == null)
-            return prodList.AsEnumerable().OrderByDescending(p=>p?.Id);
+            return prodList.AsEnumerable().OrderByDescending(p=>p?.ID);
 
-        return prodList.Where(cond).OrderByDescending(p => p?.Id);
+        return prodList.Where(cond).OrderByDescending(p => p?.ID);
              
-        }
-
-        public Product RequestById(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public void Update(Product Or)
