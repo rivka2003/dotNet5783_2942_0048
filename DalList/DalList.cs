@@ -4,7 +4,8 @@ namespace Dal
 {
     internal sealed class DalList : IDal
     {
-        public static IDal Instance { get; } = new DalList();
+        private static readonly Lazy<DalList> lazy = new Lazy<DalList>(() => new DalList());
+        public static DalList Instance { get { return lazy.Value; } }
 
         public IProduct Product { get; }
         public IOrder Order { get; }
