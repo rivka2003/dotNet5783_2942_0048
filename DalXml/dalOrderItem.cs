@@ -41,7 +41,16 @@ internal class dalOrderItem : IOrderItem
 
         public int Create(OrderItem Or)
         {
-            throw new NotImplementedException();
+        List<OrderItem> orddLst = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
+
+        if (orddLst.Exists(x => x.ID == Or.ID))
+            throw new DalAlreadyExistsException("OrderItem");
+
+        orddLst.Add(Or);
+
+        XmlTools.SaveListToXMLSerializer(orddLst, path);
+
+        return Or.ID;
         }
 
         public void Delete(int id)
@@ -56,7 +65,13 @@ internal class dalOrderItem : IOrderItem
 
         public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? cond = null)
         {
-            throw new NotImplementedException();
+           List<DO.OrderItem?> orderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
+
+           if (cond == null)
+            return orderItem.AsEnumerable().OrderByDescending(p => p?.ID);
+
+           return OrderItemList.Where(cond).OrderByDescending(p => p?.ID);
+        
         }
 
         public OrderItem RequestById(int id)

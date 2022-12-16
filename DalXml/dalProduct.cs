@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Dal;
 
-//short implementation with XMLTools functions
+//short implementation with XMLTools functions.
 internal class dalProduct : IProduct
     {
         string path = "products.xml";
@@ -32,33 +32,61 @@ internal class dalProduct : IProduct
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+        List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
+
+        if (prodLst.Exists(x => x.ID == id))
+            throw new DalAlreadyExistsException("Product");
+        prodLst.Remove(RequestByPredicate(product => product?.ID == id));
+
+        XmlTools.SaveListToXMLSerializer(prodLst, path);
+
+        
         }
 
-        public Product GetByCondition(Func<Product?, bool>? cond)
-        {
-            throw new NotImplementedException();
-        }
+    //public Product GetByCondition(Func<Product?, bool>? cond)
+    //{
+    //    throw new NotImplementedException();
+    //}
+    public IEnumerable<Product?> RequestByPredicate(Func<Product?, bool>? predicate = null)///list i enumerable.
+    {
+        IEnumerable<Product?> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
-        public IEnumerable<Product?> RequestAll(Func<Product?, bool>? cond = null)
+        bool checkNull = predicate is null;
+        return prodLstv.Products.Where(product => checkNull ? true : predicate!(product));
+    }
+
+    public IEnumerable<Product?> RequestAll(Func<Product?, bool>? cond = null)
         {
         List<DO.Product?> prodList = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path);
 
         if (cond == null)
-            return prodList.AsEnumerable().OrderByDescending(p=>p?.Id);
+            return prodList.AsEnumerable().OrderByDescending(p=>p?.ID);
 
-        return prodList.Where(cond).OrderByDescending(p => p?.Id);
+        return prodList.Where(cond).OrderByDescending(p => p?.ID);
+
              
         }
+
 
         public Product RequestById(int id)
         {
             throw new NotImplementedException();
         }
 
+
+
         public void Update(Product Or)
+    {
+        List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
+        if (!prodLst.Exists(i => i?.ID == Or.ID))
+            throw new NonFoundObjectDo();
+        for (int i = 0; i < prodLst.Count; i++)
         {
-            throw new NotImplementedException();
+            if (Or.ID == prodLst[i]?.ID)
+                prodLst[i] = Or;
         }
+        XmlTools.SaveListToXMLSerializer(prodLst, path);
+
     }
+}
 
