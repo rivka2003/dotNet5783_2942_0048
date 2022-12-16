@@ -1,13 +1,5 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Dal;
 
@@ -16,7 +8,7 @@ internal class dalProduct : IProduct
     {
         string path = "products.xml";
 
-        public int Create(Product Or)
+        public int Add(Product Or)
         {
             List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 

@@ -39,7 +39,7 @@ internal class dalOrderItem : IOrderItem
             }
         }
 
-        public int Create(OrderItem Or)
+        public int Add(OrderItem Or)
         {
         List<OrderItem> orddLst = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
 
@@ -58,7 +58,7 @@ internal class dalOrderItem : IOrderItem
             throw new NotImplementedException();
         }
 
-        public OrderItem GetByCondition(Func<OrderItem?, bool>? cond)
+        public OrderItem RequestByPredicate(Func<OrderItem?, bool>? cond)
         {
             throw new NotImplementedException();
         }
