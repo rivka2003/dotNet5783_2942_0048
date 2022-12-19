@@ -2,7 +2,7 @@
 
 namespace Dal
 {
-    internal static class DataSource
+    public static class DataSource
     {
         /// <summary>
         /// Making the Config class to make a run number

@@ -22,13 +22,15 @@ namespace PL.Product
             tbNAME.Text = product.Name;
             tbPRICE.Text = product.Price.ToString();
             tbINSTOCK.Text = product.InStock.ToString();
+            tbDESCRIPTION.Text = product.Description;
+
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbGENDER.SelectedItem = product.Gender;
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCATEGORY.SelectedItem = product.Category;
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
             cbCOLOR.SelectedItem = product.Color;
-            tbDESCRIPTION.Text = product.Description;
+
             if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
             {
                 cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
@@ -475,7 +477,7 @@ namespace PL.Product
         {
             if (lblCHECK3 is null || lblx3 is null)
                 return;
-            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8)
+            if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8 || tbPRICE.Text == " ")
             {
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
@@ -494,7 +496,7 @@ namespace PL.Product
         {
             if (lblCHECK4 is null || lblx4 is null)
                 return;
-            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8)
+            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8 || tbINSTOCK.Text == " ")
             {
                 lblCHECK4.Visibility = Visibility.Hidden;
                 lblx4.Visibility = Visibility.Visible;
@@ -560,5 +562,11 @@ namespace PL.Product
             lblx10.Visibility = Visibility.Hidden;
             lblCHECK10.Visibility = Visibility.Visible;
         }
+
+        private void comboBoxChecking()
+        {
+
+        }
+
     }
 }
