@@ -36,10 +36,4 @@ namespace DO
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
 
-    [Serializable]
-    public class DalAlreadyExistsException: Exception
-    {
-        public DalAlreadyExistsException(string msg) : base(msg) { }
-        public DalAlreadyExistsException(string msg, Exception ex) : base(msg, ex) { }
-    }
 }

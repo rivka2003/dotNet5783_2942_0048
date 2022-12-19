@@ -74,7 +74,23 @@
                     <Button x:Name="AddProductWindoe" Content="Add new product" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Click="Add_Product_Button_Click" Height="35" Width="180" FontFamily="Elephant" FontSize="20" Grid.Row="7" Grid.Column="1" BorderBrush="{x:Null}" Foreground="Red" Background="{x:Null}"/>
                 </Grid>
             </Grid>
-            <ListView Name="productsLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+            <!--<ListView Name="productsLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+            </ListView>--> 
+            
+            <ListView Name="productsLv" 
+                      MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" 
+                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+
+                <!--<ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>-->
             </ListView>
         </Grid>
     </Grid>

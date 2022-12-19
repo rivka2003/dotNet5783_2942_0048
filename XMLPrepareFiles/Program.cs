@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
 using System.Xml.Linq;
 using XMLPrapareFiles;
 using XMLPrepareFiles;

@@ -1,15 +1,12 @@
 ﻿using DalApi;
 using DO;
 using System.Xml.Linq;
-
 namespace Dal;
 
 internal class dalOrder : IOrder
 {
     string path = "orders.xml";
     string configPath = "config.xml";
-
-
     XElement ordersRoot;
 
     public dalOrder()
@@ -31,7 +28,7 @@ internal class dalOrder : IOrder
         }
         catch (Exception ex)
         {
-            throw new Exception("product File upload problem" + ex.Message);
+            throw new Exception("orders File upload problem" + ex.Message);
         }
     }
 
@@ -39,7 +36,7 @@ internal class dalOrder : IOrder
     {
         //Read config file
         XElement configRoot = XElement.Load(configPath);
-       
+
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSequenceID")!.Value);
         Or.ID = nextSeqNum;
         nextSeqNum++;
@@ -47,38 +44,69 @@ internal class dalOrder : IOrder
         configRoot.Element("orderSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
-        XElement Id = new XElement("Id", Or.ID);
+        XElement Id = new XElement("ID", Or.ID);
         XElement CustomerName = new XElement("CustomerName", Or.CustomerName);
         XElement CustomerEmail = new XElement("CustomerEmail", Or.CustomerEmail);
-        XElement CustomerAdress = new XElement("CustomerAdress", Or.CustomerAddress);
+        XElement CustomerAddress = new XElement("CustomerAddress", Or.CustomerAddress);
         XElement OrderDate = new XElement("OrderDate", Or.OrderDate);
         XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
         XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
 
-        ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
+        ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAddress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
 
         return Or.ID;
     }
 
-    public void Delete(int id)
+    public void Delete(int ID)
     {
-        throw new NotImplementedException();
+        getOr(ID).Remove();
+
+        ordersRoot.Save(path);
     }
 
-    public Order RequestByPredicate(Func<Order?, bool>? cond)
+    public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
-        throw new NotImplementedException();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo();
     }
 
-    public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? cond = null)
+    public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
-        throw new NotImplementedException();
+        IEnumerable<Order?> orderList = (IEnumerable<Order?>)(from element in ordersRoot.Elements()
+                                                              select new Order
+                                                              {
+                                                                  ID = int.Parse(element.Element("ID")!.Value),
+                                                                  CustomerName = element.Element("CustomerName")!.Value,
+                                                                  CustomerEmail = element.Element("CustomerEmail")!.Value,
+                                                                  CustomerAddress = element.Element("CustomerAddress")!.Value,
+                                                                  OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
+                                                                  ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
+                                                                  DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
+                                                              });
+
+        bool checkNull = predicate is null;
+        return orderList.Where(order => checkNull? true : predicate!(order));
     }
 
-    public void Update(Order Or)
+    public void Update(Order order)
     {
-        throw new NotImplementedException();
+        XElement orderElement = getOr(order.ID);
+
+        orderElement.Element("CustomerName")!.Value = order.CustomerName!.ToString();
+        orderElement.Element("CustomerEmail")!.Value = order.CustomerEmail!.ToString();
+        orderElement.Element("CustomerAddress")!.Value = order.CustomerAddress!.ToString();
+        orderElement.Element("OrderDate")!.Value = order.OrderDate.ToString()!;
+        orderElement.Element("ShipDate")!.Value = order.ShipDate.ToString()!;
+        orderElement.Element("DeliveryDate")!.Value = order.DeliveryDate.ToString()!;
+
+        ordersRoot.Save(path);
+    }
+
+    public XElement getOr(int id)
+    {
+        return (from or in ordersRoot.Elements() 
+         where or.Element("ID")!.Value == id.ToString()
+         select or).FirstOrDefault()!;
     }
 }
 
