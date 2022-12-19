@@ -44,7 +44,7 @@ internal class dalProduct : IProduct
         IEnumerable<Product?> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
         bool checkNull = predicate is null;
-        return prodLstv.Products.Where(product => checkNull ? true : predicate!(product));
+        return prodLst.Where(product => checkNull ? true : predicate!(product));
     }
 
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? cond = null)
