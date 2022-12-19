@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Dal;
+
+
+/// <summary>
+/// A helper class with useful functions for xml files
+/// </summary>
 public class XmlTools
-    {
+{
 
         public static string dir = @"xml\";
         static XmlTools()
@@ -16,9 +21,15 @@ public class XmlTools
                 Directory.CreateDirectory(dir);
         }
 
-
-        #region SaveLoadWithXMLSerializer
-        public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
+    /// <summary>
+    /// function used to save data from list to an xml file
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="filePath"></param>
+    /// <exception cref="Exception"></exception>
+    #region SaveLoadWithXMLSerializer
+    public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
         {
             try
             {
@@ -33,7 +44,15 @@ public class XmlTools
                 //throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
-        public static List<T> LoadListFromXMLSerializer<T>(string filePath)
+
+    /// <summary>
+    /// function used to load data from xml file to a list
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public static List<T> LoadListFromXMLSerializer<T>(string filePath)
         {
             try
             {

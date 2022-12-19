@@ -3,6 +3,8 @@ using DO;
 using System.Xml.Linq;
 namespace Dal;
 
+
+//short implementation with XMLTools functions.
 internal class dalOrder : IOrder
 {
     string path = "orders.xml";
@@ -14,6 +16,12 @@ internal class dalOrder : IOrder
         LoadData();
     }
 
+
+
+    /// <summary>
+    /// function load data to the root variable from the file, if file doesn't exist creats it and loading.
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     private void LoadData()
     {
         try
@@ -32,6 +40,11 @@ internal class dalOrder : IOrder
         }
     }
 
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="Or"></param>
+    /// <returns></returns>
     public int Add(Order Or)
     {
         //Read config file
@@ -58,6 +71,11 @@ internal class dalOrder : IOrder
         return Or.ID;
     }
 
+
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="ID"></param>
     public void Delete(int ID)
     {
         getOr(ID).Remove();
@@ -65,29 +83,47 @@ internal class dalOrder : IOrder
         ordersRoot.Save(path);
     }
 
+
+    /// <summary>
+    /// A helper method that returns a single object according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo();
     }
 
+
+    /// <summary>
+    /// A helper method that returns a partial list according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
         IEnumerable<Order?> orderList = (IEnumerable<Order?>)(from element in ordersRoot.Elements()
                                                               select new Order
-                                                              {
-                                                                  ID = int.Parse(element.Element("ID")!.Value),
-                                                                  CustomerName = element.Element("CustomerName")!.Value,
-                                                                  CustomerEmail = element.Element("CustomerEmail")!.Value,
-                                                                  CustomerAddress = element.Element("CustomerAddress")!.Value,
-                                                                  OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
-                                                                  ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
-                                                                  DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
-                                                              });
+             {
+             ID = int.Parse(element.Element("ID")!.Value),
+             CustomerName = element.Element("CustomerName")!.Value,
+             CustomerEmail = element.Element("CustomerEmail")!.Value,
+             CustomerAddress = element.Element("CustomerAddress")!.Value,
+             OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
+             ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
+             DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
+             });
 
         bool checkNull = predicate is null;
         return orderList.Where(order => checkNull? true : predicate!(order));
     }
 
+
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="order"></param>
     public void Update(Order order)
     {
         XElement orderElement = getOr(order.ID);
@@ -102,6 +138,11 @@ internal class dalOrder : IOrder
         ordersRoot.Save(path);
     }
 
+    /// <summary>
+    /// returns an object according to the recieved id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public XElement getOr(int id)
     {
         return (from or in ordersRoot.Elements() 

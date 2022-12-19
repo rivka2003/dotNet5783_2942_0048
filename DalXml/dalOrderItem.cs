@@ -4,6 +4,8 @@ using DalApi;
 using DO;
 using System;
 
+
+//short implementation with XMLTools functions.
 internal class dalOrderItem : IOrderItem
 {
     string path = "orderItems.xml";
@@ -15,6 +17,12 @@ internal class dalOrderItem : IOrderItem
         LoadData();
     }
 
+
+
+    /// <summary>
+    /// function load data to the root variable from the file, if file doesn't exist creats it and loading.
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     private void LoadData()
     {
         try
@@ -33,6 +41,12 @@ internal class dalOrderItem : IOrderItem
         }
     }
 
+
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="orI"></param>
+    /// <returns></returns>
     public int Add(OrderItem orI)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -53,6 +67,12 @@ internal class dalOrderItem : IOrderItem
         return orI.ID;
     }
 
+
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public void Delete(int ID)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -65,6 +85,13 @@ internal class dalOrderItem : IOrderItem
         XmlTools.SaveListToXMLSerializer(orderItemList, path);
     }
 
+
+    /// <summary>
+    /// A helper method that returns a single object according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
@@ -76,6 +103,11 @@ internal class dalOrderItem : IOrderItem
         throw new NonFoundObjectDo();
     }
 
+    /// <summary>
+    /// A helper method that returns a partial list according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
     public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null)
     {
         List<DO.OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
@@ -85,6 +117,12 @@ internal class dalOrderItem : IOrderItem
 
     }
 
+
+    /// <summary>
+    /// Implementation of iCrod functions for each entity within Excel files
+    /// </summary>
+    /// <param name="orI"></param>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public void Update(OrderItem orI)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);

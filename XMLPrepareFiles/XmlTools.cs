@@ -2,6 +2,9 @@
 
 namespace XMLPrapareFiles
 {
+    /// <summary>
+    /// A helper class with useful functions for xml files
+    /// </summary>
     internal class XmlTools
     {
         static string dir = @"xml\";
@@ -11,7 +14,13 @@ namespace XMLPrapareFiles
                 Directory.CreateDirectory(dir);
         }
 
-
+        /// <summary>
+        /// function used to save data from list to an xml file
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="filePath"></param>
+        /// <exception cref="Exception"></exception>
         #region SaveLoadWithXMLSerializer
         public static void SaveListToXMLSerializer<T>(List<T?> list, string filePath)
         {
@@ -28,6 +37,15 @@ namespace XMLPrapareFiles
                 //throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
+
+
+        /// <summary>
+        /// function used to load data from xml file to a list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static List<T?> LoadListFromXMLSerializer<T>(string filePath)
         {
             try
