@@ -27,7 +27,7 @@ internal class DalOrderItem : IOrderItem
     {
         ///if productItem dosnt exist throw exception 
         if (!OrderItems.Exists(i => i?.ID == orIt.ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("OrderItem");
         for (int i = 0; i < OrderItems.Count; i++)
         {
             if (orIt.ID == OrderItems[i]?.ID)
@@ -57,10 +57,6 @@ internal class DalOrderItem : IOrderItem
 
     public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
     {
-        if (OrderItems.FirstOrDefault(predicate!) is OrderItem orderItem)
-        {
-            return orderItem;
-        }
-        throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("OrderItem");
     }
 }

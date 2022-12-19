@@ -40,20 +40,22 @@ internal class dalOrder : IOrder
         }
     }
 
+    ///Implementation of iCrod functions for each entity within Excel files
+
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Add function to add an order to the list of orders (in the xml files)
     /// </summary>
     /// <param name="Or"></param>
     /// <returns></returns>
     public int Add(Order Or)
     {
-        //Read config file
+        ///Read config file
         XElement configRoot = XElement.Load(configPath);
 
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSequenceID")!.Value);
         Or.ID = nextSeqNum;
         nextSeqNum++;
-        //update config file
+        ///update config file
         configRoot.Element("orderSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
@@ -65,6 +67,7 @@ internal class dalOrder : IOrder
         XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
         XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
 
+        ///add the product to the root and save the path
         ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAddress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
 
@@ -73,7 +76,7 @@ internal class dalOrder : IOrder
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Delete function to remove an order from the list
     /// </summary>
     /// <param name="ID"></param>
     public void Delete(int ID)
@@ -85,14 +88,14 @@ internal class dalOrder : IOrder
 
 
     /// <summary>
-    /// A helper method that returns a single object according to the requested filter
+    /// A helper method that returns a single order according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Order");
     }
 
 
@@ -103,25 +106,26 @@ internal class dalOrder : IOrder
     /// <returns></returns>
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
+        /// using linq to initialize the order
         IEnumerable<Order?> orderList = (IEnumerable<Order?>)(from element in ordersRoot.Elements()
                                                               select new Order
-             {
-             ID = int.Parse(element.Element("ID")!.Value),
-             CustomerName = element.Element("CustomerName")!.Value,
-             CustomerEmail = element.Element("CustomerEmail")!.Value,
-             CustomerAddress = element.Element("CustomerAddress")!.Value,
-             OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
-             ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
-             DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
-             });
+                                                              {
+                                                                  ID = int.Parse(element.Element("ID")!.Value),
+                                                                  CustomerName = element.Element("CustomerName")!.Value,
+                                                                  CustomerEmail = element.Element("CustomerEmail")!.Value,
+                                                                  CustomerAddress = element.Element("CustomerAddress")!.Value,
+                                                                  OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
+                                                                  ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
+                                                                  DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
+                                                              });
 
         bool checkNull = predicate is null;
-        return orderList.Where(order => checkNull? true : predicate!(order));
+        return orderList.Where(order => checkNull ? true : predicate!(order));
     }
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Update function to update the order
     /// </summary>
     /// <param name="order"></param>
     public void Update(Order order)
@@ -139,15 +143,15 @@ internal class dalOrder : IOrder
     }
 
     /// <summary>
-    /// returns an object according to the recieved id
+    /// returns an order from the xml file according to the recieved id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     public XElement getOr(int id)
     {
-        return (from or in ordersRoot.Elements() 
-         where or.Element("ID")!.Value == id.ToString()
-         select or).FirstOrDefault()!;
+        return (from or in ordersRoot.Elements()
+                where or.Element("ID")!.Value == id.ToString()
+                select or).FirstOrDefault() ?? throw new NonFoundObjectDo("Order");
     }
 }
 

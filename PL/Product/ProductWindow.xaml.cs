@@ -562,11 +562,5 @@ namespace PL.Product
             lblx10.Visibility = Visibility.Hidden;
             lblCHECK10.Visibility = Visibility.Visible;
         }
-
-        private void comboBoxChecking()
-        {
-
-        }
-
     }
 }

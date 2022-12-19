@@ -1,11 +1,15 @@
 ﻿using DalApi;
+using DO;
+using System.Collections.Generic;
 
 namespace Dal
 {
+    /// <summary>
+    /// The dalXml class is defined as a singleton class
+    /// </summary>
     internal sealed class DalXml : IDal
     {
-        private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
-        public static DalXml Instance { get { return lazy.Value; } }
+        public static IDal Instance { get; } = new DalXml();
 
         public IProduct Product { get; }
         public IOrder Order { get; }

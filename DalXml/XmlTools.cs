@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Dal;
 
@@ -14,12 +9,12 @@ namespace Dal;
 public class XmlTools
 {
 
-        public static string dir = @"xml\";
-        static XmlTools()
-        {
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-        }
+    public static string dir = @"xml\";
+    static XmlTools()
+    {
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
+    }
 
     /// <summary>
     /// function used to save data from list to an xml file
@@ -30,20 +25,21 @@ public class XmlTools
     /// <exception cref="Exception"></exception>
     #region SaveLoadWithXMLSerializer
     public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
+    {
+        try
         {
-            try
-            {
-                FileStream file = new FileStream(dir + filePath, FileMode.Create);
-                XmlSerializer x = new XmlSerializer(list.GetType());
-                x.Serialize(file, list);
-                file.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine( ex.Message ); 
-                //throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
-            }
+            FileStream file = new FileStream(dir + filePath, FileMode.Create);
+            XmlSerializer x = new XmlSerializer(list.GetType());
+            x.Serialize(file, list);
+            file.Close();
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw new Exception(ex.Message);
+            // DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
+        }
+    }
 
     /// <summary>
     /// function used to load data from xml file to a list
@@ -53,25 +49,26 @@ public class XmlTools
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
     public static List<T> LoadListFromXMLSerializer<T>(string filePath)
+    {
+        try
         {
-            try
+            if (File.Exists(dir + filePath))
             {
-                if (File.Exists(dir + filePath))
-                {
-                    List<T> list;
-                    XmlSerializer x = new XmlSerializer(typeof(List<T>));
-                    FileStream file = new FileStream(dir + filePath, FileMode.Open);
-                    list = (List<T>)x.Deserialize(file);
-                    file.Close();
-                    return list;
-                }
-                else
-                    return new List<T>();
+                List<T> list;
+                XmlSerializer x = new XmlSerializer(typeof(List<T>));
+                FileStream file = new FileStream(dir + filePath, FileMode.Open);
+                list = (List<T>)x.Deserialize(file)!;
+                file.Close();
+                return list;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message); // DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
-            }
+            else
+                return new List<T>();
         }
-        #endregion
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+            //DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+        }
     }
+    #endregion
+}

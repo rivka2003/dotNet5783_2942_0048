@@ -14,7 +14,7 @@ internal class DalProduct : IProduct
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i?.ID == pro.ID))
-            throw new ExistingObjectDo();
+            throw new ExistingObjectDo("Product");
         DataSource.Products.Add(pro);
         return pro.ID;
     }
@@ -27,7 +27,7 @@ internal class DalProduct : IProduct
     {
         ///if product dosnt exist throw exception 
         if (!DataSource.Products.Exists(i => i?.ID == pro.ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("Product");
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
             if (pro.ID == DataSource.Products[i]?.ID)
@@ -58,10 +58,6 @@ internal class DalProduct : IProduct
 
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
-        if (DataSource.Products.FirstOrDefault(predicate!) is Product product)
-        {
-            return product;
-        }
-        throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Product");
     }
 }

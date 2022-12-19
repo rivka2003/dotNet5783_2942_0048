@@ -78,7 +78,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new ExistingObjectDo();
+                            throw new ExistingObjectDo("Product");
                         }
                         break;
                     case OrderChoice.Print: ///print the product with the recieved id
@@ -92,7 +92,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Product");
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full product list
@@ -110,7 +110,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Product");
                         }
                         theProduct.ID = id2;
                         creatProduct(ref theProduct);
@@ -120,7 +120,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Product");
                         }
                         break;
                     case OrderChoice.Delete: ///deleting the product according to the recieved id
@@ -289,7 +289,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Order");
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full order list
@@ -307,7 +307,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Order");
                         }
                         theOrder.ID = id1;
                         creatOrder(ref theOrder);
@@ -317,7 +317,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("Order");
                         }
                         break;
                     case OrderChoice.Delete: ///deleting the order according to the recieved id
@@ -400,7 +400,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("OrerItem");
                         }
                         break;
                     case Choice3.PrintByOrderAndProductID:///print the order item according to the recieved two ids
@@ -418,7 +418,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("OrerItem");
                         }
                         break;
                     case Choice3.PrintList:///printing the full order item list
@@ -438,7 +438,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("OrderItem");
                         }
                         break;
                     case Choice3.Update:///updating the order item
@@ -452,7 +452,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("OrderItem");
                         }
                         theOrderItem.ID = id1;
                         creatOrderItem(ref theOrderItem);
@@ -462,7 +462,7 @@ namespace DalTest
                         }
                         catch (Exception)
                         {
-                            throw new NonFoundObjectDo();
+                            throw new NonFoundObjectDo("OrderItem");
                         }
                         break;
                     case Choice3.Delete:///deleting the order item according to the recieved id

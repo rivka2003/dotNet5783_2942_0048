@@ -8,40 +8,11 @@ namespace Dal;
 internal class dalProduct : IProduct
 {
     string path = "products.xml";
-    XElement productsRoot;
 
-    
-    public dalProduct()
-    {
-        LoadData();
-    }
-
+    ///Implementation of iCrod functions for each entity within Excel files
 
     /// <summary>
-    /// function load data to the root variable from the file, if file doesn't exist creats it and loading.
-    /// </summary>
-    /// <exception cref="Exception"></exception>
-    private void LoadData()
-    {
-        try
-        {
-            if (File.Exists(path))
-                productsRoot = XElement.Load(path);
-            else
-            {
-                productsRoot = new XElement("products");
-                productsRoot.Save(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("products File upload problem" + ex.Message);
-        }
-    }
-
-
-    /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Add function to add a product to the list of products (in the xml files)
     /// </summary>
     /// <param name="pro"></param>
     /// <returns></returns>
@@ -51,7 +22,7 @@ internal class dalProduct : IProduct
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (productLst.Exists(x => x?.ID == pro.ID))
-            throw new ExistingObjectDo();
+            throw new ExistingObjectDo("Product");
 
         productLst.Add(pro);
 
@@ -62,7 +33,7 @@ internal class dalProduct : IProduct
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Delete function to remove a product from the list
     /// </summary>
     /// <param name="ID"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
@@ -71,7 +42,7 @@ internal class dalProduct : IProduct
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (!productLst.Exists(x => x?.ID == ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("Product");
 
         productLst.Remove(RequestByPredicate(product => product?.ID == ID));
 
@@ -99,17 +70,12 @@ internal class dalProduct : IProduct
     /// <exception cref="NonFoundObjectDo"></exception>
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
-        List<Product?> productList = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path);
-        if (productList.FirstOrDefault(predicate!) is Product product)
-        {
-            return product;
-        }
-        throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Product");
     }
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Update function to update the product
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
@@ -118,8 +84,9 @@ internal class dalProduct : IProduct
         List<Product?> productList = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (!productList.Exists(i => i?.ID == pro.ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("Product");
 
+        ///A loop that runs on the list and gets the object and updates it
         for (int i = 0; i < productList.Count; i++)
         {
             if (pro.ID == productList[i]?.ID)

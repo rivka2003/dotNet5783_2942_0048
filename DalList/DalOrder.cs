@@ -27,7 +27,7 @@ internal class DalOrder : IOrder
     {
         ///if Order dosnt exist throw exception 
         if (!Orders.Exists(i => i?.ID == or.ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("Order");
         for (int i = 0; i < Orders.Count; i++)
         {
             if (or.ID == Orders[i]?.ID)
@@ -57,10 +57,6 @@ internal class DalOrder : IOrder
 
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
-        if (Orders.FirstOrDefault(predicate!) is Order order)
-        {
-            return order;
-        }
-        throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Order");
     }
 }

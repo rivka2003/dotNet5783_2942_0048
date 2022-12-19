@@ -41,9 +41,10 @@ internal class dalOrderItem : IOrderItem
         }
     }
 
+    ///Implementation of iCrod functions for each entity within Excel files
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Add function to add an orderItem to the list of orderItems (in the xml files)
     /// </summary>
     /// <param name="orI"></param>
     /// <returns></returns>
@@ -51,15 +52,18 @@ internal class dalOrderItem : IOrderItem
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
 
+        ///Read config file
         XElement configRoot = XElement.Load(configPath);
 
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSequenceID")!.Value);
         orI.ID = nextSeqNum;
         nextSeqNum++;
+
         //update config file
         configRoot.Element("orderItemSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
+        ///add the product to the root and save the path
         orderItemList.Add(orI);
 
         XmlTools.SaveListToXMLSerializer(orderItemList, path);
@@ -69,7 +73,7 @@ internal class dalOrderItem : IOrderItem
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Delete function to remove an orderItem from the list
     /// </summary>
     /// <param name="ID"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
@@ -78,7 +82,7 @@ internal class dalOrderItem : IOrderItem
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
 
         if (!orderItemList.Exists(x => x?.ID == ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("OrderItem");
 
         orderItemList.Remove(RequestByPredicate(x => x?.ID == ID));
 
@@ -87,20 +91,14 @@ internal class dalOrderItem : IOrderItem
 
 
     /// <summary>
-    /// A helper method that returns a single object according to the requested filter
+    /// A helper method that returns a single orderItem according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
     public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
     {
-        List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
-
-        if (orderItemList.FirstOrDefault(predicate!) is OrderItem orderItem)
-        {
-            return orderItem;
-        }
-        throw new NonFoundObjectDo();
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("OrderItem");
     }
 
     /// <summary>
@@ -114,12 +112,11 @@ internal class dalOrderItem : IOrderItem
 
         bool checkNull = predicate is null;
         return orderItemList.Where(product => checkNull ? true : predicate!(product));
-
     }
 
 
     /// <summary>
-    /// Implementation of iCrod functions for each entity within Excel files
+    /// Update function to update the orderItem
     /// </summary>
     /// <param name="orI"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
@@ -128,9 +125,10 @@ internal class dalOrderItem : IOrderItem
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
 
         if (!orderItemList.Exists(x => x?.ID == orI.ID))
-            throw new NonFoundObjectDo();
+            throw new NonFoundObjectDo("OrerItem");
 
-        for(int i = 0; i < orderItemList.Count(); i++)
+        ///A loop that runs on the list and gets the object and updates it
+        for (int i = 0; i < orderItemList.Count(); i++)
         {
             if (orderItemList[i]?.ID == orI.ID)
                 orderItemList[i] = orI;

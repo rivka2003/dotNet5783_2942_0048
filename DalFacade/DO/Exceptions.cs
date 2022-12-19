@@ -15,7 +15,7 @@ namespace DO
         public NonFoundObjectDo(string message, Exception inner) : base(message, inner) { }
         protected NonFoundObjectDo (SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            "The object does not exist!";
+            $"{Message} does not exist!";
     }
 
     [Serializable]
@@ -26,7 +26,7 @@ namespace DO
         public ExistingObjectDo(string message, Exception inner) : base(message, inner) { }
         protected ExistingObjectDo(SerializationInfo info, StreamingContext context) : base(info, context) { }
         override public string ToString() =>
-            "The object is already exist!";
+            $"The {Message} is already exist!";
     }
 
     [Serializable]
@@ -35,5 +35,4 @@ namespace DO
         public DalConfigException(string msg) : base(msg) { }
         public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
     }
-
 }
