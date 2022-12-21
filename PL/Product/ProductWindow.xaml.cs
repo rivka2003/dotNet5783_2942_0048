@@ -58,6 +58,7 @@ namespace PL.Product
             cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            cbSIZE.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
             Array items = Enum.GetValues(typeof(BO.Clothing));
 
             /// Default filling of the combo box with values

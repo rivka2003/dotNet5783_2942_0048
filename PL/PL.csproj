@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="Image1.png" />
     <None Remove="Image2.png" />
+    <None Remove="Image4.png" />
     <None Remove="Image5.png" />
     <None Remove="Image6.png" />
     <None Remove="Product\Image1.png" />
@@ -30,9 +31,14 @@
   <ItemGroup>
     <Resource Include="Image1.png" />
     <Resource Include="Image2.png" />
+    <Resource Include="Image4.png" />
     <Resource Include="Product\Image3.png" />
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Order\" />
   </ItemGroup>
 
 </Project>
