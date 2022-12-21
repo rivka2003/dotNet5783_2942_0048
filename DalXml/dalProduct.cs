@@ -56,10 +56,7 @@ internal class dalProduct : IProduct
     /// <returns></returns>
     public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? predicate = null)///list i enumerable.
     {
-        List<Product?> productList = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path);
-
-        bool checkNull = predicate is null;
-        return productList.Where(product => checkNull ? true : predicate!(product));
+        return XmlTools.LoadListFromXMLSerializer<DO.Product?>(path).Where(product => predicate is null ? true : predicate(product));
     }
 
     /// <summary>

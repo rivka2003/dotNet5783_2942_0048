@@ -136,38 +136,36 @@ namespace BlImplementation
         public BO.Cart UpdateAmountProduct(BO.Cart cart, int productId, int Amount)
         {
             if (cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
+                throw new BO.NonFoundObjectBo();
+            for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
             {
-                for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
+                if (cart.Items[i]!.ProductID == productId)///search the product
                 {
-                    if (cart.Items[i]!.ProductID == productId)///search the product
+                    int diffrence = Amount - cart.Items[i]!.Amount;///saving the difference between the old and new amount
+                    if (diffrence != 0)///if its just the same skip the process and no changes needed
                     {
-                        int diffrence = Amount - cart.Items[i]!.Amount;///saving the difference between the old and new amount
-                        if (diffrence != 0)///if its just the same skip the process and no changes needed
+                        if (Amount == 0)///new amount empty the products
                         {
-                            if (Amount == 0)///new amount empty the products
-                            {
-                                cart.TotalPrice -= cart.Items[i]!.TotalPrice;
-                                cart.Items.Remove(cart.Items[i]);
-                            }
-                            else if (diffrence < 0)///new amount is smaller
-                            {
-                                cart.Items[i]!.Amount += diffrence; // edding a negitiv number
-                                cart.Items[i]!.TotalPrice += cart.Items[i]!.Price * diffrence;
-                                cart.TotalPrice += cart.Items[i]!.Price * diffrence;
-                            }
-                            else///new amount is larger
-                            {
-                                cart.Items[i]!.Amount += diffrence;
-                                cart.Items[i]!.TotalPrice = cart.Items[i]!.Price * cart.Items[i]!.Amount;
-                                cart.TotalPrice += cart.Items[i]!.ProductID * diffrence;
-                            }
+                            cart.TotalPrice -= cart.Items[i]!.TotalPrice;
+                            cart.Items.Remove(cart.Items[i]);
                         }
-                        break;
+                        else if (diffrence < 0)///new amount is smaller
+                        {
+                            cart.Items[i]!.Amount += diffrence; // edding a negitiv number
+                            cart.Items[i]!.TotalPrice += cart.Items[i]!.Price * diffrence;
+                            cart.TotalPrice += cart.Items[i]!.Price * diffrence;
+                        }
+                        else///new amount is larger
+                        {
+                            cart.Items[i]!.Amount += diffrence;
+                            cart.Items[i]!.TotalPrice = cart.Items[i]!.Price * cart.Items[i]!.Amount;
+                            cart.TotalPrice += cart.Items[i]!.ProductID * diffrence;
+                        }
                     }
+                    break;
                 }
             }
-            else///the product isnt in the cart
-                throw new BO.NonFoundObjectBo();
+
 
             return cart;
         }

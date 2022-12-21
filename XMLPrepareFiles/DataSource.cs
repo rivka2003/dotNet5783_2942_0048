@@ -64,9 +64,11 @@ namespace XMLPrepareFiles
                 randomColor = (Color)Colors.GetValue(random.Next(Colors.Length))!;
                 value.Category = randomCategory;
                 value.ID = random.Next(100000, 999999);
+
                 /// A loop that says that as long as the id exists in the list, it is necessary to generate a new id
                 while (Products.Exists(i => i?.ID == value.ID))
                     value.ID = random.Next(100000, 999999);
+
                 /// 5% of the products will be empty and there will be no stock of them
                 if (i <= 0.05 * 10)
                 {
@@ -78,10 +80,12 @@ namespace XMLPrepareFiles
                     value.InStock = random.Next(1, 4);
                     value.Status = Status.Exist;
                 }
+
                 value.Name = "Product" + i;
                 value.Price = 100;
                 value.Color = randomColor;
                 value.Description = "New!";
+
                 ///If the drawn Category is "Clothing"
                 if (randomCategory is Category.Clothing)
                 {
@@ -120,6 +124,7 @@ namespace XMLPrepareFiles
                         value.Shoes = randomShoes;
                     }
                 }
+
                 Products.Add(value);
             }
         }
@@ -139,10 +144,12 @@ namespace XMLPrepareFiles
                     CustomerEmail = "Customer" + i + "@gmail.com",
                     OrderDate = DateTime.Now + new TimeSpan(random.Next(1, 24), random.Next(1, 60), random.Next(0, 60))
                 };
+
                 /// If the order is within the 80% that were shipped
                 if (i <= 0.8 * 20)
                 {
                     value.ShipDate = value.OrderDate + TimeSpan.FromDays(random.Next(2, 4));
+
                     /// If the order is within the 60% that reached the orderer
                     if (i <= 0.6 * 20)
                     {
@@ -176,6 +183,7 @@ namespace XMLPrepareFiles
                     orderItem.OrderID = Orders[i]?.ID ?? 0;
                 else /// If this order number exists within the list of order items then generate a new order number
                     orderItem.OrderID = Orders[random.Next(0, 20)]?.ID ?? 0;
+
                 // every order that has less than 5 products
                 if (OrderItems.FindAll(item => item?.OrderID == orderItem.OrderID).Count() < 5)
                 {

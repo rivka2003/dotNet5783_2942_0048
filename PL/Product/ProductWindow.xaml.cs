@@ -72,6 +72,7 @@ namespace PL.Product
             cbCOLOR.SelectedIndex = 0;
             cbSIZE.SelectedIndex = 0;
             cbTYPE.SelectedIndex = 0;
+
             btnSAVE.Content = "ADD";
             lblTITLE.Content = "Add a new product";
         }
@@ -79,37 +80,6 @@ namespace PL.Product
         ///reset the enums according to the category
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ///signs of v/x according to the values entered
-            if (lblCHECK7 is null || lblx7 is null)
-                return;
-
-            if (cbCATEGORY.SelectedItem == null)
-            {
-                lblCHECK7.Visibility = Visibility.Hidden;
-                lblx7.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx7.Visibility = Visibility.Hidden;
-                lblCHECK7.Visibility = Visibility.Visible;
-            }
-
-            if (lblCHECK6 is null || lblx6 is null)
-                return;
-
-            if (cbGENDER.SelectedItem == null)
-            {
-                lblCHECK6.Visibility = Visibility.Hidden;
-                lblx6.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx6.Visibility = Visibility.Hidden;
-                lblCHECK6.Visibility = Visibility.Visible;
-            }
-
             cbTYPE.Items.Clear(); /// Clearing the combo box before re-adding
             cbTYPE.ItemsSource = null;
 
@@ -200,6 +170,12 @@ namespace PL.Product
             ///general pre checkings over the text boxes
             if (tbID.Text == "" || tbID.Text.Length > 8 || tbID.Text.Length < 6 || tbPRICE.Text == " ")
             {
+                if (tbID.Text == "" || tbPRICE.Text == " ")
+                    MessageBox.Show("Error - ID box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if (tbID.Text.Length > 8)
+                    MessageBox.Show("Error - ID can't be more then 8 digits!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if (tbID.Text.Length < 6)
+                    MessageBox.Show("Error - ID can't be less then 6 digits!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;
                 return;
@@ -211,6 +187,7 @@ namespace PL.Product
             }
             if (tbNAME.Text == "")
             {
+                MessageBox.Show("Error - Name box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 lblCHECK2.Visibility = Visibility.Hidden;
                 lblx2.Visibility = Visibility.Visible;
                 return;
@@ -222,6 +199,10 @@ namespace PL.Product
             }
             if (tbPRICE.Text == "" || tbPRICE.Text.Length > 8 || tbPRICE.Text == " ")
             {
+                if (tbPRICE.Text == "" || tbPRICE.Text == " ")
+                    MessageBox.Show("Error - Price box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if (tbPRICE.Text.Length > 8)
+                    MessageBox.Show("Error - Price can't be more then 8 digits!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 lblCHECK3.Visibility = Visibility.Hidden;
                 lblx3.Visibility = Visibility.Visible;
                 return;
@@ -231,8 +212,12 @@ namespace PL.Product
                 lblx3.Visibility = Visibility.Hidden;
                 lblCHECK3.Visibility = Visibility.Visible;
             }
-            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8 || tbPRICE.Text == " ")
+            if (tbINSTOCK.Text == "" || tbINSTOCK.Text.Length > 8 || tbINSTOCK.Text == " ")
             {
+                if (tbINSTOCK.Text == "" || tbINSTOCK.Text == " ")
+                    MessageBox.Show("Error - Amount in stock box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if (tbINSTOCK.Text.Length > 8)
+                    MessageBox.Show("Error - Amount in stock can't be more then 8 digits!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 lblCHECK4.Visibility = Visibility.Hidden;
                 lblx4.Visibility = Visibility.Visible;
                 return;
@@ -244,6 +229,7 @@ namespace PL.Product
             }
             if (tbDESCRIPTION.Text == "")
             {
+                MessageBox.Show("Error - Description box can't be empty!!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 lblCHECK5.Visibility = Visibility.Hidden;
                 lblx5.Visibility = Visibility.Visible;
                 return;
@@ -253,75 +239,24 @@ namespace PL.Product
                 lblx5.Visibility = Visibility.Hidden;
                 lblCHECK5.Visibility = Visibility.Visible;
             }
-            if (cbCATEGORY.SelectedItem == null)
-            {
-                lblCHECK7.Visibility = Visibility.Hidden;
-                lblx7.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx7.Visibility = Visibility.Hidden;
-                lblCHECK7.Visibility = Visibility.Visible;
-            }
-            if (cbGENDER.SelectedItem == null)
-            {
-                lblCHECK6.Visibility = Visibility.Hidden;
-                lblx6.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx6.Visibility = Visibility.Hidden;
-                lblCHECK6.Visibility = Visibility.Visible;
-            }
-            if (cbTYPE.SelectedItem == null)
-            {
-                lblCHECK8.Visibility = Visibility.Hidden;
-                lblx8.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx8.Visibility = Visibility.Hidden;
-                lblCHECK8.Visibility = Visibility.Visible;
-            }
-            if (cbCOLOR.SelectedItem == null)
-            {
-                lblCHECK9.Visibility = Visibility.Hidden;
-                lblx9.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx9.Visibility = Visibility.Hidden;
-                lblCHECK9.Visibility = Visibility.Visible;
-            }
-            if (cbSIZE.SelectedItem == null)
-            {
-                lblCHECK10.Visibility = Visibility.Hidden;
-                lblx10.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                lblx10.Visibility = Visibility.Hidden;
-                lblCHECK10.Visibility = Visibility.Visible;
-            }
 
             ///if pre checks are valid. put data in the product and send that to previous layers check.
-            BO.Product product = new BO.Product();
-            product.ID = int.Parse(tbID.Text);
-            product.Name = tbNAME.Text;
-            if(tbPRICE.Text.Contains("."))
+            BO.Product product = new BO.Product()
+            {
+                ID = int.Parse(tbID.Text),
+                Name = tbNAME.Text,
+                InStock = int.Parse(tbINSTOCK.Text),
+                Category = (BO.Category)cbCATEGORY.SelectedItem,
+                Color = (BO.Color)cbCOLOR.SelectedItem,
+                Gender = (BO.Gender)cbGENDER.SelectedItem,
+                Description = tbDESCRIPTION.Text
+            };
+
+            if (tbPRICE.Text.Contains("."))
                 product.Price = double.Parse(tbPRICE.Text);
             else
                 product.Price = int.Parse(tbPRICE.Text);
-            product.InStock = int.Parse(tbINSTOCK.Text);
-            product.Category = (BO.Category)cbCATEGORY.SelectedItem;
-            product.Color = (BO.Color)cbCOLOR.SelectedItem;
-            product.Gender = (BO.Gender)cbGENDER.SelectedItem;
-            product.Description = tbDESCRIPTION.Text;
+
             if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
             {
                 product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
@@ -341,12 +276,12 @@ namespace PL.Product
                 if (btnSAVE.Content is "UPDATE") ///for updating
                 {
                     bl!.Product.UpdateProduct(product);
-                    MessageBox.Show("Updated succesfuly!");
+                    MessageBox.Show("Updated succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else ///for adding
                 {
                     bl!.Product.AddProduct(product);
-                    MessageBox.Show("Added succesfuly");
+                    MessageBox.Show("Added succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 Close();
             }
@@ -356,46 +291,50 @@ namespace PL.Product
             {
                 if (tbID.Text.Length > 8 || tbID.Text.Length < 6)
                 {
-                    MessageBox.Show(ex.ToString());
-
+                    MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (lblCHECK1 is null)
                         return;
+
                     lblCHECK1.Visibility = Visibility.Hidden;
                     lblx1.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.Name == " ")
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (lblCHECK2 is null)
                         return;
+
                     lblCHECK2.Visibility = Visibility.Hidden;
                     lblx2.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.Description == " ")
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (lblCHECK5 is null)
                         return;
+
                     lblCHECK5.Visibility = Visibility.Hidden;
                     lblx5.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.Price <= 0)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (lblCHECK3 is null)
                         return;
+
                     lblCHECK3.Visibility = Visibility.Hidden;
                     lblx3.Visibility = Visibility.Visible;
                     return;
                 }
                 if (product.InStock < 0)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (lblCHECK4 is null)
                         return;
+
                     lblCHECK4.Visibility = Visibility.Hidden;
                     lblx4.Visibility = Visibility.Visible;
                     return;
@@ -403,11 +342,11 @@ namespace PL.Product
             }
             catch (BO.NonFoundObjectBo ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.ExistingObjectBo ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -435,30 +374,11 @@ namespace PL.Product
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cbTYPE_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lblCHECK8 is null || lblx8 is null)
-                return;
-            if (cbTYPE.SelectedItem == null)
-            {
-                lblCHECK8.Visibility = Visibility.Hidden;
-                lblx8.Visibility = Visibility.Visible;
-                return;
-            }
-            lblx8.Visibility = Visibility.Hidden;
-            lblCHECK8.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void tbNAME_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK2 is null || lblx2 is null)
                 return;
-            if(tbNAME.Text == "")
+            if (tbNAME.Text == "")
             {
                 lblCHECK2.Visibility = Visibility.Hidden;
                 lblx2.Visibility = Visibility.Visible;
@@ -523,44 +443,6 @@ namespace PL.Product
             }
             lblx5.Visibility = Visibility.Hidden;
             lblCHECK5.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbCOLOR_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lblCHECK9 is null || lblx9 is null)
-                return;
-            if (cbCOLOR.SelectedItem == null)
-            {
-                lblCHECK9.Visibility = Visibility.Hidden;
-                lblx9.Visibility = Visibility.Visible;
-                return;
-            }
-            lblx9.Visibility = Visibility.Hidden;
-            lblCHECK9.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbSIZE_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lblCHECK10 is null || lblx10 is null)
-                return;
-            if (cbSIZE.SelectedItem == null)
-            {
-                lblCHECK10.Visibility = Visibility.Hidden;
-                lblx10.Visibility = Visibility.Visible;
-                return;
-            }
-            lblx10.Visibility = Visibility.Hidden;
-            lblCHECK10.Visibility = Visibility.Visible;
         }
     }
 }

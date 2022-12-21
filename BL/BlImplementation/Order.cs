@@ -20,9 +20,9 @@ namespace BlImplementation
                 var data = getData((DO.Order)order!);
                 BO.OrderForList orderForList = new BO.OrderForList();
                 order.CopyPropTo(orderForList);
-                orderForList.Status = getOrderStatus((DO.Order)order!);   
+                orderForList.Status = getOrderStatus((DO.Order)order!);
                 (orderForList.AmountOfItems, orderForList.TotalPrice) = (data.Item1.Count(), data.Item2);
-    
+
                 return orderForList;
             });
         }
@@ -37,7 +37,7 @@ namespace BlImplementation
             ///returns ienumerable of all the order items that are in the same order id
             IEnumerable<DO.OrderItem?> orderItems = Dal!.OrderItem.RequestAllByPredicate
               (orderItem => orderItem?.OrderID == order.ID);
-                return (orderItems, (double)orderItems.Sum(o => o?.Price * o?.Amount)!);
+            return (orderItems, (double)orderItems.Sum(o => o?.Price * o?.Amount)!);
         }
         /// <summary>
         /// a function that checks the order status
@@ -108,34 +108,20 @@ namespace BlImplementation
         /// <exception cref="BO.AlreadyUpdated"></exception>
         public BO.Order UpdeteShipDate(int ID)
         {
-            BO.Order OrderBo;
             DO.Order OrderDo;
 
             try /// trying to get the order from Dal and the order details from the Ibl
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
-                OrderBo = OrderDetails(ID);
+                /// checking that the Ship date didnt updated yet
+                if (OrderDo.ShipDate is not null || OrderDo.DeliveryDate is not null)
+                    throw new BO.AlreadyUpdated("The shipe date is already updated / The order has been delivered");
+                OrderDo.ShipDate = DateTime.Now;
+                Dal.Order.Update(OrderDo);
             }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo("", ex); }
-
-            /// checking that the order date and the payment date have reseted
-            if (OrderBo.OrderDate is null || OrderBo.PaymentDate is null)
-                throw new BO.NotValid();
-            /// checking that the Ship date didnt updated yet
-            if (OrderBo.ShipDate is null) 
-            {
-                OrderDo.ShipDate = DateTime.Now;
-                OrderBo.ShipDate = DateTime.Now;
-                try /// try to update the order in the DO
-                { Dal.Order.Update(OrderDo); }
-                catch(DO.NonFoundObjectDo ex)
-                { throw new BO.NonFoundObjectBo("", ex); }
-            }
-            else /// if the shipping date have already updated
-                throw new BO.AlreadyUpdated(); 
-
-            return OrderBo;
+            return OrderDetails(ID);
         }
         /// <summary>
         /// a function that updates the delivery date
@@ -166,7 +152,7 @@ namespace BlImplementation
                     OrderBo.DeliveryDate = DateTime.Now;
                     try /// trying to update the order in the DO
                     { Dal.Order.Update(OrderDo); }
-                    catch (DO.NonFoundObjectDo ex) 
+                    catch (DO.NonFoundObjectDo ex)
                     { throw new BO.NonFoundObjectBo("", ex); }
                 }
                 else /// if it is already updated

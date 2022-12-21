@@ -28,6 +28,7 @@ namespace PL
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
             SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
+
             Array items = Enum.GetValues(typeof(BO.Clothing));
             foreach (BO.Clothing item in items)
             {
@@ -51,6 +52,7 @@ namespace PL
         {
             TypeCB.Items.Clear();
             TypeCB.ItemsSource = null;
+
             if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
                 SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
@@ -99,18 +101,6 @@ namespace PL
                 }
                 SizeCB.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
             }
-        }
-
-        private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
         }
 
         /// <summary>
@@ -165,13 +155,6 @@ namespace PL
         private void ClearB(object sender, RoutedEventArgs e)
         {
             productsLv.ItemsSource = productForLists.Select(item => item);
-        }
-
-
-
-        private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

@@ -55,6 +55,7 @@ internal class dalOrder : IOrder
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSequenceID")!.Value);
         Or.ID = nextSeqNum;
         nextSeqNum++;
+
         ///update config file
         configRoot.Element("orderSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
@@ -107,20 +108,17 @@ internal class dalOrder : IOrder
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
         /// using linq to initialize the order
-        IEnumerable<Order?> orderList = (IEnumerable<Order?>)(from element in ordersRoot.Elements()
-                                                              select new Order
-                                                              {
-                                                                  ID = int.Parse(element.Element("ID")!.Value),
-                                                                  CustomerName = element.Element("CustomerName")!.Value,
-                                                                  CustomerEmail = element.Element("CustomerEmail")!.Value,
-                                                                  CustomerAddress = element.Element("CustomerAddress")!.Value,
-                                                                  OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
-                                                                  ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
-                                                                  DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
-                                                              });
-
-        bool checkNull = predicate is null;
-        return orderList.Where(order => checkNull ? true : predicate!(order));
+        return (from element in ordersRoot.Elements()
+                select (Order?)new Order
+                {
+                    ID = int.Parse(element.Element("ID")!.Value),
+                    CustomerName = element.Element("CustomerName")!.Value,
+                    CustomerEmail = element.Element("CustomerEmail")!.Value,
+                    CustomerAddress = element.Element("CustomerAddress")!.Value,
+                    OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
+                    ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
+                    DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
+                }).Where(order => predicate is null ? true : predicate(order)); ;
     }
 
 

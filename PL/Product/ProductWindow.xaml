@@ -101,33 +101,13 @@
 
             <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="1" Grid.Column="1"/>
 
-            <ComboBox x:Name="cbTYPE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbTYPE_SelectionChanged" Grid.Row="2" Grid.Column="1"/>
+            <ComboBox x:Name="cbTYPE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
 
-            <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1" SelectionChanged="cbCOLOR_SelectionChanged"/>
+            <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
 
-            <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1" SelectionChanged="cbSIZE_SelectionChanged"/>
+            <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
 
             <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="5" Foreground="Red" FontFamily="Elephant" BorderBrush="{x:Null}" Background="{x:Null}"/>
-
-            <Label x:Name="lblCHECK6" Grid.Row="0" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblx6"  Grid.Row="0" Grid.Column="1" Content="✕" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="Red" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblCHECK7" Grid.Row="1" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblx7"  Grid.Row="1" Grid.Column="1" Content="✕" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="Red" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblCHECK8" Grid.Row="2" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblx8"  Grid.Row="2" Grid.Column="1" Content="✕" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="Red" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblCHECK9" Grid.Row="3" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblx9"  Grid.Row="3" Grid.Column="1" Content="✕" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="Red" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblCHECK10" Grid.Row="4" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="#FF13FF2A" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
-
-            <Label x:Name="lblx10"  Grid.Row="4" Grid.Column="1" Content="✕" HorizontalAlignment="Left" Margin="160,16,0,0" VerticalAlignment="Top" Width="20" Height="26" Background="{x:Null}" Foreground="Red" FontStyle="Italic" FontWeight="Bold" FontSize="9" Visibility="Hidden"/>
         </Grid>
 
         <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Foreground="White"/>

@@ -12,34 +12,34 @@ internal class dalOrderItem : IOrderItem
     string configPath = "config.xml";
     XElement ordersItemsRoot;
 
-    public dalOrderItem()
-    {
-        LoadData();
-    }
+    //public dalOrderItem()
+    //{
+    //    LoadData();
+    //}
 
 
 
-    /// <summary>
-    /// function load data to the root variable from the file, if file doesn't exist creats it and loading.
-    /// </summary>
-    /// <exception cref="Exception"></exception>
-    private void LoadData()
-    {
-        try
-        {
-            if (File.Exists(path))
-                ordersItemsRoot = XElement.Load(path);
-            else
-            {
-                ordersItemsRoot = new XElement("orderItems");
-                ordersItemsRoot.Save(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("orderItems File upload problem" + ex.Message);
-        }
-    }
+    ///// <summary>
+    ///// function load data to the root variable from the file, if file doesn't exist creats it and loading.
+    ///// </summary>
+    ///// <exception cref="Exception"></exception>
+    //private void LoadData()
+    //{
+    //    try
+    //    {
+    //        if (File.Exists(path))
+    //            ordersItemsRoot = XElement.Load(path);
+    //        else
+    //        {
+    //            ordersItemsRoot = new XElement("orderItems");
+    //            ordersItemsRoot.Save(path);
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception("orderItems File upload problem" + ex.Message);
+    //    }
+    //}
 
     ///Implementation of iCrod functions for each entity within Excel files
 
@@ -108,10 +108,7 @@ internal class dalOrderItem : IOrderItem
     /// <returns></returns>
     public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null)
     {
-        List<DO.OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
-
-        bool checkNull = predicate is null;
-        return orderItemList.Where(product => checkNull ? true : predicate!(product));
+        return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null ? true : predicate(orderItem));
     }
 
 

@@ -47,13 +47,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="ColorCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0"/>
+                    <ComboBox x:Name="ColorCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="34" Margin="0,0,0,0" Grid.Row="4" Grid.Column="0"/>
 
-                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="SizeCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0"/>
+                    <ComboBox x:Name="SizeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="34" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0"/>
 
                     <ComboBox x:Name="CategoryCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0"/>
 
-                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" SelectionChanged="TypeCB_SelectionChanged" Height="34" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"/>
+                    <ComboBox x:Name="TypeCB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="34" Margin="0,0,0,0" Grid.Row="2" Grid.Column="0"/>
 
                     <ComboBox x:Name="GenderCB" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="128" SelectionChanged="CategoryCB_SelectionChanged" Height="34" Grid.Row="0" Grid.Column="0"/>
 
@@ -78,7 +78,7 @@
             </ListView>--> 
             
             <ListView Name="productsLv" 
-                      MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" 
+                      MouseDoubleClick="doubleClick" 
                       Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
 
                 <!--<ListView.View>
