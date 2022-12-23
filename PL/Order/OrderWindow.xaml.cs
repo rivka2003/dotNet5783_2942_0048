@@ -95,7 +95,7 @@ namespace PL.Order
             //        return;
             //    }
             //    lblx2.Visibility = Visibility.Hidden;
-            //    lblCHECK2.Visibility = Visibility.Visible;
+            ///    lblCHECK2.Visibility = Visibility.Visible;
         }
 
         private void tbDELIVERYDATE_TextChanged(object sender, TextChangedEventArgs e)
