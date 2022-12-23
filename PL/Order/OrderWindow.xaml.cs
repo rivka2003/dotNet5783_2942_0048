@@ -40,7 +40,7 @@ namespace PL.Order
 
            
 
-            btnSAVE.Content = "UPDATE";
+
             ///allowing changes only in the places that are connected to the manager
             tbID.IsEnabled = false;
             tbcNAME.IsEnabled = false;
@@ -158,4 +158,3 @@ namespace PL.Order
 
 
     ///what more needs to b done?  v x labels for ship and delivery date only and checks about the valid data 
-}

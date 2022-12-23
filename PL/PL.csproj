@@ -14,6 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Cart\**" />
+    <EmbeddedResource Remove="Cart\**" />
+    <None Remove="Cart\**" />
+    <Page Remove="Cart\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Image1.png" />
     <None Remove="Image2.png" />
     <None Remove="Image4.png" />
@@ -37,10 +44,6 @@
     <Resource Include="Product\Image3.png" />
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Cart\" />
   </ItemGroup>
 
 </Project>
