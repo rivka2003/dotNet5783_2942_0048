@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Order"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrderWindow" Height="450" Width="800">
     <Window.Background>
@@ -18,6 +18,10 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Content" Value="✕"/>
             <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="120,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         <Style x:Key="VLabel" TargetType="Label">
             <Setter Property="Foreground" Value="#FF13FF2A"/>
@@ -26,12 +30,18 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Content" Value="✓"/>
             <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="120,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
+        <local:EmptyToVisable x:Key="EmptyToVisable"/>
+        <local:FullToVisable x:Key="FullToVisable"/>
     </Window.Resources>
 
 
-    <Grid Margin="0,71,0,0">
+    <Grid Margin="0,0,0,0">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -39,6 +49,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="inGridOne" Grid.Column="0">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -54,55 +65,42 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Width="128"/>
+            <Label x:Name="lblID" Content="ID:" Grid.Column="0" Width="40"/>
 
-            <Label x:Name="lblcNAME" Content="Customer name:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="lblcNAME" Content="Customer name:" Width="115" Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblcADDRESS" Content="Customer address:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="lblcADDRESS" Content="Customer address:" Width="128" Grid.Row="2" Grid.Column="0"/>
 
-            <Label x:Name="lblORDERDATE" Content="Order date:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Grid.Row="3" Grid.Column="0"/>
+            <TextBox x:Name="tbID"   HorizontalAlignment="Left" Width="120" Grid.Row="0" Grid.Column="1" 
+                     IsEnabled="False"/>
 
-            <Label x:Name="lblSHIPDATE" Content="ship date:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="tbcNAME" HorizontalAlignment="Left" Width="120" Grid.Row="1" Grid.Column="1" 
+                     IsEnabled="False"/>
 
-            <Label x:Name="lblDELIVERYDATE" Content="delivery date:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Grid.Row="5" Grid.Column="0"/>
+            <TextBox x:Name="tbADDRESS"  HorizontalAlignment="Left" Width="120" Grid.Row="2" Grid.Column="1" 
+                     IsEnabled="False"/>
 
+            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <TextBox x:Name="tbID"   HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <TextBox x:Name="tbcNAME" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1" TextChanged="tbcNAME_TextChanged"/>
+            <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1"  Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbcNAME, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <TextBox x:Name="tbADDRESS"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1" TextChanged="tbADDRESS_TextChanged"/>
+            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbcNAME, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <TextBox x:Name="tbORDERDATE"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1" TextChanged="tbORDERDATE_TextChanged"/>
+            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbADDRESS, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <TextBox x:Name="tbSHIPDATE" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1" TextChanged="tbSHIPDATE_TextChanged"/>
-
-            <TextBox x:Name="tbDELIVERYDATE" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="5" Grid.Column="1" TextChanged="tbDELIVERYDATE_TextChanged"/>
-
-
-
-            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
-
-            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
-
-            <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
-
-            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
-
-            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
-
-            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
-
-            <Label x:Name="lblCHECK4"  Grid.Row="3" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
-
-            <Label x:Name="lblx4"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
-
-            <Label x:Name="lblCHECK5"  Grid.Row="4" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="178,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
-
-            <Label x:Name="lblx5"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="178,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbADDRESS, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
         </Grid>
 
         <Grid x:Name="inGridSecond" Grid.Column="1">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -117,10 +115,47 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <Label x:Name="lblORDERDATE" Content="Order date:" HorizontalAlignment="Right" Width="78" 
+                   Grid.Row="0" Grid.Column="0"/>
 
-            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="5" Foreground="Red" FontFamily="Elephant" BorderBrush="{x:Null}" Background="{x:Null}"/>
+            <Label x:Name="lblSHIPDATE" Content="ship date:" HorizontalAlignment="Right" Width="78" 
+               Grid.Row="1" Grid.Column="0"/>
+
+            <Label x:Name="lblDELIVERYDATE" Content="delivery date:" HorizontalAlignment="Right" Width="88"  
+               Grid.Row="2" Grid.Column="0"/>
+
+            <TextBox x:Name="tbORDERDATE"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" 
+                     IsEnabled="False"/>
+
+            <TextBox x:Name="tbSHIPDATE" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
+                     TextChanged="tbSHIPDATE_TextChanged"/>
+
+            <TextBox x:Name="tbDELIVERYDATE" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" 
+                     TextChanged="tbDELIVERYDATE_TextChanged"/>
+
+            <Label x:Name="lblCHECK4"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbORDERDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+
+            <Label x:Name="lblx4"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}" 
+                   Visibility="{Binding ElementName=tbORDERDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+
+            <Label x:Name="lblCHECK5"  Grid.Row="1" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+
+            <Label x:Name="lblx5"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+
+            <Label x:Name="lblCHECK6"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+
+            <Label x:Name="lblx6"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
         </Grid>
 
-        <Label x:Name="lblTITLE" Content="Update order:" HorizontalAlignment="Left" Margin="328,-63,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Foreground="White"/>
+        <Button x:Name="btnUPDATE"  Content="UPDATE" HorizontalAlignment="Left" Margin="366,375,0,0" VerticalAlignment="Top" 
+                    Height="34" Width="68" Click="BtnUpdate_Click" Foreground="Red" Grid.ColumnSpan="2"/>
+        
+        <Label x:Name="lblTITLE" Content="Update order:" HorizontalAlignment="Left" Margin="343,10,0,0" 
+               VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
     </Grid>
 </Window>

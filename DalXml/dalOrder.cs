@@ -5,18 +5,17 @@ namespace Dal;
 
 
 //short implementation with XMLTools functions.
-internal class dalOrder : IOrder
+internal class DalOrder : IOrder
 {
-    string path = "orders.xml";
-    string configPath = "config.xml";
-    XElement ordersRoot;
+    static readonly string path = @"xml\orders.xml";
 
-    public dalOrder()
+    static readonly string configPath = "config.xml";
+    XElement? ordersRoot;
+
+    public DalOrder()
     {
         LoadData();
     }
-
-
 
     /// <summary>
     /// function load data to the root variable from the file, if file doesn't exist creats it and loading.
@@ -60,16 +59,16 @@ internal class dalOrder : IOrder
         configRoot.Element("orderSequenceID")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
-        XElement Id = new XElement("ID", Or.ID);
-        XElement CustomerName = new XElement("CustomerName", Or.CustomerName);
-        XElement CustomerEmail = new XElement("CustomerEmail", Or.CustomerEmail);
-        XElement CustomerAddress = new XElement("CustomerAddress", Or.CustomerAddress);
-        XElement OrderDate = new XElement("OrderDate", Or.OrderDate);
-        XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
-        XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
+        XElement Id = new("ID", Or.ID);
+        XElement CustomerName = new("CustomerName", Or.CustomerName);
+        XElement CustomerEmail = new("CustomerEmail", Or.CustomerEmail);
+        XElement CustomerAddress = new("CustomerAddress", Or.CustomerAddress);
+        XElement OrderDate = new("OrderDate", Or.OrderDate);
+        XElement ShipDate = new("ShipDate", Or.ShipDate);
+        XElement DeliveryDate = new("DeliveryDate", Or.DeliveryDate);
 
         ///add the product to the root and save the path
-        ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAddress, OrderDate, ShipDate, DeliveryDate));
+        ordersRoot!.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAddress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
 
         return Or.ID;
@@ -82,9 +81,9 @@ internal class dalOrder : IOrder
     /// <param name="ID"></param>
     public void Delete(int ID)
     {
-        getOr(ID).Remove();
+        GetOrL(ID).Remove();
 
-        ordersRoot.Save(path);
+        ordersRoot!.Save(path);
     }
 
 
@@ -96,7 +95,7 @@ internal class dalOrder : IOrder
     /// <exception cref="NonFoundObjectDo"></exception>
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Order");
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order does not exist");
     }
 
 
@@ -108,7 +107,7 @@ internal class dalOrder : IOrder
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
         /// using linq to initialize the order
-        return (from element in ordersRoot.Elements()
+        return (from element in ordersRoot!.Elements()
                 select (Order?)new Order
                 {
                     ID = int.Parse(element.Element("ID")!.Value),
@@ -118,7 +117,7 @@ internal class dalOrder : IOrder
                     OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
                     ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
                     DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
-                }).Where(order => predicate is null ? true : predicate(order)); ;
+                }).Where(order => predicate is null || predicate!(order)); ;
     }
 
 
@@ -128,7 +127,7 @@ internal class dalOrder : IOrder
     /// <param name="order"></param>
     public void Update(Order order)
     {
-        XElement orderElement = getOr(order.ID);
+        XElement orderElement = GetOrL(order.ID);
 
         orderElement.Element("CustomerName")!.Value = order.CustomerName!.ToString();
         orderElement.Element("CustomerEmail")!.Value = order.CustomerEmail!.ToString();
@@ -137,7 +136,7 @@ internal class dalOrder : IOrder
         orderElement.Element("ShipDate")!.Value = order.ShipDate.ToString()!;
         orderElement.Element("DeliveryDate")!.Value = order.DeliveryDate.ToString()!;
 
-        ordersRoot.Save(path);
+        ordersRoot!.Save(path);
     }
 
     /// <summary>
@@ -145,11 +144,11 @@ internal class dalOrder : IOrder
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public XElement getOr(int id)
+    public XElement GetOrL(int id)
     {
-        return (from or in ordersRoot.Elements()
+        return (from or in ordersRoot!.Elements()
                 where or.Element("ID")!.Value == id.ToString()
-                select or).FirstOrDefault() ?? throw new NonFoundObjectDo("Order");
+                select or).FirstOrDefault() ?? throw new NonFoundObjectDo("Error - The order does not exist");
     }
 }
 

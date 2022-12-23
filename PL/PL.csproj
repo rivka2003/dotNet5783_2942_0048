@@ -10,6 +10,7 @@
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,9 +33,14 @@
     <Resource Include="Image1.png" />
     <Resource Include="Image2.png" />
     <Resource Include="Image4.png" />
+    <Resource Include="Image5.png" />
     <Resource Include="Product\Image3.png" />
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cart\" />
   </ItemGroup>
 
 </Project>

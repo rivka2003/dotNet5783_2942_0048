@@ -11,25 +11,20 @@
     </Window.Background>
 
     <Window.Resources>
-        <Style x:Key="WhiteButtone" TargetType="Button">
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="FontSize" Value="33"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Elephant"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderBrush" Value="{x:Null}"/>
-        </Style>
+
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="BTManager" Grid.Column="0" Content="Manager" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="189" Style="{StaticResource WhiteButtone}" Click="BTManager_Click"/>
-        <Button x:Name="BTNewOrder"  Grid.Column="2" Content="New order" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="189" Style="{StaticResource WhiteButtone}" Click="BTNewOrder_Click"/>
-        <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Order tracking" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="263" Style="{StaticResource WhiteButtone}" Click="BTOrderTracking_Click"/>
+        <Button x:Name="BTManager" Grid.Column="0" Content="Manager" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Height="135" Width="324" 
+                Click="BTManager_Click" FontSize="60"/>
+        <Button x:Name="BTCustomer" Grid.Column="1" Content="Customer" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" Height="135" Width="324" 
+                Click="BTCustomer_Click" FontSize="60"/>
     </Grid>
 </Window>

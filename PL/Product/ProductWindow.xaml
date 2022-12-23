@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Product"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Window.Background>
@@ -18,7 +18,12 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Content" Value="✕"/>
             <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="120,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
+
         <Style x:Key="VLabel" TargetType="Label">
             <Setter Property="Foreground" Value="#FF13FF2A"/>
             <Setter Property="FontStyle" Value="Italic"/>
@@ -26,7 +31,14 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Content" Value="✓"/>
             <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="120,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
+
+        <local:EmptyToVisable x:Key="EmptyToVisable"/>
+        <local:FullToVisable x:Key="FullToVisable"/>
 
     </Window.Resources>
     <Grid Margin="0,71,0,0">
@@ -51,45 +63,62 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblID" Content="ID:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="lblID" Content="ID:" Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblNAME" Content="Name:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="46" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="lblNAME" Content="Name:" Width="46" Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblPRICE" Content="Price:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="lblPRICE" Content="Price:" Grid.Row="2" Grid.Column="0"/>
 
-            <Label x:Name="lblINSTOCK" Content="Amount In stock:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="lblINSTOCK" Content="Amount In stock:" Grid.Row="3" Grid.Column="0"/>
 
-            <Label x:Name="lblDESCRIPTION" Content="Description:" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="lblDESCRIPTION" Content="Description:" Grid.Row="4" Grid.Column="0"/>
 
-            <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1" TextChanged="tbNAME_TextChanged"/>
+            <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left"
+                     Grid.Row="1" Grid.Column="1" />
 
-            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1" TextChanged="tbPRICE_TextChanged"/>
+            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" 
+                     Grid.Row="2" Grid.Column="1" MaxLength="8"/>
 
-            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" 
+                     MaxLength="8" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
 
-            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1" TextChanged="tbINSTOCK_TextChanged"/>
+            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" 
+                     Grid.Row="3" Grid.Column="1" MaxLength="8"/>
 
-            <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="178" Grid.Row="4" Grid.Column="1" TextChanged="tbDESCRIPTION_TextChanged"/>
+            <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" 
+                     Width="178" Grid.Row="4" Grid.Column="1" />
 
-            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
+            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
+            <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
+            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <Label x:Name="lblCHECK4"  Grid.Row="3" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
+            <Label x:Name="lblCHECK4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <Label x:Name="lblx4"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource XLabel}" 
+                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
 
-            <Label x:Name="lblCHECK5"  Grid.Row="4" Grid.Column="1" Content="✓" HorizontalAlignment="Left" Margin="178,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Style="{StaticResource VLabel}" Visibility="Hidden"/>
+            <Label x:Name="lblCHECK5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
+                   Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource FullToVisable}}"/>
 
-            <Label x:Name="lblx5"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="178,0,0,0" VerticalAlignment="Center" Width="20" Height="26" Visibility="Hidden" Style="{StaticResource XLabel}"/>
+            <Label x:Name="lblx5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
+                   Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
         </Grid>
 
         <Grid x:Name="inGridSecond" Grid.Column="1">
@@ -107,29 +136,34 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0"/>
 
-            <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0"/>
 
-            <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0"/>
 
-            <ComboBox x:Name="cbGENDER" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" Grid.Column="1"/>
+            <ComboBox x:Name="cbGENDER" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" 
+                      Grid.Column="1"/>
 
-            <ComboBox x:Name="cbCATEGORY" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="1" Grid.Column="1"/>
+            <ComboBox x:Name="cbCATEGORY" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="1" 
+                      Grid.Column="1"/>
 
-            <ComboBox x:Name="cbTYPE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+            <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1"/>
 
-            <ComboBox x:Name="cbCOLOR" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+            <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1"/>
 
-            <ComboBox x:Name="cbSIZE" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
+            <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1"/>
 
-            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="5" Foreground="Red" FontFamily="Elephant" BorderBrush="{x:Null}" Background="{x:Null}"/>
+            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" 
+                    VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="5" 
+                    Foreground="Red"/>
         </Grid>
 
-        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18" Foreground="White"/>
+        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
+               VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
     </Grid>
 </Window>

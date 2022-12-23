@@ -7,7 +7,7 @@ namespace XMLPrapareFiles
     /// </summary>
     internal class XmlTools
     {
-        static string dir = @"xml\";
+        static readonly string dir = @"xml\";
         static XmlTools()
         {
             if (!Directory.Exists(dir))
@@ -26,8 +26,8 @@ namespace XMLPrapareFiles
         {
             try
             {
-                FileStream file = new FileStream(filePath, FileMode.Create);
-                XmlSerializer x = new XmlSerializer(list.GetType());
+                FileStream file = new (filePath, FileMode.Create);
+                XmlSerializer x = new (list.GetType());
                 x.Serialize(file, list);
                 file.Close();
             }
@@ -53,9 +53,9 @@ namespace XMLPrapareFiles
                 if (File.Exists(filePath))
                 {
                     List<T> list;
-                    XmlSerializer x = new XmlSerializer(typeof(List<T>));
-                    FileStream file = new FileStream(filePath, FileMode.Open);
-                    list = (List<T?>)x.Deserialize(file);
+                    XmlSerializer x = new (typeof(List<T>));
+                    FileStream file = new (filePath, FileMode.Open);
+                    list = (List<T?>)x.Deserialize(file)!;
                     file.Close();
                     return list!;
                 }

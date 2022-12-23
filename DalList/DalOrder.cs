@@ -27,7 +27,7 @@ internal class DalOrder : IOrder
     {
         ///if Order dosnt exist throw exception 
         if (!Orders.Exists(i => i?.ID == or.ID))
-            throw new NonFoundObjectDo("Order");
+            throw new NonFoundObjectDo("Error - The order does not exist - can't update");
         for (int i = 0; i < Orders.Count; i++)
         {
             if (or.ID == Orders[i]?.ID)
@@ -51,12 +51,16 @@ internal class DalOrder : IOrder
     /// <exception cref="NotImplementedException"></exception>
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null!)
     {
-        bool checkNull = predicate is null;
-        return Orders.Where(order => checkNull ? true : predicate!(order));
+        return Orders.Where(order => predicate is null ? true : predicate!(order));
     }
-
+    /// <summary>
+    /// A helper method that returns a single order according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Order");
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order does not exist");
     }
 }

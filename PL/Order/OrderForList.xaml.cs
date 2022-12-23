@@ -1,11 +1,6 @@
-﻿
-using PL.Order;
-using PL.Product;
-using System;
+﻿using PL.Order;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace PL
 {
@@ -22,13 +17,9 @@ namespace PL
             InitializeComponent();
 
             this.bl = bl;
+            var v = bl.Order.GetAll();
             ordersLv.ItemsSource = bl.Order.GetAll();///to change name in xaml
-            orderForLists = bl.Order.GetAll()!;
-
-          
         }
-
-      
 
         /// <summary>
         /// to update details of a specific product by double clicking the product in the list

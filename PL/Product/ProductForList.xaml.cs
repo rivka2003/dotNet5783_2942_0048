@@ -15,6 +15,14 @@ namespace PL
         private BlApi.IBl? bl = BlApi.Factory.Get();
 
         private IEnumerable<BO.ProductForList> productForLists;
+
+        IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+
+        IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+
+        IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
+
+        IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
         public ProductForList(BlApi.IBl bl)
         {
             InitializeComponent();
@@ -27,13 +35,10 @@ namespace PL
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
-            SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
 
-            Array items = Enum.GetValues(typeof(BO.Clothing));
-            foreach (BO.Clothing item in items)
-            {
-                TypeCB.Items.Add(item);
-            }
+            /// Default filling of the combo box with values
+            AddItems(itemsClothing);
+            AddSize(SizeClothing);
 
             ///resets the combo boxes in default values
             GenderCB.SelectedIndex = 0;
@@ -50,56 +55,61 @@ namespace PL
         /// <param name="e"></param>
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /// Clearing the combo box before re-adding
             TypeCB.Items.Clear();
             TypeCB.ItemsSource = null;
+            SizeCB.Items.Clear();
+            SizeCB.ItemsSource = null;
 
             if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
-                SizeCB.ItemsSource = Enum.GetValues(typeof(BO.SizeClothing));
-                Array items = Enum.GetValues(typeof(BO.Clothing));
+                AddSize(SizeClothing);
 
                 ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
                 {
-                    foreach (BO.Clothing item in items)
+                    foreach (var item in itemsClothing)
                     {
-                        if (item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
-                        {
+                        if(item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
                             TypeCB.Items.Add(item);
-                        }
                     }
                 }
                 else
-                {
-                    foreach (BO.Clothing item in items)
-                    {
-                        TypeCB.Items.Add(item);
-                    }
-                }
+                    AddItems(itemsClothing);
             }
             else ///in case shoes was chosen
             {
-                Array items = Enum.GetValues(typeof(BO.Shoes));
+                AddSize(SizeShoes);
 
                 ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
                 {
-                    foreach (BO.Shoes item in items)
+                    foreach (var item in itemsShoes)
                     {
                         if (item is not BO.Shoes.Heels)
-                        {
                             TypeCB.Items.Add(item);
-                        }
                     }
                 }
                 else
-                {
-                    foreach (BO.Shoes item in items)
-                    {
-                        TypeCB.Items.Add(item);
-                    }
-                }
-                SizeCB.ItemsSource = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+                    AddItems(itemsShoes);
+            }
+            TypeCB.SelectedIndex = 0;
+            SizeCB.SelectedIndex = 0;
+        }
+
+        private void AddItems<T>(IEnumerable<T> items)
+        {
+            foreach (T item in items)
+            {
+                TypeCB.Items.Add(item);
+            }
+        }
+
+        private void AddSize<T>(IEnumerable<T> items)
+        {
+            foreach (T item in items)
+            {
+                SizeCB.Items.Add(item);
             }
         }
 
