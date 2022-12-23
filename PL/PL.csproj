@@ -37,8 +37,4 @@
     <Resource Include="Product\picturs\Image5.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Order\" />
-  </ItemGroup>
-
 </Project>

@@ -6,7 +6,48 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="OrderForList" Height="450" Width="800">
-    <Grid>
+    
+
+    <Window.Resources>
+
+    </Window.Resources>
         
+    <Window.Background>
+        <ImageBrush ImageSource="/Image2.png"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+
+         
+
+            <Grid Name="InGrid" Height="auto" Grid.Column="1" Width="auto">
+                <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                </Grid>
+            </Grid>
+           
+
+            <ListView Name="ordersLv" 
+                      MouseDoubleClick="doubleClick" 
+                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+
+            </ListView>
+        </Grid>
     </Grid>
 </Window>
