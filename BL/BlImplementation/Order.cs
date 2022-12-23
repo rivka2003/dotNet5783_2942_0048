@@ -66,7 +66,7 @@ namespace BlImplementation
             BO.Order OrderBo = new BO.Order();
             DO.Order OrderDo;
             /// checks if the input is valid
-            if (ID > 0)
+            if (ID >= 100000 && ID < 100000000)
             {
                 ///tryng to get the order from the DO
                 try
@@ -74,7 +74,7 @@ namespace BlImplementation
                     OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 }
                 catch (DO.NonFoundObjectDo ex)
-                { throw new BO.NonFoundObjectBo("", ex); }
+                { throw new BO.NonFoundObjectBo(ex.Message, ex); }
 
                 var data = getData(OrderDo);
                 OrderDo.CopyPropTo(OrderBo);/// copying the order details from the DO ti the order details from the BO
@@ -94,8 +94,13 @@ namespace BlImplementation
                 OrderBo.Status = getOrderStatus(OrderDo);
                 OrderBo.TotalPrice = OrderBo.Items.Sum(o => o!.Amount * o.Price);
             }
-            else /// if the ID is not valid
-                throw new BO.NotValid("ID- Can't be a negative number");
+            else/// if the ID is not valid..
+            {
+                if (ID >= 100000)
+                    throw new BO.NotValid("Error - ID can't be more then 8 digits!");
+                if (ID < 100000000)
+                    throw new BO.NotValid("Error - ID can't be less then 6 digits!");
+            }
 
             return OrderBo;
         }
@@ -106,21 +111,27 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.AlreadyUpdated"></exception>
-        public BO.Order UpdeteShipDate(int ID)
+        public BO.Order UpdateShipDate(int ID)
         {
             DO.Order OrderDo;
 
             try /// trying to get the order from Dal and the order details from the Ibl
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
+
                 /// checking that the Ship date didnt updated yet
-                if (OrderDo.ShipDate is not null || OrderDo.DeliveryDate is not null)
-                    throw new BO.AlreadyUpdated("The shipe date is already updated / The order has been delivered");
+                if (OrderDo.ShipDate is not null)
+                    throw new BO.AlreadyUpdated("Error - The order has been shiped!");
+
+                if (OrderDo.DeliveryDate is not null)
+                    throw new BO.AlreadyUpdated("Error - The order has been delivered!");
+
                 OrderDo.ShipDate = DateTime.Now;
                 Dal.Order.Update(OrderDo);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo("", ex); }
+            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+
             return OrderDetails(ID);
         }
         /// <summary>
@@ -133,35 +144,27 @@ namespace BlImplementation
         /// <exception cref="BO.NotValid"></exception>
         public BO.Order UpdateDeliveryDate(int ID)
         {
-            BO.Order OrderBo;
             DO.Order OrderDo;
 
             try /// trying to get the order from the DO and the order datails from the BO
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
-                OrderBo = OrderDetails(ID);
+
+                /// checking that the dates that neede to be updated have updated
+                if (OrderDo.ShipDate is null)
+                    throw new BO.NotValid("Error - The order was not shiped!");
+
+                /// also checking that the delivery date didnt change yet
+                if (OrderDo.DeliveryDate is not null)
+                    throw new BO.AlreadyUpdated("Error - The order has been delivered!");/// if it is already updated
+
+                OrderDo.DeliveryDate = DateTime.Now;
+                Dal.Order.Update(OrderDo);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo("", ex); }
-            /// checking that all the dates that neede to be updated have updated
-            if (OrderDo.ShipDate is not null && OrderDo.OrderDate is null)
-            { /// also checking that the delivery date didnt change yet
-                if (OrderDo.DeliveryDate is null)
-                {
-                    OrderDo.DeliveryDate = DateTime.Now;
-                    OrderBo.DeliveryDate = DateTime.Now;
-                    try /// trying to update the order in the DO
-                    { Dal.Order.Update(OrderDo); }
-                    catch (DO.NonFoundObjectDo ex)
-                    { throw new BO.NonFoundObjectBo("", ex); }
-                }
-                else /// if it is already updated
-                    throw new BO.AlreadyUpdated();
-            }
-            else /// if one of the date wasnt updated 
-                throw new BO.NotValid();
+            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
 
-            return OrderBo;
+            return OrderDetails(ID);
         }
         /// <summary>
         /// a function that returns the order tracking
@@ -171,16 +174,14 @@ namespace BlImplementation
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         public BO.OrderTracking TrackingOrder(int ID)
         {
-            DO.Order OrderDo;
             BO.Order OrderBo;
 
             try /// trying to get the order from the DO and the order datails from the BO 
             {
-                OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 OrderBo = OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo("", ex); }
+            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
 
             BO.OrderTracking orderTracking = new BO.OrderTracking()
             {

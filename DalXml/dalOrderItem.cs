@@ -6,13 +6,13 @@ using System;
 
 
 //short implementation with XMLTools functions.
-internal class dalOrderItem : IOrderItem
+internal class DalOrderItem : IOrderItem
 {
-    string path = "orderItems.xml";
-    string configPath = "config.xml";
-    XElement ordersItemsRoot;
+    static readonly string path = "orderItems.xml";
+    static readonly string configPath = "config.xml";
+    //XElement? ordersItemsRoot;
 
-    //public dalOrderItem()
+    //public DalOrderItem()
     //{
     //    LoadData();
     //}
@@ -82,7 +82,7 @@ internal class dalOrderItem : IOrderItem
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
 
         if (!orderItemList.Exists(x => x?.ID == ID))
-            throw new NonFoundObjectDo("OrderItem");
+            throw new NonFoundObjectDo("Error - The order item does not exist - can't delete");
 
         orderItemList.Remove(RequestByPredicate(x => x?.ID == ID));
 
@@ -98,7 +98,7 @@ internal class dalOrderItem : IOrderItem
     /// <exception cref="NonFoundObjectDo"></exception>
     public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("OrderItem");
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order item does not exist");
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ internal class dalOrderItem : IOrderItem
     /// <returns></returns>
     public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null)
     {
-        return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null ? true : predicate(orderItem));
+        return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null && predicate!(orderItem));
     }
 
 
@@ -122,10 +122,10 @@ internal class dalOrderItem : IOrderItem
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
 
         if (!orderItemList.Exists(x => x?.ID == orI.ID))
-            throw new NonFoundObjectDo("OrerItem");
+            throw new NonFoundObjectDo("Error - The order item does not exist - can't update");
 
         ///A loop that runs on the list and gets the object and updates it
-        for (int i = 0; i < orderItemList.Count(); i++)
+        for (int i = 0; i < orderItemList.Count; i++)
         {
             if (orderItemList[i]?.ID == orI.ID)
                 orderItemList[i] = orI;

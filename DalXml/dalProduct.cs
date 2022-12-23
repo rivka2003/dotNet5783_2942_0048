@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace Dal;
 
 //short implementation with XMLTools functions.
-internal class dalProduct : IProduct
+internal class DalProduct : IProduct
 {
     string path = "products.xml";
 
@@ -22,7 +22,7 @@ internal class dalProduct : IProduct
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (productLst.Exists(x => x?.ID == pro.ID))
-            throw new ExistingObjectDo("Product");
+            throw new ExistingObjectDo("Error - The product is alredy exist - can't add");
 
         productLst.Add(pro);
 
@@ -42,7 +42,7 @@ internal class dalProduct : IProduct
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (!productLst.Exists(x => x?.ID == ID))
-            throw new NonFoundObjectDo("Product");
+            throw new NonFoundObjectDo("Error - The product does not exist - can't delete");
 
         productLst.Remove(RequestByPredicate(product => product?.ID == ID));
 
@@ -67,7 +67,7 @@ internal class dalProduct : IProduct
     /// <exception cref="NonFoundObjectDo"></exception>
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Product");
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The product does not exist");
     }
 
 
@@ -81,7 +81,7 @@ internal class dalProduct : IProduct
         List<Product?> productList = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (!productList.Exists(i => i?.ID == pro.ID))
-            throw new NonFoundObjectDo("Product");
+            throw new NonFoundObjectDo("Error - The product does not exist - can't update");
 
         ///A loop that runs on the list and gets the object and updates it
         for (int i = 0; i < productList.Count; i++)

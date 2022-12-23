@@ -27,7 +27,7 @@ namespace BlImplementation
             try///making sure the oroduct exists in the products list
             { productDo = Dal!.Product.RequestByPredicate(product => product?.ID == productID); }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo("", ex); }
+            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
 
             if (productDo.InStock > 0) /// making sure that ther is any product in stock
             {
@@ -53,7 +53,7 @@ namespace BlImplementation
                 }
             }
             else /// if the stock is empty
-                throw new BO.NotInStock();
+                throw new BO.NotInStock("Error - The product is out of stock!");
 
             return cart;
         }
@@ -73,56 +73,63 @@ namespace BlImplementation
                 {
                     productBo = product.ProductDetailsForManager(cart.Items![i]!.ProductID);
 
-                    if (cart.Items[i]!.Amount > 0 && productBo.InStock > 0 && cart.CustomerEmail != " " &&
-                        cart.CustomerName != " " && cart.CustomerAddress != " " && new EmailAddressAttribute().IsValid(cart.CustomerEmail) == true)///if all the items details were given and are correct and valid
+                    if(cart.Items[i]!.Amount < 0)
+                        throw new BO.NotValid("Error - Amount can't be a negative number!");
+                    if(productBo.InStock <= 0)
+                        throw new BO.NotValid("Error - The product is out of stock!");
+                    if(cart.CustomerEmail != " ")
+                        throw new BO.NotValid("Error - Customer email box can't be empty!");
+                    if(cart.CustomerName != " ")
+                        throw new BO.NotValid("Error - Customer name box can't be empty!");
+                    if(cart.CustomerAddress != " ")
+                        throw new BO.NotValid("Error - Customer address box can't be empty!");
+                    if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
+                        throw new BO.NotValid("Error - The email address is not valid!");
+
+                    BO.Order orderBo = new BO.Order()///initialize with basic values
                     {
-                        BO.Order orderBo = new BO.Order()///initialize with basic values
-                        {
-                            Status = BO.OrderStatus.Confirmed,
-                            OrderDate = DateTime.Now,
-                            DeliveryDate = null,
-                            PaymentDate = null,
-                            ShipDate = null,
-                            Items = cart.Items
-                        };
+                        Status = BO.OrderStatus.Confirmed,
+                        OrderDate = DateTime.Now,
+                        DeliveryDate = null,
+                        PaymentDate = null,
+                        ShipDate = null,
+                        Items = cart.Items
+                    };
 
-                        orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
-                        DO.Order orderDo = new DO.Order();
-                        orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
+                    orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
+                    DO.Order orderDo = new DO.Order();
+                    orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
 
-                        int ID;
-                        ID = Dal!.Order.Add(orderDo);
+                    int ID;
+                    ID = Dal!.Order.Add(orderDo);
 
-                        BO.OrderItem orderItemBo = new BO.OrderItem()
-                        {
-                            ID = ID,
-                            Name = cart.CustomerName,
-                            ProductID = cart.Items[i]!.ProductID,
-                            Amount = cart.Items[i]!.Amount,
-                            Price = cart.Items[i]!.Price,
-                            TotalPrice = cart.Items[i]!.TotalPrice
-                        };
-                        DO.OrderItem orderItemDo = new DO.OrderItem();
-                        orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
-                        Dal.OrderItem.Add(orderItemDo);
+                    BO.OrderItem orderItemBo = new BO.OrderItem()
+                    {
+                        ID = ID,
+                        Name = cart.CustomerName,
+                        ProductID = cart.Items[i]!.ProductID,
+                        Amount = cart.Items[i]!.Amount,
+                        Price = cart.Items[i]!.Price,
+                        TotalPrice = cart.Items[i]!.TotalPrice
+                    };
+                    DO.OrderItem orderItemDo = new DO.OrderItem();
+                    orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
+                    Dal.OrderItem.Add(orderItemDo);
 
 
-                        DO.Product productDo = new DO.Product();
+                    DO.Product productDo = new DO.Product();
 
-                        productDo = Dal.Product.RequestByPredicate(product => product?.ID == cart.Items[i]!.ProductID);
+                    productDo = Dal.Product.RequestByPredicate(product => product?.ID == cart.Items[i]!.ProductID);
 
-                        productDo.InStock -= cart.Items[i]!.Amount;
+                    productDo.InStock -= cart.Items[i]!.Amount;
 
-                        Dal.Product.Update(productDo);
-                    }
-                    else
-                        throw new BO.NotValid();
+                    Dal.Product.Update(productDo);
                 }
             }
             catch (DO.NonFoundObjectDo ex)///if run into issue throw error message
-            { throw new BO.NonFoundObjectBo("", ex); }
+            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
             catch (DO.ExistingObjectDo ex)
-            { throw new BO.ExistingObjectBo("", ex); }
+            { throw new BO.ExistingObjectBo(ex.Message, ex); }
 
         }
         /// <summary>
@@ -135,8 +142,8 @@ namespace BlImplementation
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         public BO.Cart UpdateAmountProduct(BO.Cart cart, int productId, int Amount)
         {
-            if (cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
-                throw new BO.NonFoundObjectBo();
+            if (!cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
+                throw new BO.NonFoundObjectBo("Error - The product does not exist");
             for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
             {
                 if (cart.Items[i]!.ProductID == productId)///search the product
@@ -165,7 +172,6 @@ namespace BlImplementation
                     break;
                 }
             }
-
 
             return cart;
         }

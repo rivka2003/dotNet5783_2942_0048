@@ -76,9 +76,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.Product.Add(theProduct));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new ExistingObjectDo("Product");
+                            throw new ExistingObjectDo(ex.Message);
                         }
                         break;
                     case OrderChoice.Print: ///print the product with the recieved id
@@ -90,9 +90,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.Product.RequestByPredicate(product => product?.ID == id1));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Product");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full product list
@@ -108,9 +108,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.Product.RequestByPredicate(product => product?.ID == id2));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Product");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         theProduct.ID = id2;
                         creatProduct(ref theProduct);
@@ -118,9 +118,9 @@ namespace DalTest
                         {
                             dalList.Product.Update(theProduct);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Product");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case OrderChoice.Delete: ///deleting the product according to the recieved id
@@ -287,9 +287,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.Order.RequestByPredicate(order => order?.ID == id));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Order");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case OrderChoice.PrintList: ///printing the full order list
@@ -305,9 +305,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.Order.RequestByPredicate(order => order?.ID == id1));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Order");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         theOrder.ID = id1;
                         creatOrder(ref theOrder);
@@ -315,9 +315,9 @@ namespace DalTest
                         {
                             dalList.Order.Update(theOrder);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("Order");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case OrderChoice.Delete: ///deleting the order according to the recieved id
@@ -398,9 +398,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("OrerItem");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case Choice3.PrintByOrderAndProductID:///print the order item according to the recieved two ids
@@ -416,9 +416,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == orID && orderItem?.ProductID == proID));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("OrerItem");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case Choice3.PrintList:///printing the full order item list
@@ -436,9 +436,9 @@ namespace DalTest
                             foreach (var orIt in orderItems)
                                 Console.WriteLine(orIt);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("OrderItem");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case Choice3.Update:///updating the order item
@@ -450,9 +450,9 @@ namespace DalTest
                         {
                             Console.WriteLine(dalList!.OrderItem.RequestByPredicate(orderItem => orderItem?.ID == id1));
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("OrderItem");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         theOrderItem.ID = id1;
                         creatOrderItem(ref theOrderItem);
@@ -460,9 +460,9 @@ namespace DalTest
                         {
                             dalList.OrderItem.Update(theOrderItem);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw new NonFoundObjectDo("OrderItem");
+                            throw new NonFoundObjectDo(ex.Message);
                         }
                         break;
                     case Choice3.Delete:///deleting the order item according to the recieved id

@@ -17,9 +17,9 @@ namespace Dal
 
         private DalXml()
         {
-            Product = new dalProduct();
-            Order = new dalOrder();
-            OrderItem = new dalOrderItem();
+            Product = new DalProduct();
+            Order = new DalOrder();
+            OrderItem = new DalOrderItem();
         }
     }
 }

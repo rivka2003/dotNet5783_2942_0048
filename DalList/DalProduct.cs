@@ -14,7 +14,7 @@ internal class DalProduct : IProduct
     {
         //if product exist throw exception 
         if (DataSource.Products.Exists(i => i?.ID == pro.ID))
-            throw new ExistingObjectDo("Product");
+            throw new ExistingObjectDo("Error - The product is alredy exist - can't add");
         DataSource.Products.Add(pro);
         return pro.ID;
     }
@@ -27,7 +27,7 @@ internal class DalProduct : IProduct
     {
         ///if product dosnt exist throw exception 
         if (!DataSource.Products.Exists(i => i?.ID == pro.ID))
-            throw new NonFoundObjectDo("Product");
+            throw new NonFoundObjectDo("Error - The product does not exist - can't update");
         for (int i = 0; i < DataSource.Products.Count; i++)
         {
             if (pro.ID == DataSource.Products[i]?.ID)
@@ -52,12 +52,16 @@ internal class DalProduct : IProduct
     /// <exception cref="NotImplementedException"></exception>
     public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? predicate = null)
     {
-        bool checkNull = predicate is null;
-        return DataSource.Products.Where(product => checkNull ? true : predicate!(product));
+        return DataSource.Products.Where(product => predicate is null? true : predicate!(product));
     }
-
+    /// <summary>
+    /// A helper method that returns a single object according to the requested filter
+    /// </summary>
+    /// <param name="predicate"></param>
+    /// <returns></returns>
+    /// <exception cref="NonFoundObjectDo"></exception>
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
-        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Product");
+        return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The product does not exist");
     }
 }

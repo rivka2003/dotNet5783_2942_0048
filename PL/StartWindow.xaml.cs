@@ -17,17 +17,14 @@ namespace PL
 
         private void BTManager_Click(object sender, RoutedEventArgs e)
         {
-            new ProductForList(bl!).ShowDialog();
+            Close();
+            new ManagerWindow().ShowDialog();
         }
 
-        private void BTOrderTracking_Click(object sender, RoutedEventArgs e)
+        private void BTCustomer_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void BTNewOrder_Click(object sender, RoutedEventArgs e)
-        {
-            new OrderForList(bl!).ShowDialog();
+            Close();
+            new CustomerWindow().ShowDialog();
         }
     }
 }

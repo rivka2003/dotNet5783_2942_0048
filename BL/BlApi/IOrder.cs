@@ -25,7 +25,7 @@ namespace BlApi
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public BO.Order UpdeteShipDate(int ID);
+        public BO.Order UpdateShipDate(int ID);
         /// <summary>
         /// Updats the delivery date of the order
         /// </summary>

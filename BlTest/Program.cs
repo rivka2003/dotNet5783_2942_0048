@@ -41,7 +41,7 @@ namespace BlTest
                     }
                 }
                 catch (Exception ex)
-                { Console.WriteLine(ex); }
+                { Console.WriteLine(ex.Message); }
             } while (choice != 0);
         }
 
@@ -278,7 +278,7 @@ namespace BlTest
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id1);
                         Console.WriteLine("The updeted order is:");
-                        Console.WriteLine(blApi!.Order.UpdeteShipDate(id1));
+                        Console.WriteLine(blApi!.Order.UpdateShipDate(id1));
                         break;
                     case BO.OrderChoice.UpdateDeliveryDate: ///update the delivery date
                         Console.WriteLine("Enter the ID of the order that you want to update the ship date:");
