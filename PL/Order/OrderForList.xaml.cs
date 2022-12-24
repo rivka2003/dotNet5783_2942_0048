@@ -18,7 +18,7 @@ namespace PL
 
             this.bl = bl;
             var v = bl.Order.GetAll();
-            ordersLv.ItemsSource = bl.Order.GetAll();///to change name in xaml
+            ordersLv.ItemsSource = bl.Order.GetAll();
         }
 
         /// <summary>

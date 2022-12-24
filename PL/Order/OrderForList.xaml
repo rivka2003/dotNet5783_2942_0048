@@ -11,14 +11,84 @@
         <ImageBrush ImageSource="/Image2.png"/>
     </Window.Background>
 
+
     <Grid>
         <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Name="InGrid" Height="auto" Grid.Column="1" Width="auto">
+                <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                </Grid>
+            </Grid>
+            <!--<ListView Name="ordersLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+            </ListView>-->
+
             <ListView Name="ordersLv" 
                       MouseDoubleClick="doubleClick" 
-                      FontFamily="Elephant" Foreground="White" Background="{x:Null}" Height="434" 
-                      VerticalAlignment="Center">
+                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+                <ListView Height="424" Width="388" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!--<ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>-->
             </ListView>
         </Grid>
     </Grid>
 </Window>
+
+<!--<Grid>
+        <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+
+            
+                <ListView Name="productsLv" 
+                      MouseDoubleClick="doubleClick" 
+                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
+
+                    <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
+                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                </ListView>
+            
+        </Grid>
+    </Grid>
+</Window>-->

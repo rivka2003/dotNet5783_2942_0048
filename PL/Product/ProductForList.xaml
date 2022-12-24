@@ -9,6 +9,7 @@
     <Window.Resources>
 
     </Window.Resources>
+    
     <Window.Background>
         <ImageBrush ImageSource="/Image2.png"/>
     </Window.Background>

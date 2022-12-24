@@ -1,5 +1,8 @@
 ﻿using BO;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using PL.Order;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -12,19 +15,34 @@ namespace PL
 
         public StartWindow(BlApi.IBl bl)
         {
+          
             InitializeComponent();
         }
 
-        private void BTManager_Click(object sender, RoutedEventArgs e)
+        private void BTOrders_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            new ManagerWindow().ShowDialog();
+            new OrderForList(bl!).ShowDialog();
         }
 
-        private void BTCustomer_Click(object sender, RoutedEventArgs e)
+        private void BTProducts_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            new CustomerWindow().ShowDialog();
+            new ProductForList(bl!).ShowDialog();
         }
+
+        private void BTNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void BTOrderTracking_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+            new OrderTrackingWindow().ShowDialog();
+            
+        }
+
+
     }
 }
