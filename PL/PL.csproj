@@ -26,6 +26,8 @@
     <None Remove="Image4.png" />
     <None Remove="Image5.png" />
     <None Remove="Order\Image6.png" />
+    <None Remove="Order\lil.jpg" />
+    <None Remove="Order\lilwindows.jpg" />
     <None Remove="Product\Image1.png" />
     <None Remove="Product\Image3.png" />
     <None Remove="Product\Image4.png" />
@@ -42,6 +44,8 @@
     <Resource Include="Image4.png" />
     <Resource Include="Image5.png" />
     <Resource Include="Order\Image6.png" />
+    <Resource Include="Order\lil.jpg" />
+    <Resource Include="Order\lilwindows.jpg" />
     <Resource Include="Product\Image3.png" />
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
