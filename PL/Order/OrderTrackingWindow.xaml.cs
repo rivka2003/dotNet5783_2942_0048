@@ -33,7 +33,7 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbID.Text.Length >= 6 || tbID.Text.Length<= 8)
+            if (tbID.Text.Length >= 6 || tbID.Text.Length <= 8)
             {
                 btnORDERDETAILS.Visibility = Visibility.Visible;
                 btnORDERTRACKING.Visibility = Visibility.Visible;
