@@ -24,10 +24,11 @@ namespace PL.Order
        
         public OrderTrackingWindow()
         {
+            
+            InitializeComponent();
             btnORDERDETAILS.IsEnabled = false;
             btnORDERTRACKING.IsEnabled = false;
-            InitializeComponent();
-            
+
         }
         private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
         {
