@@ -1,6 +1,20 @@
-﻿using System;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL.Order
 {
@@ -23,6 +37,10 @@ namespace PL.Order
             tbSHIPDATE.Text = order.ShipDate.ToString();
             tbDELIVERYDATE.Text = order.DeliveryDate.ToString();
 
+
+           
+
+
             ///allowing changes only in the places that are connected to the manager
             tbID.IsEnabled = false;
             tbcNAME.IsEnabled = false;
@@ -42,6 +60,8 @@ namespace PL.Order
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
+
+
             ///if pre checks are valid put data in the product and send that to previous layers check.
             BO.Order order = new BO.Order()
             {
@@ -54,6 +74,7 @@ namespace PL.Order
                 DeliveryDate = DateTime.Parse(tbDELIVERYDATE.Text),
 
             };
+
 
             ///a try to update 
             try
@@ -69,6 +90,7 @@ namespace PL.Order
 
                 Close();
             }
+
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (BO.NotValid ex)
             {
@@ -82,6 +104,26 @@ namespace PL.Order
             {
                 MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbcNAME_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbADDRESS_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void tbORDERDATE_TextChanged(object sender, TextChangedEventArgs e)
+        {
+       
         }
 
         private void tbSHIPDATE_TextChanged(object sender, TextChangedEventArgs e)
@@ -112,7 +154,7 @@ namespace PL.Order
             //    lblCHECK3.Visibility = Visibility.Visible;
         }
     }
+}
 
 
     ///what more needs to b done?  v x labels for ship and delivery date only and checks about the valid data 
-}

@@ -9,6 +9,7 @@
     <Window.Resources>
 
     </Window.Resources>
+    
     <Window.Background>
         <ImageBrush ImageSource="/Image2.png"/>
     </Window.Background>
@@ -118,5 +119,6 @@
                 </ListView.View>-->
             </ListView>
         </Grid>
+        <PasswordBox HorizontalAlignment="Left" Margin="871,530,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

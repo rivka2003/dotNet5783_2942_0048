@@ -5,19 +5,20 @@ using System.Windows;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for OrderForList.xaml
+    /// Interaction logic for ProductForList.xaml
     /// </summary>
     public partial class OrderForList : Window
     {
         private BlApi.IBl? bl = BlApi.Factory.Get();
 
+        private IEnumerable<BO.OrderForList> orderForLists;
         public OrderForList(BlApi.IBl bl)
         {
             InitializeComponent();
 
             this.bl = bl;
             var v = bl.Order.GetAll();
-            ordersLv.ItemsSource = bl.Order.GetAll();///to change name in xaml
+            ordersLv.ItemsSource = bl.Order.GetAll();
         }
 
         /// <summary>
@@ -31,5 +32,7 @@ namespace PL
             new OrderWindow(ID).ShowDialog();
             ordersLv.ItemsSource = bl!.Order.GetAll();
         }
+
+
     }
 }
