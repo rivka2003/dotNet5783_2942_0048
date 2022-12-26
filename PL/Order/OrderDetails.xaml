@@ -5,23 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
-        Title="OrderDetails" Height="522" Width="440">
+        Title="OrderDetails" Height="495" Width="440">
     <Window.Background>
         <ImageBrush ImageSource="/Order/lil.jpg"/>
     </Window.Background>
     <Grid HorizontalAlignment="Left" Width="457" Margin="0,0,0,209">
 
-        <StackPanel Height="263" VerticalAlignment="Center">
-            <TextBlock Text="order details" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#FFFAFAFA" />
-            <TextBlock Text="id:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="1.745,0.496" Foreground="#FFFCF9F9" />
-            <TextBlock Text="address:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF7EFEF" />
-            <TextBlock Text="name:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF9F8F8" />
-            <TextBlock Text="order date:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF9F1F1" />
-            <TextBlock Text="ship date:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF7F1F1" />
-            <TextBlock Text="delivery date:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF5EFEF" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Label Content="Order details" FontSize="28" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="144,0,0,0" />
+        <Label Content="ID:" FontSize="20" HorizontalAlignment="Left" Grid.Row="1"/>
+        <Label Content="Address:" FontSize="20" HorizontalAlignment="Left" Grid.Row="2"/>
+        <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Grid.Row="3"/>
+        <Label Content="Order date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="4"/>
+        <Label Content="Ship date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="5"/>
+        <Label Content="Delivery date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="6"/>
 
-        </StackPanel>
+        <Label x:Name="IDvalue" FontSize="15" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 
 </Window>

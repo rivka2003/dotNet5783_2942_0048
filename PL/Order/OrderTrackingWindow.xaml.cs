@@ -1,11 +1,4 @@
-﻿using BO;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using PL.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +16,7 @@ namespace PL.Order
     /// </summary>
     public partial class OrderTrackingWindow : Window
     {
-
+        int ID;
         public OrderTrackingWindow()
         {
             
@@ -39,8 +32,9 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbID.Text.Length ==6)
+            if (tbID.Text.Length <= 8)
             {
+                ID = int.Parse(tbID.Text);
                 btnORDERDETAILS.IsEnabled = true;
                 btnORDERTRACKING.IsEnabled = true;
                 
@@ -55,17 +49,12 @@ namespace PL.Order
 
         private void btnORDERTRACKING_Click(object sender, RoutedEventArgs e)
         {
-
-          
-            int id = int.Parse(tbID.Text);
-            new OrderTrackingDetails(id).ShowDialog();
+            new OrderTrackingDetails(ID).ShowDialog();
         }
 
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
-     
-            int id = int.Parse(tbID.Text);
-            new OrderDetails(id).ShowDialog();
+            new OrderDetails(ID).ShowDialog();
         }
 
       

@@ -66,7 +66,7 @@ namespace BlImplementation
             BO.Order OrderBo = new BO.Order();
             DO.Order OrderDo;
             /// checks if the input is valid
-            if (ID >= 100000 && ID < 100000000)
+            if (ID > 0)
             {
                 ///tryng to get the order from the DO
                 try
@@ -95,12 +95,7 @@ namespace BlImplementation
                 OrderBo.TotalPrice = OrderBo.Items.Sum(o => o!.Amount * o.Price);
             }
             else/// if the ID is not valid..
-            {
-                if (ID >= 100000)
-                    throw new BO.NotValid("Error - ID can't be more then 8 digits!");
-                if (ID < 100000000)
-                    throw new BO.NotValid("Error - ID can't be less then 6 digits!");
-            }
+                throw new BO.NotValid("Error - ID can't be a negative number!");
 
             return OrderBo;
         }
