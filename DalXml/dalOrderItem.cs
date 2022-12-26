@@ -124,12 +124,10 @@ internal class DalOrderItem : IOrderItem
         if (!orderItemList.Exists(x => x?.ID == orI.ID))
             throw new NonFoundObjectDo("Error - The order item does not exist - can't update");
 
-        ///A loop that runs on the list and gets the object and updates it
-        for (int i = 0; i < orderItemList.Count; i++)
-        {
-            if (orderItemList[i]?.ID == orI.ID)
-                orderItemList[i] = orI;
-        }
+        /// checking what is the index in the list that the ID is the same as the pro ID
+        var index = orderItemList.FindIndex(item => item?.ID == orI.ID);
+
+        orderItemList[index] = orI;
 
         XmlTools.SaveListToXMLSerializer(orderItemList, path);
     }

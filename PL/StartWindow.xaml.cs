@@ -15,7 +15,7 @@ namespace PL
 
         public StartWindow(BlApi.IBl bl)
         {
-          
+
             InitializeComponent();
         }
 
@@ -40,7 +40,7 @@ namespace PL
         {
             Close();
             new OrderTrackingWindow().ShowDialog();
-            
+
         }
 
 

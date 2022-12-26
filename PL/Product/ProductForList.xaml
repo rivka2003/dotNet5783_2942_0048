@@ -104,7 +104,7 @@
             </ListView>--> 
             
             <ListView Name="productsLv" 
-                      MouseDoubleClick="doubleClick" 
+                      MouseDoubleClick="Update_DoubleClick" 
                       Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
 
                 <!--<ListView.View>

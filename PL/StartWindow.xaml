@@ -39,8 +39,5 @@
                 FontSize="48" Margin="52,197,0,0"/>
         <Label x:Name="lblManager" Content="Manager" HorizontalAlignment="Left" Margin="48,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9A2020"/>
         <Label x:Name="lblCustomer" Grid.Column="1" Content="Customer" Margin="0,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9D2424"/>
-
-  
-
     </Grid>
 </Window>

@@ -21,7 +21,7 @@ namespace PL.Order
     /// </summary>
     public partial class OrderTrackingWindow : Window
     {
-       
+
         public OrderTrackingWindow()
         {
             
@@ -37,10 +37,10 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbID.Text.Length == 6)
+            if (tbID.Text.Length >= 6 || tbID.Text.Length<= 8)
             {
-                btnORDERDETAILS.IsEnabled = true;
-                btnORDERTRACKING.IsEnabled = true;
+                btnORDERDETAILS.Visibility = Visibility.Visible;
+                btnORDERTRACKING.Visibility = Visibility.Visible;
             }
         }
 
@@ -51,7 +51,7 @@ namespace PL.Order
 
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
-           /// need to find the order according to the given id and show it
+            /// need to find the order according to the given id and show it
         }
     }
 }
