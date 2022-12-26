@@ -14,7 +14,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orIt"></param>
     public int Add(OrderItem orIt)
     {
-        orIt.ID = getOrderItemSequenceID();
+        orIt.ID = GetOrderItemSequenceID();
         DataSource.OrderItems.Add(orIt);
         return orIt.ID;
     }

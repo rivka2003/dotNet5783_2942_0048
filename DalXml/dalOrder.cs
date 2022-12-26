@@ -1,5 +1,7 @@
 ﻿using DalApi;
 using DO;
+using System.Diagnostics;
+using System.Globalization;
 using System.Xml.Linq;
 namespace Dal;
 
@@ -107,17 +109,18 @@ internal class DalOrder : IOrder
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
         /// using linq to initialize the order
-        return (from element in ordersRoot!.Elements()
+    
+        return (from element in ordersRoot!.Elements() 
                 select (Order?)new Order
                 {
                     ID = int.Parse(element.Element("ID")!.Value),
                     CustomerName = element.Element("CustomerName")!.Value,
                     CustomerEmail = element.Element("CustomerEmail")!.Value,
                     CustomerAddress = element.Element("CustomerAddress")!.Value,
-                    OrderDate = DateTime.Parse(element.Element("OrderDate")!.Value),
-                    ShipDate = DateTime.Parse(element.Element("ShipDate")!.Value),
-                    DeliveryDate = DateTime.Parse(element.Element("DeliveryDate")!.Value)
-                }).Where(order => predicate is null || predicate!(order)); ;
+                    OrderDate = DateTime.TryParse(element.Element("OrderDate")!.Value, out DateTime OrderDate) ? OrderDate : null,
+                    ShipDate = DateTime.TryParse(element.Element("ShipDate")!.Value, out DateTime ShipDate) ? ShipDate : null,
+                    DeliveryDate = DateTime.TryParse(element.Element("DeliveryDate")!.Value, out DateTime DeliveryDate) ? DeliveryDate : null,
+                }).Where(order => predicate is null || predicate!(order));
     }
 
 

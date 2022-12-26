@@ -41,13 +41,13 @@ namespace PL.Product
 
             if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
             {
-                AddSize(SizeClothing);
+                AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
                 cbSIZE.SelectedItem = product.SizeClothing;
                 cbTYPE.SelectedItem = product.Clothing;
             }
             else ///if cb was chosen as shoes
             {
-                AddSize(SizeShoes);
+                AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
                 cbSIZE.SelectedItem = (int)product.SizeShoes!;
                 cbTYPE.SelectedItem = product.Shoes;
             }
@@ -68,8 +68,8 @@ namespace PL.Product
             cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
 
             /// Default filling of the combo box with values
-            AddItems(itemsClothing);
-            AddSize(SizeClothing);
+            AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
+            AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
 
             ///resets to default values 
             cbGENDER.SelectedIndex = 0;
@@ -93,53 +93,36 @@ namespace PL.Product
 
             if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
-                AddSize(SizeClothing);
+                AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
 
                 ///resets the options inside the cb according to the chosen gender
                 if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
-                {
-                    foreach (var item in itemsClothing)
-                    {
-                        if (item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
-                            cbTYPE.Items.Add(item);
-                    }
-                }
+                    AddItemsWithPredicate(cbTYPE.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
                 else
-                    AddItems(itemsClothing);
+                    AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
             }
             else ///in case shoes was chosen
             {
-                AddSize(SizeShoes);
+                AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
 
-                ///resets the options inside the cb according to the chosen gender
+                ///resets the options inside the cb according to the chosen gender 
                 if (cbGENDER.SelectedItem is not BO.Gender.Women)
-                {
-                    foreach (var item in itemsShoes)
-                    {
-                        if (item is not BO.Shoes.Heels)
-                            cbTYPE.Items.Add(item);
-                    }
-                }
+                    AddItemsWithPredicate(cbTYPE.Items, itemsShoes, item => item is not BO.Shoes.Heels);
                 else
-                    AddItems(itemsShoes);
+                    AddItemsWithPredicate(cbTYPE.Items, itemsShoes);
             }
             cbTYPE.SelectedIndex = 0;
             cbSIZE.SelectedIndex = 0;
         }
 
-        private void AddItems<T>(IEnumerable<T> items)
+        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null)
         {
-            foreach (T item in items)
+            foreach (T item in Collection)
             {
-                cbTYPE.Items.Add(item);
-            }
-        }
-
-        private void AddSize<T>(IEnumerable<T> items)
-        {
-            foreach (T item in items)
-            {
-                cbSIZE.Items.Add(item);
+                if (predicate is null)
+                    itemCollection.Add(item);
+                else if (predicate(item))
+                    itemCollection.Add(item);
             }
         }
 

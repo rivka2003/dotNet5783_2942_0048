@@ -20,11 +20,24 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="BTManager" Grid.Column="0" Content="Manager" 
-                HorizontalAlignment="Center" VerticalAlignment="Center" Height="135" Width="324" 
-                Click="BTManager_Click" FontSize="60"/>
-        <Button x:Name="BTCustomer" Grid.Column="1" Content="Customer" 
-                HorizontalAlignment="Center" VerticalAlignment="Center" Height="135" Width="324" 
-                Click="BTCustomer_Click" FontSize="60"/>
+
+
+        <Button x:Name="BTOrders"  Grid.Column="0" Content="Orders" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Height="176" Width="326" 
+                FontSize="48" Click="BTOrders_Click" Margin="48,192,0,0"/>
+        <Button x:Name="BTProducts"  Grid.Column="0" Content="Products" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Height="176" Width="326" Click="BTProducts_Click" 
+                FontSize="48" Margin="48,326,0,0"/>
+
+
+
+
+        <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Order tracking" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Height="176" Width="400" Click="BTOrderTracking_Click" FontSize="48" Margin="14,331,0,0"/>
+        <Button x:Name="BTNewOrder"  Grid.Column="1" Content="New order" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Height="176" Width="326" Click="BTNewOrder_Click" 
+                FontSize="48" Margin="52,197,0,0"/>
+        <Label x:Name="lblManager" Content="Manager" HorizontalAlignment="Left" Margin="48,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9A2020"/>
+        <Label x:Name="lblCustomer" Grid.Column="1" Content="Customer" Margin="0,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9D2424"/>
     </Grid>
 </Window>

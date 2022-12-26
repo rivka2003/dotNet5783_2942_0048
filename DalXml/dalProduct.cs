@@ -83,12 +83,10 @@ internal class DalProduct : IProduct
         if (!productList.Exists(i => i?.ID == pro.ID))
             throw new NonFoundObjectDo("Error - The product does not exist - can't update");
 
-        ///A loop that runs on the list and gets the object and updates it
-        for (int i = 0; i < productList.Count; i++)
-        {
-            if (pro.ID == productList[i]?.ID)
-                productList[i] = pro;
-        }
+        /// checking what is the index in the list that the ID is the same as the pro ID
+        var index = productList.FindIndex(item => item?.ID == pro.ID);
+
+        productList[index] = pro;
 
         XmlTools.SaveListToXMLSerializer(productList, path);
     }

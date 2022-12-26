@@ -14,7 +14,7 @@ internal class DalOrder : IOrder
     /// <param name="or"></param>
     public int Add(Order or)
     {
-        or.ID = getOrderSequenceID();
+        or.ID = GetOrderSequenceID();
         Orders.Add(or);
         return or.ID;
     }

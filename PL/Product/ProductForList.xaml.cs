@@ -1,7 +1,4 @@
 ﻿using PL.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,17 +9,17 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
-        private BlApi.IBl? bl = BlApi.Factory.Get();
+        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        private IEnumerable<BO.ProductForList> productForLists;
+        private readonly IEnumerable<BO.ProductForList> productForLists;
 
-        IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+        readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
 
-        IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+        readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
 
-        IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
+        readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
 
-        IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+        readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
         public ProductForList(BlApi.IBl bl)
         {
             InitializeComponent();
@@ -37,8 +34,8 @@ namespace PL
             ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
 
             /// Default filling of the combo box with values
-            AddItems(itemsClothing);
-            AddSize(SizeClothing);
+            AddItemsWithPredicate(TypeCB.Items, itemsClothing);
+            AddItemsWithPredicate(SizeCB.Items, SizeClothing);
 
             ///resets the combo boxes in default values
             GenderCB.SelectedIndex = 0;
@@ -63,53 +60,36 @@ namespace PL
 
             if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
-                AddSize(SizeClothing);
+                AddItemsWithPredicate(SizeCB.Items, SizeClothing);
 
                 ///resets the options inside the cb according to the chosen gender
                 if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
-                {
-                    foreach (var item in itemsClothing)
-                    {
-                        if(item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts)
-                            TypeCB.Items.Add(item);
-                    }
-                }
+                    AddItemsWithPredicate(TypeCB.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
                 else
-                    AddItems(itemsClothing);
+                    AddItemsWithPredicate(TypeCB.Items, itemsClothing);
             }
             else ///in case shoes was chosen
             {
-                AddSize(SizeShoes);
+                AddItemsWithPredicate(SizeCB.Items, SizeShoes);
 
-                ///resets the options inside the cb according to the chosen gender
+                ///resets the options inside the cb according to the chosen gender 
                 if (GenderCB.SelectedItem is not BO.Gender.Women)
-                {
-                    foreach (var item in itemsShoes)
-                    {
-                        if (item is not BO.Shoes.Heels)
-                            TypeCB.Items.Add(item);
-                    }
-                }
+                    AddItemsWithPredicate(TypeCB.Items, itemsShoes, item => item is not BO.Shoes.Heels);
                 else
-                    AddItems(itemsShoes);
+                    AddItemsWithPredicate(TypeCB.Items, itemsShoes);
             }
             TypeCB.SelectedIndex = 0;
             SizeCB.SelectedIndex = 0;
         }
 
-        private void AddItems<T>(IEnumerable<T> items)
+        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null)
         {
-            foreach (T item in items)
+            foreach (T item in Collection)
             {
-                TypeCB.Items.Add(item);
-            }
-        }
-
-        private void AddSize<T>(IEnumerable<T> items)
-        {
-            foreach (T item in items)
-            {
-                SizeCB.Items.Add(item);
+                if (predicate is null)
+                    itemCollection.Add(item);
+                else if (predicate(item))
+                    itemCollection.Add(item);
             }
         }
 
@@ -139,7 +119,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
             new ProductWindow(ID).ShowDialog();

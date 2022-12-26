@@ -2,7 +2,7 @@
 
 namespace Dal
 {
-    public static class DataSource
+    internal static class DataSource
     {
         /// <summary>
         /// Making the Config class to make a run number
@@ -15,8 +15,8 @@ namespace Dal
         /// The running number of the order
         /// </summary>
         private static int orderSequenceID = 1;
-        internal static int getOrderItemSequenceID() { return orderItemSequenceID++; }
-        internal static int getOrderSequenceID() { return orderSequenceID++; }
+        internal static int GetOrderItemSequenceID() { return orderItemSequenceID++; }
+        internal static int GetOrderSequenceID() { return orderSequenceID++; }
 
         /// <summary>
         /// Our three lists
@@ -25,7 +25,7 @@ namespace Dal
         internal static List<Order?> Orders { set; get; } = new List<Order?>();
         internal static List<OrderItem?> OrderItems { set; get; } = new List<OrderItem?>();     
 
-        static readonly Random random = new Random(); /// for the random numbers
+        static readonly Random random = new (); /// for the random numbers
         static DataSource() /// constructor
         {
             s_Initialize();
@@ -50,15 +50,15 @@ namespace Dal
             Array Colors = Enum.GetValues(typeof(Color)), Genders = Enum.GetValues(typeof(Gender));
             Array SizeShoe = Enum.GetValues(typeof(SizeShoes)), SizeCloth = Enum.GetValues(typeof(SizeClothing));
             ///Creating a variable from all the types of the enums to get a value drawn from each enum
-            Category randomCategory = new Category(); Clothing randomClothes = new Clothing();
-            Shoes randomShoes = new Shoes(); Color randomColor = new Color();
-            Gender randomGender = new Gender(); SizeClothing randomSizeClothes = new SizeClothing();
-            SizeShoes randomSizeShoes = new SizeShoes();
+            Category randomCategory = new (); Clothing randomClothes = new ();
+            Shoes randomShoes = new (); Color randomColor = new ();
+            Gender randomGender = new (); SizeClothing randomSizeClothes = new ();
+            SizeShoes randomSizeShoes = new ();
             ///A loop that goes through each element in the list
             ///
             for (int i = 1; i <= 10; i++)
             {
-                Product value = new Product();
+                Product value = new ();
                 randomCategory = (Category)Categories.GetValue(random.Next(Categories.Length))!;
                 randomGender = (Gender)Genders.GetValue(random.Next(Genders.Length))!;
                 randomColor = (Color)Colors.GetValue(random.Next(Colors.Length))!;
@@ -131,9 +131,9 @@ namespace Dal
             ///A loop that goes through all the places in the list
             for (int i = 1; i <= 20; i++)
             {
-                Order value = new Order()
+                Order value = new ()
                 {
-                    ID = getOrderSequenceID(),
+                    ID = GetOrderSequenceID(),
                     CustomerName = "Order" + i,
                     CustomerAddress = "Menachem Begin" + i,
                     CustomerEmail = "Customer" + i + "@gmail.com",
@@ -169,7 +169,7 @@ namespace Dal
             /// A loop that goes through all the places in the list
             for (int i = 0; i < 40; i++)
             {
-                OrderItem orderItem = new OrderItem();
+                OrderItem orderItem = new ();
 
                 // all the first 20 orders have at list one product
                 if (i < 20)
@@ -177,11 +177,11 @@ namespace Dal
                 else /// If this order number exists within the list of order items then generate a new order number
                     orderItem.OrderID = Orders[random.Next(0, 20)]?.ID ?? 0;
                 // every order that has less than 5 products
-                if (OrderItems.FindAll(item => item?.OrderID == orderItem.OrderID).Count() < 5)
+                if (OrderItems.FindAll(item => item?.OrderID == orderItem.OrderID).Count < 5)
                 {
-                    Product product = new Product();
+                    Product product = new ();
                     product = (Product)Products[random.Next(0, 10)]!;// take some product
-                    orderItem.ID = getOrderItemSequenceID();
+                    orderItem.ID = GetOrderItemSequenceID();
                     orderItem.ProductID = product.ID;
                     orderItem.Amount = random.Next(1, 6);
                     orderItem.Price = orderItem.Amount * product.Price;
