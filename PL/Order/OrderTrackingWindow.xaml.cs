@@ -1,4 +1,6 @@
 ﻿using BO;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,21 +39,35 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbID.Text.Length >= 6 || tbID.Text.Length <= 8)
+            if (tbID.Text.Length ==6)
             {
-                btnORDERDETAILS.Visibility = Visibility.Visible;
-                btnORDERTRACKING.Visibility = Visibility.Visible;
+                btnORDERDETAILS.IsEnabled = true;
+                btnORDERTRACKING.IsEnabled = true;
+                
             }
+            else
+            {
+                btnORDERDETAILS.IsEnabled = false;
+                btnORDERTRACKING.IsEnabled = false;
+            }
+
         }
 
         private void btnORDERTRACKING_Click(object sender, RoutedEventArgs e)
         {
-            ///need to find the order tracking according to the given id and show it
+
+          
+            int id = int.Parse(tbID.Text);
+            new OrderTrackingDetails(id).ShowDialog();
         }
 
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
-            /// need to find the order according to the given id and show it
+     
+            int id = int.Parse(tbID.Text);
+            new OrderDetails(id).ShowDialog();
         }
+
+      
     }
 }
