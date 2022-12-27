@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
-        Title="OrderTrackingDetails" Height="355" Width="522">
+        Title="OrderTrackingDetails" Height="367" Width="435">
     <Window.Background>
         <ImageBrush ImageSource="/Order/lil.jpg"/>
     </Window.Background>
@@ -16,14 +16,16 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Height="195" VerticalAlignment="Top" Margin="10,10,-10,0" Grid.RowSpan="2">
-            <TextBlock Text="order's tracking details" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#FFF8F2F2" />
-            <TextBlock Text="id:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="1.745,0.496" Foreground="#FFF9F5F5" />
-            <TextBlock Text="status:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF8F6F6" />
+
+        <TextBlock Text="order's tracking details" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF8F2F2" Margin="78,0,0,98" />
+        <TextBlock Text="id:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" RenderTransformOrigin="1.745,0.496" Foreground="#FFF9F5F5" Margin="10,36,0,52" Width="55" />
+        <TextBlock Text="status:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#FFF8F6F6" Margin="0,86,0,10" />
+        <Label x:Name="lblID" Content="" Height="34" Width="122" HorizontalAlignment="Left" Margin="146,44,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="lblSTATUS" Content="" HorizontalAlignment="Left" Margin="143,88,0,11" VerticalAlignment="Stretch" FontSize="18" RenderTransformOrigin="0.527,-0.189"/>
 
 
 
-        </StackPanel>
+
     </Grid>
 
 </Window>

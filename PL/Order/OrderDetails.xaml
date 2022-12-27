@@ -25,16 +25,21 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <Label Content="Order details" FontSize="28" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="144,0,0,0" />
+
+        <Label Content="Order details" FontSize="28" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="131,-10,0,0" VerticalAlignment="Top" />
         <Label Content="ID:" FontSize="20" HorizontalAlignment="Left" Grid.Row="1"/>
         <Label Content="Address:" FontSize="20" HorizontalAlignment="Left" Grid.Row="2"/>
         <Label Content="Name:" FontSize="20" HorizontalAlignment="Left" Grid.Row="3"/>
         <Label Content="Order date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="4"/>
         <Label Content="Ship date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="5"/>
         <Label Content="Delivery date:" FontSize="20" HorizontalAlignment="Left" Grid.Row="6"/>
+        <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,0,0,0" Height="36" Width="114" FontSize="22" Grid.Row="5"/>
+        <Label  x:Name="lblADDRESS" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Height="36" Width="114" FontSize="22" Grid.RowSpan="2" Grid.Row="1"/>
+        <Label  x:Name="lblNAME" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,36,0,0" VerticalAlignment="Top" Height="36" Width="114" FontSize="22" Grid.RowSpan="2" Grid.Row="2"/>
+        <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,38,0,0" VerticalAlignment="Top" Height="36" Width="114" FontSize="22" Grid.RowSpan="2" Grid.Row="3"/>
+        <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,4,0,0" VerticalAlignment="Top" Height="36" Width="114" FontSize="22" Grid.Row="6"/>
+        <Label  x:Name="lblID" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="14,2,0,0" VerticalAlignment="Top" Height="36" Width="114" FontSize="22" Grid.Row="1"/>
 
-        <Label x:Name="IDvalue" FontSize="15" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 
 </Window>

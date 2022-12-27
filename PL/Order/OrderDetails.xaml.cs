@@ -19,16 +19,24 @@ namespace PL.Order
     /// </summary>
     public partial class OrderDetails : Window
     {
-        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
-        public OrderDetails(int ID)
+     
+        public OrderDetails(BO.Order order)
         {
             ///search the order with the recieved id and initialize the values in the text blocks accordingly
             InitializeComponent();
-            BO.Order order = new BO.Order();
 
-            order = bl.Order.OrderDetails(ID);
-            IDvalue.Content = order.ID;
+               
+                lblID.Content = order.ID;
+                lblADDRESS.Content = order.CustomerAddress;
+                lblNAME.Content = order.CustomerName;
+                lblDELIVERYDATE.Content = order.DeliveryDate;
+                lblORDERDATE.Content = order.OrderDate;
+                lblSHIPDATE.Content = order.ShipDate;
+                lblDELIVERYDATE.Content = order.DeliveryDate;
+           
 
         }
+
+
     }
 }

@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Order
+namespace PL
 {
     /// <summary>
-    /// Interaction logic for OrderTrackingDetails.xaml
+    /// Interaction logic for Password.xaml
     /// </summary>
-    public partial class OrderTrackingDetails : Window
+    public partial class Password : Window
     {
-        public OrderTrackingDetails(int id, BO.OrderTracking orderTracking)
+        public Password()
         {
-            ///search the order with the recieved id and initialize the values in the text blocks accordingly
             InitializeComponent();
-            lblID.Content = id;
-            lblSTATUS.Content = orderTracking.Status;
+            
         }
     }
 }

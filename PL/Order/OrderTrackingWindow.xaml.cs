@@ -16,7 +16,11 @@ namespace PL.Order
     /// </summary>
     public partial class OrderTrackingWindow : Window
     {
+        private readonly BlApi.IBl bl = BlApi.Factory.Get();
         int ID;
+        BO.Order order = new BO.Order();
+        BO.OrderTracking orderTracking = new BO.OrderTracking();
+
         public OrderTrackingWindow()
         {
             
@@ -49,12 +53,34 @@ namespace PL.Order
 
         private void btnORDERTRACKING_Click(object sender, RoutedEventArgs e)
         {
-            new OrderTrackingDetails(ID).ShowDialog();
+            try
+            {
+                orderTracking = bl.Order.TrackingOrder(ID);
+                new OrderTrackingDetails(ID, orderTracking).ShowDialog();
+            }
+
+            catch (BO.NonFoundObjectBo ex)
+            {
+                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
+       
+        
 
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
-            new OrderDetails(ID).ShowDialog();
+            try
+            {
+                order = bl.Order.OrderDetails(ID);
+                new OrderDetails(order).ShowDialog();
+            }
+
+            catch (BO.NonFoundObjectBo ex)
+            {
+                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
       
