@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Password.xaml
+    /// Interaction logic for Password.xaml/
     /// </summary>
     public partial class Password : Window
     {
