@@ -25,7 +25,15 @@ namespace PL
                 Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
         }
 
-        //convert from target property type to source property type
+        /// <summary>
+        /// convert from target property type to source property type
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
