@@ -7,7 +7,14 @@ namespace PL
 {
     public class ChoosByCategory : IValueConverter
     {
-        //convert from source property type to target property type
+        /// <summary>
+        /// convert from source property type to target property type
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType.GetType() is SizeClothing || targetType.GetType() is SizeShoes)
