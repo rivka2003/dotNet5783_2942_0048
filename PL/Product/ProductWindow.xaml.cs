@@ -11,15 +11,16 @@ namespace PL.Product
     /// </summary>
     public partial class ProductWindow : Window
     {
-        private BlApi.IBl? bl = BlApi.Factory.Get();
+        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+        readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
 
-        IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+        readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
 
-        IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
+        readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
 
-        IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+        readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+
         public ProductWindow(int ID)/// constructor to open an update window/
         {
             InitializeComponent();
@@ -83,7 +84,7 @@ namespace PL.Product
         }
 
         ///reset the enums according to the category
-        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             /// Clearing the combo box before re-adding
             cbTYPE.Items.Clear();
@@ -115,7 +116,7 @@ namespace PL.Product
             cbSIZE.SelectedIndex = 0;
         }
 
-        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null)
+        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
         {
             foreach (T item in Collection)
             {
@@ -158,53 +159,37 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void btnSAVE_Click(object sender, RoutedEventArgs e)
+        private void BtnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes
             if (tbID.Text == "" || tbPRICE.Text == " ")
             {
-                if (tbID.Text == "" || tbPRICE.Text == " ")
-                    MessageBox.Show("Error - ID box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                lblCHECK1.Visibility = Visibility.Hidden;
-                lblx1.Visibility = Visibility.Visible;
+                MessageBox.Show("Error - ID box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            }
-            else
-            {
-                lblCHECK1.Visibility = Visibility.Visible;
-                lblx1.Visibility = Visibility.Hidden;
             }
             if (tbNAME.Text == "")
             {
                 MessageBox.Show("Error - Name box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                lblCHECK2.Visibility = Visibility.Hidden;
-                lblx2.Visibility = Visibility.Visible;
                 return;
             }
             if (tbPRICE.Text == "" || tbPRICE.Text == " ")
             {
                 MessageBox.Show("Error - Price box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                lblCHECK3.Visibility = Visibility.Hidden;
-                lblx3.Visibility = Visibility.Visible;
                 return;
             }
             if (tbINSTOCK.Text == "" || tbINSTOCK.Text == " ")
             {
                 MessageBox.Show("Error - Amount in stock box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                lblCHECK4.Visibility = Visibility.Hidden;
-                lblx4.Visibility = Visibility.Visible;
                 return;
             }
             if (tbDESCRIPTION.Text == "")
             {
                 MessageBox.Show("Error - Description box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                lblCHECK5.Visibility = Visibility.Hidden;
-                lblx5.Visibility = Visibility.Visible;
                 return;
             }
 
             ///if pre checks are valid. put data in the product and send that to previous layers check.
-            BO.Product product = new BO.Product()
+            BO.Product product = new ()
             {
                 ID = int.Parse(tbID.Text),
                 Name = tbNAME.Text,
@@ -215,7 +200,7 @@ namespace PL.Product
                 Description = tbDESCRIPTION.Text
             };
 
-            if (tbPRICE.Text.Contains("."))
+            if (tbPRICE.Text.Contains('.'))
                 product.Price = double.Parse(tbPRICE.Text);
             else
                 product.Price = int.Parse(tbPRICE.Text);
@@ -271,7 +256,7 @@ namespace PL.Product
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
+        private void TbID_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lblCHECK1 is null || lblx1 is null)
                 return;

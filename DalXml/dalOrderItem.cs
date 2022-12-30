@@ -108,7 +108,7 @@ internal class DalOrderItem : IOrderItem
     /// <returns></returns>
     public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null)
     {
-        return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null && predicate!(orderItem));
+        return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null || predicate!(orderItem));
     }
 
 

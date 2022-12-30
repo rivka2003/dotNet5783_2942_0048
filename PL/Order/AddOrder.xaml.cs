@@ -85,7 +85,7 @@
 //                {
 //                    bl!.Order.UpdateShipDate(order.ID);
 //                    bl!.Order.UpdateDeliveryDate(order.ID);
-//                    MessageBox.Show("Updated succesfuly!", "Saved order", MessageBoxButton.OK, MessageBoxImage.Information);
+//                    MessageBox.Show_Click("Updated succesfuly!", "Saved order", MessageBoxButton.OK, MessageBoxImage.Information);
 //                }
 
 //                Close();
@@ -94,19 +94,19 @@
 //            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
 //            catch (BO.NotValid ex)
 //            {
-//                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+//                MessageBox.Show_Click(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
 //            }
 //            catch (BO.NonFoundObjectBo ex)
 //            {
-//                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+//                MessageBox.Show_Click(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
 //            }
 //            catch (BO.ExistingObjectBo ex)
 //            {
-//                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+//                MessageBox.Show_Click(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
 //            }
 //        }
 
-//        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
+//        private void TbID_TextChanged(object sender, TextChangedEventArgs e)
 //        {
 
 //        }

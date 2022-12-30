@@ -1,4 +1,6 @@
-﻿using CopyPropertisTo;
+﻿using BO;
+using CopyPropertisTo;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BlImplementation
 {
@@ -10,9 +12,9 @@ namespace BlImplementation
         /// returning all the products as a collection
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BO.ProductForList?> GetAll()
+        public IEnumerable<ProductForList?> GetAll()
         {
-            return Dal!.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, BO.ProductForList>();
+            return Dal!.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, ProductForList>();
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace BlImplementation
             if (ID < 100000)
                 throw new BO.NotValid("Error - ID can't be less then 6 digits!");
 
-            BO.Product productBo = new BO.Product();
+            BO.Product productBo = new();
             DO.Product productDo;
 
             try /// trying to get the product from the Dal
@@ -58,7 +60,7 @@ namespace BlImplementation
             if (ID < 100000)
                 throw new BO.NotValid("Error - ID can't be less then 6 digits!");
 
-            BO.ProductItem proItm = new BO.ProductItem();
+            BO.ProductItem proItm = new();
             DO.Product proDo;
 
             try /// tryng to get the product from the Dal
@@ -100,18 +102,18 @@ namespace BlImplementation
                 throw new BO.NotValid("Error - Price can't be a negative number!");
             if (productBo.InStock < 0)
                 throw new BO.NotValid("Error - Amount in stock can't be a negative number!");
+            if (productBo.Imege == " ")
+                throw new BO.NotValid("Error - Imege box can't be empty!");
 
-            DO.Product productDo = new DO.Product();
-            if (productBo.Description != " " && productBo.ID >= 100000 && productBo.Name != " " && productBo.Price > 0 && productBo.InStock >= 0)
-            {
-                productDo = productBo.CopyPropToStruct(productDo);
-                productDo.Status = DO.Status.Exist;
+            DO.Product productDo = new();
 
-                try /// tryng to add the product in to the list in the DO
-                { Dal!.Product.Add(productDo); }
-                catch (DO.ExistingObjectDo ex)
-                { throw new BO.ExistingObjectBo(ex.Message, ex); }
-            }
+            productDo = productBo.CopyPropToStruct(productDo);
+            productDo.Status = DO.Status.Exist;
+
+            try /// tryng to add the product in to the list in the DO
+            { Dal!.Product.Add(productDo); }
+            catch (DO.ExistingObjectDo ex)
+            { throw new BO.ExistingObjectBo(ex.Message, ex); }
         }
         /// <summary>
         /// deleting a product that its id was given, from the products list
@@ -156,6 +158,8 @@ namespace BlImplementation
                 throw new BO.NotValid("Error - Price can't be a negative number!");
             if (updateProduct.InStock < 0)
                 throw new BO.NotValid("Error - Amount in stock can't be a negative number!");
+            if (updateProduct.Imege == " ")
+                throw new BO.NotValid("Error - Imege box can't be empty!");
 
             DO.Product productDo;
             try /// trying to get the product from the Dal
@@ -178,6 +182,23 @@ namespace BlImplementation
             }
 
             return updateProduct;
+        }
+
+        public IEnumerable<IGrouping<Gender, ProductItem?>> GrupingByChoos(BO.Gender gender, BO.Cart cart)
+        {
+            IEnumerable<DO.Product?> DProduct = Dal!.Product.RequestAllByPredicate();
+
+            IEnumerable<ProductItem?> productItems = from DO.Product item in DProduct
+                                                     select item.CopyPropTo(new ProductItem
+                                                     {
+                                                         InStock = item.InStock > 0 ? InStock.Yes : InStock.No,
+                                                         Amount = cart?.Items!.First(x => x?.ID == item.ID)?.Amount ?? 0
+                                                     });
+
+            IEnumerable < IGrouping<Gender, ProductItem?> > result = from g in productItems
+                                                                     group g by gender into genderGroup
+                                                                     select genderGroup;
+            return result;
         }
     }
 }

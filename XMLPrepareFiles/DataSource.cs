@@ -85,6 +85,7 @@ namespace XMLPrepareFiles
                 value.Price = 100;
                 value.Color = randomColor;
                 value.Description = "New!";
+                value.Imege = "/Image2.png";
 
                 ///If the drawn Category is "Clothing"
                 if (randomCategory is Category.Clothing)

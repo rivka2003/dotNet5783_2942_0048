@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StartWindow" Height="533" Width="849">
+        Title="StartWindow" Height="450" Width="800">
     <Window.Background>
         <ImageBrush ImageSource="/Image4.png"/>
     </Window.Background>
@@ -20,24 +20,33 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
 
-        <Button x:Name="BTOrders"  Grid.Column="0" Content="Orders" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" Height="176" Width="326" 
-                FontSize="48" Click="BTOrders_Click" Margin="48,192,0,0"/>
-        <Button x:Name="BTProducts"  Grid.Column="0" Content="Products" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" Height="176" Width="326" Click="BTProducts_Click" 
-                FontSize="48" Margin="48,326,0,0"/>
+        <Button x:Name="BTOrders"  Grid.Column="0" Grid.Row="1" Content="Orders" FontSize="40" 
+                Click="BTOrders_Click" Visibility="Hidden"/>
 
+        <Button x:Name="BTProducts"  Grid.Column="0" Grid.Row="2" Content="Products" Click="BTProducts_Click" 
+                FontSize="40" Visibility="Hidden"/>
 
+        <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Order tracking" Click="BTOrderTracking_Click" 
+                FontSize="40" Grid.Row="1"/>
+        
+        <Button x:Name="BTNewOrder"  Grid.Column="1" Content="New order" Click="BTNewOrder_Click" 
+                FontSize="40" Grid.Row="2"/>
 
+        <Button x:Name="BTProductsView"  Grid.Column="1" Content="Products" Click="BTProductsView_Click" 
+                FontSize="40" Grid.Row="3"/>
 
-        <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Order tracking" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" Height="176" Width="400" Click="BTOrderTracking_Click" FontSize="48" Margin="14,331,0,0"/>
-        <Button x:Name="BTNewOrder"  Grid.Column="1" Content="New order" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" Height="176" Width="326" Click="BTNewOrder_Click" 
-                FontSize="48" Margin="52,197,0,0"/>
-        <Label x:Name="lblManager" Content="Manager" HorizontalAlignment="Left" Margin="48,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9A2020"/>
-        <Label x:Name="lblCustomer" Grid.Column="1" Content="Customer" Margin="0,93,0,0" VerticalAlignment="Top" FontSize="65" Foreground="#FF9D2424"/>
+        <Button x:Name="BTManager" Content="Manager" Click="BTManager_Click" 
+                FontSize="55" Grid.Row="1" Foreground="#FF9D2424" Margin="0,73,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        
+        <Label x:Name="lblCustomer" Grid.Column="1" Content="Customer" FontSize="55"
+               Foreground="#FF9D2424"/>
     </Grid>
 </Window>

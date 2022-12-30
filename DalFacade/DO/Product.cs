@@ -58,7 +58,10 @@ public struct Product
     /// <summary>
     /// The size of the Shoes
     /// </summary>
-    /// <returns></returns>
+    public string? Imege { get; set; }
+    /// <summary>
+    /// The Imege of the product
+    /// </summary>
     public string? Description { get; set; }
     /// <summary>
     /// The Description of the product
@@ -80,6 +83,7 @@ public struct Product
          Gender: {Gender}
          Color: {Color}
          Category: {Category}
+         {Imege}
          ";
     }
 }

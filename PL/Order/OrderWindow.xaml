@@ -54,10 +54,6 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -65,38 +61,32 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblID" Content="ID:" Width="40" Margin="0,22,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label x:Name="lblID" Content="ID:" Grid.Row="0"/>
 
-            <Label x:Name="lblcNAME" Content="Customer name:" Width="116" Grid.Row="2" Margin="0,11,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lblcNAME" Content="Customer name:" Grid.Row="1"/>
 
-            <Label x:Name="lblcADDRESS" Content="Customer address:" Width="128" Grid.Row="3" Margin="0,15,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lblcADDRESS" Content="Customer address:" Grid.Row="2"/>
 
-            <TextBox x:Name="tbID"   HorizontalAlignment="Left" Width="120" Grid.Row="1" 
-                     IsEnabled="False" Grid.ColumnSpan="2" Margin="195,0,0,0"/>
+            <TextBox x:Name="tbID" HorizontalAlignment="Left" Grid.Row="0" 
+                     IsEnabled="False" Grid.Column="1"/>
 
-            <TextBox x:Name="tbcNAME" HorizontalAlignment="Left" Width="120" Grid.Row="2" Grid.Column="1" 
-                     IsEnabled="False" Margin="0,18,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbcNAME" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
+                     IsEnabled="False" />
 
-            <TextBox x:Name="tbADDRESS"  HorizontalAlignment="Left" Width="120" Grid.Row="3" Grid.Column="1" 
+            <TextBox x:Name="tbADDRESS"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" 
                      IsEnabled="False"/>
 
-            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}}"/>
-
-            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+            <Label x:Name="lblCHECK1" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}}" 
+                   Margin="120,62,0,57"/>
 
             <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1"  Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbcNAME, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                   Visibility="{Binding ElementName=tbcNAME, Path=Text, Converter={StaticResource FullToVisable}}" 
+                   Margin="120,57,0,61"/>
 
-            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbcNAME, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
-
-            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbADDRESS, Path=Text, Converter={StaticResource FullToVisable}}"/>
-
-            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbADDRESS, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+            <Label x:Name="lblCHECK3"  Grid.Row="3" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbADDRESS, Path=Text, Converter={StaticResource FullToVisable}}"
+                   Margin="120,18,0,18"/>
         </Grid>
 
         <Grid x:Name="inGridSecond" Grid.Column="1">
@@ -105,9 +95,6 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -115,41 +102,41 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblORDERDATE" Content="Order date:" HorizontalAlignment="Right" Width="78" 
-                   Grid.Row="0" Grid.Column="0" Margin="0,68,22,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Label x:Name="lblORDERDATE" Content="Order date:" HorizontalAlignment="Right" 
+                   Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblSHIPDATE" Content="ship date:" HorizontalAlignment="Right" Width="78" 
-               Grid.Row="1" Grid.Column="0" Margin="0,62,22,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Label x:Name="lblSHIPDATE" Content="ship date:" HorizontalAlignment="Right" 
+               Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblDELIVERYDATE" Content="delivery date:" HorizontalAlignment="Right" Width="88"  
-               Grid.Row="2" Grid.Column="0" Margin="0,59,12,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Label x:Name="lblDELIVERYDATE" Content="delivery date:" HorizontalAlignment="Right"  
+               Grid.Row="2" Grid.Column="0"/>
 
             <TextBox x:Name="tbORDERDATE"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" 
-                     IsEnabled="False" Margin="0,72,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                     IsEnabled="False"/>
 
-            <TextBox x:Name="tbSHIPDATE" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
-                     TextChanged="tbSHIPDATE_TextChanged" Margin="0,69,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbSHIPDATE" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"/>
 
-            <TextBox x:Name="tbDELIVERYDATE" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" 
-                     TextChanged="tbDELIVERYDATE_TextChanged" Margin="0,63,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbDELIVERYDATE" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"/>
 
             <Label x:Name="lblCHECK4"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbORDERDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
-
-            <Label x:Name="lblx4"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}" 
-                   Visibility="{Binding ElementName=tbORDERDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                   Visibility="{Binding ElementName=tbORDERDATE, Path=Text, Converter={StaticResource FullToVisable}}"
+                   Margin="120,58,0,61"/>
 
             <Label x:Name="lblCHECK5"  Grid.Row="1" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource FullToVisable}}" 
+                   Margin="120,61,0,57"/>
 
             <Label x:Name="lblx5"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                   Visibility="{Binding ElementName=tbSHIPDATE, Path=Text, Converter={StaticResource EmptyToVisable}}"
+                   Margin="120,61,0,57"/>
 
             <Label x:Name="lblCHECK6"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource FullToVisable}}" 
+                   Margin="120,59,0,59"/>
 
             <Label x:Name="lblx6"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource EmptyToVisable}}" Margin="130,57,0,61" Grid.RowSpan="2"/>
+                   Visibility="{Binding ElementName=tbDELIVERYDATE, Path=Text, Converter={StaticResource EmptyToVisable}}" 
+                   Margin="120,59,0,59"/>
         </Grid>
 
         <Button x:Name="btnUPDATE"  Content="UPDATE" HorizontalAlignment="Left" Margin="366,375,0,0" VerticalAlignment="Top" 

@@ -1,20 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-using System;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace PL.Order
 {
@@ -37,20 +21,6 @@ namespace PL.Order
             tbSHIPDATE.Text = order.ShipDate.ToString();
             tbDELIVERYDATE.Text = order.DeliveryDate.ToString();
 
-
-           
-
-
-            ///allowing changes only in the places that are connected to the manager
-            tbID.IsEnabled = false;
-            tbcNAME.IsEnabled = false;
-            tbADDRESS.IsEnabled = false;
-            tbORDERDATE.IsEnabled = false;
-
-            lblx1.Visibility = Visibility.Hidden;
-            lblx2.Visibility = Visibility.Hidden;
-            lblx3.Visibility = Visibility.Hidden;
-            lblx4.Visibility = Visibility.Hidden;
             lblx5.Visibility = Visibility.Hidden;
             lblx6.Visibility = Visibility.Hidden;
         }
@@ -60,7 +30,16 @@ namespace PL.Order
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            if (tbSHIPDATE.Text == "" || tbSHIPDATE.Text == " ")
+            {
+                MessageBox.Show("Error - Ship date box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (tbDELIVERYDATE.Text == "" || tbDELIVERYDATE.Text == " ")
+            {
+                MessageBox.Show("Error - Delivery box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             ///if pre checks are valid put data in the product and send that to previous layers check.
             BO.Order order = new BO.Order()
@@ -105,56 +84,5 @@ namespace PL.Order
                 MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        private void tbID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tbcNAME_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tbADDRESS_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tbORDERDATE_TextChanged(object sender, TextChangedEventArgs e)
-        {
-       
-        }
-
-        private void tbSHIPDATE_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //    if (lblCHECK2 is null || lblx2 is null)
-            //        return;
-            //    if (valid check)
-            //    {
-            //        lblCHECK2.Visibility = Visibility.Hidden;
-            //        lblx2.Visibility = Visibility.Visible;
-            //        return;
-            //    }
-            //    lblx2.Visibility = Visibility.Hidden;
-            ///    lblCHECK2.Visibility = Visibility.Visible;
-        }
-
-        private void tbDELIVERYDATE_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //    if (lblCHECK3 is null || lblx3 is null)
-            //        return;
-            //    if (valid check)
-            //    {
-            //        lblCHECK3.Visibility = Visibility.Hidden;
-            //        lblx3.Visibility = Visibility.Visible;
-            //        return;
-            //    }
-            //    lblx3.Visibility = Visibility.Hidden;
-            //    lblCHECK3.Visibility = Visibility.Visible;
-        }
     }
-}
-
-
-    ///what more needs to b done?  v x labels for ship and delivery date only and checks about the valid data 
+} 

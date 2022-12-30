@@ -252,6 +252,9 @@ namespace DalTest
             Console.WriteLine("Enter the description of the product:");
             string str = Console.ReadLine()!;
             TheProduct.Description = str;
+            Console.WriteLine("Enter the imege linqe of the product:");
+            str = Console.ReadLine()!;
+            TheProduct.Imege = str;
         }
 
         void OrderSwitch()

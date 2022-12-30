@@ -5,9 +5,14 @@ namespace BlTest
     internal class Program
     {
         private static BlApi.IBl? blApi = BlApi.Factory.Get();
-        private static BO.Cart cart = new BO.Cart 
-        { CustomerAddress = " ", CustomerEmail = " ", CustomerName = " ", 
-            TotalPrice = 0, Items = null};
+        private static BO.Cart cart = new BO.Cart
+        {
+            CustomerAddress = " ",
+            CustomerEmail = " ",
+            CustomerName = " ",
+            TotalPrice = 0,
+            Items = null
+        };
         static void Main(string[] args)
         {
             BO.Choice choice = new BO.Choice();
@@ -124,7 +129,7 @@ namespace BlTest
         /// a function that makes a product by the input 
         /// </summary>
         /// <param name="TheProduct"></param>
-       static void creatProduct(ref BO.Product TheProduct)
+        static void creatProduct(ref BO.Product TheProduct)
         {
             Console.WriteLine("Enter the product details:");
             Console.WriteLine("Enter the name of the product: ");
@@ -158,7 +163,7 @@ namespace BlTest
             if (cat is BO.Category.Clothing)
             {
                 BO.Clothing c = new BO.Clothing();
-                string SkirtsAndDress = g is BO.Gender.Women or BO.Gender.Girls ? 
+                string SkirtsAndDress = g is BO.Gender.Women or BO.Gender.Girls ?
 @"9: Skirts
 10: Dresses" :
 "";
@@ -190,7 +195,7 @@ namespace BlTest
             else
             {
                 BO.Shoes s = new BO.Shoes();
-                string Heels = g is BO.Gender.Women ? 
+                string Heels = g is BO.Gender.Women ?
 @"4: Heels" :
 "";
                 Console.WriteLine($@"Enter the Shoe's type:
@@ -343,7 +348,7 @@ namespace BlTest
                             cart.Items.Remove(orderItem);
                         }
                         else
-                            throw new BO.NonFoundObjectBo(); 
+                            throw new BO.NonFoundObjectBo();
                         Console.WriteLine("The cart after the deletion:");
                         Console.WriteLine(string.Join("\n", cart.Items));
                         break;
