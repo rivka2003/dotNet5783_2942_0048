@@ -57,6 +57,10 @@ namespace BO
         /// The Description of the product
         /// </summary>
         /// <returns></returns>
+        public string? Imege { get; set; }
+        /// <summary>
+        /// The Imege of the product
+        /// </summary>
         public override string ToString()
         {
             string str = Category is BO.Category.Clothing ?
@@ -75,6 +79,7 @@ Description: {Description}
 Gender: {Gender}
 Color: {Color}
 {str}
+{Imege}
 ";
         }
     }

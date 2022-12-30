@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
         Title="OrderTrackingWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="/Order/Image9.png"/>
+    </Window.Background>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Order/Image6.png"/>
-        </Grid.Background>
 
         <Label x:Name="lblID" Content="Enter order's ID:" HorizontalAlignment="Left" Margin="111,95,0,0" VerticalAlignment="Top" FontSize="24"/>
         <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="354,102,0,0" VerticalAlignment="Top" Width="213" FontSize="24"  PreviewTextInput="PreviewTextInputDigitsIDInStock" TextChanged="tbID_TextChanged"/>

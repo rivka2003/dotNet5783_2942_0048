@@ -23,6 +23,10 @@ namespace BO
         /// <summary>
         /// The total price of the cart
         /// </summary>
+        public string? Imege { get; set; }
+        /// <summary>
+        /// The Imege of the product
+        /// </summary>
         public double TotalPrice { get; set; }
         public override string ToString() => this.ToStringProperty();
     }

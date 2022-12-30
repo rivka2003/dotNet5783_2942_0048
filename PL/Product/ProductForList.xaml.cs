@@ -1,4 +1,5 @@
-﻿using PL.Product;
+﻿using PL.Carts;
+using PL.Product;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,8 @@ namespace PL
     /// </summary>
     public partial class ProductForList : Window
     {
+        private bool isContentVisible = false;
+
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
         private readonly IEnumerable<BO.ProductForList> productForLists;
@@ -25,8 +28,9 @@ namespace PL
             InitializeComponent();
 
             this.bl = bl;
-            productsLv.ItemsSource = bl.Product.GetAll();
+            productsLv.DataContext = bl.Product.GetAll();
             productForLists = bl.Product.GetAll()!;
+
 
             ///resets the combo boxes options
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
@@ -82,7 +86,7 @@ namespace PL
             SizeCB.SelectedIndex = 0;
         }
 
-        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null)
+        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
         {
             foreach (T item in Collection)
             {
@@ -102,13 +106,13 @@ namespace PL
         {
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
-                productsLv.ItemsSource = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                productsLv.DataContext = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
                 item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
                 item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem);
             }
             else
             {
-                productsLv.ItemsSource = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                productsLv.DataContext = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
                 item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
                 item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem);
             }
@@ -123,7 +127,7 @@ namespace PL
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
             new ProductWindow(ID).ShowDialog();
-            productsLv.ItemsSource = bl!.Product.GetAll();
+            productsLv.DataContext = bl!.Product.GetAll();
         }
 
         /// <summary>
@@ -134,7 +138,7 @@ namespace PL
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow(bl!).ShowDialog();
-            productsLv.ItemsSource = bl!.Product.GetAll();
+            productsLv.DataContext = bl!.Product.GetAll();
         }
 
         /// <summary>
@@ -144,7 +148,21 @@ namespace PL
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productsLv.ItemsSource = productForLists.Select(item => item);
+            productsLv.DataContext = productForLists.Select(item => item);
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            isContentVisible = !isContentVisible;
+            Labels.Visibility = isContentVisible ? Visibility.Visible : Visibility.Collapsed;
+            ComboBoxes.Visibility = isContentVisible ? Visibility.Visible : Visibility.Collapsed;
+            chooseB.Visibility = isContentVisible ? Visibility.Visible : Visibility.Collapsed;
+            clearB.Visibility = isContentVisible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void Cart_Button_Click(object sender, RoutedEventArgs e)
+        {
+            new CartWindow().ShowDialog();
         }
     }
 }

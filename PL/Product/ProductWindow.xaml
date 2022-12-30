@@ -46,6 +46,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="inGridOne" Grid.Column="0">
@@ -65,7 +66,7 @@
 
             <Label x:Name="lblID" Content="ID:" Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblNAME" Content="Name:" Width="46" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="lblNAME" Content="Name:" Grid.Row="1" Grid.Column="0"/>
 
             <Label x:Name="lblPRICE" Content="Price:" Grid.Row="2" Grid.Column="0"/>
 
@@ -80,7 +81,7 @@
                      Grid.Row="2" Grid.Column="1" MaxLength="8"/>
 
             <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" 
-                     MaxLength="8" TextChanged="tbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+                     MaxLength="8" TextChanged="TbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
 
             <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" 
                      Grid.Row="3" Grid.Column="1" MaxLength="8"/>
@@ -146,10 +147,10 @@
 
             <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0"/>
 
-            <ComboBox x:Name="cbGENDER" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="0" 
+            <ComboBox x:Name="cbGENDER" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="0" 
                       Grid.Column="1"/>
 
-            <ComboBox x:Name="cbCATEGORY" SelectionChanged="cbCATEGORY_SelectionChanged" Grid.Row="1" 
+            <ComboBox x:Name="cbCATEGORY" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="1" 
                       Grid.Column="1"/>
 
             <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1"/>
@@ -159,11 +160,12 @@
             <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1"/>
 
             <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" 
-                    VerticalAlignment="Top" Height="34" Width="68" Click="btnSAVE_Click" Grid.Row="5" 
+                    VerticalAlignment="Top" Height="34" Width="68" Click="BtnSAVE_Click" Grid.Row="5" 
                     Foreground="Red"/>
         </Grid>
 
         <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
                VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
+        <Image Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top" Width="201"/>
     </Grid>
 </Window>

@@ -1,24 +1,23 @@
-﻿using PL.Order;
-using System.Collections.Generic;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using PL.Order;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ProductForList.xaml
+    /// Interaction logic for OrderForList.xaml
     /// </summary>
     public partial class OrderForList : Window
     {
         private BlApi.IBl? bl = BlApi.Factory.Get();
 
-        private IEnumerable<BO.OrderForList> orderForLists;
         public OrderForList(BlApi.IBl bl)
         {
             InitializeComponent();
 
             this.bl = bl;
-            var v = bl.Order.GetAll();
-            ordersLv.ItemsSource = bl.Order.GetAll();
+            ordersLv.ItemsSource = bl.Order.GetAll();///to change name in xaml
         }
 
         /// <summary>
@@ -32,7 +31,5 @@ namespace PL
             new OrderWindow(ID).ShowDialog();
             ordersLv.ItemsSource = bl!.Order.GetAll();
         }
-
-
     }
 }

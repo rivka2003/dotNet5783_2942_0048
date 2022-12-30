@@ -1,4 +1,6 @@
 ﻿
+using BO;
+
 namespace BlApi
 {
     public interface IProduct
@@ -37,5 +39,8 @@ namespace BlApi
         /// </summary>
         /// <param name="UpdeteProduct"></param>
         public BO.Product UpdateProduct(BO.Product UpdeteProduct);
+
+        public IEnumerable<IGrouping<Gender, ProductItem?>> GrupingByChoos(BO.Gender gender, BO.Cart cart);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BO;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using PL.Order;
+using PL.Product;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -43,6 +44,18 @@ namespace PL
 
         }
 
+        private void BTManager_Click(object sender, RoutedEventArgs e)
+        {
+            new Password().ShowDialog();
 
+            BTManager.Visibility = Visibility.Hidden;
+            BTOrders.Visibility = Visibility.Visible;
+            BTProducts.Visibility = Visibility.Visible;
+        }
+
+        private void BTProductsView_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

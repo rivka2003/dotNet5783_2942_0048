@@ -19,10 +19,27 @@ namespace PL
     /// </summary>
     public partial class Password : Window
     {
+        private string PasswordText;
         public Password()
         {
             InitializeComponent();
             
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            if (PasswordText == "Fation")
+                Close();
+            else
+            {
+                PasswordText = "";
+                lblNotCorrect.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void PasswordText_textBox(object sender, RoutedEventArgs e)
+        {
+            PasswordText = password.Password;
         }
     }
 }
