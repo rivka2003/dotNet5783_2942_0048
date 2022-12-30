@@ -6,4 +6,3 @@
 		<xml class="DalXml" namespace="Dal" project="DalXml"></xml>
 	</dal-packages>
 </config>
-

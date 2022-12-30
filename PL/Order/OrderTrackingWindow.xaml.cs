@@ -78,7 +78,7 @@ namespace PL.Order
 
             catch (BO.NonFoundObjectBo ex)
             {
-                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }

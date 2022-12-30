@@ -21,12 +21,14 @@ namespace PL
 
         private void BTOrders_Click(object sender, RoutedEventArgs e)
         {
+            new Password().ShowDialog();
             Close();
             new OrderForList(bl!).ShowDialog();
         }
 
         private void BTProducts_Click(object sender, RoutedEventArgs e)
         {
+            new Password("ProductForList").ShowDialog();
             Close();
             new ProductForList(bl!).ShowDialog();
         }

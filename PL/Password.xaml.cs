@@ -19,8 +19,9 @@ namespace PL
     /// </summary>
     public partial class Password : Window
     {
-        public Password()
+        public Password(string e)
         {
+
             InitializeComponent();
             
         }
