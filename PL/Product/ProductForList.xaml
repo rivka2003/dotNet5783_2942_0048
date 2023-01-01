@@ -37,7 +37,7 @@
     </Window.Resources>
 
     <Window.Background>
-        <ImageBrush ImageSource="/Image2.png"/>
+        <ImageBrush ImageSource="/Image2.png" Opacity="0.5"/>
     </Window.Background>
 
     <Grid>
@@ -48,23 +48,19 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="secondInGrid" Grid.ColumnSpan="2">
-            <Button x:Name="Cart" Content="🛒" Click="Cart_Button_Click" 
+            <Button x:Name="Cart" Content="🛒" Click="Cart_Button_Click" Visibility="Hidden" 
                 FontSize="20" 
                 HorizontalAlignment="Left" RenderTransformOrigin="0.377,-0.026"/>
         </Grid>
 
         <ListView x:Name="productsLv" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                  ScrollViewer.CanContentScroll="True" ItemsSource="{Binding}" ItemTemplate="{StaticResource oneProduct}"
+                  ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
+                 
                   FontFamily="Elephant" Background="{x:Null}" Grid.Row="1" Margin="0,0,0,10" Foreground="White"
                   MouseDoubleClick="Update_DoubleClick">
-
-            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource oneProduct}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <!--<ItemsPanelTemplate>
+                <WrapPanel/>
+            </ItemsPanelTemplate>-->
         </ListView>
 
         <Grid x:Name="InGrid" Height="auto" Grid.Column="1" Width="auto" Grid.Row="1">
@@ -89,8 +85,9 @@
                     <ComboBox x:Name="TypeCB" Height="30" ItemsSource="{Binding ElementName=CategoryCB, Path=SelectedItem, 
                         Converter={StaticResource ChoosByCategory}}"/>
 
-                    <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{MultiBinding BindingGroupName= CategoryCB, , Path=SelectedItem,
-                        Converter={StaticResource ChoosByCategory}}" />
+                    <ComboBox x:Name="SizeCB" Height="30"/> 
+                    <!--ItemsSource="{MultiBinding BindingGroupName= CategoryCB, , Path=SelectedItem,
+                        Converter={StaticResource ChoosByCategory}}"--> 
 
                     <ComboBox x:Name="ColorCB" Height="30"/>
                 </StackPanel>
@@ -121,13 +118,13 @@
                             Click="ClearB" Grid.Row="6" Grid.Column="1" Foreground="Red" Visibility="Hidden"/>
 
                 <Button x:Name="Show"  Content="🔍" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                            FontSize="20" Click="Show_Click" Grid.Row="0" Grid.Column="1" Foreground="White"/>
+                            FontSize="20" Click="Show_Click" Grid.Row="0" Grid.Column="1" Foreground="#FFB20308"/>
             </Grid>
         </Grid>
 
 
         <Button x:Name="AddProductWindoe" Content="Add new product" Click="Add_Product_Button_Click" 
-                FontSize="25" Grid.Row="1" Foreground="Red" VerticalAlignment="Bottom" 
+                FontSize="25" Grid.Row="1" Foreground="#FFB20308" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" Margin="0,0,35,43"/>
     </Grid>
 </Window>

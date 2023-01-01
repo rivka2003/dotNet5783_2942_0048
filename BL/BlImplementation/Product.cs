@@ -102,7 +102,7 @@ namespace BlImplementation
                 throw new BO.NotValid("Error - Price can't be a negative number!");
             if (productBo.InStock < 0)
                 throw new BO.NotValid("Error - Amount in stock can't be a negative number!");
-            if (productBo.Imege == " ")
+            if (productBo.Image == " ")
                 throw new BO.NotValid("Error - Imege box can't be empty!");
 
             DO.Product productDo = new();
@@ -158,7 +158,7 @@ namespace BlImplementation
                 throw new BO.NotValid("Error - Price can't be a negative number!");
             if (updateProduct.InStock < 0)
                 throw new BO.NotValid("Error - Amount in stock can't be a negative number!");
-            if (updateProduct.Imege == " ")
+            if (updateProduct.Image == " ")
                 throw new BO.NotValid("Error - Imege box can't be empty!");
 
             DO.Product productDo;

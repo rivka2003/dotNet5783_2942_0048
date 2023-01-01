@@ -10,6 +10,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Image1.png"/>
         </Grid.Background>
-        <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fashion!" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="76" Width="708" Click="Products_Button_Click" Margin="0,167,0,0" FontFamily="Elephant" FontSize="36" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fashion!" 
+                Click="Products_Button_Click" FontSize="36" Foreground="White"/>
     </Grid>
 </Window>

@@ -7,15 +7,14 @@ namespace DalTest
         /// <summary>
         /// Creating variables to get access to the CRUD
         /// </summary>
-        private static IDal? dalList = Factory.Get();
-        static readonly Random random = new Random(); /// for the random numbers
-        static void Main(string[] args)
+        private readonly static IDal? dalList = Factory.Get();
+        static void Main()
         {
-            Choice choice = new Choice();
+            Choice choice = new ();
             ///A loop that run as long as the requested value for exiting the main program was not received
             do
             {
-                Program program = new Program();
+                Program program = new ();
                 Console.WriteLine($@"Enter your Choice:
 0: Exit
 1: Product
@@ -47,8 +46,8 @@ namespace DalTest
         /// </summary>
         void ProductSwitch()
         {
-            Product theProduct = new Product();
-            OrderChoice choice2 = new OrderChoice();
+            Product theProduct = new ();
+            OrderChoice choice2 = new ();
             do
             {
                 Console.WriteLine($@"Enter your Choice:
@@ -65,7 +64,7 @@ namespace DalTest
                     case OrderChoice.Exit: /// A case to exit the order back to the main
                         return;
                     case OrderChoice.Add: // Adding a product
-                        creatProduct(ref theProduct);
+                        CreatProduct(ref theProduct);
                         Console.WriteLine("Enter the product ID:");
                         int id;
                         /// Conversion of the received value to the desired type
@@ -113,7 +112,7 @@ namespace DalTest
                             throw new NonFoundObjectDo(ex.Message);
                         }
                         theProduct.ID = id2;
-                        creatProduct(ref theProduct);
+                        CreatProduct(ref theProduct);
                         try
                         {
                             dalList.Product.Update(theProduct);
@@ -137,7 +136,7 @@ namespace DalTest
 
         }
 
-        void creatProduct(ref Product TheProduct)
+        static void CreatProduct(ref Product TheProduct)
         {
             Console.WriteLine("Enter the product details:");
             Console.WriteLine("Enter the name of the product: ");
@@ -158,20 +157,20 @@ namespace DalTest
 1: Men
 2: Boys
 3: Girls");
-            Gender choice3 = new Gender();
+            Gender choice3 = new ();
             /// Conversion of the received value to the desired type
             Gender.TryParse(Console.ReadLine(), out choice3);
             TheProduct.Gender = choice3;
             Console.WriteLine($@"Enter the Category of the product:
 0: Clothing
 1: Shoes");
-            Category choice4 = new Category();
+            Category choice4 = new ();
             /// Conversion of the received value to the desired type
             Category.TryParse(Console.ReadLine(), out choice4);
             TheProduct.Category = choice4;
             if (choice4 is (Category)0)
             {
-                Clothing c = new Clothing();
+                Clothing c = new ();
                 string SkirtsAndDress = choice3 is Gender.Women or Gender.Girls ? @"
 9: Skirts
 10: Dresses" :
@@ -196,14 +195,14 @@ namespace DalTest
 2: M
 3: L
 4: XL");
-                SizeClothing sc = new SizeClothing();
+                SizeClothing sc = new ();
                 /// Conversion of the received value to the desired type
                 SizeClothing.TryParse(Console.ReadLine(), out sc);
                 TheProduct.SizeClothing = sc;
             }
             else
             {
-                Shoes s = new Shoes();
+                Shoes s = new ();
                 string Heels = choice3 is Gender.Women ? @"
 4: Heels" :
 "";
@@ -245,7 +244,7 @@ namespace DalTest
 13: Gold
 14: Silver
 15: Colored");
-            Color cl = new Color();
+            Color cl = new ();
             /// Conversion of the received value to the desired type
             Color.TryParse(Console.ReadLine(), out cl);
             TheProduct.Color = cl;
@@ -254,13 +253,13 @@ namespace DalTest
             TheProduct.Description = str;
             Console.WriteLine("Enter the imege linqe of the product:");
             str = Console.ReadLine()!;
-            TheProduct.Imege = str;
+            TheProduct.Image = str;
         }
 
         void OrderSwitch()
         {
-            Order theOrder = new Order();
-            OrderChoice choice2 = new OrderChoice();
+            Order theOrder = new ();
+            OrderChoice choice2 = new ();
             do
             {
                 Console.WriteLine($@"Enter your Choice:
@@ -277,7 +276,7 @@ namespace DalTest
                     case OrderChoice.Exit:/// A case to exit the order back to the main
                         return;
                     case OrderChoice.Add: ///add a new order item
-                        creatOrder(ref theOrder);
+                        CreatOrder(ref theOrder);
                         Console.WriteLine("The order ID is:");
                         Console.WriteLine(dalList!.Order.Add(theOrder));
                         break;
@@ -313,7 +312,7 @@ namespace DalTest
                             throw new NonFoundObjectDo(ex.Message);
                         }
                         theOrder.ID = id1;
-                        creatOrder(ref theOrder);
+                        CreatOrder(ref theOrder);
                         try
                         {
                             dalList.Order.Update(theOrder);
@@ -336,7 +335,7 @@ namespace DalTest
             } while (choice2 != 0);
         }
 
-        void creatOrder(ref Order TheOrder)
+        static void CreatOrder(ref Order TheOrder)
         {
             Console.WriteLine("Enter the order details:");
             Console.WriteLine("Enter the customer name:");
@@ -349,17 +348,17 @@ namespace DalTest
             string adress = Console.ReadLine()!;
             TheOrder.CustomerAddress = adress;
             Console.WriteLine("Enter the order date:");
-            DateTime orderDate = new DateTime();
+            DateTime orderDate = new ();
             /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out orderDate);
             TheOrder.OrderDate = orderDate;
             Console.WriteLine("Enter the shipping date:");
-            DateTime shippingDate = new DateTime();
+            DateTime shippingDate = new ();
             /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out shippingDate);
             TheOrder.ShipDate = shippingDate;
             Console.WriteLine("Enter the delivery date:");
-            DateTime deliveryDate = new DateTime();
+            DateTime deliveryDate = new ();
             /// Conversion of the received value to the desired type
             DateTime.TryParse(Console.ReadLine(), out deliveryDate);
             TheOrder.DeliveryDate = deliveryDate;
@@ -369,8 +368,8 @@ namespace DalTest
         /// </summary>
         void OrderItemSwitch()
         {
-            OrderItem theOrderItem = new OrderItem();
-            Choice3 choice3 = new Choice3();
+            OrderItem theOrderItem = new ();
+            Choice3 choice3 = new ();
             do
             {
                 Console.WriteLine($@"Enter your Choice:
@@ -388,7 +387,7 @@ namespace DalTest
                     case Choice3.Exit:///exiting from the order item function
                         return;
                     case Choice3.Add:///add a new order item
-                        creatOrderItem(ref theOrderItem);
+                        CreatOrderItem(ref theOrderItem);
                         Console.WriteLine("The order item ID is:");
                         Console.WriteLine(dalList!.OrderItem.Add(theOrderItem));
                         break;
@@ -458,7 +457,7 @@ namespace DalTest
                             throw new NonFoundObjectDo(ex.Message);
                         }
                         theOrderItem.ID = id1;
-                        creatOrderItem(ref theOrderItem);
+                        CreatOrderItem(ref theOrderItem);
                         try
                         {
                             dalList.OrderItem.Update(theOrderItem);
@@ -484,7 +483,7 @@ namespace DalTest
         /// A function that creats an orderItem
         /// </summary>
         /// <param name="TheOrderItem"></param>
-        void creatOrderItem(ref OrderItem TheOrderItem)
+        static void CreatOrderItem(ref OrderItem TheOrderItem)
         {
             Console.WriteLine("Enter the order item details:");
             Console.WriteLine("Enter the product ID:");

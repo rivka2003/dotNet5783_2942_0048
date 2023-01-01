@@ -13,7 +13,6 @@ namespace PL
     public partial class StartWindow : Window
     {
         private BlApi.IBl? bl = BlApi.Factory.Get();
-
         public StartWindow(BlApi.IBl bl)
         {
 
@@ -29,12 +28,13 @@ namespace PL
         private void BTProducts_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            new ProductForList(bl!).ShowDialog();
+            new ProductForList(bl!, true).ShowDialog();
         }
 
         private void BTNewOrder_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            new ProductForList(bl!, false).ShowDialog();
         }
 
         private void BTOrderTracking_Click(object sender, RoutedEventArgs e)
@@ -49,13 +49,16 @@ namespace PL
             new Password().ShowDialog();
 
             BTManager.Visibility = Visibility.Hidden;
-            BTOrders.Visibility = Visibility.Visible;
-            BTProducts.Visibility = Visibility.Visible;
         }
 
         private void BTProductsView_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BTCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            BTCustomer.Visibility = Visibility.Hidden;
         }
     }
 }

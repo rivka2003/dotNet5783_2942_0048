@@ -57,7 +57,7 @@ namespace BO
         /// The Description of the product
         /// </summary>
         /// <returns></returns>
-        public string? Imege { get; set; }
+        public string? Image { get; set; }
         /// <summary>
         /// The Imege of the product
         /// </summary>
@@ -79,7 +79,7 @@ Description: {Description}
 Gender: {Gender}
 Color: {Color}
 {str}
-{Imege}
+{Image}
 ";
         }
     }

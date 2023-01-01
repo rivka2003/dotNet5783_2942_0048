@@ -11,12 +11,12 @@
 
         <Style TargetType="Label" BasedOn="{StaticResource commonStyle}">
             <Setter Property="FontFamily" Value="Elephant"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
 
         <Style TargetType="Button" BasedOn="{StaticResource commonStyle}">
             <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontFamily" Value="Elephant"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="BorderBrush" Value="{x:Null}"/>
