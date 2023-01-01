@@ -32,7 +32,7 @@
             </Grid>
         </DataTemplate>
 
-        <local:ChoosByCategory x:Key="ChoosByCategory"/>
+        <!--<local:ChoosByCategory x:Key="ChoosByCategory"/>-->
 
     </Window.Resources>
 
@@ -86,11 +86,13 @@
 
                     <ComboBox x:Name="CategoryCB" SelectionChanged="CategoryCB_SelectionChanged" Height="30"/>
 
-                    <ComboBox x:Name="TypeCB" Height="30" ItemsSource="{Binding ElementName=CategoryCB, Path=SelectedItem, 
-                        Converter={StaticResource ChoosByCategory}}"/>
+                    <ComboBox x:Name="TypeCB" Height="30" />
+                    <!--ItemsSource="{Binding ElementName=CategoryCB, Path=SelectedItem, 
+                        Converter={StaticResource ChoosByCategory}}"-->
 
-                    <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{MultiBinding BindingGroupName= CategoryCB, , Path=SelectedItem,
-                        Converter={StaticResource ChoosByCategory}}" />
+                    <ComboBox x:Name="SizeCB" Height="30" />
+                     <!--ItemsSource="{MultiBinding BindingGroupName= CategoryCB, , Path=SelectedItem,
+                        Converter={StaticResource ChoosByCategory}}" -->
 
                     <ComboBox x:Name="ColorCB" Height="30"/>
                 </StackPanel>

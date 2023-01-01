@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Carts\g.png" />
     <None Remove="Image1.png" />
     <None Remove="Image2.png" />
     <None Remove="Image4.png" />
@@ -43,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Carts\g.png" />
     <Resource Include="Image1.png" />
     <Resource Include="Image2.png" />
     <Resource Include="Image4.png" />

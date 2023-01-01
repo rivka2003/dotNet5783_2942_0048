@@ -85,8 +85,8 @@ namespace BlImplementation
                         throw new BO.NotValid("Error - Customer address box can't be empty!");
                     if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
                         throw new BO.NotValid("Error - The email address is not valid!");
-                    if (cart.Imege == " ")
-                        throw new BO.NotValid("Error - Imege box can't be empty!");
+                    //if (cart.Imege == " ")
+                    //    throw new BO.NotValid("Error - Imege box can't be empty!");
 
                     BO.Order orderBo = new BO.Order()///initialize with basic values
                     {
