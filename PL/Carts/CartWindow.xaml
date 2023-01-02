@@ -6,9 +6,100 @@
         xmlns:local="clr-namespace:PL.Carts"
         mc:Ignorable="d"
         Title="CartWindow" Height="450" Width="800">
-    <Grid>
-        <ListView >
-            
-        </ListView>
+    <Window.Resources>
+
+        <DataTemplate x:Key="oneOrderItem" DataType="local: OrderItem">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Height="150"  Width="125" BorderBrush="Black">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=Image}" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+
+                <Label Width="200" Content="{Binding Path=ID}" 
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="-52,56,0,0" VerticalAlignment="Top"/>
+
+                <Label Width="200" Content="{Binding Path=Name}" 
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="-50,89,0,0" VerticalAlignment="Top"/>
+
+                <Label Width="200" Content="{Binding Path=ProductID}" 
+                       HorizontalContentAlignment="Center" Margin="-15,116,0,108" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+
+                <Label Content="{Binding Path=Price}" 
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.644"/>
+
+                <Label Width="200" Content="{Binding Path=AMOUNT}" 
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="-15,186,0,0" VerticalAlignment="Top"/>
+
+                <Label Width="200" Content="{Binding Path=TotalPrice}" 
+                       HorizontalContentAlignment="Center" Margin="-15,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+
+                <ComboBox x:Name="Amount"   HorizontalAlignment="Left" Margin="172,190,0,0" VerticalAlignment="Top" 
+                  Width="43" Height="31" SelectedIndex="0" BorderBrush="White">
+                    <ComboBox.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ComboBox.Background>
+                </ComboBox>
+
+                <Button x:Name="btnCHANGEAMOUNT" Content="change amount" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="85,0,0,4" Foreground="#FF7B2727" Click="btnCHANGEAMOUNT_Click" />
+
+            </Grid>
+        </DataTemplate>
+
+    </Window.Resources>
+
+
+    <Grid RenderTransformOrigin="0.503,0.51">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Order/Image8.png" Opacity="0.515"/>
+        </Grid.Background>
+
+
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="productView" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  Grid.Column="1" Background="{x:Null}" SelectionChanged="ListView_SelectionChanged"
+                  Grid.RowSpan="8" FontSize="22" Grid.ColumnSpan="2" ItemTemplate="{StaticResource oneOrderItem}" Margin="0,10,0,8" Grid.Row="1"/>
+
+
+        <Label Content="Customer name:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="1"/>
+        <Label Content="Customer email:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="2"/>
+        <Label Content="Customer address:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="3"/>
+        <Label Content="Total price:" HorizontalAlignment="Left" Margin="26,10,0,0" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="0.471,0.61"/>
+        <Button x:Name="btnORDERMAKING" Content="Make the order" HorizontalAlignment="Left" Margin="66,14,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="16" Click="Button_Click"/>
+        <TextBlock x:Name="tbNAME" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Height="26" Width="85"/>
+        <TextBlock x:Name="tbEMAIL" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Height="25" Width="85"/>
+        <TextBlock x:Name="tbADDRESS" HorizontalAlignment="Left" Margin="152,13,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="80"/>
+        <TextBlock x:Name="tbPRICE" HorizontalAlignment="Left" Margin="131,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Height="21" Width="83"/>
+        <Label Grid.Column="1" Content="Cart" HorizontalAlignment="Left" Margin="73,10,0,0" Foreground="#FF8F2828" FontSize="22" VerticalAlignment="Top"/>
+
+
     </Grid>
 </Window>
