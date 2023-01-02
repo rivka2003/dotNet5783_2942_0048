@@ -55,7 +55,7 @@ namespace XMLPrapareFiles
                     List<T> list;
                     XmlSerializer x = new (typeof(List<T>));
                     FileStream file = new (filePath, FileMode.Open);
-                    list = (List<T?>)x.Deserialize(file)!;
+                    list = (List<T?>)x.Deserialize(file);
                     file.Close();
                     return list!;
                 }

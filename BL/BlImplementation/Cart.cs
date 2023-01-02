@@ -7,7 +7,7 @@ namespace BlImplementation
     internal class Cart : ICart
     {
         public DalApi.IDal? Dal = DalApi.Factory.Get();
-        private IProduct product = new Product();
+        private readonly IProduct product = new Product();
         public Cart(IProduct Product)
         {
             product = Product;
@@ -67,9 +67,9 @@ namespace BlImplementation
         {
             try
             {
-                BO.Product productBo = new BO.Product();
+                BO.Product productBo = new ();
 
-                for (int i = 0; i < cart.Items!.Count(); i++)///for each item
+                for (int i = 0; i < cart.Items!.Count; i++)///for each item
                 {
                     productBo = product.ProductDetailsForManager(cart.Items![i]!.ProductID);
 
@@ -88,7 +88,7 @@ namespace BlImplementation
                     //if (cart.Imege == " ")
                     //    throw new BO.NotValid("Error - Imege box can't be empty!");
 
-                    BO.Order orderBo = new BO.Order()///initialize with basic values
+                    BO.Order orderBo = new ()///initialize with basic values
                     {
                         Status = BO.OrderStatus.Confirmed,
                         OrderDate = DateTime.Now,
@@ -99,13 +99,13 @@ namespace BlImplementation
                     };
 
                     orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
-                    DO.Order orderDo = new DO.Order();
+                    DO.Order orderDo = new ();
                     orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
 
                     int ID;
                     ID = Dal!.Order.Add(orderDo);
 
-                    BO.OrderItem orderItemBo = new BO.OrderItem()
+                    BO.OrderItem orderItemBo = new ()
                     {
                         ID = ID,
                         Name = cart.CustomerName,
@@ -114,11 +114,11 @@ namespace BlImplementation
                         Price = cart.Items[i]!.Price,
                         TotalPrice = cart.Items[i]!.TotalPrice
                     };
-                    DO.OrderItem orderItemDo = new DO.OrderItem();
+                    DO.OrderItem orderItemDo = new ();
                     orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
                     Dal.OrderItem.Add(orderItemDo);
 
-                    DO.Product productDo = new DO.Product();
+                    DO.Product productDo = new ();
 
                     productDo = Dal.Product.RequestByPredicate(product => product?.ID == cart.Items[i]!.ProductID);
 
@@ -145,32 +145,28 @@ namespace BlImplementation
         {
             if (!cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
                 throw new BO.NonFoundObjectBo("Error - The product does not exist");
-            for (int i = 0; i < cart.Items.Count(); i++)///go over all the items list in the cart
+
+            int index = cart.Items.FindIndex(cart => cart!.ProductID == productId);
+
+            int diffrence = Amount - cart.Items[index]!.Amount;///saving the difference between the old and new amount
+            if (diffrence != 0)///if its just the same skip the process and no changes needed
             {
-                if (cart.Items[i]!.ProductID == productId)///search the product
+                if (Amount == 0)///new amount empty the products
                 {
-                    int diffrence = Amount - cart.Items[i]!.Amount;///saving the difference between the old and new amount
-                    if (diffrence != 0)///if its just the same skip the process and no changes needed
-                    {
-                        if (Amount == 0)///new amount empty the products
-                        {
-                            cart.TotalPrice -= cart.Items[i]!.TotalPrice;
-                            cart.Items.Remove(cart.Items[i]);
-                        }
-                        else if (diffrence < 0)///new amount is smaller
-                        {
-                            cart.Items[i]!.Amount += diffrence; // edding a negitiv number
-                            cart.Items[i]!.TotalPrice += cart.Items[i]!.Price * diffrence;
-                            cart.TotalPrice += cart.Items[i]!.Price * diffrence;
-                        }
-                        else///new amount is larger
-                        {
-                            cart.Items[i]!.Amount += diffrence;
-                            cart.Items[i]!.TotalPrice = cart.Items[i]!.Price * cart.Items[i]!.Amount;
-                            cart.TotalPrice += cart.Items[i]!.ProductID * diffrence;
-                        }
-                    }
-                    break;
+                    cart.TotalPrice -= cart.Items[index]!.TotalPrice;
+                    cart.Items.Remove(cart.Items[index]);
+                }
+                else if (diffrence < 0)///new amount is smaller
+                {
+                    cart.Items[index]!.Amount += diffrence; // edding a negitiv number
+                    cart.Items[index]!.TotalPrice += cart.Items[index]!.Price * diffrence;
+                    cart.TotalPrice += cart.Items[index]!.Price * diffrence;
+                }
+                else///new amount is larger
+                {
+                    cart.Items[index]!.Amount += diffrence;
+                    cart.Items[index]!.TotalPrice = cart.Items[index]!.Price * cart.Items[index]!.Amount;
+                    cart.TotalPrice += cart.Items[index]!.ProductID * diffrence;
                 }
             }
 

@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="StartWindow" Height="450" Width="800">
+    
     <Window.Background>
-        <ImageBrush ImageSource="/Image4.png"/>
+        <ImageBrush ImageSource="/Image4.png" Opacity="0.50"/>
     </Window.Background>
 
     <Window.Resources>
-
+        <local:HiddenToVisible x:Key="HiddenToVisible"/>
     </Window.Resources>
 
     <Grid>
@@ -23,30 +24,32 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
 
-        <Button x:Name="BTOrders"  Grid.Column="0" Grid.Row="1" Content="Orders" FontSize="40" 
-                Click="BTOrders_Click" Visibility="Hidden"/>
+        <Button x:Name="BTOrders" Content="Orders" FontSize="40" 
+                Click="BTOrders_Click" Visibility="{Binding ElementName=BTManager, Path=Visibility, 
+            Converter={ StaticResource HiddenToVisible}}" />
 
-        <Button x:Name="BTProducts"  Grid.Column="0" Grid.Row="2" Content="Products" Click="BTProducts_Click" 
-                FontSize="40" Visibility="Hidden"/>
+        <Button x:Name="BTProducts" Grid.Row="1" Content="Products" Click="BTProducts_Click" 
+                FontSize="40" Visibility="{Binding ElementName=BTManager, Path=Visibility, 
+            Converter={ StaticResource HiddenToVisible}}"/>
 
         <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Order tracking" Click="BTOrderTracking_Click" 
-                FontSize="40" Grid.Row="1"/>
-        
-        <Button x:Name="BTNewOrder"  Grid.Column="1" Content="New order" Click="BTNewOrder_Click" 
-                FontSize="40" Grid.Row="2"/>
+                FontSize="40" Visibility="{Binding ElementName=BTCustomer, Path=Visibility, 
+            Converter={ StaticResource HiddenToVisible}}"/>
 
-        <Button x:Name="BTProductsView"  Grid.Column="1" Content="Products" Click="BTProductsView_Click" 
-                FontSize="40" Grid.Row="3"/>
+        <Button x:Name="BTNewOrder"  Grid.Column="1" Content="New order" Click="BTNewOrder_Click" 
+                FontSize="40" Grid.Row="1" Visibility="{Binding ElementName=BTCustomer, Path=Visibility, 
+            Converter={ StaticResource HiddenToVisible}}"/>
 
         <Button x:Name="BTManager" Content="Manager" Click="BTManager_Click" 
-                FontSize="55" Grid.Row="1" Foreground="#FF9D2424" Margin="0,73,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
-        
-        <Label x:Name="lblCustomer" Grid.Column="1" Content="Customer" FontSize="55"
-               Foreground="#FF9D2424"/>
+                FontSize="55" Foreground="#FF9D2424" Margin="0,180,0,0"
+                Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+        <Button x:Name="BTCustomer" Content="Customer" Click="BTCustomer_Click" 
+                FontSize="55" Foreground="#FF9D2424"
+                Grid.RowSpan="2" Grid.Column="1" Margin="0,180,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

@@ -14,6 +14,8 @@ namespace PL
 
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
+        private static BO.Cart cart = new();
+
         private readonly IEnumerable<BO.ProductForList> productForLists;
 
         readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
@@ -23,14 +25,23 @@ namespace PL
         readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
 
         readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
-        public ProductForList(BlApi.IBl bl)
+
+        bool isManager;
+        public ProductForList(BlApi.IBl bl, bool IsManager)
         {
             InitializeComponent();
 
+            isManager = IsManager;
             this.bl = bl;
-            productsLv.DataContext = bl.Product.GetAll();
             productForLists = bl.Product.GetAll()!;
 
+            productsLv.ItemsSource = productForLists;
+
+            if (!isManager)
+            {
+                AddProductWindoe.Visibility = Visibility.Hidden;
+                Cart.Visibility = Visibility.Visible;
+            }
 
             ///resets the combo boxes options
             GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
@@ -57,10 +68,10 @@ namespace PL
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             /// Clearing the combo box before re-adding
-            TypeCB.Items.Clear();
-            TypeCB.ItemsSource = null;
-            SizeCB.Items.Clear();
-            SizeCB.ItemsSource = null;
+            //TypeCB.Items.Clear();
+            //TypeCB.ItemsSource = null;
+            //SizeCB.Items.Clear();
+            //SizeCB.ItemsSource = null;
 
             if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             {
@@ -88,13 +99,13 @@ namespace PL
 
         private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
         {
-            foreach (T item in Collection)
-            {
-                if (predicate is null)
-                    itemCollection.Add(item);
-                else if (predicate(item))
-                    itemCollection.Add(item);
-            }
+            //foreach (T item in Collection)
+            //{
+            //    if (predicate is null)
+            //        itemCollection.Add(item);
+            //    else if (predicate(item))
+            //        itemCollection.Add(item);
+            //}
         }
 
         /// <summary>
@@ -126,8 +137,15 @@ namespace PL
         private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
-            new ProductWindow(ID).ShowDialog();
-            productsLv.DataContext = bl!.Product.GetAll();
+            if (isManager)
+            {
+                new ProductWindow(ID).ShowDialog();
+                productsLv.ItemsSource = bl!.Product.GetAll();
+            }
+            else
+            {
+                new ProductView(ID).ShowDialog();
+            }
         }
 
         /// <summary>
@@ -138,7 +156,7 @@ namespace PL
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             new ProductWindow(bl!).ShowDialog();
-            productsLv.DataContext = bl!.Product.GetAll();
+            productsLv.ItemsSource = bl!.Product.GetAll();
         }
 
         /// <summary>
@@ -148,7 +166,7 @@ namespace PL
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productsLv.DataContext = productForLists.Select(item => item);
+            productsLv.ItemsSource = productForLists.Select(item => item);
         }
 
         private void Show_Click(object sender, RoutedEventArgs e)

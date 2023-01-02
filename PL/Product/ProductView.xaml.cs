@@ -19,9 +19,25 @@ namespace PL.Product
     /// </summary>
     public partial class ProductView : Window
     {
-        public ProductView()
+        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
+        private readonly static BO.Cart cart = new ();
+        readonly int id;
+        public ProductView(int ID)
         {
             InitializeComponent();
+
+            id = ID;
+            BO.Product product = bl.Product.ProductDetailsForManager(id);
+
+            Name.Content = product.Name;
+            Description.Content = product.Description;
+            Price.Content = product.Price;
+            Amount.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        }
+
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            bl!.Cart.AddProductToCart(cart, id);
         }
     }
 }

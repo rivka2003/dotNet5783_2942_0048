@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Window.Background>
-        <ImageBrush ImageSource="/Product/Image3.png"/>
+        <ImageBrush ImageSource="/Product/Image3.png" Opacity="0.5"/>
     </Window.Background>
 
     <Window.Resources>
@@ -159,13 +159,25 @@
 
             <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1"/>
 
-            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="-35,16,0,0" 
+            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="99,26,0,0" 
                     VerticalAlignment="Top" Height="34" Width="68" Click="BtnSAVE_Click" Grid.Row="5" 
-                    Foreground="Red"/>
+                    Foreground="Red" Grid.ColumnSpan="2"/>
         </Grid>
 
         <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
                VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
-        <Image Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top" Width="201"/>
+
+        <Image x:Name="Imege" Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top"
+               Width="201"/>
+
+        <Label x:Name="lblImege" Content="Imege:" Margin="0,-4,0,0" Grid.Column="2" VerticalAlignment="Top"/>
+
+        <Label x:Name="lblCHECK6" Grid.Column="2" Margin="164,-2,0,339" 
+                   Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource FullToVisable}}"/>
+
+        <Label x:Name="lblx6" Grid.Column="2" Margin="164,0,0,337" 
+                   Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource EmptyToVisable}}"/>
     </Grid>
 </Window>
