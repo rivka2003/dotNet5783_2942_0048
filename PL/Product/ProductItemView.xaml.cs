@@ -15,29 +15,30 @@ using System.Windows.Shapes;
 namespace PL.Product
 {
     /// <summary>
-    /// Interaction logic for ProductView.xaml
+    /// Interaction logic for ProductItemView.xaml
     /// </summary>
-    public partial class ProductView : Window
+    public partial class ProductItemView : Window
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
-        private readonly static BO.Cart cart = new ();
+        private readonly static BO.Cart cart = new() { Items = new List<BO.OrderItem?>()};
         readonly int id;
-        public ProductView(int ID)
+        BO.ProductItem product = new ();
+        public ProductItemView(int ID)
         {
             InitializeComponent();
 
             id = ID;
-            BO.Product product = bl.Product.ProductDetailsForManager(id);
-
-            Name.Content = product.Name;
-            Description.Content = product.Description;
-            Price.Content = product.Price;
-            Amount.ItemsSource = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            product = bl.Product.ProductDetailsForCustomer(ID, cart);
         }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             bl!.Cart.AddProductToCart(cart, id);
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bl!.Cart.UpdateAmountProduct(cart, id, int.Parse(((TextBox)sender).Text));
         }
     }
 }

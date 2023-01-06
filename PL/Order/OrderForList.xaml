@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderForList" Height="450" Width="800">
+        Title="OrderForList" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
 
     <Window.Background>
         <ImageBrush ImageSource="/Image2.png" Opacity="0.5"/>
@@ -18,23 +19,66 @@
             <!--<ListView Name="ordersLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
             </ListView>-->
 
-            <ListView Name="ordersLv" 
-                      MouseDoubleClick="doubleClick" 
-                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
-                <!--<ListView Height="424" Width="388" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+            <ListView Name="ordersLv" MouseDoubleClick="doubleClick" FontFamily="Elephant" Foreground="White" 
+                      ItemsSource="{Binding OrderList}" >
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="100"/>
-                        
+
+                        <GridViewColumn DisplayMemberBinding="{Binding ID}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>ID</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding CustomerName}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>CustomerName</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Status}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>Status</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding AmountOfItems}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>AmountOfItems</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding TotalPrice}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>TotalPrice</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
                     </GridView>
-                </ListView.View>-->
+                </ListView.View>
+
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource PrimaryHueLightBrush}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource PrimaryHueLightBrush}" FontStyle="Italic" VerticalAlignment="Bottom"  />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
             </ListView>
         </Grid>
     </Grid>

@@ -9,7 +9,6 @@
 	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -37,6 +36,7 @@
     <None Remove="Product\Image3.png" />
     <None Remove="Product\Image4.png" />
     <None Remove="Product\Image5.png" />
+    <None Remove="Product\Untitled_Artwork.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +46,9 @@
   <ItemGroup>
     <Resource Include="Carts\g.png" />
     <Resource Include="Image1.png" />
-    <Resource Include="Image2.png" />
+    <Content Include="Image2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Image4.png" />
     <Resource Include="Image5.png" />
     <Resource Include="Order\Image6.png" />
@@ -55,10 +57,15 @@
     <Resource Include="Order\Image9.png" />
     <Resource Include="Product\Image10.png" />
     <Resource Include="Product\Image11.png" />
-    <Resource Include="Product\Image2.png" />
-    <Resource Include="Product\Image3.png" />
+    <Content Include="Product\Image2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\Image3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
+    <Resource Include="Product\Untitled_Artwork.jpg" />
   </ItemGroup>
 
 </Project>

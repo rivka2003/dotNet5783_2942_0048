@@ -2,12 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Order
 {
@@ -22,12 +17,8 @@ namespace PL.Order
         BO.OrderTracking orderTracking = new BO.OrderTracking();
 
         public OrderTrackingWindow()
-        {
-            
+        {  
             InitializeComponent();
-            btnORDERDETAILS.IsEnabled = false;
-            btnORDERTRACKING.IsEnabled = false;
-
         }
         private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
         {
@@ -36,18 +27,16 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbID.Text.Length <= 8)
-            {
+            if (((TextBox)sender).Text.Length <= 8)
                 ID = int.Parse(tbID.Text);
-                btnORDERDETAILS.IsEnabled = true;
-                btnORDERTRACKING.IsEnabled = true;
+                //btnORDERDETAILS.IsEnabled = true;
+                //btnORDERTRACKING.IsEnabled = true;
                 
-            }
-            else
-            {
-                btnORDERDETAILS.IsEnabled = false;
-                btnORDERTRACKING.IsEnabled = false;
-            }
+            //else
+            //{
+            //    btnORDERDETAILS.IsEnabled = false;
+            //    btnORDERTRACKING.IsEnabled = false;
+            //}
 
         }
 
@@ -82,7 +71,5 @@ namespace PL.Order
 
             }
         }
-
-      
     }
 }

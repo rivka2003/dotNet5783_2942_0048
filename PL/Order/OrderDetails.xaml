@@ -7,34 +7,9 @@
         mc:Ignorable="d"
         Title="OrderDetails" Height="450" Width="800">
 
-    <Window.Resources>
-        <DataTemplate x:Key="Order" DataType="local: Order">
-            <Grid>
-                <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="5" 
-                HorizontalAlignment="Left"/>
-
-                <Label  x:Name="lblADDRESS" Grid.Column="1" Content="" FontSize="15" Grid.Row="2"
-                HorizontalAlignment="Left"/>
-
-                <Label  x:Name="lblNAME" Grid.Column="1" Content="" FontSize="15" Grid.Row="3"
-                HorizontalAlignment="Left"/>
-
-                <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="4"
-                HorizontalAlignment="Left"/>
-
-                <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="6"
-                HorizontalAlignment="Left"/>
-
-                <Label  x:Name="lblID" Grid.Column="1" Content="" FontSize="15" Grid.Row="1"
-                HorizontalAlignment="Left"/>
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
-
-
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Order/Image8.png" Opacity="0.515"/>
+            <ImageBrush ImageSource="/Order/Image8.png"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
@@ -52,20 +27,37 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Order details:" FontSize="28" Grid.ColumnSpan="2" 
-               HorizontalAlignment="Left" Margin="298,-2,0,0" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Content="Order details:" FontSize="28" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="298,-2,0,0" VerticalAlignment="Top" />
 
-        <Label Content="ID:" FontSize="20" Grid.Row="1" FontWeight="Bold"/>
+        <Label Content="ID:" FontSize="20" Grid.Row="1"/>
 
-        <Label Content="Address:" FontSize="20" Grid.Row="2" FontWeight="Bold"/>
+        <Label Content="Address:" FontSize="20" Grid.Row="2"/>
 
-        <Label Content="Name:" FontSize="20" Grid.Row="3" FontWeight="Bold"/>
+        <Label Content="Name:" FontSize="20" Grid.Row="3"/>
 
-        <Label Content="Order date:" FontSize="20" Grid.Row="4" FontWeight="Bold"/>
+        <Label Content="Order date:" FontSize="20" Grid.Row="4"/>
 
-        <Label Content="Ship date:" FontSize="20" Grid.Row="5" FontWeight="Bold"/>
+        <Label Content="Ship date:" FontSize="20" Grid.Row="5"/>
 
-        <Label Content="Delivery date:" FontSize="20" Grid.Row="6" FontWeight="Bold"/>
+        <Label Content="Delivery date:" FontSize="20" Grid.Row="6"/>
+
+        <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="5" 
+                HorizontalAlignment="Left"/>
+
+        <Label  x:Name="lblADDRESS" Grid.Column="1" Content="" FontSize="15" Grid.Row="2"
+                HorizontalAlignment="Left"/>
+
+        <Label  x:Name="lblNAME" Grid.Column="1" Content="" FontSize="15" Grid.Row="3"
+                HorizontalAlignment="Left"/>
+
+        <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="4"
+                HorizontalAlignment="Left"/>
+
+        <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="6"
+                HorizontalAlignment="Left"/>
+
+        <Label  x:Name="lblID" Grid.Column="1" Content="" FontSize="15" Grid.Row="1"
+                HorizontalAlignment="Left"/>
     </Grid>
 
 </Window>

@@ -10,8 +10,9 @@ namespace PL
         int val = 0;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            int count = System.Convert.ToInt32(parameter);
             val++;
-            return val < 6 ? Visibility.Hidden :
+            return val < count ? Visibility.Hidden :
                    value is string strValue && !string.IsNullOrWhiteSpace(strValue)
                    ? Visibility.Visible : Visibility.Hidden;
         }

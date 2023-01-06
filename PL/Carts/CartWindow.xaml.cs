@@ -1,19 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using PL.Order;
-using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BO;
 
 namespace PL.Carts
@@ -23,36 +9,31 @@ namespace PL.Carts
     /// </summary>
     public partial class CartWindow : Window
     {
-        private BlApi.IBl? bl = BlApi.Factory.Get();
-        Cart cart;
-        public CartWindow()
+        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
+
+        public static readonly DependencyProperty CartDep = DependencyProperty.Register(nameof(cart), typeof(Cart), typeof(CartWindow));
+        Cart cart { get => (Cart)GetValue(CartDep); set => SetValue(CartDep, value); }
+        public CartWindow(Cart c)
         {
             InitializeComponent();
 
-            this.bl = bl;
-            cart = new Cart() { Items = new List<OrderItem?>() };
-            productView.ItemsSource = cart.Items;
+            cart = c;
+            //cart.Items = new List<OrderItem?>();
+            //cartView.ItemsSource = cart.Items;
 
-            tbNAME = cart.CustomerName;
-            tbEMAIL = cart.CustomerEmail;
-            tbADDRESS = cart.CustomerAddress;
-            tbPRICE = cart.TotalPrice;
+            //tbNAME.Text = cart.CustomerName;
+            //tbEMAIL.Text = cart.CustomerEmail;
+            //tbADDRESS.Text = cart.CustomerAddress;
+            //tbPRICE.Text = cart.TotalPrice.ToString();
 
 
-        }
-
-        private void doubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            int ID = ((BO.Items)ProductView.SelectedItem).ID;
-            new ItemView(ID).ShowDialog();
-            productView.ItemsSource = bl!.cart.Items.GetAll();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try 
             {
-                cart.orderMaking();
+                bl!.Cart.OrderMaking(cart);
                 Close();
             }
             catch(Exception ex)
@@ -64,8 +45,14 @@ namespace PL.Carts
 
         private void btnCHANGEAMOUNT_Click(object sender, RoutedEventArgs e)
         {
-            cart.Items.updateAmount(Amount.selectedItem.text());
-            ///also need to reupdate the total price.
+            var selection = (OrderItem)((ListView)sender).ItemsSource;
+            bl!.Cart.UpdateAmountProduct(cart,selection.ID, selection.Amount);
+            //also need to reupdate the total price.
+        }
+
+        private void cartView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
         }
 
         ///איך עושים את ההבאת אובייקט לעמוד ואתחול עם בבינדינג לפקדים. איך ואיפה מעדכנים כמות למוצר. איך מעצים את הליסט ויו כמו במקומות האחרים 

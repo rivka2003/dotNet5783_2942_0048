@@ -4,11 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:converter="clr-namespace:PL.Converters"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
-    <Window.Background>
-        <ImageBrush ImageSource="/Product/Image3.png" Opacity="0.5"/>
-    </Window.Background>
 
     <Window.Resources>
         <Style x:Key="XLabel" TargetType="Label">
@@ -36,148 +35,164 @@
             <Setter Property="Margin" Value="120,0,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
-
+        <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
         <local:EmptyToVisable x:Key="EmptyToVisable"/>
         <local:FullToVisable x:Key="FullToVisable"/>
+        <local:ChoosByCategory x:Key="ChoosByCategory"/>
 
     </Window.Resources>
-    <Grid Margin="0,71,0,0">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid x:Name="inGridOne" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Product/Image3.png" Opacity="0.5"/>
+        </Grid.Background>
+        <Grid Margin="0,71,0,0">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblID" Content="ID:" Grid.Row="0" Grid.Column="0"/>
+            <Grid x:Name="inGridOne" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Label x:Name="lblNAME" Content="Name:" Grid.Row="1" Grid.Column="0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblPRICE" Content="Price:" Grid.Row="2" Grid.Column="0"/>
+                <Label x:Name="lblID" Content="ID:" Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblINSTOCK" Content="Amount In stock:" Grid.Row="3" Grid.Column="0"/>
+                <Label x:Name="lblNAME" Content="Name:" Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblDESCRIPTION" Content="Description:" Grid.Row="4" Grid.Column="0"/>
+                <Label x:Name="lblPRICE" Content="Price:" Grid.Row="2" Grid.Column="0"/>
 
-            <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left"
-                     Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="lblINSTOCK" Content="Amount In stock:" Grid.Row="3" Grid.Column="0"/>
 
-            <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" 
-                     Grid.Row="2" Grid.Column="1" MaxLength="8"/>
+                <Label x:Name="lblDESCRIPTION" Content="Description:" Grid.Row="4" Grid.Column="0"/>
 
-            <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" 
-                     MaxLength="8" TextChanged="TbID_TextChanged" Grid.Row="0" Grid.Column="1"/>
+                <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left"
+                     Grid.Row="1" Grid.Column="1" Text="{Binding product.Name, Mode=TwoWay}"/>
 
-            <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" 
-                     Grid.Row="3" Grid.Column="1" MaxLength="8"/>
+                <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" 
+                     Grid.Row="2" Grid.Column="1" MaxLength="8" Text="{Binding product.Price, Mode=TwoWay}"/>
 
-            <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" 
-                     Width="178" Grid.Row="4" Grid.Column="1" />
+                <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" 
+                     MaxLength="8" TextChanged="TbID_TextChanged" Grid.Row="0" Grid.Column="1" Text="{Binding product.ID}"/>
 
-            <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" 
+                     Grid.Row="3" Grid.Column="1" MaxLength="8" Text="{Binding product.InStock, Mode=TwoWay}"/>
 
-            <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" 
+                     Width="178" Grid.Row="4" Grid.Column="1" Text="{Binding product.Description, Mode=TwoWay}"/>
 
-            <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                <Label x:Name="lblx1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbID, Path=Text, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                <Label x:Name="lblCHECK2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                <Label x:Name="lblx2"  Grid.Row="1" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbNAME, Path=Text, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblCHECK4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                <Label x:Name="lblCHECK3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblx4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource XLabel}" 
-                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
+                <Label x:Name="lblx3"  Grid.Row="2" Grid.Column="1" Style="{StaticResource XLabel}"
+                   Visibility="{Binding ElementName=tbPRICE, Path=Text, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblCHECK5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
+                <Label x:Name="lblCHECK4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource VLabel}" 
+                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
+
+                <Label x:Name="lblx4"  Grid.Row="3" Grid.Column="1" Style="{StaticResource XLabel}" 
+                   Visibility="{Binding ElementName=tbINSTOCK, Path=Text, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
+
+                <Label x:Name="lblCHECK5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
                    Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource FullToVisable}}"/>
+                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
 
-            <Label x:Name="lblx5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
+                <Label x:Name="lblx5"  Grid.Row="4" Grid.Column="1" Margin="178,0,0,0" 
                    Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource EmptyToVisable}}"/>
-        </Grid>
+                   Visibility="{Binding ElementName=tbDESCRIPTION, Path=Text, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
+            </Grid>
 
-        <Grid x:Name="inGridSecond" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <Grid x:Name="inGridSecond" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
+                <Label x:Name="lblGENDER" Content="Gender:" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
 
-            <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"/>
+                <Label x:Name="lblCATEGORY" Content="Category:" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"/>
 
-            <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0"/>
+                <Label x:Name="lblTYPE"  Content="Type:" HorizontalAlignment="Right" Grid.Row="2" 
+                       Grid.Column="0"/>
 
-            <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0"/>
+                <Label x:Name="lblCOLOR"  Content="Color:" HorizontalAlignment="Right" Grid.Row="3" 
+                       Grid.Column="0"/>
 
-            <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0"/>
+                <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Grid.Row="4" 
+                       Grid.Column="0"/>
 
-            <ComboBox x:Name="cbGENDER" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="0" 
-                      Grid.Column="1"/>
+                <ComboBox x:Name="cbGENDER" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="0" 
+                      Grid.Column="1" SelectedItem="{Binding product.Gender, Mode=TwoWay}" ItemsSource="{Binding Gender}"/>
 
-            <ComboBox x:Name="cbCATEGORY" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="1" 
-                      Grid.Column="1"/>
+                <ComboBox x:Name="cbCATEGORY" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="1" 
+                      Grid.Column="1" SelectedItem="{Binding product.Category, Mode=TwoWay}" ItemsSource="{Binding Category}"/>
 
-            <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1"/>
+                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1">
+                    <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter }">
+                        <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
+                        <Binding ElementName="cbGENDER" Path="SelectedItem"/>
+                    </MultiBinding>
+                </ComboBox>   
 
-            <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1"/>
+                <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color, Mode=TwoWay}"/>
 
-            <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1"/>
+                <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
+                        Converter={StaticResource ChoosByCategory}}"/>
 
-            <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="99,26,0,0" 
+                <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="62,30,0,0" 
                     VerticalAlignment="Top" Height="34" Width="68" Click="BtnSAVE_Click" Grid.Row="5" 
                     Foreground="Red" Grid.ColumnSpan="2"/>
-        </Grid>
+            </Grid>
 
-        <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
+            <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
                VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
 
-        <Image x:Name="Imege" Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top"
-               Width="201"/>
+            <Image x:Name="Imege" Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top"
+               Width="201" Source="{Binding product.Image}"/>
 
-        <Label x:Name="lblImege" Content="Imege:" Margin="0,-4,0,0" Grid.Column="2" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbIMAGE" Grid.Column="2" Text="{Binding product.Image, Mode=TwoWay}" HorizontalAlignment="Left" Margin="64,278,0,0" 
+                     VerticalAlignment="Top"/>
 
-        <Label x:Name="lblCHECK6" Grid.Column="2" Margin="164,-2,0,339" 
-                   Style="{StaticResource VLabel}" 
-                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource FullToVisable}}"/>
+            <Label x:Name="lblImage" Content="Image:" Margin="0,-4,0,0" Grid.Column="2" VerticalAlignment="Top" />
 
-        <Label x:Name="lblx6" Grid.Column="2" Margin="164,0,0,337" 
-                   Style="{StaticResource XLabel}"
-                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource EmptyToVisable}}"/>
+            <Label x:Name="lblCHECK6" Grid.Column="2" Style="{StaticResource VLabel}" Margin="184,274,0,63"
+                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource FullToVisable}, ConverterParameter=7}"/>
+
+            <Label x:Name="lblx6" Grid.Column="2" Style="{StaticResource XLabel}" Margin="184,274,0,63"
+                   Visibility="{Binding ElementName=Imege, Path=IsInitialized, Converter={StaticResource EmptyToVisable}, ConverterParameter=7}"/>
+        </Grid>
     </Grid>
 </Window>

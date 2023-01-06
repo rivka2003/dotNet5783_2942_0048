@@ -5,12 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="0,0,0,0">
+    <Window.Resources>
+        <local:HiddenToVisible x:Key="HiddenToVisible"/>
+    </Window.Resources>
+    
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Image1.png"/>
         </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="Black" >
+            <Button x:Name="Cart" Content="🛒" Visibility="Visible" 
+                FontSize="20" HorizontalAlignment="Left" Foreground="White"/>
+        </Grid>
+
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="Hamburger"  Background="{x:Null}" Content="≡" Foreground="White" FontWeight="Bold" FontSize="36" 
+                BorderBrush="{x:Null}" Click="Hamburger_Checked" Height="40" HorizontalAlignment="Left" Margin="61,0,0,0" VerticalAlignment="Top" />
+
+            <StackPanel x:Name="Data" Visibility="Hidden" Background="Black" Grid.Row="1">
+                <Button x:Name="BTHome" Content="Home" FontSize="12" Click="BTHome_Click" Foreground="White"/>
+
+                <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Track tour order" FontSize="12" Foreground="White" Click="BTOrderTracking_Click" />
+
+                <Button x:Name="BTCatalog"  Grid.Column="1" Content="Catalog" FontSize="12" Grid.Row="1" Foreground="White" Click="BTCatalog_Click" />
+
+                <Button x:Name="BTManager" Content="Manager" FontSize="12" Foreground="White" Click="BTManager_Click" />
+
+                <Button x:Name="BTOrders" Content="Orders" FontSize="12" Click="BTOrders_Click" Visibility="Hidden" Foreground="White"/>
+
+                <Button x:Name="BTProducts" Grid.Row="1" Content="Products" Click="BTProducts_Click" FontSize="12" Visibility="Hidden" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+
         <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fashion!" 
-                Click="Products_Button_Click" FontSize="36" Foreground="White"/>
+                Click="Products_Button_Click" FontSize="36" Foreground="White" Grid.Row="1"/>
     </Grid>
 </Window>

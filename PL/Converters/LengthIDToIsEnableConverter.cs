@@ -1,11 +1,10 @@
-﻿using System.Globalization;
+﻿using DocumentFormat.OpenXml.Vml;
+using System.Globalization;
 using System.Windows.Data;
-using System.Windows;
-using BO;
 
-namespace PL
+namespace PL.Converters
 {
-    public class ChoosByCategory : IValueConverter
+    public class LengthIDToIsEnableConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -16,9 +15,8 @@ namespace PL
         /// <param name="culture"></param>
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {                
-            return (value is Category.Clothing) ? Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>() :
-                    new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+        {
+            return ((TextBox)value).InnerText.Length <= 8 ? true : false;
         }
 
         /// <summary>

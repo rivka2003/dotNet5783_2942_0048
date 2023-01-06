@@ -35,7 +35,7 @@ namespace CopyPropertisTo
                     {
                         if (s is not null && t is not null && s.IsEnum && t.IsEnum)
                             propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, Enum.ToObject(t, sourceValue));
-                        else
+                        else if (propertyInfoTarget[sourcePropertyInfo.Name].PropertyType == sourcePropertyInfo.PropertyType)
                             propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourceValue);
                     }
                 }

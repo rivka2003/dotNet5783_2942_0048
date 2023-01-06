@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 
-
 namespace PL.Order
 {
     /// <summary>

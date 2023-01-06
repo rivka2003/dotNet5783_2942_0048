@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,64 +14,64 @@ namespace PL.Product
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+        public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(ProductWindow));
+        BO.Product product { get => (BO.Product)GetValue(PoductDep); set => SetValue(PoductDep, value); }
 
-        readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+        //readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+
+        //readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
 
         readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
 
         readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+
+        readonly IEnumerable<BO.Color> Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
+
+        readonly IEnumerable<BO.Gender> Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
+
+        readonly IEnumerable<BO.Category> Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
 
         public ProductWindow(int ID)/// constructor to open an update window/
         {
             InitializeComponent();
 
             ///resets to show the current values
-            BO.Product product = bl.Product.ProductDetailsForManager(ID);
-            tbID.Text = product.ID.ToString();
-            tbNAME.Text = product.Name;
-            tbPRICE.Text = product.Price.ToString();
-            tbINSTOCK.Text = product.InStock.ToString();
-            tbDESCRIPTION.Text = product.Description;
+            product = bl.Product.ProductDetailsForManager(ID);
 
-            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            cbGENDER.SelectedItem = product.Gender;
-            cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            cbCATEGORY.SelectedItem = product.Category;
-            cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
-            cbCOLOR.SelectedItem = product.Color;
+            //cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
+            //cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            //cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
 
-            if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
-            {
-                AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
-                cbSIZE.SelectedItem = product.SizeClothing;
-                cbTYPE.SelectedItem = product.Clothing;
-            }
-            else ///if cb was chosen as shoes
-            {
-                AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
-                cbSIZE.SelectedItem = (int)product.SizeShoes!;
-                cbTYPE.SelectedItem = product.Shoes;
-            }
+            //if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
+            //{
+            //    AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
+            //    cbSIZE.SelectedItem = product.SizeClothing;
+            //    cbTYPE.SelectedItem = product.Clothing;
+            //}
+            //else ///if cb was chosen as shoes
+            //{
+            //    AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
+            //    cbSIZE.SelectedItem = (int)product.SizeShoes!;
+            //    cbTYPE.SelectedItem = product.Shoes;
+            //}
 
             btnSAVE.Content = "UPDATE";
             tbID.IsEnabled = false; ///unable changing the id 
         }
 
-        public ProductWindow(BlApi.IBl _bl) /// constructor to open the add window
+        public ProductWindow() /// constructor to open the add window
         {
 
             InitializeComponent();
-            bl = _bl;
 
             ///resets the combo boxes options
-            cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            //cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
+            //cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            //cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
 
             /// Default filling of the combo box with values
-            AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
-            AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
+            //AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
+            //AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
 
             ///resets to default values 
             cbGENDER.SelectedIndex = 0;
@@ -86,46 +87,46 @@ namespace PL.Product
         ///reset the enums according to the category
         private void CbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /// Clearing the combo box before re-adding
-            cbTYPE.Items.Clear();
-            cbTYPE.ItemsSource = null;
-            cbSIZE.Items.Clear();
-            cbSIZE.ItemsSource = null;
+            ///// Clearing the combo box before re-adding
+            //cbTYPE.Items.Clear();
+            //cbTYPE.ItemsSource = null;
+            //cbSIZE.Items.Clear();
+            //cbSIZE.ItemsSource = null;
 
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
-            {
-                AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
+            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
+            //{
+            //    AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
 
-                ///resets the options inside the cb according to the chosen gender
-                if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
-                    AddItemsWithPredicate(cbTYPE.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
-                else
-                    AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
-            }
-            else ///in case shoes was chosen
-            {
-                AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
+            //    ///resets the options inside the cb according to the chosen gender
+            //    if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
+            //        AddItemsWithPredicate(cbTYPE.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
+            //    else
+            //        AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
+            //}
+            //else ///in case shoes was chosen
+            //{
+            //    AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
 
-                ///resets the options inside the cb according to the chosen gender 
-                if (cbGENDER.SelectedItem is not BO.Gender.Women)
-                    AddItemsWithPredicate(cbTYPE.Items, itemsShoes, item => item is not BO.Shoes.Heels);
-                else
-                    AddItemsWithPredicate(cbTYPE.Items, itemsShoes);
-            }
-            cbTYPE.SelectedIndex = 0;
-            cbSIZE.SelectedIndex = 0;
+            //    ///resets the options inside the cb according to the chosen gender 
+            //    if (cbGENDER.SelectedItem is not BO.Gender.Women)
+            //        AddItemsWithPredicate(cbTYPE.Items, itemsShoes, item => item is not BO.Shoes.Heels);
+            //    else
+            //        AddItemsWithPredicate(cbTYPE.Items, itemsShoes);
+            //}
+            //cbTYPE.SelectedIndex = 0;
+            //cbSIZE.SelectedIndex = 0;
         }
 
-        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
-        {
-            foreach (T item in Collection)
-            {
-                if (predicate is null)
-                    itemCollection.Add(item);
-                else if (predicate(item))
-                    itemCollection.Add(item);
-            }
-        }
+        //private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
+        //{
+        //    foreach (T item in Collection)
+        //    {
+        //        if (predicate is null)
+        //            itemCollection.Add(item);
+        //        else if (predicate(item))
+        //            itemCollection.Add(item);
+        //    }
+        //}
 
         /// <summary>
         /// alowing only digits with a point for a double number
@@ -189,32 +190,32 @@ namespace PL.Product
             }
 
             ///if pre checks are valid. put data in the product and send that to previous layers check.
-            BO.Product product = new ()
-            {
-                ID = int.Parse(tbID.Text),
-                Name = tbNAME.Text,
-                InStock = int.Parse(tbINSTOCK.Text),
-                Category = (BO.Category)cbCATEGORY.SelectedItem,
-                Color = (BO.Color)cbCOLOR.SelectedItem,
-                Gender = (BO.Gender)cbGENDER.SelectedItem,
-                Description = tbDESCRIPTION.Text
-            };
+            //BO.Product product = new ()
+            //{
+            //    ID = int.Parse(tbID.Text),
+            //    Name = tbNAME.Text,
+            //    InStock = int.Parse(tbINSTOCK.Text),
+            //    Category = (BO.Category)cbCATEGORY.SelectedItem,
+            //    Color = (BO.Color)cbCOLOR.SelectedItem,
+            //    Gender = (BO.Gender)cbGENDER.SelectedItem,
+            //    Description = tbDESCRIPTION.Text
+            //};
 
-            if (tbPRICE.Text.Contains('.'))
-                product.Price = double.Parse(tbPRICE.Text);
-            else
-                product.Price = int.Parse(tbPRICE.Text);
+            //if (tbPRICE.Text.Contains('.'))
+            //    product.Price = double.Parse(tbPRICE.Text);
+            //else
+            //    product.Price = int.Parse(tbPRICE.Text);
 
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            {
-                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            }
-            else
-            {
-                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            }
+            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            //{
+            //    product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+            //    product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            //}
+            //else
+            //{
+            //    product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+            //    product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            //}
 
             ///a try to update or add
             try
@@ -260,7 +261,7 @@ namespace PL.Product
         {
             if (lblCHECK1 is null || lblx1 is null)
                 return;
-            if (tbID.Text.Length < 6)
+            if (((TextBox)sender).Text.Length < 6)
             {
                 lblCHECK1.Visibility = Visibility.Hidden;
                 lblx1.Visibility = Visibility.Visible;

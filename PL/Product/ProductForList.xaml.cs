@@ -1,7 +1,11 @@
-﻿using PL.Carts;
+﻿using BO;
+using PL.Carts;
 using PL.Product;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace PL
 {
@@ -14,43 +18,89 @@ namespace PL
 
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        private static BO.Cart cart = new();
+        private readonly static BO.Cart cart = new();
 
-        private readonly IEnumerable<BO.ProductForList> productForLists;
 
-        readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
 
-        readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+        private ObservableCollection<BO.ProductForList> productForLists
+        {
+            get { return (ObservableCollection<BO.ProductForList>)GetValue(productForListsProperty); }
+            set { SetValue(productForListsProperty, value); }
+        }
 
-        readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
+        // Using a DependencyProperty as the backing store for productForLists.  This enables animation, styling, binding, etc...
+        private static readonly DependencyProperty productForListsProperty =
+            DependencyProperty.Register("productForLists", typeof(ObservableCollection<BO.ProductForList>), typeof(ProductForList));
+
+        public IEnumerable<BO.SizeClothing> SizeClothing
+        {
+            get { return (IEnumerable<BO.SizeClothing>)GetValue(SizeClothingProperty); }
+            set { SetValue(SizeClothingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SizeClothingProperty =
+            DependencyProperty.Register("SizeClothing", typeof(IEnumerable<BO.SizeClothing>), typeof(ProductForList));
+
+
+        //readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+
+        //readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
 
         readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
 
-        bool isManager;
-        public ProductForList(BlApi.IBl bl, bool IsManager)
+        public IEnumerable<BO.Color> Color
+        {
+            get { return (IEnumerable<BO.Color> )GetValue(ColorProperty); }
+            set { SetValue(ColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ColorProperty =
+            DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color> ), typeof(ProductForList));
+
+        public IEnumerable<BO.Gender> Gender
+        {
+            get { return (IEnumerable<BO.Gender> )GetValue(GenderProperty); }
+            set { SetValue(GenderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GenderProperty =
+            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(ProductForList));
+
+        public IEnumerable<BO.Category> Category
+        {
+            get { return (IEnumerable<BO.Category>)GetValue(CategoryProperty); }
+            set { SetValue(CategoryProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CategoryProperty =
+            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(ProductForList));
+
+        readonly bool isManager;
+
+        public ICollectionView CollectionViewProductItemList { set; get; }
+        public ProductForList(bool IsManager)
         {
             InitializeComponent();
 
             isManager = IsManager;
-            this.bl = bl;
-            productForLists = bl.Product.GetAll()!;
+            Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
 
-            productsLv.ItemsSource = productForLists;
+            productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
 
-            if (!isManager)
-            {
-                AddProductWindoe.Visibility = Visibility.Hidden;
-                Cart.Visibility = Visibility.Visible;
-            }
+          
 
-            ///resets the combo boxes options
-            GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            /////resets the combo boxes options
+            //GenderCB.ItemsSource = Enum.GetValues(typeof(BO.Gender));
+            //CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.Category));
+            //ColorCB.ItemsSource = Enum.GetValues(typeof(BO.Color));
 
             /// Default filling of the combo box with values
-            AddItemsWithPredicate(TypeCB.Items, itemsClothing);
-            AddItemsWithPredicate(SizeCB.Items, SizeClothing);
+            //AddItemsWithPredicate(TypeCB.Items, itemsClothing);
+            //AddItemsWithPredicate(SizeCB.Items, SizeClothing);
 
             ///resets the combo boxes in default values
             GenderCB.SelectedIndex = 0;
@@ -67,46 +117,51 @@ namespace PL
         /// <param name="e"></param>
         private void CategoryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /// Clearing the combo box before re-adding
-            //TypeCB.Items.Clear();
-            //TypeCB.ItemsSource = null;
-            //SizeCB.Items.Clear();
-            //SizeCB.ItemsSource = null;
 
-            if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
-            {
-                AddItemsWithPredicate(SizeCB.Items, SizeClothing);
+            Gender selection = (Gender)((ComboBox)sender).SelectedItem;
 
-                ///resets the options inside the cb according to the chosen gender
-                if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
-                    AddItemsWithPredicate(TypeCB.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
-                else
-                    AddItemsWithPredicate(TypeCB.Items, itemsClothing);
-            }
-            else ///in case shoes was chosen
-            {
-                AddItemsWithPredicate(SizeCB.Items, SizeShoes);
+            bl!.Product.GrupingByChoos(selection, cart);
 
-                ///resets the options inside the cb according to the chosen gender 
-                if (GenderCB.SelectedItem is not BO.Gender.Women)
-                    AddItemsWithPredicate(TypeCB.Items, itemsShoes, item => item is not BO.Shoes.Heels);
-                else
-                    AddItemsWithPredicate(TypeCB.Items, itemsShoes);
-            }
-            TypeCB.SelectedIndex = 0;
-            SizeCB.SelectedIndex = 0;
-        }
+            ///// Clearing the combo box before re-adding
+            ////TypeCB.Items.Clear();
+            ////TypeCB.ItemsSource = null;
+            ////SizeCB.Items.Clear();
+            ////SizeCB.ItemsSource = null;
 
-        private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
-        {
-            //foreach (T item in Collection)
+            //if (CategoryCB.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
             //{
-            //    if (predicate is null)
-            //        itemCollection.Add(item);
-            //    else if (predicate(item))
-            //        itemCollection.Add(item);
+            //    AddItemsWithPredicate(SizeCB.Items, SizeClothing);
+
+            //    ///resets the options inside the cb according to the chosen gender
+            //    if (GenderCB.SelectedItem is not BO.Gender.Women && GenderCB.SelectedItem is not BO.Gender.Girls)
+            //        AddItemsWithPredicate(TypeCB.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
+            //    else
+            //        AddItemsWithPredicate(TypeCB.Items, itemsClothing);
             //}
+            //else ///in case shoes was chosen
+            //{
+            //    AddItemsWithPredicate(SizeCB.Items, SizeShoes);
+
+            //    ///resets the options inside the cb according to the chosen gender 
+            //    if (GenderCB.SelectedItem is not BO.Gender.Women)
+            //        AddItemsWithPredicate(TypeCB.Items, itemsShoes, item => item is not BO.Shoes.Heels);
+            //    else
+            //        AddItemsWithPredicate(TypeCB.Items, itemsShoes);
+            //}
+            //TypeCB.SelectedIndex = 0;
+            //SizeCB.SelectedIndex = 0;
         }
+
+        //private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
+        //{
+        //    foreach (T item in Collection)
+        //    {
+        //        if (predicate is null)
+        //            itemCollection.Add(item);
+        //        else if (predicate(item))
+        //            itemCollection.Add(item);
+        //    }
+        //}
 
         /// <summary>
         /// sorting the presented data according to the user's choices
@@ -140,11 +195,11 @@ namespace PL
             if (isManager)
             {
                 new ProductWindow(ID).ShowDialog();
-                productsLv.ItemsSource = bl!.Product.GetAll();
+                //productsLv.ItemsSource = bl!.Product.GetAll();
             }
             else
             {
-                new ProductView(ID).ShowDialog();
+                new ProductItemView(ID).ShowDialog();
             }
         }
 
@@ -155,8 +210,8 @@ namespace PL
         /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductWindow(bl!).ShowDialog();
-            productsLv.ItemsSource = bl!.Product.GetAll();
+            new ProductWindow().ShowDialog();
+            //productsLv.ItemsSource = bl!.Product.GetAll();
         }
 
         /// <summary>
@@ -166,10 +221,10 @@ namespace PL
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productsLv.ItemsSource = productForLists.Select(item => item);
+            productsLv.DataContext = productForLists.Select(item => item);
         }
 
-        private void Show_Click(object sender, RoutedEventArgs e)
+        private void Filter_Click(object sender, RoutedEventArgs e)
         {
             isContentVisible = !isContentVisible;
             Labels.Visibility = isContentVisible ? Visibility.Visible : Visibility.Collapsed;
@@ -180,7 +235,7 @@ namespace PL
 
         private void Cart_Button_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow().ShowDialog();
+            new CartWindow(cart).ShowDialog();
         }
     }
 }
