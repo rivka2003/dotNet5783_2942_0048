@@ -8,56 +8,30 @@
         Title="OrderForList" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource self}}">
 
-    <Window.Background>
-        <ImageBrush ImageSource="/Image2.png" Opacity="0.5"/>
-    </Window.Background>
 
+    <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Image2.png" Opacity="0.5"/>
+        </Grid.Background>
+        
+        <ListView Name="ordersLv" MouseDoubleClick="doubleClick" FontFamily="Elephant" ItemsSource="{Binding OrderList}"
+                  HorizontalAlignment="Center" Foreground="Black" Background="{x:Null}" BorderBrush="{x:Null}">
 
-    <Grid>
-        <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="30"/>
 
-            <!--<ListView Name="ordersLv" Height="584" VerticalAlignment="Center" MouseDoubleClick="doubleClick" SelectionChanged="productsLv_SelectionChanged" Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
-            </ListView>-->
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
 
-            <ListView Name="ordersLv" MouseDoubleClick="doubleClick" FontFamily="Elephant" Foreground="White" 
-                      ItemsSource="{Binding OrderList}" >
+                    <GridViewColumn Header="CustomerName" DisplayMemberBinding="{Binding CustomerName}"/>
 
-                <ListView.View>
-                    <GridView>
+                    <GridViewColumn Header="AmountOfItems" DisplayMemberBinding="{Binding AmountOfItems}"/>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding ID}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader>ID</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
+                    <GridViewColumn Header="TotalPrice" DisplayMemberBinding="{Binding TotalPrice}"/>
+                </GridView>
+            </ListView.View>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding CustomerName}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader>CustomerName</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-
-                        <GridViewColumn DisplayMemberBinding="{Binding Status}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader>Status</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-
-                        <GridViewColumn DisplayMemberBinding="{Binding AmountOfItems}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader>AmountOfItems</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-
-                        <GridViewColumn DisplayMemberBinding="{Binding TotalPrice}">
-                            <GridViewColumn.Header>
-                                <GridViewColumnHeader>TotalPrice</GridViewColumnHeader>
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-
-                <GroupStyle>
+            <!--<GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
                             <Setter Property="Template">
@@ -78,32 +52,7 @@
                             </Setter>
                         </Style>
                     </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView>
-        </Grid>
+                </GroupStyle>-->
+        </ListView>
     </Grid>
 </Window>
-
-<!--<Grid>
-        <Grid HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-
-            
-                <ListView Name="productsLv" 
-                      MouseDoubleClick="doubleClick" 
-                      Grid.Row="3" FontFamily="Elephant" Foreground="White" Background="{x:Null}" >
-
-                    <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
-                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
-                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
-                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-                </ListView>
-            
-        </Grid>
-    </Grid>
-</Window>-->

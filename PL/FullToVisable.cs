@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -12,6 +13,12 @@ namespace PL
         {
             int count = System.Convert.ToInt32(parameter);
             val++;
+            //if (value.ToString() is "tbID")
+            //{
+            //    return val < count ? Visibility.Hidden :
+            //        value is string strValueId && !string.IsNullOrWhiteSpace(strValueId) || ((TextBox)value).Text.Length >= 6 ?
+            //        Visibility.Visible : Visibility.Hidden;
+            //}
             return val < count ? Visibility.Hidden :
                    value is string strValue && !string.IsNullOrWhiteSpace(strValue)
                    ? Visibility.Visible : Visibility.Hidden;

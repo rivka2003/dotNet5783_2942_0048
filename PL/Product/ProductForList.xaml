@@ -43,6 +43,7 @@
         </DataTemplate>
 
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
+        <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
 
     </Window.Resources>
@@ -65,105 +66,50 @@
         </Grid>
         
         <Grid Grid.Row="1">
-            <ComboBox x:Name="GenderCB" HorizontalAlignment="Left" Height="30" Background="{x:Null}" 
-                      ItemsSource="{Binding Gender}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox x:Name="GenderCB" Height="30" Background="{x:Null}" 
+                      ItemsSource="{Binding Gender}" SelectedIndex="0"/>
 
-            <ComboBox x:Name="CategoryCB" ItemsSource="{Binding Category}" SelectionChanged="CategoryCB_SelectionChanged" 
-                      Height="30" HorizontalAlignment="Left" Margin="174,0,0,0"/>
+                <ComboBox x:Name="CategoryCB"   SelectedItem="{Binding selectedCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Category}" Height="30" 
+                      SelectedIndex="0"/>
 
-            <ComboBox x:Name="TypeCB" Height="30">
-                <ComboBox.ItemsSource>
-                    <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter }">
-                        <Binding ElementName="cbCATEGORY" Path="SelectedItem"></Binding>
-                        <Binding ElementName="cbGENDER" Path="SelectedItem"></Binding>
-                    </MultiBinding>
-                </ComboBox.ItemsSource>
-             
-            </ComboBox>
+                <ComboBox x:Name="TypeCB" Height="30" SelectedIndex="0">
+                    <ComboBox.ItemsSource>
+                        <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
+                            <Binding ElementName="CategoryCB" Path="SelectedItem"/>
+                            <Binding ElementName="GenderCB" Path="SelectedItem" />
+                        </MultiBinding>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
 
-            <ComboBox x:Name="SizeCB" Height="30" HorizontalAlignment="Right" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
-                        Converter={StaticResource ChoosByCategory}}"/>
+                <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
+                        Converter={StaticResource ChoosByCategory}}" SelectedValue="{Binding ElementName=CategoryCB, Path=SelectedItem,
+                    Converter={StaticResource takeTheSizeByTheCategoryConverter}}"/>
 
-            <ComboBox x:Name="ColorCB" Height="30" HorizontalAlignment="Left" Margin="519,0,0,0" ItemsSource="{Binding Color}"/>
+                <ComboBox x:Name="ColorCB" Height="30" ItemsSource="{Binding Color}"
+                      SelectedIndex="0"/>
+            </StackPanel>
+            
+            <Button x:Name="chooseB"  Content="Choose!" FontSize="16" Click="ChooseB" 
+                            Foreground="#FFB21616" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+
+            <Button x:Name="clearB"  Content="Clear!" VerticalAlignment="Bottom" FontSize="16" 
+                            Click="ClearB" Foreground="#FFB21616" HorizontalAlignment="Right" Margin="0,0,20,0"/>
         </Grid>
 
-        <ListView x:Name="productsLv" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+        <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
-                  FontFamily="Elephant" Background="{x:Null}" Grid.Row="2" Margin="0,0,0,10" Foreground="White"
+                  FontFamily="Elephant" Grid.Row="2" Margin="0,0,0,10" Foreground="White"
                   MouseDoubleClick="Update_DoubleClick" BorderBrush="{x:Null}" ItemsSource="{Binding productForLists}">
-
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
-            
         </ListView>
 
-        <Grid Height="auto" Grid.Column="1" Width="auto" Grid.Row="1">
-            <Grid Height="auto" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Right" Margin="0,-37,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel x:Name="ComboBoxes"  Grid.Row="1" VerticalAlignment="Stretch" Visibility="Hidden" Background="White">
-
-                    <!--<ComboBox x:Name="GenderCB" SelectionChanged="CategoryCB_SelectionChanged" Height="30"/>
-
-                    <ComboBox x:Name="CategoryCB" SelectionChanged="CategoryCB_SelectionChanged" Height="30"/>
-
-                    <ComboBox x:Name="TypeCB" Height="30"/>-->
-                    <!--ItemsSource="{Binding ElementName=CategoryCB, Path=SelectedItem, 
-                        Converter={StaticResource ChoosByCategory}}" />--><!--
-
-                    <ComboBox x:Name="SizeCB" Height="30"/>
-                    --><!--ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
-                        Converter={StaticResource ChoosByCategory}}"--><!--
-
-                    <ComboBox x:Name="ColorCB" Height="30"/>-->
-                </StackPanel>
-
-                <StackPanel x:Name="Labels"  Grid.Column="1" Grid.Row="1" Visibility="Hidden" Background="White">
-
-                    <Label x:Name="GenderL" Content="Gender" HorizontalAlignment="Left" FontFamily="Century" 
-                           FontSize="16" FontWeight="Bold" Grid.Row="0" Grid.Column="1"/>
-
-                    <Label x:Name="CategoryL" Content="Category" HorizontalAlignment="Left"
-                           FontFamily="Century" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="1"/>
-
-                    <Label x:Name="TypeL" Content="Type" HorizontalAlignment="Left" 
-                           FontFamily="Century" FontSize="16" FontWeight="Bold" Grid.Row="2" Grid.Column="1"/>
-
-                    <Label x:Name="SizeL" Content="Size" HorizontalAlignment="Left" 
-                           FontFamily="Century" FontSize="16" FontWeight="Bold" Grid.Row="3" Grid.Column="1"/>
-
-                    <Label x:Name="ColorL" Content="Color" HorizontalAlignment="Left" 
-                           FontFamily="Century" FontSize="16" FontWeight="Bold" Grid.Row="4" Grid.Column="1"/>
-
-                </StackPanel>
-
-                <Button x:Name="chooseB"  Content="Choose!" FontSize="16" Click="ChooseB" Grid.Row="6" 
-                            Grid.Column="0" Foreground="Red" Visibility="Hidden"/>
-
-                <Button x:Name="clearB"  Content="Clear!" VerticalAlignment="Top" FontSize="16" 
-                            Click="ClearB" Grid.Row="6" Grid.Column="1" Foreground="Red" Visibility="Hidden"/>
-
-                <Button x:Name="Filter"  Content="🔍" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
-                            FontSize="20" Click="Filter_Click" Grid.Column="1" Foreground="Black" Margin="48,0,0,150" Grid.RowSpan="2"/>
-            </Grid>
-        </Grid>
-
-
         <Button x:Name="AddProductWindow" Content="Add new product" Click="Add_Product_Button_Click" 
-                FontSize="25" Grid.Row="2" Foreground="#FFB20308" VerticalAlignment="Bottom" 
+                FontSize="25" Grid.Row="2" Foreground="#FFB21616" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" Margin="0,0,35,43" Visibility="{Binding isManager}" Background="White"/>
     </Grid>
 </Window>

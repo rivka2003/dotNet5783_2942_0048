@@ -1,6 +1,4 @@
-﻿using BO;
-using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,43 +15,45 @@ namespace PL.Product
         public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(ProductWindow));
         BO.Product product { get => (BO.Product)GetValue(PoductDep); set => SetValue(PoductDep, value); }
 
-        //readonly IEnumerable<BO.Clothing> itemsClothing = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing>();
+        public IEnumerable<BO.Color> Color
+        {
+            get { return (IEnumerable<BO.Color>)GetValue(ColorProperty); }
+            set { SetValue(ColorProperty, value); }
+        }
 
-        //readonly IEnumerable<BO.Shoes> itemsShoes = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes>();
+        // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ColorProperty =
+        DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color>), typeof(ProductWindow));
 
-        readonly IEnumerable<BO.SizeClothing> SizeClothing = Enum.GetValues(typeof(BO.SizeClothing)).Cast<BO.SizeClothing>();
+        public IEnumerable<BO.Gender> Gender
+        {
+            get { return (IEnumerable<BO.Gender>)GetValue(GenderProperty); }
+            set { SetValue(GenderProperty, value); }
+        }
 
-        readonly IEnumerable<int> SizeShoes = new int[] { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 };
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GenderProperty =
+            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(ProductWindow));
 
-        readonly IEnumerable<BO.Color> Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
+        public IEnumerable<BO.Category> Category
+        {
+            get { return (IEnumerable<BO.Category>)GetValue(CategoryProperty); }
+            set { SetValue(CategoryProperty, value); }
+        }
 
-        readonly IEnumerable<BO.Gender> Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
-
-        readonly IEnumerable<BO.Category> Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
+        // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CategoryProperty =
+            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(ProductWindow));
 
         public ProductWindow(int ID)/// constructor to open an update window/
         {
             InitializeComponent();
-
+           
             ///resets to show the current values
             product = bl.Product.ProductDetailsForManager(ID);
-
-            //cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            //cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            //cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
-
-            //if (product.Category is BO.Category.Clothing) ///if cb was chosen as clothing
-            //{
-            //    AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
-            //    cbSIZE.SelectedItem = product.SizeClothing;
-            //    cbTYPE.SelectedItem = product.Clothing;
-            //}
-            //else ///if cb was chosen as shoes
-            //{
-            //    AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
-            //    cbSIZE.SelectedItem = (int)product.SizeShoes!;
-            //    cbTYPE.SelectedItem = product.Shoes;
-            //}
+            Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
+            Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
+            Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
 
             btnSAVE.Content = "UPDATE";
             tbID.IsEnabled = false; ///unable changing the id 
@@ -61,72 +61,17 @@ namespace PL.Product
 
         public ProductWindow() /// constructor to open the add window
         {
-
             InitializeComponent();
 
-            ///resets the combo boxes options
-            //cbGENDER.ItemsSource = Enum.GetValues(typeof(BO.Gender));
-            //cbCATEGORY.ItemsSource = Enum.GetValues(typeof(BO.Category));
-            //cbCOLOR.ItemsSource = Enum.GetValues(typeof(BO.Color));
+            Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
+            Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
+            Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
 
-            /// Default filling of the combo box with values
-            //AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
-            //AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
-
-            ///resets to default values 
-            cbGENDER.SelectedIndex = 0;
-            cbCATEGORY.SelectedIndex = 0;
-            cbCOLOR.SelectedIndex = 0;
-            cbSIZE.SelectedIndex = 0;
-            cbTYPE.SelectedIndex = 0;
+            //cbSIZE.SelectedIndex = 0;
 
             btnSAVE.Content = "ADD";
             lblTITLE.Content = "Add a new product";
         }
-
-        ///reset the enums according to the category
-        private void CbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ///// Clearing the combo box before re-adding
-            //cbTYPE.Items.Clear();
-            //cbTYPE.ItemsSource = null;
-            //cbSIZE.Items.Clear();
-            //cbSIZE.ItemsSource = null;
-
-            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing) ///in case clothing was chosen
-            //{
-            //    AddItemsWithPredicate(cbSIZE.Items, SizeClothing);
-
-            //    ///resets the options inside the cb according to the chosen gender
-            //    if (cbGENDER.SelectedItem is not BO.Gender.Women && cbGENDER.SelectedItem is not BO.Gender.Girls)
-            //        AddItemsWithPredicate(cbTYPE.Items, itemsClothing, item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
-            //    else
-            //        AddItemsWithPredicate(cbTYPE.Items, itemsClothing);
-            //}
-            //else ///in case shoes was chosen
-            //{
-            //    AddItemsWithPredicate(cbSIZE.Items, SizeShoes);
-
-            //    ///resets the options inside the cb according to the chosen gender 
-            //    if (cbGENDER.SelectedItem is not BO.Gender.Women)
-            //        AddItemsWithPredicate(cbTYPE.Items, itemsShoes, item => item is not BO.Shoes.Heels);
-            //    else
-            //        AddItemsWithPredicate(cbTYPE.Items, itemsShoes);
-            //}
-            //cbTYPE.SelectedIndex = 0;
-            //cbSIZE.SelectedIndex = 0;
-        }
-
-        //private static void AddItemsWithPredicate<T>(ItemCollection itemCollection, IEnumerable<T> Collection, Predicate<T> predicate = null!)
-        //{
-        //    foreach (T item in Collection)
-        //    {
-        //        if (predicate is null)
-        //            itemCollection.Add(item);
-        //        else if (predicate(item))
-        //            itemCollection.Add(item);
-        //    }
-        //}
 
         /// <summary>
         /// alowing only digits with a point for a double number
@@ -225,6 +170,7 @@ namespace PL.Product
                 if (btnSAVE.Content is "UPDATE") ///for updating
                 {
                     bl!.Product.UpdateProduct(product);
+                    
                     MessageBox.Show("Updated succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else ///for adding

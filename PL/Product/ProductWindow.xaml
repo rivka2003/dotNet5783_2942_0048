@@ -154,25 +154,30 @@
                 <Label x:Name="lblSIZE"  Content="Size:" HorizontalAlignment="Right" Grid.Row="4" 
                        Grid.Column="0"/>
 
-                <ComboBox x:Name="cbGENDER" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="0" 
-                      Grid.Column="1" SelectedItem="{Binding product.Gender, Mode=TwoWay}" ItemsSource="{Binding Gender}"/>
+                <ComboBox x:Name="cbGENDER" Grid.Row="0" Grid.Column="1" SelectedIndex="0" ItemsSource="{Binding Gender}"
+                          SelectedItem="{Binding product.Gender, Mode=TwoWay}"/>
 
-                <ComboBox x:Name="cbCATEGORY" SelectionChanged="CbCATEGORY_SelectionChanged" Grid.Row="1" 
-                      Grid.Column="1" SelectedItem="{Binding product.Category, Mode=TwoWay}" ItemsSource="{Binding Category}"/>
+                <ComboBox x:Name="cbCATEGORY" Grid.Row="1" Grid.Column="1" SelectedIndex="0"  ItemsSource="{Binding Category}"
+                          SelectedItem="{Binding product.Category, Mode=TwoWay}"/>
 
-                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1">
-                    <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter }">
-                        <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
-                        <Binding ElementName="cbGENDER" Path="SelectedItem"/>
-                    </MultiBinding>
-                </ComboBox>   
+                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1" SelectedIndex="0" >
+                    <ComboBox.ItemsSource>
+                        <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
+                            <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
+                            <Binding ElementName="cbGENDER" Path="SelectedItem" />
+                        </MultiBinding>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
 
-                <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color, Mode=TwoWay}"/>
+                <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" SelectedIndex="0" 
+                          ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color, Mode=TwoWay}"/>
 
-                <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
-                        Converter={StaticResource ChoosByCategory}}"/>
+                <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= cbCATEGORY, 
+                    Path=SelectedItem, Converter={StaticResource ChoosByCategory}}" SelectedIndex="0"/>
+                <!--SelectedValue="{Binding ElementName= cbCATEGORY, 
+                    Path=SelectedItem, Converter={StaticResource }, ConverterParameter={Binding id}}"-->
 
-                <Button x:Name="btnSAVE" Content="SAVE" HorizontalAlignment="Left" Margin="62,30,0,0" 
+                <Button x:Name="btnSAVE" Content="UPDATE" HorizontalAlignment="Left" Margin="62,30,0,0" 
                     VerticalAlignment="Top" Height="34" Width="68" Click="BtnSAVE_Click" Grid.Row="5" 
                     Foreground="Red" Grid.ColumnSpan="2"/>
             </Grid>

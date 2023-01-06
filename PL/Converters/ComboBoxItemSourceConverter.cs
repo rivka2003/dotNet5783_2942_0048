@@ -9,20 +9,19 @@ namespace PL.Converters
         {
             if (values.Length > 1)
             {
-
                 switch ((values[0], values[1]))
                 {
                     case (BO.Category.Clothing, BO.Gender.Boys):
                         IEnumerable<BO.Clothing?> Boys = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing?>();
 
-                        return Boys.Where(item => item is not BO.Clothing.Dresses || item is not BO.Clothing.Shirts);
+                        return Boys.Where(item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
                     case (BO.Category.Clothing, BO.Gender.Women):
 
                         return Enum.GetValues(typeof(BO.Clothing));
                     case (BO.Category.Clothing, BO.Gender.Men):
                         IEnumerable<BO.Clothing?> Men = Enum.GetValues(typeof(BO.Clothing)).Cast<BO.Clothing?>();
 
-                        return Men.Where(item => item is not BO.Clothing.Dresses || item is not BO.Clothing.Shirts);
+                        return Men.Where(item => item is not BO.Clothing.Dresses && item is not BO.Clothing.Skirts);
                     case (BO.Category.Clothing, BO.Gender.Girls):
 
                         return Enum.GetValues(typeof(BO.Clothing));
@@ -41,8 +40,8 @@ namespace PL.Converters
                         IEnumerable<BO.Shoes?> Boys2 = Enum.GetValues(typeof(BO.Shoes)).Cast<BO.Shoes?>();
 
                         return Boys2.Where(item => item is not BO.Shoes.Heels);
-                    default:
 
+                    default:
                         return Enum.GetValues(typeof(BO.Clothing));
                 }
 
