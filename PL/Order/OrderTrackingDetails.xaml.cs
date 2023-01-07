@@ -7,7 +7,6 @@ namespace PL.Order
     /// </summary>
     public partial class OrderTrackingDetails : Window
     {
-
         public OrderTrackingDetails(int id, BO.OrderTracking orderTracking)
         {
             ///search the order with the recieved id and initialize the values in the text blocks accordingly

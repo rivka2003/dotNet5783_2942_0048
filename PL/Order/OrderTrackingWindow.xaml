@@ -9,30 +9,27 @@
         Title="OrderTrackingWindow" Height="450" Width="800">
     <Window.Resources>
         <converter:LengthIDToIsEnableConverter x:Key="LengthIDToIsEnableConverter"/>
+        <converter:IsEnabeleByTheTextLengthConverter x:Key="isEnabeleByTheTextLengthConverter"/>
     </Window.Resources>
     
-    <Window.Background>
-        <ImageBrush ImageSource="/Order/Image9.png" Opacity="0.5"/>
-    </Window.Background>
     <Grid>
-
+        <Grid.Background>
+            <ImageBrush ImageSource="/Order/Image9.png" Opacity="0.5"/>
+        </Grid.Background>
+        
         <Label x:Name="lblID" Content="Enter order's ID:" HorizontalAlignment="Left" 
                Margin="111,95,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
         
         <TextBox x:Name="tbID" HorizontalAlignment="Left" Margin="354,102,0,0" 
-                 VerticalAlignment="Top" Width="213" FontSize="24"  
+                 VerticalAlignment="Top" Width="213" FontSize="24" MaxLength="8" 
                  PreviewTextInput="PreviewTextInputDigitsIDInStock" TextChanged="tbID_TextChanged"/>
 
         <Button x:Name="btnORDERTRACKING" Content="Order's tracking" HorizontalAlignment="Left" 
-                Margin="65,316,0,0" VerticalAlignment="Top" FontSize="36"  IsEnabled="False"
+                Margin="65,316,0,0" VerticalAlignment="Top" FontSize="36"  IsEnabled="{Binding ElementName=tbID, Path=Text, Converter={StaticResource isEnabeleByTheTextLengthConverter}}"
                 Click="btnORDERTRACKING_Click" FontWeight="Bold" Foreground="#FFA10800" />
-        <!--IsEnabled="{Binding ElementName=tbID, Path=Text, 
-            Converter={ StaticResource LengthIDToIsEnableConverter}}"-->
 
         <Button x:Name="btnORDERDETAILS" Content="Order's details" HorizontalAlignment="Left" 
-                Margin="460,316,0,0" VerticalAlignment="Top" FontSize="36" IsEnabled="False"
+                Margin="460,316,0,0" VerticalAlignment="Top" FontSize="36" IsEnabled="{Binding ElementName=tbID, Path=Text, Converter={StaticResource isEnabeleByTheTextLengthConverter}}"
                 Click="btnORDERDETAILS_Click" FontWeight="Bold" Foreground="#FFA10800"/>
-
-
     </Grid>
 </Window>

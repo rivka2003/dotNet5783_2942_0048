@@ -27,30 +27,19 @@ namespace PL.Order
         }
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (((TextBox)sender).Text.Length <= 8)
-                ID = int.Parse(tbID.Text);
-                //btnORDERDETAILS.IsEnabled = true;
-                //btnORDERTRACKING.IsEnabled = true;
-                
-            //else
-            //{
-            //    btnORDERDETAILS.IsEnabled = false;
-            //    btnORDERTRACKING.IsEnabled = false;
-            //}
-
+            ID = int.Parse(((TextBox)sender).Text);
         }
 
         private void btnORDERTRACKING_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                orderTracking = bl.Order.TrackingOrder(ID);
-                new OrderTrackingDetails(ID, orderTracking).ShowDialog();
+                new OrderTrackingDetails(ID, bl.Order.TrackingOrder(ID)).ShowDialog();
             }
 
-            catch (BO.NonFoundObjectBo ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }
@@ -61,14 +50,12 @@ namespace PL.Order
         {
             try
             {
-                order = bl.Order.OrderDetails(ID);
-                new OrderDetails(order).ShowDialog();
+                new OrderDetails(bl.Order.OrderDetails(ID)).ShowDialog();
             }
 
             catch (BO.NonFoundObjectBo ex)
             {
-                MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="OrderDetails" Height="450" Width="800">
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Order/Image8.png"/>
+            <ImageBrush ImageSource="/Order/Image8.png" Opacity="0.5"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
@@ -41,22 +42,22 @@
 
         <Label Content="Delivery date:" FontSize="20" Grid.Row="6"/>
 
-        <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="5" 
+        <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="{Binding Order.ShipDate}" FontSize="15" Grid.Row="5" 
                 HorizontalAlignment="Left"/>
 
-        <Label  x:Name="lblADDRESS" Grid.Column="1" Content="" FontSize="15" Grid.Row="2"
+        <Label  x:Name="lblADDRESS" Grid.Column="1" Content="{Binding Order.CustomerAddress}" FontSize="15" Grid.Row="2"
                 HorizontalAlignment="Left"/>
 
-        <Label  x:Name="lblNAME" Grid.Column="1" Content="" FontSize="15" Grid.Row="3"
+        <Label  x:Name="lblNAME" Grid.Column="1" Content="{Binding Order.CustomerName}" FontSize="15" Grid.Row="3"
                 HorizontalAlignment="Left"/>
 
-        <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="4"
+        <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="{Binding Order.OrderDate}" FontSize="15" Grid.Row="4"
                 HorizontalAlignment="Left"/>
 
-        <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="" FontSize="15" Grid.Row="6"
+        <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="{Binding Order.DeliveryDate}" FontSize="15" Grid.Row="6"
                 HorizontalAlignment="Left"/>
 
-        <Label  x:Name="lblID" Grid.Column="1" Content="" FontSize="15" Grid.Row="1"
+        <Label  x:Name="lblID" Grid.Column="1" Content="{Binding Order.ID}" FontSize="15" Grid.Row="1"
                 HorizontalAlignment="Left"/>
     </Grid>
 

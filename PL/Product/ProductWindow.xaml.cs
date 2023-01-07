@@ -55,7 +55,6 @@ namespace PL.Product
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
 
-            btnSAVE.Content = "UPDATE";
             tbID.IsEnabled = false; ///unable changing the id 
         }
 
@@ -68,9 +67,6 @@ namespace PL.Product
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
 
             //cbSIZE.SelectedIndex = 0;
-
-            btnSAVE.Content = "ADD";
-            lblTITLE.Content = "Add a new product";
         }
 
         /// <summary>

@@ -36,6 +36,8 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
+        <converter:ButtonByProductIdConverter x:Key="buttonByProductIdConverter"/>
+        <converter:LabelByProductIdConverter x:Key="labelByProductIdConverter"/>
         <local:EmptyToVisable x:Key="EmptyToVisable"/>
         <local:FullToVisable x:Key="FullToVisable"/>
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
@@ -177,13 +179,14 @@
                 <!--SelectedValue="{Binding ElementName= cbCATEGORY, 
                     Path=SelectedItem, Converter={StaticResource }, ConverterParameter={Binding id}}"-->
 
-                <Button x:Name="btnSAVE" Content="UPDATE" HorizontalAlignment="Left" Margin="62,30,0,0" 
-                    VerticalAlignment="Top" Height="34" Width="68" Click="BtnSAVE_Click" Grid.Row="5" 
-                    Foreground="Red" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnSAVE" Content="{Binding product.ID, Converter={StaticResource buttonByProductIdConverter}}" 
+                        HorizontalAlignment="Left" Margin="57,30,0,0" VerticalAlignment="Top" Height="34" Width="68" 
+                        Click="BtnSAVE_Click" Grid.Row="5" Foreground="Red"/>
             </Grid>
 
-            <Label x:Name="lblTITLE" Content="Update product:" HorizontalAlignment="Left" Margin="328,-63,0,0" 
-               VerticalAlignment="Top" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="18"/>
+            <Label x:Name="lblTITLE" Content="{Binding product.ID, Converter={StaticResource labelByProductIdConverter}}" 
+                   HorizontalAlignment="Left" Margin="328,-63,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" 
+                   FontWeight="Bold" FontSize="18"/>
 
             <Image x:Name="Imege" Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top"
                Width="201" Source="{Binding product.Image}"/>
