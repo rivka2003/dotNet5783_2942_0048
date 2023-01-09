@@ -4,31 +4,44 @@
              xmlns:local="clr-namespace:WpfApp1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="commonStyle" TargetType="Control">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <Style TargetType="Label" BasedOn="{StaticResource commonStyle}">
-            <Setter Property="FontFamily" Value="Elephant"/>
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
+            <Style x:Key="commonStyle" TargetType="Control">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
 
-        <Style TargetType="Button" BasedOn="{StaticResource commonStyle}">
-            <Setter Property="Background" Value="{x:Null}"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontFamily" Value="Elephant"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderBrush" Value="{x:Null}"/>
-        </Style>
+            <Style TargetType="Label" BasedOn="{StaticResource commonStyle}">
+                <Setter Property="FontFamily" Value="Elephant"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
 
-        <Style TargetType="TextBox" BasedOn="{StaticResource commonStyle}">
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Width" Value="120"/>
-        </Style>
+            <Style TargetType="Button" BasedOn="{StaticResource commonStyle}">
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="Elephant"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+            </Style>
 
-        <Style TargetType="ComboBox" BasedOn="{StaticResource commonStyle}">
-            <Setter Property="Width" Value="120"/>
-        </Style>
+            <Style TargetType="TextBox" BasedOn="{StaticResource commonStyle}">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Width" Value="120"/>
+            </Style>
+
+            <Style TargetType="ComboBox" BasedOn="{StaticResource commonStyle}">
+                <Setter Property="Width" Value="120"/>
+            </Style>
+        </ResourceDictionary>
+
+
+
+        
     </Application.Resources>
 </Application>

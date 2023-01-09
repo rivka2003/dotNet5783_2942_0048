@@ -1,0 +1,100 @@
+﻿<Page x:Class="PL.Carts.TheCartWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL.Carts"
+      mc:Ignorable="d" 
+      DataContext="{Binding RelativeSource={RelativeSource self}}"
+      d:DesignHeight="458" d:DesignWidth="800"
+      Title="TheCartWindow">
+    <Page.Resources>
+        <Style x:Key="EmptyCartTextBox" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Elephant" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Cart.Items}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="oneOrderItem" DataType="local: OrderItem">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Label FontFamily="Elephant" 
+                           Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
+                    <Label Content="{Binding Path=TotalPrice}" 
+                           ContentStringFormat=" {0}₪" HorizontalAlignment="Left" />
+                </StackPanel>
+                <Button x:Name="IncreaseButton" Width="20" Height="20" 
+                        FontFamily="Elephant" FontSize="14"  Content="+" Background="#FFFAF9F9" 
+                        BorderBrush="Black" Click="IncreaseBtn_Click"/>
+                <Label x:Name="AmountLb" 
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  
+                       Content="{Binding Amount}" VerticalAlignment="Center" />
+                <Button x:Name="DecreaseButton" Width="20" Height="20" 
+                        FontFamily="Elephant" FontSize="14"  Content="-" Background="#FFFAF9F9" 
+                        BorderBrush="Black" Click="DecreaseBtn_Click" />
+                <Label Content="   "/>
+                <Button x:Name="RemoveButton" Foreground="White" Width="20" Height="20" 
+                        FontFamily="Elephant" FontSize="14"  Content="x" Background="Black" 
+                        BorderBrush="Black" Click="RemoveBtn_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="1"/>
+
+            <Label Content="Email:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="2"/>
+
+            <Label Content="Address:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="3"/>
+
+            <Button x:Name="btnORDERMAKING" Content="Order!" HorizontalAlignment="Left" Margin="66,14,0,0"
+                    Grid.Row="6" VerticalAlignment="Top" FontSize="16" Click="Button_Click"/>
+
+            <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="1" Height="26"/>
+
+            <TextBox x:Name="tbEMAIL" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="2" Height="25"/>
+
+            <TextBox x:Name="tbADDRESS" HorizontalAlignment="Center" Margin="0,19,0,18" Grid.Row="3" Height="25"/>
+        </Grid>
+
+        <ListView x:Name="cartView" Background="{x:Null}" FontSize="22" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  SelectionChanged="CartView_SelectionChanged" Margin="0,0,0,149" Grid.Column="1" ScrollViewer.CanContentScroll="True"
+                  FontFamily="Elephant" Foreground="White" ItemsSource="{Binding Cart.Items}"  
+                  ItemTemplate="{StaticResource oneOrderItem}">
+        </ListView>
+
+        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Your basket is currently empty Waiting for your next purchase!" 
+                       Style="{StaticResource EmptyCartTextBox}" Height="62" Foreground="Black" Grid.Column="1" Margin="0,92,0,304"/>
+        
+        <Label Content="Total price:" Grid.Column="1" HorizontalAlignment="Left" Margin="51,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,-0.062"/>
+
+        <Label x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Cart.TotalPrice}" Margin="155,360,0,0" VerticalAlignment="Top" 
+               HorizontalAlignment="Left" ContentStringFormat=" {0}₪"/>
+    </Grid>
+</Page>

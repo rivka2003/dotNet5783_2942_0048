@@ -1,22 +1,29 @@
-﻿using BO;
-using PL.Carts;
+﻿using PL.Carts;
 using PL.Product;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ProductForList.xaml
+    /// Interaction logic for Catalog.xaml
     /// </summary>
-    public partial class ProductForList : Window
+    public partial class Catalog : Page
     {
-        private bool isContentVisible = false;
-
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        private readonly static BO.Cart cart = new();
+        public BO.Cart Cart
+        {
+            get { return (BO.Cart)GetValue(CartProperty); }
+            set { SetValue(CartProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Cart.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CartProperty =
+            DependencyProperty.Register("Cart", typeof(BO.Cart), typeof(Catalog));
 
         private ObservableCollection<BO.ProductForList> productForLists
         {
@@ -26,8 +33,18 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for productForLists.  This enables animation, styling, binding, etc...
         private static readonly DependencyProperty productForListsProperty =
-            DependencyProperty.Register("productForLists", typeof(ObservableCollection<BO.ProductForList>), typeof(ProductForList));
-        
+            DependencyProperty.Register("productForLists", typeof(ObservableCollection<BO.ProductForList>), typeof(Catalog));
+
+        private ObservableCollection<BO.ProductItem> productItems
+        {
+            get { return (ObservableCollection<BO.ProductItem>)GetValue(productItemsProperty); }
+            set { SetValue(productItemsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for productForLists.  This enables animation, styling, binding, etc...
+        private static readonly DependencyProperty productItemsProperty =
+            DependencyProperty.Register("productItems", typeof(ObservableCollection<BO.ProductItem>), typeof(Catalog));
+
         public IEnumerable<BO.Color> Color
         {
             get { return (IEnumerable<BO.Color>)GetValue(ColorProperty); }
@@ -36,17 +53,17 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color>), typeof(ProductForList));
+            DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color>), typeof(Catalog));
 
         public IEnumerable<BO.Gender> Gender
         {
-            get { return (IEnumerable<BO.Gender> )GetValue(GenderProperty); }
+            get { return (IEnumerable<BO.Gender>)GetValue(GenderProperty); }
             set { SetValue(GenderProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GenderProperty =
-            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(ProductForList));
+            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(Catalog));
 
         public IEnumerable<BO.Category> Category
         {
@@ -56,25 +73,43 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
-            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(ProductForList));
+            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(Catalog));
 
-        readonly bool isManager;
-
-        public ICollectionView CollectionViewProductItemList { set; get; }
-        public ProductForList(bool IsManager)
+        public bool isManager
         {
+            get { return (bool)GetValue(isManagerProperty); }
+            set { SetValue(isManagerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for isManager.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty isManagerProperty =
+            DependencyProperty.Register("isManager", typeof(bool), typeof(Catalog));
+
+        private string groupName = "Category";
+        PropertyGroupDescription propertyGroupDescription;
+        public ICollectionView CollectionViewProductItemList { set; get; }
+
+        public Catalog(BO.Cart cart, bool IsManager)
+        {
+            isManager = IsManager;
             InitializeComponent();
 
-            isManager = IsManager;
-
+            Cart = cart;
             /////resets the combo boxes options
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
+            //if (IsManager)
+            //    productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
             productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
-
-            ///resets the combo boxes in default values
-            //SizeCB.SelectedIndex = 0;
+            //else
+            //    productItems = new ObservableCollection<BO.ProductItem>(bl.Product.GrupingByChoos(BO.Gender.Women, cart)!);
+           
+        CollectionViewProductItemList = CollectionViewSource.GetDefaultView(productForLists);
+            
+            propertyGroupDescription = new PropertyGroupDescription(groupName);
+            CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
+           // CollectionViewProductItemList.GroupDescriptions.Clear();
         }
 
         /// <summary>
@@ -92,9 +127,9 @@ namespace PL
             }
             else
             {
-                productsLv.DataContext = productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
                 item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem);
+                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
             }
         }
 
@@ -108,12 +143,13 @@ namespace PL
             int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
             if (isManager)
             {
-                new ProductWindow(ID).ShowDialog();
+                MainWindow.mainFrame.Navigate(new TheProductWindow(ID));
                 productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
             }
             else
             {
-                new ProductItemView(ID).ShowDialog();
+                //new ProductItemView(ID).ShowDialog();
+                MainWindow.mainFrame.Navigate(new ProductView(Cart, ID));
             }
         }
 
@@ -124,7 +160,7 @@ namespace PL
         /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new ProductWindow().ShowDialog();
+            MainWindow.mainFrame.Navigate(new TheProductWindow());
             productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 
@@ -135,12 +171,24 @@ namespace PL
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
+            productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 
-        private void Cart_Button_Click(object sender, RoutedEventArgs e)
+        private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow(cart).ShowDialog();
+            int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
+            try
+            {
+                int index = Cart.Items!.FindIndex(item => item!.ProductID == ID);
+                if (index == -1)
+                    bl!.Cart.AddProductToCart(Cart, ID, 1);
+                else
+                    bl!.Cart.AddProductToCart(Cart, ID, ++Cart.Items[index]!.Amount);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

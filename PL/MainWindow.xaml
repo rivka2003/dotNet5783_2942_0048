@@ -4,26 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Window.Resources>
         <local:HiddenToVisible x:Key="HiddenToVisible"/>
+        <converter:BoolTrueToVisibleConverter x:Key="boolTrueToVisibleConverter"/>
     </Window.Resources>
-    
+
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Image1.png"/>
-        </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="Black" >
+        <Grid Background="Black">
             <Button x:Name="Cart" Content="🛒" Visibility="Visible" 
-                FontSize="20" HorizontalAlignment="Left" Foreground="White"/>
+                FontSize="20" HorizontalAlignment="Left" Foreground="White" Click="Cart_Click"/>
+
+            <Button x:Name="Hamburger"  Background="{x:Null}" Content="≡" Foreground="White" FontWeight="Bold" FontSize="36" 
+                    BorderBrush="{x:Null}" Click="Hamburger_Checked" Height="40" HorizontalAlignment="Right" Margin="61,0,0,0" 
+                    VerticalAlignment="Top" />
+            <Image Margin="186,0,186,0" Source="/Untitled_Artwork (2).png" Stretch="Fill"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
 
         <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="2">
@@ -33,13 +42,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="Hamburger"  Background="{x:Null}" Content="≡" Foreground="White" FontWeight="Bold" FontSize="36" 
-                BorderBrush="{x:Null}" Click="Hamburger_Checked" Height="40" HorizontalAlignment="Left" Margin="61,0,0,0" VerticalAlignment="Top" />
-
-            <StackPanel x:Name="Data" Visibility="Hidden" Background="Black" Grid.Row="1">
+            <StackPanel x:Name="Data" Background="Black" Grid.Row="1" Visibility="Hidden">
+                <!--Visibility="{Binding _isMenuOpen, Converter={StaticResource boolTrueToVisibleConverter}}"-->
                 <Button x:Name="BTHome" Content="Home" FontSize="12" Click="BTHome_Click" Foreground="White"/>
 
-                <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Track tour order" FontSize="12" Foreground="White" Click="BTOrderTracking_Click" />
+                <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Track your order" FontSize="12" Foreground="White" Click="BTOrderTracking_Click" />
 
                 <Button x:Name="BTCatalog"  Grid.Column="1" Content="Catalog" FontSize="12" Grid.Row="1" Foreground="White" Click="BTCatalog_Click" />
 
@@ -50,8 +57,5 @@
                 <Button x:Name="BTProducts" Grid.Row="1" Content="Products" Click="BTProducts_Click" FontSize="12" Visibility="Hidden" Foreground="White"/>
             </StackPanel>
         </Grid>
-
-        <Button x:Name="ProductListWindow" Content="Take a journey in the streets of fashion!" 
-                Click="Products_Button_Click" FontSize="36" Foreground="White" Grid.Row="1"/>
     </Grid>
 </Window>

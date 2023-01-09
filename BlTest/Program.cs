@@ -332,7 +332,7 @@ namespace BlTest
                         int id;
                         /// Conversion of the received value to the desired type
                         int.TryParse(Console.ReadLine(), out id);
-                        cart = blApi!.Cart.AddProductToCart(cart, id);
+                        cart = blApi!.Cart.AddProductToCart(cart, id, 1);
                         Console.WriteLine("The cart after the addition:");
                         Console.WriteLine(string.Join("\n", cart.Items!));
                         break;

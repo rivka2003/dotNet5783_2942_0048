@@ -14,7 +14,7 @@ namespace BlApi
         /// </summary>
         /// <param name="Item"></param>
         /// <returns></returns>
-        public BO.Cart AddProductToCart(BO.Cart cart, int productID);
+        public BO.Cart AddProductToCart(BO.Cart cart, int productID, int productAmount);
         /// <summary>
         /// Updetes the amount of the item in the cart
         /// </summary>

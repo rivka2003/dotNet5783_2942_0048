@@ -1,8 +1,9 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using PL.Carts;
 using PL.Order;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -11,11 +12,15 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly BlApi.IBl? bl = BlApi.Factory.Get();
         private bool _isMenuOpen = false;
+        private BO.Cart cart = new() { Items = new List<BO.OrderItem?>() };
+        public static Frame mainFrame;
+        internal static string PasswordText;
         public MainWindow()
         {
             InitializeComponent();
+            mainFrame = MainFrame;
+            mainFrame.Navigate(new HomePage(cart));
         }
         /// <summary>
         /// getting to the manager menue
@@ -26,11 +31,6 @@ namespace PL
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public bool IsMenuOpen = false;
-        private void Products_Button_Click(object sender, RoutedEventArgs e)
-        {
-            new ProductForList(false).ShowDialog();
         }
 
         private void Hamburger_Checked(object sender, RoutedEventArgs e)
@@ -43,33 +43,41 @@ namespace PL
         {
             new Password().ShowDialog();
 
-            BTOrders.Visibility = Visibility.Visible;
-            BTProducts.Visibility = Visibility.Visible;
+            if (PasswordText == "Fation")
+            {
+                BTOrders.Visibility = Visibility.Visible;
+                BTProducts.Visibility = Visibility.Visible;
+            }
         }
 
         private void BTOrderTracking_Click(object sender, RoutedEventArgs e)
         {
-            new OrderTrackingWindow().ShowDialog();
+            mainFrame.Navigate(new TheOrderTrackingWindow());
         }
 
         private void BTCatalog_Click(object sender, RoutedEventArgs e)
         {
-            new ProductForList(false).ShowDialog();
+            mainFrame.Navigate(new Catalog(cart, false));
         }
 
         private void BTOrders_Click(object sender, RoutedEventArgs e)
         {
-            new OrderForList().ShowDialog();
+            mainFrame.Navigate(new OrdersList());
         }
 
         private void BTProducts_Click(object sender, RoutedEventArgs e)
         {
-            new ProductForList(true).ShowDialog();
+            mainFrame.Navigate(new Catalog(cart, true));
         }
 
         private void BTHome_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow();
+            mainFrame.Navigate(new HomePage(cart));
+        }
+
+        private void Cart_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(new TheCartWindow(cart));
         }
     }
 }

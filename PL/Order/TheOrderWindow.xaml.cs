@@ -1,18 +1,31 @@
-﻿using PL.Product;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace PL.Order
 {
     /// <summary>
-    /// Interaction logic for OrderWindow.xaml
+    /// Interaction logic for TheOrderWindow.xaml
     /// </summary>
-    public partial class OrderWindow : Window
+    public partial class TheOrderWindow : Page
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public static readonly DependencyProperty OrderDep = DependencyProperty.Register(nameof(order), typeof(BO.Order), typeof(OrderWindow));
+        public static readonly DependencyProperty OrderDep = DependencyProperty.Register(nameof(order), 
+            typeof(BO.Order), typeof(TheOrderWindow));
         BO.Order order { get => (BO.Order)GetValue(OrderDep); set => SetValue(OrderDep, value); }
-        public OrderWindow(int ID)/// constructor to open an update window/
+        public TheOrderWindow(int ID)
         {
             InitializeComponent();
 
@@ -24,13 +37,7 @@ namespace PL.Order
             //tbORDERDATE.Text = order.OrderDate.ToString();
             //tbSHIPDATE.Text = order.ShipDate.ToString();
             //tbDELIVERYDATE.Text = order.DeliveryDate.ToString();
-
-            lblx5.Visibility = Visibility.Hidden;
-            lblx6.Visibility = Visibility.Hidden;
         }
-
-
-
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -70,8 +77,6 @@ namespace PL.Order
                     bl!.Order.UpdateDeliveryDate(order.ID);
                     MessageBox.Show("Updated succesfuly!", "Saved order", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-
-                Close();
             }
 
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
@@ -89,4 +94,4 @@ namespace PL.Order
             }
         }
     }
-} 
+}

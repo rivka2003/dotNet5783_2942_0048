@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Carts\g.png" />
     <None Remove="Image1.png" />
     <None Remove="Image2.png" />
     <None Remove="Image4.png" />
@@ -36,7 +35,7 @@
     <None Remove="Product\Image3.png" />
     <None Remove="Product\Image4.png" />
     <None Remove="Product\Image5.png" />
-    <None Remove="Product\Untitled_Artwork.jpg" />
+    <None Remove="Untitled_Artwork %282%29.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Carts\g.png" />
     <Resource Include="Image1.png" />
     <Content Include="Image2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -63,9 +61,10 @@
     <Content Include="Product\Image3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <PackageReference Include="MaterialDesignThemes" Version="4.7.0" />
     <Resource Include="Product\picturs\Image4.png" />
     <Resource Include="Product\picturs\Image5.png" />
-    <Resource Include="Product\Untitled_Artwork.jpg" />
+    <Resource Include="Untitled_Artwork (2).png" />
   </ItemGroup>
 
 </Project>

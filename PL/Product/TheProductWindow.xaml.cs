@@ -6,13 +6,13 @@ using System.Windows.Input;
 namespace PL.Product
 {
     /// <summary>
-    /// Interaction logic for Update.xaml
+    /// Interaction logic for TheProductWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class TheProductWindow : Page
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(ProductWindow));
+        public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(TheProductWindow));
         BO.Product product { get => (BO.Product)GetValue(PoductDep); set => SetValue(PoductDep, value); }
 
         public IEnumerable<BO.Color> Color
@@ -23,7 +23,7 @@ namespace PL.Product
 
         // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ColorProperty =
-        DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color>), typeof(ProductWindow));
+        DependencyProperty.Register("Color", typeof(IEnumerable<BO.Color>), typeof(TheProductWindow));
 
         public IEnumerable<BO.Gender> Gender
         {
@@ -33,7 +33,7 @@ namespace PL.Product
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GenderProperty =
-            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(ProductWindow));
+            DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(TheProductWindow));
 
         public IEnumerable<BO.Category> Category
         {
@@ -43,14 +43,13 @@ namespace PL.Product
 
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
-            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(ProductWindow));
-
-        public ProductWindow(int ID)/// constructor to open an update window/
+            DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
+        public TheProductWindow(int ID)
         {
-            InitializeComponent();
-           
-            ///resets to show the current values
             product = bl.Product.ProductDetailsForManager(ID);
+            InitializeComponent();
+
+            ///resets to show the current values
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
@@ -58,7 +57,7 @@ namespace PL.Product
             tbID.IsEnabled = false; ///unable changing the id 
         }
 
-        public ProductWindow() /// constructor to open the add window
+        public TheProductWindow()
         {
             InitializeComponent();
 
@@ -166,7 +165,7 @@ namespace PL.Product
                 if (btnSAVE.Content is "UPDATE") ///for updating
                 {
                     bl!.Product.UpdateProduct(product);
-                    
+
                     MessageBox.Show("Updated succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else ///for adding
@@ -174,7 +173,6 @@ namespace PL.Product
                     bl!.Product.AddProduct(product);
                     MessageBox.Show("Added succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                Close();
             }
 
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.

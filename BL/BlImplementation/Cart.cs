@@ -20,7 +20,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.NotInStock"></exception>
-        public BO.Cart AddProductToCart(BO.Cart cart, int productID)
+        public BO.Cart AddProductToCart(BO.Cart cart, int productID, int productAmount)
         {
             DO.Product productDo;
 
@@ -40,16 +40,16 @@ namespace BlImplementation
                         ProductID = productID,
                         Name = productDo.Name,
                         Price = productDo.Price,
-                        Amount = 1,
+                        Amount = productAmount,
                         TotalPrice = productDo.Price
                     });
                     cart.TotalPrice += productDo.Price;
                 }
                 else /// if the cart is not empty
                 {
-                    orderItemBo.Amount++;
-                    orderItemBo.TotalPrice += orderItemBo.Price;
-                    cart.TotalPrice += orderItemBo.Price;
+                    orderItemBo.Amount += productAmount;
+                    orderItemBo.TotalPrice += orderItemBo.Price * productAmount;
+                    cart.TotalPrice += orderItemBo.Price * productAmount;
                 }
             }
             else /// if the stock is empty

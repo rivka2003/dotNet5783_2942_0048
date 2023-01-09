@@ -1,9 +1,14 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class TakeTheSizeByTheCategoryConverter : IValueConverter
+    public class TakeTheTypeByTheCategoryConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -15,7 +20,7 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value is BO.Category.Clothing) ? BO.SizeClothing.XS : 36;
+            return (value is BO.Category.Clothing) ? BO.Clothing.Blazers : BO.Shoes.Sneakers;
         }
 
         /// <summary>
