@@ -1,4 +1,5 @@
-﻿using PL.Carts;
+﻿using BO;
+using PL.Carts;
 using PL.Product;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -176,18 +177,22 @@ namespace PL
 
         private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            int ID = ((BO.ProductForList)productsLv.SelectedItem).ID;
             try
             {
-                int index = Cart.Items!.FindIndex(item => item!.ProductID == ID);
-                if (index == -1)
-                    bl!.Cart.AddProductToCart(Cart, ID, 1);
-                else
-                    bl!.Cart.AddProductToCart(Cart, ID, ++Cart.Items[index]!.Amount);
+                FrameworkElement frameworkElement = (sender as FrameworkElement)!;
+                int productId;
+                if (frameworkElement is not null && frameworkElement.DataContext is not null)
+                {
+                    productId = ((ProductItem)(frameworkElement.DataContext)).ID;
+                    bl?.Cart.AddProductToCart(Cart, productId, 1);
+                    var p = productForLists.First(p => p.ID == productId);
+                    //productForLists[productForLists.IndexOf(p)] = bl?.Product.GetProductDetailsForCustomer(productId, cart);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Out of stock!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
     }

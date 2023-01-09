@@ -54,9 +54,6 @@
         <Label x:Name="lblID" Content="{Binding ID}" HorizontalAlignment="Left" FontSize="20" 
                Margin="246,127,0,0" VerticalAlignment="Top"/>
 
-        <Label x:Name="lblSTATUS" Content="{Binding Item2}" HorizontalAlignment="Left" FontSize="20" 
-               Grid.Column="1" Grid.Row="1" Margin="60,0,0,0"/>
-
         <Label x:Name="lblPROGRESS" HorizontalAlignment="Left" FontSize="20" Grid.Column="1" Grid.Row="2" 
                Margin="60,0,0,0" Content="{Binding Item1}"/>
         <Label HorizontalAlignment="Left" Margin="538,315,0,0" Content="{Binding OrderProgress[0].Item1}" VerticalAlignment="Top"/>

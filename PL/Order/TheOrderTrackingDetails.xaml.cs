@@ -23,11 +23,12 @@ namespace PL.Order
         // Using a DependencyProperty as the backing store for Order tracking.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OrderTrackingProperty =
             DependencyProperty.Register("OrderTracking", typeof(BO.OrderTracking), typeof(TheOrderTrackingDetails));
+
         public TheOrderTrackingDetails(BO.OrderTracking orderTracking)
         {
+            OrderTracking = orderTracking;
             ///search the order with the recieved id and initialize the values in the text blocks accordingly
             InitializeComponent();
-            OrderTracking = orderTracking;
         }
     }
 }
