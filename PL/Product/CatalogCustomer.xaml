@@ -1,4 +1,4 @@
-﻿<Page x:Class="PL.Catalog"
+﻿<Page x:Class="PL.Product.CatalogCustomer"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,6 +11,12 @@
       Title="Catalog">
 
     <Page.Resources>
+
+        <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
+        <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
+        <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
+        <local:ChoosByCategory x:Key="ChoosByCategory"/>
+
         <DataTemplate x:Key="oneProduct">
             <Grid>
                 <Grid.RowDefinitions>
@@ -31,15 +37,9 @@
 
                 <Label Grid.Row="2" Content="{Binding Path=Price}" HorizontalContentAlignment="Left" ContentStringFormat=" {0}₪"/>
 
-                <Button x:Name="btnDelete" Content="Delete" Grid.Row="3" VerticalAlignment="Bottom" Click="Delete_Product_Button_Click"/>
+                <Button x:Name="btnAddToCart" Content="Add To Cart" Grid.Row="3" VerticalAlignment="Bottom" Click="AddToCart_Product_Button_Click"/>
             </Grid>
         </DataTemplate>
-
-        <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
-        <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
-        <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
-        <local:ChoosByCategory x:Key="ChoosByCategory"/>
-
     </Page.Resources>
 
     <Grid>
@@ -52,10 +52,10 @@
         <Grid Background="White">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <ComboBox x:Name="GenderCB" Height="30" 
-                      ItemsSource="{Binding Gender}" SelectedIndex="0" SelectedItem="{Binding Product.Gender, Mode=OneWayToSource}"/>
+                      ItemsSource="{Binding Gender}" SelectedIndex="0"/>
 
-                <ComboBox x:Name="CategoryCB"  ItemsSource="{Binding Category}" 
-                          Height="30" SelectedIndex="0"  SelectedItem="{Binding Product.Category, Mode=OneWayToSource}"/>
+                <ComboBox x:Name="CategoryCB"   SelectedItem="{Binding selectedCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Category}" Height="30" 
+                      SelectedIndex="0"/>
 
                 <ComboBox x:Name="TypeCB" Height="30">
                     <ComboBox.ItemsSource>
@@ -69,19 +69,13 @@
                                  Converter="{StaticResource takeTheTypeByTheCategoryConverter}"/>
                     </ComboBox.SelectedValue>
                 </ComboBox>
-                <!--<ComboBox.SelectedItem>
-                        <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
-                            <Binding ElementName="CategoryCB" Path="SelectedItem"/>
-                            <Binding Product Mode="OneWayToSource"/>
-                        </MultiBinding>
-                    </ComboBox.SelectedItem>-->
 
                 <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
                         Converter={StaticResource ChoosByCategory}}" SelectedValue="{Binding ElementName=CategoryCB, Path=SelectedItem,
-                    Converter={StaticResource takeTheSizeByTheCategoryConverter}, Mode=OneWay}"  SelectedItem="{Binding Product, Mode=OneWayToSource}"/>
+                    Converter={StaticResource takeTheSizeByTheCategoryConverter}, Mode=OneWay}"/>
 
                 <ComboBox x:Name="ColorCB" Height="30" ItemsSource="{Binding Color}"
-                      SelectedIndex="0"  SelectedItem="{Binding Product.Color, Mode=OneWayToSource}"/>
+                      SelectedIndex="0"/>
             </StackPanel>
 
             <Button x:Name="chooseB"  Content="Choose!" FontSize="16" Click="ChooseB" 
@@ -90,11 +84,10 @@
             <Button x:Name="clearB"  Content="Clear!" VerticalAlignment="Bottom" FontSize="16" 
                             Click="ClearB" Foreground="#FFB21616" HorizontalAlignment="Right" Margin="0,0,20,0"/>
         </Grid>
-
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
                   FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding productForLists}">
+                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding productItems}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
@@ -126,10 +119,5 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-
-
-        <Button x:Name="AddProductWindow" Content="Add new product" Click="Add_Product_Button_Click" 
-                FontSize="25" Grid.Row="1" Foreground="#FFB21616" Background="White" HorizontalAlignment="Right" 
-                Margin="0,320,19,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

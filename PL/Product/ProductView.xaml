@@ -11,13 +11,13 @@
 
     <Grid Background="White">
         <Label x:Name="Name"  HorizontalAlignment="Left" Margin="40,28,0,0" 
-               VerticalAlignment="Top" FontSize="65" Content="{Binding product.Name}"/>
+               VerticalAlignment="Top" FontSize="35" Content="{Binding product.Name}"/>
 
         <Label x:Name="Description"  Content="{Binding product.Description}" HorizontalAlignment="Left" Margin="40,122,0,0" 
-               VerticalAlignment="Top" FontSize="30"/>
+               VerticalAlignment="Top" FontSize="15"/>
 
-        <Label x:Name="Price"  Content="{Binding product.Price}" HorizontalAlignment="Left" Margin="294,163,0,0" 
-               VerticalAlignment="Top" FontSize="50" ContentStringFormat=" {0}₪"/>
+        <Label x:Name="Price"  Content="{Binding product.Price}" Margin="0,177,0,0" 
+               VerticalAlignment="Top" FontSize="25" ContentStringFormat=" {0}₪"/>
 
         <Label x:Name="Amount"  Content="Amount:" FontSize="20" HorizontalAlignment="Left" Margin="261,239,0,0" VerticalAlignment="Top"/>
 
@@ -28,16 +28,16 @@
                         FontFamily="Elephant" FontSize="14"  Content="+" Background="#FFFAF9F9" 
                         BorderBrush="Black" Click="IncreaseBtn_Click" HorizontalAlignment="Left" Margin="429,247,0,0" 
                 VerticalAlignment="Top"/>
-        
+
         <Label x:Name="AmountLb" 
                        HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  
                        Content="{Binding Amount}" VerticalAlignment="Center" />
-        
+
         <Button x:Name="DecreaseButton" Width="20" Height="20" 
                         FontFamily="Elephant" FontSize="14"  Content="-" Background="#FFFAF9F9" 
                         BorderBrush="Black" Click="DecreaseBtn_Click" HorizontalAlignment="Left" Margin="380,247,0,0"
                 VerticalAlignment="Top" />
-        
+
         <Label Content="{Binding ProductAmount}" HorizontalAlignment="Left" Margin="405,244,0,0" VerticalAlignment="Top"/>
 
         <Image x:Name="Image"  HorizontalAlignment="Left" Height="362" Margin="467,28,0,0" VerticalAlignment="Top" Width="291" 

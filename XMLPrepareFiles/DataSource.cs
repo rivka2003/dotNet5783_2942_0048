@@ -7,16 +7,19 @@ namespace XMLPrepareFiles
         /// <summary>
         /// Making the Config class to make a run number
         /// </summary>
-        /// <summary>
-        /// The running number of the order item
-        /// </summary>
-        private static int orderItemSequenceID = 1;
-        /// <summary>
-        /// The running number of the order
-        /// </summary>
-        private static int orderSequenceID = 1;
-        internal static int GetOrderItemSequenceID() { return orderItemSequenceID++; }
-        internal static int GetOrderSequenceID() { return orderSequenceID++; }
+        internal static class Config
+        {
+            /// <summary>
+            /// The running number of the order item
+            /// </summary>
+            private static int orderItemSequenceID = 1;
+            /// <summary>
+            /// The running number of the order
+            /// </summary>
+            private static int orderSequenceID = 1;
+            internal static int GetOrderItemSequenceID() { return orderItemSequenceID++; }
+            internal static int GetOrderSequenceID() { return orderSequenceID++; }
+        }
 
         /// <summary>
         /// Our three lists
@@ -139,7 +142,7 @@ namespace XMLPrepareFiles
             {
                 Order value = new ()
                 {
-                    ID = GetOrderSequenceID(),
+                    ID = Config.GetOrderSequenceID(),
                     CustomerName = "Order" + i,
                     CustomerAddress = "Menachem Begin" + i,
                     CustomerEmail = "Customer" + i + "@gmail.com",
@@ -190,7 +193,7 @@ namespace XMLPrepareFiles
                 {
                     Product product = new ();
                     product = (Product)Products[random.Next(0, 10)]!;// take some product
-                    orderItem.ID = GetOrderItemSequenceID();
+                    orderItem.ID = Config.GetOrderItemSequenceID();
                     orderItem.ProductID = product.ID;
                     orderItem.Amount = random.Next(1, 6);
                     orderItem.Price = orderItem.Amount * product.Price;

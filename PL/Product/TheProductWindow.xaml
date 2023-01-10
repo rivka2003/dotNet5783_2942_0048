@@ -37,9 +37,10 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
-        <converter:ButtonByProductIdConverter x:Key="buttonByProductIdConverter"/>
-        <converter:LabelByProductIdConverter x:Key="labelByProductIdConverter"/>
-        <converter:UpdateToChooseSizeConverter x:Key="updateToChooseSizeConverter"/>
+        <converter:ButtonByWindowConverter x:Key="buttonByWindowConverter"/>
+        <converter:LabelByWindowConverter x:Key="labelByWindowConverter"/>
+        <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
+        <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
         <local:EmptyToVisable x:Key="EmptyToVisable"/>
         <local:FullToVisable x:Key="FullToVisable"/>
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
@@ -80,19 +81,20 @@
 
                 <Label x:Name="lblDESCRIPTION" Content="Description:" Grid.Row="4" Grid.Column="0"/>
 
-                <TextBox x:Name="tbNAME" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left"
+                <TextBox x:Name="tbNAME" HorizontalAlignment="Left"
                      Grid.Row="1" Grid.Column="1" Text="{Binding product.Name, Mode=TwoWay}"/>
 
                 <TextBox x:Name="tbPRICE" PreviewTextInput="PreviewTextInputDigits" HorizontalAlignment="Left" 
                      Grid.Row="2" Grid.Column="1" MaxLength="8" Text="{Binding product.Price, Mode=TwoWay}"/>
 
                 <TextBox x:Name="tbID" PreviewTextInput="PreviewTextInputDigitsIDInStock"  HorizontalAlignment="Left" 
-                     MaxLength="8" TextChanged="TbID_TextChanged" Grid.Row="0" Grid.Column="1" Text="{Binding product.ID}"/>
+                     MaxLength="8" TextChanged="TbID_TextChanged" Grid.Row="0" Grid.Column="1" Text="{Binding product.ID}"
+                         IsEnabled="{Binding Window}"/>
 
                 <TextBox x:Name="tbINSTOCK" PreviewTextInput="PreviewTextInputDigitsIDInStock" HorizontalAlignment="Left" 
                      Grid.Row="3" Grid.Column="1" MaxLength="8" Text="{Binding product.InStock, Mode=TwoWay}"/>
 
-                <TextBox x:Name="tbDESCRIPTION" PreviewTextInput="PreviewTextInputLetters" HorizontalAlignment="Left" 
+                <TextBox x:Name="tbDESCRIPTION" HorizontalAlignment="Left" 
                      Width="178" Grid.Row="4" Grid.Column="1" Text="{Binding product.Description, Mode=TwoWay}"/>
 
                 <Label x:Name="lblCHECK1"  Grid.Row="0" Grid.Column="1" Style="{StaticResource VLabel}" 
@@ -162,13 +164,17 @@
                 <ComboBox x:Name="cbCATEGORY" Grid.Row="1" Grid.Column="1" SelectedIndex="0"  ItemsSource="{Binding Category}"
                           SelectedItem="{Binding product.Category, Mode=TwoWay}"/>
 
-                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1" SelectedIndex="0" >
+                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1">
                     <ComboBox.ItemsSource>
                         <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
                             <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
                             <Binding ElementName="cbGENDER" Path="SelectedItem" />
                         </MultiBinding>
                     </ComboBox.ItemsSource>
+                    <ComboBox.SelectedValue>
+                        <Binding ElementName="cbCATEGORY" Path="SelectedItem" Mode="OneWay" 
+                                 Converter="{StaticResource takeTheTypeByTheCategoryConverter}"/>
+                    </ComboBox.SelectedValue>
                 </ComboBox>
 
                 <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" SelectedIndex="0" 
@@ -176,19 +182,20 @@
 
                 <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= cbCATEGORY, 
                     Path=SelectedItem, Converter={StaticResource ChoosByCategory}}" 
-                          SelectedValue="{Binding product, Converter={StaticResource updateToChooseSizeConverter}}"/>
+                           SelectedValue="{Binding ElementName=cbCATEGORY, Path=SelectedItem,
+                    Converter={StaticResource takeTheSizeByTheCategoryConverter}, Mode=OneWay}"/>
 
-                <Button x:Name="btnSAVE" Content="{Binding product.ID, Converter={StaticResource buttonByProductIdConverter}}" 
-                        HorizontalAlignment="Left" Margin="57,30,0,0" VerticalAlignment="Top" Height="34" Width="68" 
-                        Click="BtnSAVE_Click" Grid.Row="5" Foreground="Red"/>
+                <Button x:Name="btnSAVE" Content="{Binding Window, Converter={StaticResource buttonByWindowConverter}}" 
+                        HorizontalAlignment="Left" Margin="58,64,0,0" Height="34" Width="68" 
+                        Click="BtnSAVE_Click" Grid.Row="4" Foreground="Red" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top"/>
             </Grid>
 
-            <Label x:Name="lblTITLE" Content="{Binding product.ID, Converter={StaticResource labelByProductIdConverter}}" 
-                   Margin="28,-65,0,0" VerticalAlignment="Top" 
-                   FontWeight="Bold" FontSize="18" Grid.Column="1" HorizontalAlignment="Left"/>
+            <Label x:Name="lblTITLE" Content="{Binding Window, Converter={StaticResource labelByWindowConverter}}" 
+                   Margin="0,-65,0,0" VerticalAlignment="Top" 
+                   FontWeight="Bold" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" Height="32"/>
 
             <Image x:Name="Imege" Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="29,29,0,0" VerticalAlignment="Top"
-               Width="201" Source="{Binding product.Image}"/>
+               Width="201" Source="{Binding product.Image, Mode=TwoWay}"/>
 
             <TextBox x:Name="tbIMAGE" Grid.Column="2" Text="{Binding product.Image, Mode=TwoWay}" HorizontalAlignment="Left" Margin="64,278,0,0" 
                      VerticalAlignment="Top"/>

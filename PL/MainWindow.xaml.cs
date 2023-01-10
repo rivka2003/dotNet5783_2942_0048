@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using PL.Carts;
 using PL.Order;
+using PL.Product;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace PL
     public partial class MainWindow : Window
     {
         private bool _isMenuOpen = false;
-        private BO.Cart cart = new() { Items = new List<BO.OrderItem?>() };
+        private readonly BO.Cart cart = new() { Items = new List<BO.OrderItem?>() };
         public static Frame mainFrame;
         internal static string PasswordText;
         public MainWindow()
@@ -57,7 +58,7 @@ namespace PL
 
         private void BTCatalog_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(new Catalog(cart, false));
+            mainFrame.Navigate(new CatalogCustomer(cart));
         }
 
         private void BTOrders_Click(object sender, RoutedEventArgs e)
@@ -67,7 +68,7 @@ namespace PL
 
         private void BTProducts_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(new Catalog(cart, true));
+            mainFrame.Navigate(new Catalog(cart));
         }
 
         private void BTHome_Click(object sender, RoutedEventArgs e)

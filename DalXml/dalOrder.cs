@@ -9,9 +9,9 @@ namespace Dal;
 //short implementation with XMLTools functions.
 internal class DalOrder : IOrder
 {
-    static readonly string path = @"xml\orders.xml";
+    static readonly string path = @"..\xml\orders.xml";
 
-    static readonly string configPath = "config.xml";
+    static readonly string configPath = @"..\xml\config.xml";
     XElement? ordersRoot;
 
     public DalOrder()

@@ -10,6 +10,6 @@ XmlTools.SaveListToXMLSerializer(DataSource.OrderItems, "OrderItems.xml");
 
 ///Initializing the config ​​in the xml files
 XElement configRoot = new ("config");
-configRoot.Add(new XElement("orderSequenceID"), DataSource.GetOrderSequenceID());
-configRoot.Add(new XElement("orderItemSequenceID"), DataSource.GetOrderItemSequenceID());
+configRoot.Add(new XElement("orderSequenceID"), DataSource.Config.GetOrderSequenceID());
+configRoot.Add(new XElement("orderItemSequenceID"), DataSource.Config.GetOrderItemSequenceID());
 configRoot.Save("config.xml");

@@ -31,8 +31,7 @@
                 <Button x:Name="IncreaseButton" Width="20" Height="20" 
                         FontFamily="Elephant" FontSize="14"  Content="+" Background="#FFFAF9F9" 
                         BorderBrush="Black" Click="IncreaseBtn_Click"/>
-                <Label x:Name="AmountLb" 
-                       HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  
+                <Label x:Name="AmountLb" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16" 
                        Content="{Binding Amount}" VerticalAlignment="Center" />
                 <Button x:Name="DecreaseButton" Width="20" Height="20" 
                         FontFamily="Elephant" FontSize="14"  Content="-" Background="#FFFAF9F9" 
@@ -40,7 +39,7 @@
                 <Label Content="   "/>
                 <Button x:Name="RemoveButton" Foreground="White" Width="20" Height="20" 
                         FontFamily="Elephant" FontSize="14"  Content="x" Background="Black" 
-                        BorderBrush="Black" Click="RemoveBtn_Click">
+                        BorderBrush="Black" Click="RemoveBtn_Click" Tag="{Binding}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="20"/>
@@ -76,25 +75,28 @@
             <Button x:Name="btnORDERMAKING" Content="Order!" HorizontalAlignment="Left" Margin="66,14,0,0"
                     Grid.Row="6" VerticalAlignment="Top" FontSize="16" Click="Button_Click"/>
 
-            <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="1" Height="26"/>
+            <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="1" Height="26" 
+                     Text="{Binding Cart.CustomerName, Mode=TwoWay}"/>
 
-            <TextBox x:Name="tbEMAIL" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="2" Height="25"/>
+            <TextBox x:Name="tbEMAIL" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="2" Height="25" 
+                     Text="{Binding Cart.CustomerEmail, Mode=TwoWay}"/>
 
-            <TextBox x:Name="tbADDRESS" HorizontalAlignment="Center" Margin="0,19,0,18" Grid.Row="3" Height="25"/>
+            <TextBox x:Name="tbADDRESS" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="3" Height="25" 
+                     Text="{Binding Cart.CustomerAddress, Mode=TwoWay}"/>
         </Grid>
 
         <ListView x:Name="cartView" Background="{x:Null}" FontSize="22" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  SelectionChanged="CartView_SelectionChanged" Margin="0,0,0,149" Grid.Column="1" ScrollViewer.CanContentScroll="True"
-                  FontFamily="Elephant" Foreground="White" ItemsSource="{Binding Cart.Items}"  
+                  Margin="0,0,0,111" Grid.Column="1" ScrollViewer.CanContentScroll="True"
+                  FontFamily="Elephant" Foreground="White" ItemsSource="{Binding Cart.Items, Mode=TwoWay}"  
                   ItemTemplate="{StaticResource oneOrderItem}">
         </ListView>
 
         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Your basket is currently empty Waiting for your next purchase!" 
-                       Style="{StaticResource EmptyCartTextBox}" Height="62" Foreground="Black" Grid.Column="1" Margin="0,92,0,304"/>
-        
+                       Style="{StaticResource EmptyCartTextBox}" Foreground="Black" Grid.Column="1" Margin="0,197,0,216"/>
+
         <Label Content="Total price:" Grid.Column="1" HorizontalAlignment="Left" Margin="51,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,-0.062"/>
 
-        <Label x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Cart.TotalPrice}" Margin="155,360,0,0" VerticalAlignment="Top" 
+        <Label x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Cart.TotalPrice, Mode=TwoWay}" Margin="155,355,0,0" VerticalAlignment="Top" 
                HorizontalAlignment="Left" ContentStringFormat=" {0}₪"/>
     </Grid>
 </Page>

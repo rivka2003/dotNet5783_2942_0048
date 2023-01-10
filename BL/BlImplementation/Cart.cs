@@ -41,9 +41,9 @@ namespace BlImplementation
                         Name = productDo.Name,
                         Price = productDo.Price,
                         Amount = productAmount,
-                        TotalPrice = productDo.Price
+                        TotalPrice = productDo.Price * productAmount
                     });
-                    cart.TotalPrice += productDo.Price;
+                    cart.TotalPrice += productDo.Price * productAmount;
                 }
                 else /// if the cart is not empty
                 {
@@ -63,8 +63,9 @@ namespace BlImplementation
         /// <param name="cart"></param>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.ExistingObjectBo"></exception>
-        public void OrderMaking(BO.Cart cart)
+        public BO.Order OrderMaking(BO.Cart cart)
         {
+            BO.Order orderBo = new();
             try
             {
                 BO.Product productBo = new ();
@@ -77,45 +78,43 @@ namespace BlImplementation
                         throw new BO.NotValid("Error - Amount can't be a negative number!");
                     if(productBo.InStock <= 0)
                         throw new BO.NotValid("Error - The product is out of stock!");
-                    if(cart.CustomerEmail != " ")
+                    if(cart.CustomerEmail == " ")
                         throw new BO.NotValid("Error - Customer email box can't be empty!");
-                    if(cart.CustomerName != " ")
+                    if(cart.CustomerName == " ")
                         throw new BO.NotValid("Error - Customer name box can't be empty!");
-                    if(cart.CustomerAddress != " ")
+                    if(cart.CustomerAddress == " ")
                         throw new BO.NotValid("Error - Customer address box can't be empty!");
                     if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
                         throw new BO.NotValid("Error - The email address is not valid!");
-                    //if (cart.Imege == " ")
-                    //    throw new BO.NotValid("Error - Imege box can't be empty!");
+                    if (cart.Imege == " ")
+                        throw new BO.NotValid("Error - Imege box can't be empty!");
 
-                    BO.Order orderBo = new ()///initialize with basic values
-                    {
-                        Status = BO.OrderStatus.Confirmed,
-                        OrderDate = DateTime.Now,
-                        DeliveryDate = null,
-                        PaymentDate = null,
-                        ShipDate = null,
-                        Items = cart.Items
-                    };
+                    orderBo.Status = BO.OrderStatus.Confirmed;
+                    orderBo.OrderDate = DateTime.Now;
+                    orderBo.DeliveryDate = null;
+                    orderBo.PaymentDate = null;
+                    orderBo.ShipDate = null;
+                    orderBo.Items = cart.Items;
 
-                    orderBo.CopyPropTo(cart);/// copy the datails from the otder to the cart (the same values)
+                    cart.CopyPropTo(orderBo);/// copy the datails from the otder to the cart (the same values)
+
                     DO.Order orderDo = new ();
                     orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
 
-                    int ID;
-                    ID = Dal!.Order.Add(orderDo);
+                    orderBo.ID = Dal!.Order.Add(orderDo);
 
-                    BO.OrderItem orderItemBo = new ()
-                    {
-                        ID = ID,
-                        Name = cart.CustomerName,
-                        ProductID = cart.Items[i]!.ProductID,
-                        Amount = cart.Items[i]!.Amount,
-                        Price = cart.Items[i]!.Price,
-                        TotalPrice = cart.Items[i]!.TotalPrice
-                    };
+                    BO.OrderItem orderItemBo = new();
+
+                    orderItemBo.Name = cart.CustomerName;
+                    orderItemBo.Price = cart.Items[i]!.Price;
+                    orderItemBo.ProductID = cart.Items[i]!.ProductID;
+                    orderItemBo.Amount = cart.Items.Count();
+                    orderItemBo.ID = cart.Items[i]!.ID;
+                    orderItemBo.TotalPrice = cart.Items[i]!.TotalPrice;
+
                     DO.OrderItem orderItemDo = new ();
                     orderItemDo = orderItemBo.CopyPropToStruct(orderItemDo);
+                    orderItemDo.OrderID = orderBo.ID;
                     Dal.OrderItem.Add(orderItemDo);
 
                     DO.Product productDo = new ();
@@ -132,6 +131,12 @@ namespace BlImplementation
             catch (DO.ExistingObjectDo ex)
             { throw new BO.ExistingObjectBo(ex.Message, ex); }
 
+            cart.Items.Clear();
+            cart.CustomerName = "";
+            cart.CustomerEmail = "";
+            cart.CustomerAddress = "";
+            cart.TotalPrice = 0;
+            return orderBo;
         }
 
         /// <summary>
@@ -150,25 +155,16 @@ namespace BlImplementation
             int index = cart.Items.FindIndex(cart => cart!.ProductID == productId);
 
             int diffrence = Amount - cart.Items[index]!.Amount;///saving the difference between the old and new amount
-            if (diffrence != 0)///if its just the same skip the process and no changes needed
+            if (Amount == 0)///new amount empty the products
             {
-                if (Amount == 0)///new amount empty the products
-                {
-                    cart.TotalPrice -= cart.Items[index]!.TotalPrice;
-                    cart.Items.Remove(cart.Items[index]);
-                }
-                else if (diffrence < 0)///new amount is smaller
-                {
-                    cart.Items[index]!.Amount += diffrence; // edding a negitiv number
-                    cart.Items[index]!.TotalPrice += cart.Items[index]!.Price * diffrence;
-                    cart.TotalPrice += cart.Items[index]!.Price * diffrence;
-                }
-                else///new amount is larger
-                {
-                    cart.Items[index]!.Amount += diffrence;
-                    cart.Items[index]!.TotalPrice = cart.Items[index]!.Price * cart.Items[index]!.Amount;
-                    cart.TotalPrice += cart.Items[index]!.ProductID * diffrence;
-                }
+                cart.TotalPrice -= cart.Items[index]!.TotalPrice;
+                cart.Items.Remove(cart.Items[index]);
+            }
+            else if(diffrence > 0 || diffrence < 0)
+            {
+                cart.Items[index]!.Amount += diffrence;
+                cart.Items[index]!.TotalPrice += cart.Items[index]!.Price * diffrence;
+                cart.TotalPrice += cart.Items[index]!.Price * diffrence;
             }
 
             return cart;

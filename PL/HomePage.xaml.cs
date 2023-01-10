@@ -1,5 +1,6 @@
 ﻿using PL.Carts;
 using PL.Order;
+using PL.Product;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,7 +42,7 @@ namespace PL
         }
         private void Products_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainFrame.Navigate(new Catalog(Cart, false));
+            MainWindow.mainFrame.Navigate(new CatalogCustomer(Cart));
         }
     }
 }

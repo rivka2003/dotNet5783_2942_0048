@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Office.CustomUI;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class LabelByProductIdConverter : IValueConverter
+    public class TakeTheTypeSelectedItemConvertor : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -20,7 +21,7 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int)value > 0 ? "Update your product:" : "Add a new product:";
+            return 0;
         }
 
         /// <summary>

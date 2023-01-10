@@ -31,12 +31,6 @@ namespace PL.Order
 
             /// resets to show the current values
             order = bl.Order.OrderDetails(ID);
-            //tbID.Text = order.ID.ToString();
-            //tbcNAME.Text = order.CustomerName;
-            //tbADDRESS.Text = order.CustomerAddress;
-            //tbORDERDATE.Text = order.OrderDate.ToString();
-            //tbSHIPDATE.Text = order.ShipDate.ToString();
-            //tbDELIVERYDATE.Text = order.DeliveryDate.ToString();
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
@@ -80,17 +74,9 @@ namespace PL.Order
             }
 
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
-            catch (BO.NotValid ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (BO.NonFoundObjectBo ex)
-            {
-                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (BO.ExistingObjectBo ex)
-            {
-                MessageBox.Show(ex.ToString(), "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

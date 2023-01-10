@@ -8,38 +8,8 @@ using System;
 //short implementation with XMLTools functions.
 internal class DalOrderItem : IOrderItem
 {
-    static readonly string path = "orderItems.xml";
-    static readonly string configPath = "config.xml";
-    //XElement? ordersItemsRoot;
-
-    //public DalOrderItem()
-    //{
-    //    LoadData();
-    //}
-
-
-
-    ///// <summary>
-    ///// function load data to the root variable from the file, if file doesn't exist creats it and loading.
-    ///// </summary>
-    ///// <exception cref="Exception"></exception>
-    //private void LoadData()
-    //{
-    //    try
-    //    {
-    //        if (File.Exists(path))
-    //            ordersItemsRoot = XElement.Load(path);
-    //        else
-    //        {
-    //            ordersItemsRoot = new XElement("orderItems");
-    //            ordersItemsRoot.Save(path);
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw new Exception("orderItems File upload problem" + ex.Message);
-    //    }
-    //}
+    static readonly string path = @"..\xml\orderItems.xml";
+    static readonly string configPath = @"..\xml\config.xml";
 
     ///Implementation of iCrod functions for each entity within Excel files
 

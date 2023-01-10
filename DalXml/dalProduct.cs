@@ -1,13 +1,12 @@
 ﻿using DalApi;
 using DO;
-using System.Xml.Linq;
 
 namespace Dal;
 
 //short implementation with XMLTools functions.
 internal class DalProduct : IProduct
 {
-    string path = "products.xml";
+    string path = @"..\xml\products.xml";
 
     ///Implementation of iCrod functions for each entity within Excel files
 

@@ -35,6 +35,16 @@ namespace PL.Product
         public static readonly DependencyProperty GenderProperty =
             DependencyProperty.Register("Gender", typeof(IEnumerable<BO.Gender>), typeof(TheProductWindow));
 
+        public bool Window
+        {
+            get { return (bool)GetValue(WindowProperty); }
+            set { SetValue(WindowProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Window.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WindowProperty =
+            DependencyProperty.Register("Window", typeof(bool), typeof(TheProductWindow));
+
         public IEnumerable<BO.Category> Category
         {
             get { return (IEnumerable<BO.Category>)GetValue(CategoryProperty); }
@@ -44,28 +54,17 @@ namespace PL.Product
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
-        public TheProductWindow(int ID)
+        public TheProductWindow(bool window, int ID = 0)
         {
-            product = bl.Product.ProductDetailsForManager(ID);
+            if(!window)
+                product = bl.Product.ProductDetailsForManager(ID);
             InitializeComponent();
 
+            Window = window;
             ///resets to show the current values
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-
-            tbID.IsEnabled = false; ///unable changing the id 
-        }
-
-        public TheProductWindow()
-        {
-            InitializeComponent();
-
-            Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
-            Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
-            Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-
-            //cbSIZE.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -87,16 +86,6 @@ namespace PL.Product
         private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-        /// <summary>
-        /// tou have to enter at list one letter
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PreviewTextInputLetters(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new("^[A-Z,a-z]+ [0-9]*");
             e.Handled = regex.IsMatch(e.Text);
         }
 
@@ -129,35 +118,35 @@ namespace PL.Product
                 return;
             }
 
-            ///if pre checks are valid. put data in the product and send that to previous layers check.
-            //BO.Product product = new ()
-            //{
-            //    ID = int.Parse(tbID.Text),
-            //    Name = tbNAME.Text,
-            //    InStock = int.Parse(tbINSTOCK.Text),
-            //    Category = (BO.Category)cbCATEGORY.SelectedItem,
-            //    Color = (BO.Color)cbCOLOR.SelectedItem,
-            //    Gender = (BO.Gender)cbGENDER.SelectedItem,
-            //    Description = tbDESCRIPTION.Text
-            //};
+            ///if pre checks are valid.put data in the product and send that to previous layers check.
+            BO.Product product = new()
+            {
+                ID = int.Parse(tbID.Text),
+                Name = tbNAME.Text,
+                InStock = int.Parse(tbINSTOCK.Text),
+                Category = (BO.Category)cbCATEGORY.SelectedItem,
+                Color = (BO.Color)cbCOLOR.SelectedItem,
+                Gender = (BO.Gender)cbGENDER.SelectedItem,
+                Description = tbDESCRIPTION.Text
+            };
 
-            //if (tbPRICE.Text.Contains('.'))
-            //    product.Price = double.Parse(tbPRICE.Text);
-            //else
-            //    product.Price = int.Parse(tbPRICE.Text);
+            if (tbPRICE.Text.Contains('.'))
+                product.Price = double.Parse(tbPRICE.Text);
+            else
+                product.Price = int.Parse(tbPRICE.Text);
 
-            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            //{
-            //    product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-            //    product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            //}
-            //else
-            //{
-            //    product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-            //    product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            //}
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            }
+            else
+            {
+                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            }
 
-            ///a try to update or add
+            /// a try to update or add
             try
             {
                 if (btnSAVE is null)

@@ -1,8 +1,5 @@
 ﻿using BO;
 using CopyPropertisTo;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using DocumentFormat.OpenXml.Office2010.CustomUI;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BlImplementation
 {
@@ -186,8 +183,9 @@ namespace BlImplementation
             return updateProduct;
         }
 
-        public IEnumerable<IGrouping<Gender, ProductItem?>> GrupingByChoos(BO.Gender gender, BO.Cart cart)
+        public IEnumerable<ProductItem?> GrupingByChoos(BO.Cart cart)
         {
+          
             IEnumerable<ProductItem?> productItems = from DO.Product item in Dal!.Product.RequestAllByPredicate()
                                                      select new ProductItem
                                                      {
@@ -195,22 +193,23 @@ namespace BlImplementation
                                                          Name = item.Name,
                                                          Price = item.Price,
                                                          InStock = item.InStock > 0 ? InStock.Yes : InStock.No,
-                                                         Amount = cart?.Items!.First(x => x?.ID == item.ID)?.Amount ?? 0,
+                                                         Amount = cart?.Items!.FirstOrDefault(x => x?.ID == item.ID)?.Amount ?? 0,
                                                          Category = (BO.Category?)item.Category,
                                                          Gender = (BO.Gender?)item.Gender,
                                                          Clothing = (BO.Clothing?)item.Clothing,
-                                                         Shoes = (BO.Shoes?)item.Shoes,
+                                                         Shoes = (BO.Shoes?)item.Shoes ?? null,
                                                          Color = (BO.Color?)item.Color,
-                                                         SizeClothing = (BO.SizeClothing?)item.SizeClothing,
-                                                         SizeShoes = (BO.SizeShoes?)item.SizeShoes,
+                                                         SizeClothing = (BO.SizeClothing?)item.SizeClothing ?? null,
+                                                         SizeShoes = (BO.SizeShoes?)item.SizeShoes ?? null,
                                                          Description = item.Description,
                                                          Image = item.Image
                                                      };
 
-            IEnumerable < IGrouping<Gender, ProductItem?> > result = from g in productItems
-                                                                     group g by BO.Gender.Women into genderGroup
-                                                                     select genderGroup;
-            return result;
+
+            //IEnumerable<IGrouping<Gender, ProductItem?>> result = from g in productItems
+            //                                                         group g by BO.Gender.Women into genderGroup
+            //                                                         select genderGroup;
+            return productItems;
         }
     }
 }
