@@ -10,6 +10,8 @@
         Title="MainWindow" Height="500" Width="800">
     <Window.Resources>
         <local:HiddenToVisible x:Key="HiddenToVisible"/>
+        <converter:InCorrectPasswordToVisibleConverter x:Key="inCorrectPasswordToVisibleConverter"/>
+        <converter:BoolTrueToVisibleConverter x:Key="boolTrueToVisibleConverter"/> 
     </Window.Resources>
 
     <Grid>
@@ -41,19 +43,24 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="Data" Background="Black" Grid.Row="1" Visibility="Hidden">
-                <!--Visibility="{Binding _isMenuOpen, Converter={StaticResource boolTrueToVisibleConverter}}"-->
+            <StackPanel x:Name="Data" Background="Black" Grid.Row="1" Visibility="{Binding IsMenuOpen, 
+                Converter={StaticResource boolTrueToVisibleConverter}}">
+
                 <Button x:Name="BTHome" Content="Home" FontSize="12" Click="BTHome_Click" Foreground="White"/>
 
-                <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Track your order" FontSize="12" Foreground="White" Click="BTOrderTracking_Click" />
+                <Button x:Name="BTOrderTracking" Grid.Column="1" Content="Track your order" FontSize="12" Foreground="White" 
+                        Click="BTOrderTracking_Click" />
 
-                <Button x:Name="BTCatalog"  Grid.Column="1" Content="Catalog" FontSize="12" Grid.Row="1" Foreground="White" Click="BTCatalog_Click" />
+                <Button x:Name="BTCatalog"  Grid.Column="1" Content="Catalog" FontSize="12" Grid.Row="1" Foreground="White" 
+                        Click="BTCatalog_Click" />
 
                 <Button x:Name="BTManager" Content="Manager" FontSize="12" Foreground="White" Click="BTManager_Click" />
 
-                <Button x:Name="BTOrders" Content="Orders" FontSize="12" Click="BTOrders_Click" Visibility="Hidden" Foreground="White"/>
+                <Button x:Name="BTOrders" Content="Orders" FontSize="12" Click="BTOrders_Click" Foreground="White"
+                        Visibility="{Binding PasswordText, Converter={StaticResource inCorrectPasswordToVisibleConverter}}"/>
 
-                <Button x:Name="BTProducts" Grid.Row="1" Content="Products" Click="BTProducts_Click" FontSize="12" Visibility="Hidden" Foreground="White"/>
+                <Button x:Name="BTProducts" Grid.Row="1" Content="Products" Click="BTProducts_Click" FontSize="12"
+                        Foreground="White" Visibility="{Binding PasswordText, Converter={StaticResource inCorrectPasswordToVisibleConverter}}"/>
             </StackPanel>
         </Grid>
     </Grid>

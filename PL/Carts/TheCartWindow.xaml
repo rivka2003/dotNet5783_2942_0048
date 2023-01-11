@@ -88,7 +88,7 @@
         <ListView x:Name="cartView" Background="{x:Null}" FontSize="22" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   Margin="0,0,0,111" Grid.Column="1" ScrollViewer.CanContentScroll="True"
                   FontFamily="Elephant" Foreground="White" ItemsSource="{Binding Cart.Items, Mode=TwoWay}"  
-                  ItemTemplate="{StaticResource oneOrderItem}">
+                  ItemTemplate="{StaticResource oneOrderItem}" MouseDoubleClick="List_DoubleClick">
         </ListView>
 
         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Your basket is currently empty Waiting for your next purchase!" 

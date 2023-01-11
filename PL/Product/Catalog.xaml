@@ -78,7 +78,7 @@
 
                 <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
                         Converter={StaticResource ChoosByCategory}}" SelectedValue="{Binding ElementName=CategoryCB, Path=SelectedItem,
-                    Converter={StaticResource takeTheSizeByTheCategoryConverter}, Mode=OneWay}"  SelectedItem="{Binding Product, Mode=OneWayToSource}"/>
+                    Converter={StaticResource takeTheSizeByTheCategoryConverter}, Mode=OneWay}"/>
 
                 <ComboBox x:Name="ColorCB" Height="30" ItemsSource="{Binding Color}"
                       SelectedIndex="0"  SelectedItem="{Binding Product.Color, Mode=OneWayToSource}"/>

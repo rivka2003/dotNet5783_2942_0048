@@ -1,9 +1,15 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows;
 
 namespace PL.Converters
 {
-    public class LabelByWindowConverter : IValueConverter
+    public class ErrorMessegeBoxConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -15,7 +21,9 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Add a new product:" : "Update your product:";
+            //return (string)value == "" || (string)value==" " ?
+            //    MessageBox.Show($"Error - {parameter} box can't be empty!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error); 
+            return 0;
         }
 
         /// <summary>

@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class LabelByWindowConverter : IValueConverter
+    public class BoolTrueToVisibleConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -15,7 +16,7 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Add a new product:" : "Update your product:";
+            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>

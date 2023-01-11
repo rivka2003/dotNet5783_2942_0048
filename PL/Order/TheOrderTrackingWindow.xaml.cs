@@ -34,7 +34,7 @@ namespace PL.Order
         {
             try
             {
-                MainWindow.mainFrame.Navigate(new TheOrderTrackingDetails(bl.Order.TrackingOrder(ID)));
+                MainWindow.mainFrame.Navigate(new TheOrderTrackingDetails(ID));
             }
 
             catch (Exception ex)

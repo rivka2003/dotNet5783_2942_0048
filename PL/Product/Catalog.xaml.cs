@@ -132,7 +132,7 @@ namespace PL
         private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ProductForList selection = (BO.ProductForList)((ListView)sender).SelectedItem;
-            MainWindow.mainFrame.Navigate(new TheProductWindow(false, selection.ID));
+            MainWindow.mainFrame.Navigate(new TheProductWindow(false, Cart, selection.ID));
             productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 
@@ -152,7 +152,7 @@ namespace PL
 
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainFrame.Navigate(new TheProductWindow(true));
+            MainWindow.mainFrame.Navigate(new TheProductWindow(true, Cart));
             productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 

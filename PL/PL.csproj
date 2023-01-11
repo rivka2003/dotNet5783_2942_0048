@@ -21,21 +21,31 @@
 
   <ItemGroup>
     <None Remove="Image1.png" />
-    <None Remove="Image10.png" />
     <None Remove="Image2.png" />
-    <None Remove="Image4.png" />
-    <None Remove="Image5.png" />
-    <None Remove="Order\Image6.png" />
-    <None Remove="Order\Image7.png" />
-    <None Remove="Order\Image8.png" />
-    <None Remove="Order\Image9.png" />
     <None Remove="Product\Image1.png" />
-    <None Remove="Product\Image10.png" />
-    <None Remove="Product\Image11.png" />
     <None Remove="Product\Image2.png" />
-    <None Remove="Product\Image3.png" />
     <None Remove="Product\Image4.png" />
     <None Remove="Product\Image5.png" />
+    <None Remove="Product\picturs\Boots\bd93530b-403b-4000-9547-a3b109165c1b.jpg" />
+    <None Remove="Product\picturs\Boots\efa485fa-2373-436f-888f-ed250d7b3ff2.jpg" />
+    <None Remove="Product\picturs\Coats\9070789b-924f-454e-9915-29b406030c61.jpg" />
+    <None Remove="Product\picturs\dresses\36afb20f-4472-4532-b602-bb71fa7f7efc.jpg" />
+    <None Remove="Product\picturs\dresses\f24a5b39-8754-469f-8b29-ed0fbaef8229.jpg" />
+    <None Remove="Product\picturs\Heels\952b790f-4bfb-4f62-a383-dd1b9f8fb5a7.jpg" />
+    <None Remove="Product\picturs\Heels\ae4774db-cd5f-4dd5-be16-635042982521.jpg" />
+    <None Remove="Product\picturs\Hoodies\4c5c71d3-b802-4d71-8378-17e79eff7de1.jpg" />
+    <None Remove="Product\picturs\Hoodies\b421c65a-1f62-4e82-a97e-1dfb473fe152.jpg" />
+    <None Remove="Product\picturs\Pants\8dedbb15-3623-44a8-95c9-ff6bde35f078.jpg" />
+    <None Remove="Product\picturs\Pants\dc5db406-017f-4718-89b4-9595d128606a.jpg" />
+    <None Remove="Product\picturs\Sandals\08d0528a-904e-40f1-a509-fed9bc957747.jpg" />
+    <None Remove="Product\picturs\Sandals\1fddba11-094e-4fee-8677-36f023b9cf5e.jpg" />
+    <None Remove="Product\picturs\Skirts\ba9d19d8-4e07-4626-ad44-a222cad9063e.jpg" />
+    <None Remove="Product\picturs\Sneakers\d4f583e1-22c6-4bca-9779-3a4f69364526.jpg" />
+    <None Remove="Product\picturs\Sneakers\df1b68fd-9b57-48fb-b1e0-0e8863e4b659.jpg" />
+    <None Remove="Product\picturs\Socks\cdaeb63c-9782-48c5-ba24-09fb3342801b.jpg" />
+    <None Remove="Product\picturs\SportWear\b6d4e1b1-805f-404b-a09f-ff7414864958.jpg" />
+    <None Remove="Product\picturs\Sweatshirts\9a1fd24e-33e2-4cd0-ac5c-6ee98f52a833.jpg" />
+    <None Remove="Product\picturs\Sweatshirts\a6c34048-1f94-4fd9-99d8-20e3833630f9.jpg" />
     <None Remove="Untitled_Artwork %282%29.png" />
   </ItemGroup>
 
@@ -45,29 +55,73 @@
 
   <ItemGroup>
     <Resource Include="Image1.png" />
-    <Content Include="Image10.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Image2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Image4.png" />
-    <Resource Include="Image5.png" />
-    <Resource Include="Order\Image6.png" />
-    <Resource Include="Order\Image7.png" />
-    <Resource Include="Order\Image8.png" />
-    <Resource Include="Order\Image9.png" />
-    <Resource Include="Product\Image10.png" />
-    <Resource Include="Product\Image11.png" />
+    <Content Include="Product\picturs\Boots\bd93530b-403b-4000-9547-a3b109165c1b.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Boots\efa485fa-2373-436f-888f-ed250d7b3ff2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Coats\9070789b-924f-454e-9915-29b406030c61.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\dresses\36afb20f-4472-4532-b602-bb71fa7f7efc.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\dresses\f24a5b39-8754-469f-8b29-ed0fbaef8229.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Heels\952b790f-4bfb-4f62-a383-dd1b9f8fb5a7.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Heels\ae4774db-cd5f-4dd5-be16-635042982521.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Hoodies\4c5c71d3-b802-4d71-8378-17e79eff7de1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Hoodies\b421c65a-1f62-4e82-a97e-1dfb473fe152.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Pants\8dedbb15-3623-44a8-95c9-ff6bde35f078.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Pants\dc5db406-017f-4718-89b4-9595d128606a.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sandals\08d0528a-904e-40f1-a509-fed9bc957747.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sandals\1fddba11-094e-4fee-8677-36f023b9cf5e.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Skirts\ba9d19d8-4e07-4626-ad44-a222cad9063e.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sneakers\d4f583e1-22c6-4bca-9779-3a4f69364526.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sneakers\df1b68fd-9b57-48fb-b1e0-0e8863e4b659.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Socks\cdaeb63c-9782-48c5-ba24-09fb3342801b.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\SportWear\b6d4e1b1-805f-404b-a09f-ff7414864958.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sweatshirts\9a1fd24e-33e2-4cd0-ac5c-6ee98f52a833.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Product\picturs\Sweatshirts\a6c34048-1f94-4fd9-99d8-20e3833630f9.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Product\Image2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Product\Image3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <PackageReference Include="MaterialDesignThemes" Version="4.7.0" />
-    <Resource Include="Product\picturs\Image4.png" />
-    <Resource Include="Product\picturs\Image5.png" />
     <Resource Include="Untitled_Artwork (2).png" />
   </ItemGroup>
 

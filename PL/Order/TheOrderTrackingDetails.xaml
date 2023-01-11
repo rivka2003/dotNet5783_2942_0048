@@ -39,7 +39,7 @@
         </Style>
     </Window.Resources>-->
 
-    <Grid Background="White">
+    <Grid Background="White" DataContext="{Binding OrderTracking}">
 
         <Label Content="order's tracking details:" FontSize="22" FontWeight="Bold" 
                Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="246,10,0,0" 
@@ -51,18 +51,19 @@
 
         <Label Content="Date:"  FontSize="20" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Left" Margin="3,308,0,0" VerticalAlignment="Top" />
 
-        <Label x:Name="lblID" Content="{Binding OrderTracking.ID}" HorizontalAlignment="Left" FontSize="20" 
+        <Label x:Name="lblID" Content="{Binding ID}" HorizontalAlignment="Left" FontSize="20" 
                Margin="266,114,0,0" VerticalAlignment="Top"/>
 
         <Label x:Name="lblPROGRESS" HorizontalAlignment="Left" FontSize="20" Grid.Column="1" Grid.Row="2" 
-               Margin="60,0,0,0" Content="{Binding Item1}"/>
-        <Label HorizontalAlignment="Left" Margin="538,315,0,0" Content="{Binding OrderTracking.OrderProgress[0].Item1}" VerticalAlignment="Top"/>
-        <Label HorizontalAlignment="Left" Margin="538,363,0,0" Content="{Binding OrderTracking.OrderProgress[0].Item2}" VerticalAlignment="Top"/>
+               Margin="60,0,0,0"/>
+        
+        <Label HorizontalAlignment="Left" Margin="538,315,0,0" Content="{Binding OrderProgress[0].Item1}" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="538,363,0,0" Content="{Binding OrderProgress[0].Item2}" VerticalAlignment="Top"/>
 
-        <Label HorizontalAlignment="Left" Margin="311,315,0,0" Content="{Binding OrderTracking.OrderProgress[1].Item1}" VerticalAlignment="Top"/>
-        <Label HorizontalAlignment="Left" Margin="311,363,0,0" Content="{Binding OrderTracking.OrderProgress[1].Item2}" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="311,315,0,0" Content="{Binding OrderProgress[1].Item1}" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="311,363,0,0" Content="{Binding OrderProgress[1].Item2}" VerticalAlignment="Top"/>
 
-        <Label HorizontalAlignment="Left" Margin="99,315,0,0" Content="{Binding OrderTracking.OrderProgress[2].Item1}" VerticalAlignment="Top"/>
-        <Label HorizontalAlignment="Left" Margin="99,363,0,0" Content="{Binding OrderTracking.OrderProgress[2].Item2}" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="99,315,0,0" Content="{Binding OrderProgress[2].Item1}" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="99,363,0,0" Content="{Binding OrderProgress[2].Item2}" VerticalAlignment="Top"/>
     </Grid>
 </Page>

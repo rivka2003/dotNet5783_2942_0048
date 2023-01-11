@@ -15,8 +15,7 @@ namespace PL.Converters
         int val = 0;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            val++;
-            return val == 1 ? Visibility.Hidden :  value is "Fation" ? Visibility.Hidden : Visibility.Visible;
+            return value is "Fation" ? Visibility.Visible : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

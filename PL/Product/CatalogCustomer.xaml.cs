@@ -25,7 +25,7 @@ namespace PL.Product
         public static readonly DependencyProperty CartProperty =
             DependencyProperty.Register("Cart", typeof(BO.Cart), typeof(CatalogCustomer));
 
-        private ObservableCollection<ProductItem?> productItems
+        private ObservableCollection<ProductItem?> ProductItems
         {
             get { return (ObservableCollection<ProductItem?>)GetValue(productItemsProperty); }
             set { SetValue(productItemsProperty, value); }
@@ -33,7 +33,7 @@ namespace PL.Product
 
         // Using a DependencyProperty as the backing store for productForLists.  This enables animation, styling, binding, etc...
         private static readonly DependencyProperty productItemsProperty =
-            DependencyProperty.Register("productItems", typeof(ObservableCollection<ProductItem?>), typeof(CatalogCustomer));
+            DependencyProperty.Register("ProductItems", typeof(ObservableCollection<ProductItem?>), typeof(CatalogCustomer));
 
         public IEnumerable<BO.Color> Color
         {
@@ -65,8 +65,8 @@ namespace PL.Product
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(CatalogCustomer));
 
-        private string groupName = "Category";
-        PropertyGroupDescription propertyGroupDescription;
+        private readonly string groupName = "Category";
+        readonly PropertyGroupDescription propertyGroupDescription;
         public ICollectionView CollectionViewProductItemList { set; get; }
 
         public CatalogCustomer(BO.Cart cart)
@@ -78,9 +78,9 @@ namespace PL.Product
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            productItems = new ObservableCollection<ProductItem?>(bl.Product.GrupingByChoos(Cart)!);
+            ProductItems = new ObservableCollection<ProductItem?>(bl.Product.GrupingByChoos(Cart)!);
 
-            CollectionViewProductItemList = CollectionViewSource.GetDefaultView(productItems);
+            CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductItems);
             propertyGroupDescription = new PropertyGroupDescription(groupName);
             CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
         }
@@ -94,13 +94,13 @@ namespace PL.Product
         {
             if (CategoryCB.SelectedItem is BO.Category.Clothing)
             {
-                productItems = new ObservableCollection<ProductItem?>(productItems.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
                 item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
                 item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
             }
             else
             {
-                productItems = new ObservableCollection<ProductItem?>(productItems.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
                 item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
                 item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
             }
@@ -119,7 +119,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productItems = new ObservableCollection<ProductItem?>(bl!.Product.GrupingByChoos(Cart)!);
+            ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GrupingByChoos(Cart)!);
         }
 
         private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)
@@ -132,8 +132,8 @@ namespace PL.Product
                 {
                     productId = ((ProductItem)(frameworkElement.DataContext)).ID;
                     bl?.Cart.AddProductToCart(Cart, productId, 1);
-                    var p = productItems.First(p => p.ID == productId);
-                    productItems[productItems.IndexOf(p)] = bl.Product.ProductDetailsForCustomer(productId, Cart);
+                    var p = ProductItems.First(p => p!.ID == productId);
+                    ProductItems[ProductItems.IndexOf(p)] = bl!.Product.ProductDetailsForCustomer(productId, Cart);
                 }
             }
             catch (Exception ex)

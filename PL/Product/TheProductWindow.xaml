@@ -159,10 +159,10 @@
                        Grid.Column="0"/>
 
                 <ComboBox x:Name="cbGENDER" Grid.Row="0" Grid.Column="1" SelectedIndex="0" ItemsSource="{Binding Gender}"
-                          SelectedItem="{Binding product.Gender, Mode=TwoWay}"/>
+                          SelectedItem="{Binding product.Gender}" SelectedValue="{Binding Path=product.Gender}"/>
 
                 <ComboBox x:Name="cbCATEGORY" Grid.Row="1" Grid.Column="1" SelectedIndex="0"  ItemsSource="{Binding Category}"
-                          SelectedItem="{Binding product.Category, Mode=TwoWay}"/>
+                          SelectedItem="{Binding product.Category}" SelectedValue="{Binding Path=product.Category}"/>
 
                 <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1">
                     <ComboBox.ItemsSource>
@@ -171,14 +171,17 @@
                             <Binding ElementName="cbGENDER" Path="SelectedItem" />
                         </MultiBinding>
                     </ComboBox.ItemsSource>
+                    
                     <ComboBox.SelectedValue>
                         <Binding ElementName="cbCATEGORY" Path="SelectedItem" Mode="OneWay" 
                                  Converter="{StaticResource takeTheTypeByTheCategoryConverter}"/>
                     </ComboBox.SelectedValue>
+                     
                 </ComboBox>
 
                 <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" SelectedIndex="0" 
-                          ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color, Mode=TwoWay}"/>
+                          ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color}" 
+                          SelectedValue="{Binding Path=product.Color}"/>
 
                 <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= cbCATEGORY, 
                     Path=SelectedItem, Converter={StaticResource ChoosByCategory}}" 

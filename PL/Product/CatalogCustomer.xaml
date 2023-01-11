@@ -54,8 +54,7 @@
                 <ComboBox x:Name="GenderCB" Height="30" 
                       ItemsSource="{Binding Gender}" SelectedIndex="0"/>
 
-                <ComboBox x:Name="CategoryCB"   SelectedItem="{Binding selectedCategory, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Category}" Height="30" 
-                      SelectedIndex="0"/>
+                <ComboBox x:Name="CategoryCB"  ItemsSource="{Binding Category}" Height="30" SelectedIndex="0"/>
 
                 <ComboBox x:Name="TypeCB" Height="30">
                     <ComboBox.ItemsSource>
@@ -87,7 +86,7 @@
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
                   FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding productItems}">
+                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding ProductItems}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

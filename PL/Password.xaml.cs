@@ -16,15 +16,15 @@ namespace PL
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.PasswordText == "Fation")
+            if (MainWindow.passwordText == "Fation")
                 Close();
             else
-                MainWindow.PasswordText = "";
+                MainWindow.passwordText = "";
         }
 
         private void PasswordText_textBox(object sender, RoutedEventArgs e)
         {
-            MainWindow.PasswordText = ((PasswordBox)sender).Password;
+            MainWindow.passwordText = ((PasswordBox)sender).Password;
         }
     }
 }

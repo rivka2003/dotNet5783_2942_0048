@@ -13,12 +13,35 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool _isMenuOpen = false;
         private readonly BO.Cart cart = new() { Items = new List<BO.OrderItem?>() };
         public static Frame mainFrame;
-        internal static string PasswordText;
+        internal static string passwordText;
+
+        public bool IsMenuOpen
+        {
+            get { return (bool)GetValue(isMenuOpenProperty); }
+            set { SetValue(isMenuOpenProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsMenuOpen.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty isMenuOpenProperty =
+            DependencyProperty.Register("IsMenuOpen", typeof(bool), typeof(MainWindow));
+
+
+        public string PasswordText
+        {
+            get { return (string)GetValue(PasswordTextProperty); }
+            set { SetValue(PasswordTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PasswordText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PasswordTextProperty =
+            DependencyProperty.Register("PasswordText", typeof(string), typeof(MainWindow));
+
+
         public MainWindow()
         {
+            IsMenuOpen = false;
             InitializeComponent();
             mainFrame = MainFrame;
             mainFrame.Navigate(new HomePage(cart));
@@ -36,19 +59,13 @@ namespace PL
 
         private void Hamburger_Checked(object sender, RoutedEventArgs e)
         {
-            _isMenuOpen = !_isMenuOpen;
-            Data.Visibility = _isMenuOpen ? Visibility.Visible : Visibility.Collapsed;
+            IsMenuOpen = !IsMenuOpen;
         }
 
         private void BTManager_Click(object sender, RoutedEventArgs e)
         {
             new Password().ShowDialog();
-
-            if (PasswordText == "Fation")
-            {
-                BTOrders.Visibility = Visibility.Visible;
-                BTProducts.Visibility = Visibility.Visible;
-            }
+            PasswordText = passwordText;
         }
 
         private void BTOrderTracking_Click(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using BO;
 using CopyPropertisTo;
+using DO;
 
 namespace BlImplementation
 {
@@ -160,25 +161,15 @@ namespace BlImplementation
             if (updateProduct.Image == " ")
                 throw new BO.NotValid("Error - Imege box can't be empty!");
 
-            DO.Product productDo;
-            try /// trying to get the product from the Dal
-            {
-                productDo = Dal!.Product.RequestByPredicate(product => product?.ID == updateProduct.ID);
-            }
+            DO.Product productDo = new();
+
+            productDo = updateProduct.CopyPropToStruct(productDo);
+            productDo.Status = DO.Status.Exist;
+
+            try /// trying to update the product in the DO
+            { Dal!.Product.Update(productDo); }
             catch (DO.NonFoundObjectDo ex)
             { throw new BO.NonFoundObjectBo(ex.Message, ex); }
-
-            /// checking if all the fields in the product are valid
-            if (updateProduct.Description != " " && updateProduct.ID >= 100000 && updateProduct.Name != " " && updateProduct.Price > 0 && updateProduct.InStock >= 0)
-            {
-                productDo = updateProduct.CopyPropToStruct(productDo);
-                productDo.Status = DO.Status.Exist;
-
-                try /// trying to update the product in the DO
-                { Dal.Product.Update(productDo); }
-                catch (DO.NonFoundObjectDo ex)
-                { throw new BO.NonFoundObjectBo(ex.Message, ex); }
-            }
 
             return updateProduct;
         }

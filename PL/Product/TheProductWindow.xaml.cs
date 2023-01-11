@@ -15,6 +15,17 @@ namespace PL.Product
         public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(TheProductWindow));
         BO.Product product { get => (BO.Product)GetValue(PoductDep); set => SetValue(PoductDep, value); }
 
+        public BO.Cart Cart
+        {
+            get { return (BO.Cart)GetValue(CartProperty); }
+            set { SetValue(CartProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Cart.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CartProperty =
+            DependencyProperty.Register("Cart", typeof(BO.Cart), typeof(TheProductWindow));
+
+
         public IEnumerable<BO.Color> Color
         {
             get { return (IEnumerable<BO.Color>)GetValue(ColorProperty); }
@@ -54,12 +65,13 @@ namespace PL.Product
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
-        public TheProductWindow(bool window, int ID = 0)
+        public TheProductWindow(bool window, BO.Cart cart, int ID = 0)
         {
             if(!window)
                 product = bl.Product.ProductDetailsForManager(ID);
             InitializeComponent();
 
+            Cart = cart;
             Window = window;
             ///resets to show the current values
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
@@ -119,39 +131,37 @@ namespace PL.Product
             }
 
             ///if pre checks are valid.put data in the product and send that to previous layers check.
-            BO.Product product = new()
-            {
-                ID = int.Parse(tbID.Text),
-                Name = tbNAME.Text,
-                InStock = int.Parse(tbINSTOCK.Text),
-                Category = (BO.Category)cbCATEGORY.SelectedItem,
-                Color = (BO.Color)cbCOLOR.SelectedItem,
-                Gender = (BO.Gender)cbGENDER.SelectedItem,
-                Description = tbDESCRIPTION.Text
-            };
+            //BO.Product product = new()
+            //{
+            //    ID = int.Parse(tbID.Text),
+            //    Name = tbNAME.Text,
+            //    InStock = int.Parse(tbINSTOCK.Text),
+            //    Category = (BO.Category)cbCATEGORY.SelectedItem,
+            //    Color = (BO.Color)cbCOLOR.SelectedItem,
+            //    Gender = (BO.Gender)cbGENDER.SelectedItem,
+            //    Description = tbDESCRIPTION.Text
+            //};
 
-            if (tbPRICE.Text.Contains('.'))
-                product.Price = double.Parse(tbPRICE.Text);
-            else
-                product.Price = int.Parse(tbPRICE.Text);
+            //if (tbPRICE.Text.Contains('.'))
+            //    product.Price = double.Parse(tbPRICE.Text);
+            //else
+            //    product.Price = int.Parse(tbPRICE.Text);
 
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            {
-                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            }
-            else
-            {
-                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            }
+            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            //{
+            //    product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+            //    product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            //}
+            //else
+            //{
+            //    product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+            //    product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            //}
 
             /// a try to update or add
             try
             {
-                if (btnSAVE is null)
-                    return;
-                if (btnSAVE.Content is "UPDATE") ///for updating
+                if (!Window) ///for updating
                 {
                     bl!.Product.UpdateProduct(product);
 
@@ -160,8 +170,10 @@ namespace PL.Product
                 else ///for adding
                 {
                     bl!.Product.AddProduct(product);
+
                     MessageBox.Show("Added succesfuly!", "Saved product", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+                MainWindow.mainFrame.Navigate(new Catalog(Cart));
             }
 
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.

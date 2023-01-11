@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BlApi;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PL.Order
@@ -8,6 +9,8 @@ namespace PL.Order
     /// </summary>
     public partial class TheOrderTrackingDetails : Page
     {
+
+        static readonly IBl bl = Factory.Get();
         public BO.OrderTracking OrderTracking
         {
             get { return (BO.OrderTracking)GetValue(OrderTrackingProperty); }
@@ -18,10 +21,16 @@ namespace PL.Order
         public static readonly DependencyProperty OrderTrackingProperty =
             DependencyProperty.Register("OrderTracking", typeof(BO.OrderTracking), typeof(TheOrderTrackingDetails));
 
-        public TheOrderTrackingDetails(BO.OrderTracking orderTracking)
+        public TheOrderTrackingDetails(int ID)
         {
-            OrderTracking = orderTracking;
-            ///search the order with the recieved id and initialize the values in the text blocks accordingly
+            try///search the order with the recieved id and initialize the values in the text blocks accordingly
+            {
+                OrderTracking = bl.Order.TrackingOrder(ID);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             InitializeComponent();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Product;
 using System.Windows;
 using System.Windows.Controls;
 namespace PL.Carts
@@ -79,11 +80,24 @@ namespace PL.Carts
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            BO.OrderItem selection = (BO.OrderItem)((Button)sender).DataContext;
-            int index = Cart.Items!.FindIndex(item => item!.ID == selection.ID);
-            Cart temp = bl!.Cart.UpdateAmountProduct(Cart,selection.ProductID, 0);
-            Cart = null!;
-            Cart = temp;
+            try
+            {
+                BO.OrderItem selection = (BO.OrderItem)((Button)sender).DataContext;
+                int index = Cart.Items!.FindIndex(item => item!.ID == selection.ID);
+                Cart temp = bl!.Cart.UpdateAmountProduct(Cart, selection.ProductID, 0);
+                Cart = null!;
+                Cart = temp;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void List_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            BO.OrderItem selection = (BO.OrderItem)((ListView)sender).SelectedItem;
+            MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ProductID));
         }
     }
 }
