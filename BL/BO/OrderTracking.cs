@@ -15,11 +15,13 @@ namespace BO
         /// <summary>
         /// List of tuple
         /// </summary>
-        public List<(DateTime?, BO.OrderStatus?)>?  OrderProgress { get; set; }
-        public override string ToString() => $@"
-ID: {ID}
-Status: {Status}
-Order progress: {string.Join("\n", OrderProgress!)}
-";
+        public List<Tuple<DateTime?, BO.OrderStatus?>>? OrderProgress { get; set; }
+        public override string ToString()
+        {
+            return string.Format("{0}",
+                "ID: " + ID + "\n" +
+                "Status: " + Status + "\n" +
+                "Status List: " + string.Join("\n", OrderProgress!) + "\n");
+        }
     }
 }

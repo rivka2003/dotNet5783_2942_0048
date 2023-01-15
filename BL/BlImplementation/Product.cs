@@ -174,7 +174,7 @@ namespace BlImplementation
             return updateProduct;
         }
 
-        public IEnumerable<ProductItem?> GrupingByChoos(BO.Cart cart)
+        public IEnumerable<ProductItem?> GetAllOrderItems(BO.Cart cart)
         {
           
             IEnumerable<ProductItem?> productItems = from DO.Product item in Dal!.Product.RequestAllByPredicate()

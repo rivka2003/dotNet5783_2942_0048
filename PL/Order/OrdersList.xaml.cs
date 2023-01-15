@@ -20,11 +20,14 @@ namespace PL.Order
 
         private static DependencyProperty OrderListDep = DependencyProperty.Register(nameof(OrderList), 
             typeof(ObservableCollection<BO.OrderForList?>), typeof(OrdersList));
+
+       
         public OrdersList()
         {
             InitializeComponent();
 
             OrderList = new ObservableCollection<BO.OrderForList?>(bl.Order.GetAll());
+           
         }
         /// <summary>
         /// to update details of a specific product by double clicking the product in the list
@@ -43,6 +46,11 @@ namespace PL.Order
             {
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainFrame.Navigate(new StatisticksOrdersWindow());
         }
     }
 }

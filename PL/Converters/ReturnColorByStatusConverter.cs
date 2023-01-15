@@ -1,9 +1,13 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace PL.Converters
 {
-    public class LabelByWindowConverter : IValueConverter
+    public class ReturnColorByStatusConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -15,7 +19,30 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Add a new product:" : "Update your product:";
+            switch ((BO.OrderStatus)value)
+            {
+                case BO.OrderStatus.Confirmed:
+                    if((string)parameter is "Confirmed")
+                    {
+                        return Brushes.Red;
+                    }
+                    break;
+                case BO.OrderStatus.Shipped:
+                    if ((string)parameter is "Shipped")
+                    {
+                        return Brushes.Red;
+                    }
+                    break;
+                case BO.OrderStatus.Delivered:
+                    if ((string)parameter is "Delivered")
+                    {
+                        return Brushes.Red;
+                    }
+                    break;
+                default:
+                    return Brushes.Black;
+            }
+            return Brushes.Black;
         }
 
         /// <summary>

@@ -76,17 +76,16 @@ namespace BlImplementation
                 catch (DO.NonFoundObjectDo ex)
                 { throw new BO.NonFoundObjectBo(ex.Message, ex); }
 
-                var data = getData(OrderDo);
                 OrderDo.CopyPropTo(OrderBo);/// copying the order details from the DO ti the order details from the BO
 
                 OrderBo.PaymentDate = OrderBo.OrderDate?.AddSeconds(new Random().Next(-30, 0));
 
                 ///for every order item that is in the order copy all the details from DO to BO and make them a list
-                OrderBo.Items = data.Item1.Select(orderItem =>
+                OrderBo.Items = Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == ID).Select(orderItem =>
                 {
                     BO.OrderItem? orderItemBo = new OrderItem();
                     orderItem.CopyPropTo(orderItemBo);
-                    orderItemBo.Name = Dal.Product.RequestByPredicate(orderI => orderI?.ID == orderItem?.ProductID).Name;
+                    orderItemBo.Name = Dal.Product.RequestByPredicate(product => product?.ID == orderItem?.ProductID).Name;
                     orderItemBo.TotalPrice = (((double)(orderItem?.Price * orderItem?.Amount)!));
                     return orderItemBo;
                 }).ToList()!;
@@ -182,15 +181,43 @@ namespace BlImplementation
             {
                 ID = ID,
                 Status = OrderBo.Status,
-                OrderProgress = new List<(DateTime?, BO.OrderStatus?)> /// initialize the touple of dete time and order status
+                OrderProgress = new List<Tuple<DateTime?, BO.OrderStatus?>> /// initialize the touple of dete time and order status
                 {
-                    (OrderBo.OrderDate, BO.OrderStatus.Confirmed),
-                    (OrderBo.ShipDate, BO.OrderStatus.Shipped),
-                    (OrderBo.DeliveryDate, BO.OrderStatus.Delivered)
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.OrderDate, BO.OrderStatus.Confirmed),
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.ShipDate, BO.OrderStatus.Shipped),
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.DeliveryDate, BO.OrderStatus.Delivered)
                 }
             };
 
             return orderTracking;
         }
+
+
+        public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths()
+        {
+            return from order in Dal!.Order.RequestAllByPredicate()
+                   let _order = order.GetValueOrDefault()
+                   let orderDate = _order.OrderDate.GetValueOrDefault() 
+                   group order by orderDate.Month.ToString("MMMM") into newGroup
+                   select new StatisticksOrderByMonth
+                   {
+                       MonthName = newGroup.Key,
+                       CountOrders = newGroup.Count(),
+                       OrdersTotalPrice = (from order in newGroup
+                                          let totalPriceOfOrder = Dal.OrderItem?.RequestAllByPredicate(orderItem => orderItem?.ID == order?.ID)
+                                          .Sum(orderItem => orderItem?.Price)
+                                          select totalPriceOfOrder).Sum()
+                   };
+        }
+    }
+
+
+    public struct StatisticksOrderByMonth
+    {
+        public string MonthName { get; set; }
+
+        public int CountOrders { get; set; }
+
+        public double? OrdersTotalPrice { get; set; }
     }
 }

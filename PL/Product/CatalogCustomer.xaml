@@ -5,9 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
       xmlns:converter="clr-namespace:PL.Converters"
+      Width="800"
+      Height="458"
       DataContext="{Binding RelativeSource={RelativeSource self}}"
       mc:Ignorable="d" 
-      d:DesignHeight="458" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="Catalog">
 
     <Page.Resources>
@@ -95,28 +97,28 @@
 
             <ListView.GroupStyle>
                 <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Expander IsExpanded="True">
-                                            <Expander.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="18" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource PrimaryHueLightBrush}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource PrimaryHueLightBrush}" FontStyle="Italic" VerticalAlignment="Bottom"  />
-                                                </StackPanel>
-                                            </Expander.Header>
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView.GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource MaterialDesignBody}" FontSize="18" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource MaterialDesignBody}" FontStyle="Italic" VerticalAlignment="Bottom"  />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
         </ListView>
     </Grid>
 </Page>

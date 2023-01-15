@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace PL
 {
@@ -11,15 +10,14 @@ namespace PL
         int val = 0;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int count = System.Convert.ToInt32(parameter);
             val++;
-            //if (value is "tbID")
-            //{
-            //    return val < count ? Visibility.Hidden : 
-            //        value is string strValueId && string.IsNullOrWhiteSpace(strValueId) || ((TextBox)value).Text.Length < 6 ? 
-            //        Visibility.Visible : Visibility.Hidden;
-            //}
-            return val < count ? Visibility.Hidden :
+            if ((string)parameter is "tbID")
+            {
+                return val < 7 ? Visibility.Hidden :
+                   value is string strValueID && string.IsNullOrWhiteSpace(strValueID) && strValueID.Length < 6
+                   ? Visibility.Visible : Visibility.Hidden;
+            }
+            int count = System.Convert.ToInt32(parameter);            return val < count ? Visibility.Hidden :
                    value is string strValue && string.IsNullOrWhiteSpace(strValue)
                    ? Visibility.Visible : Visibility.Hidden;
         }

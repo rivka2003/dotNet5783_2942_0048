@@ -1,15 +1,10 @@
-﻿using DocumentFormat.OpenXml.Office.CustomUI;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class TakeTheTypeSelectedItemConvertor : IValueConverter
+    public class ShowSizeByProductConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -21,7 +16,10 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return 0;
+            if (value is not null)
+                return ((BO.Product)value).Category is BO.Category.Clothing ? ((BO.Product)value).SizeClothing! :
+                    System.Convert.ToInt32(((BO.Product)value).SizeShoes!);
+            return ((BO.Product)parameter).Category is BO.Category.Clothing ? BO.SizeClothing.XS : 36;
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace PL.Converters
         /// <exception cref="NotImplementedException"></exception>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }

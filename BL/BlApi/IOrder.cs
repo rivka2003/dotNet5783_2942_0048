@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,5 +39,10 @@ namespace BlApi
         /// <param name="ID"></param>
         /// <returns></returns>
         public BO.OrderTracking TrackingOrder(int ID);
+        /// <summary>
+        /// A function that grups all of the orders by month
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths();
     }
 }

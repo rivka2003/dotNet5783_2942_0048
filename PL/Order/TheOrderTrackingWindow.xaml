@@ -3,14 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      DataContext="{Binding RelativeSource={RelativeSource self}}"
       xmlns:local="clr-namespace:PL.Order"
       mc:Ignorable="d" 
+      Width="800"
+      Height="458"
       xmlns:converter="clr-namespace:PL.Converters"
       d:DesignHeight="458" d:DesignWidth="800"
       Title="TheOrderTrackingWindow">
     <Page.Resources>
         <converter:LengthIDToIsEnableConverter x:Key="LengthIDToIsEnableConverter"/>
-        <converter:IsEnabeleByTheTextLengthConverter x:Key="isEnabeleByTheTextLengthConverter"/>
+        <converter:BoolTrueToVisibleConverter x:Key="boolTrueToVisibleConverter"/>
+        <converter:ReturnColorByStatusConverter x:Key="returnColorByStatusConverter"/> 
     </Page.Resources>
 
     <Grid Background="White">
@@ -21,12 +25,44 @@
                  VerticalAlignment="Top" Width="150" FontSize="24" MaxLength="8" 
                  PreviewTextInput="PreviewTextInputDigitsIDInStock" TextChanged="tbID_TextChanged"/>
 
-        <Button x:Name="btnORDERTRACKING" Content="Order's tracking" HorizontalAlignment="Left" 
-                Margin="116,308,0,0" VerticalAlignment="Top"  IsEnabled="{Binding ElementName=tbID, Path=Text, Converter={StaticResource isEnabeleByTheTextLengthConverter}}"
-                Click="btnORDERTRACKING_Click" FontWeight="Bold" Foreground="#FFA10800" FontSize="26" />
-
         <Button x:Name="btnORDERDETAILS" Content="Order's details" HorizontalAlignment="Left" 
-                Margin="506,308,0,0" VerticalAlignment="Top" FontSize="26" IsEnabled="{Binding ElementName=tbID, Path=Text, Converter={StaticResource isEnabeleByTheTextLengthConverter}}"
+                Margin="569,351,0,0" VerticalAlignment="Top" FontSize="26" Visibility="{Binding IsClicked, 
+            Converter={StaticResource boolTrueToVisibleConverter}}"
                 Click="btnORDERDETAILS_Click" FontWeight="Bold" Foreground="#FFA10800"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[0].Item2}" HorizontalAlignment="Left" Margin="191,102,0,0" VerticalAlignment="Top" 
+               Foreground="{Binding OrderTracking.Status, Converter={StaticResource returnColorByStatusConverter}, ConverterParameter=Confirmed}"
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}}"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[1].Item2}" HorizontalAlignment="Left" Margin="198,216,0,0" VerticalAlignment="Top"
+               Foreground="{Binding OrderTracking.Status, Converter={StaticResource returnColorByStatusConverter}, ConverterParameter=Shipped}"
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}}"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[2].Item2}" HorizontalAlignment="Left" Margin="194,351,0,0" VerticalAlignment="Top" 
+               Foreground="{Binding OrderTracking.Status, Converter={StaticResource returnColorByStatusConverter}, ConverterParameter=Delivered}"
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}}"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[0].Item1}" HorizontalAlignment="Left" Margin="351,102,0,0" VerticalAlignment="Top" 
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}}"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[1].Item1}" HorizontalAlignment="Left" Margin="351,216,0,0" VerticalAlignment="Top" 
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}, ConverterParameter=Shipped}"/>
+
+        <Label Content="{Binding OrderTracking.OrderProgress[2].Item1}" HorizontalAlignment="Left" Margin="351,351,0,0" VerticalAlignment="Top"  
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}, ConverterParameter=Delivered}" />
+
+        <Label HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" Width="8" Height="269" Background="Black" 
+               Visibility="{Binding IsClicked, Converter={StaticResource boolTrueToVisibleConverter}}"/>
+
+        <!--<Border CornerRadius="20" Background="Black" Margin="171,102,604,331" Visibility="{Binding IsClicked, 
+            Converter={StaticResource visibilityByTheTextLengthConverter}}"/>
+
+        <Border CornerRadius="20" Background="Black" Margin="171,216,606,216" Visibility="{Binding IsClicked, 
+            Converter={StaticResource visibilityByTheTextLengthConverter}}"/>
+        
+        <Border CornerRadius="20" Background="Black" Margin="171,351,606,82" Visibility="{Binding IsClicked, 
+            Converter={StaticResource visibilityByTheTextLengthConverter}}"/>-->
+        
+        <Button Content="🔍" HorizontalAlignment="Left" Margin="612,32,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click"/>
     </Grid>
 </Page>

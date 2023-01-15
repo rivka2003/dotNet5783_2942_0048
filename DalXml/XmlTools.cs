@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 
 namespace Dal;
-
+using static Dal.DataSource;
 
 /// <summary>
 /// A helper class with useful functions for xml files
@@ -12,6 +12,9 @@ public class XmlTools
     public static string dir = @"xml\";
     static XmlTools()
     {
+        //XmlTools.SaveListToXMLSerializer(OrderItems, @"..\xml\orderItems.xml");
+        //XmlTools.SaveListToXMLSerializer(Orders, @"..\xml\orders.xml");
+        //XmlTools.SaveListToXMLSerializer(Products, @"..\xml\products.xml");
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
     }

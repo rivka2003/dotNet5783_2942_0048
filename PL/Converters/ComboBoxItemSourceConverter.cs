@@ -46,7 +46,7 @@ namespace PL.Converters
                 }
 
             }
-            return Enum.GetValues(typeof(BO.SizeClothing));
+            return Enum.GetValues(typeof(BO.Clothing));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

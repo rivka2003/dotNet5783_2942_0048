@@ -80,7 +80,15 @@ namespace PL
         public static readonly DependencyProperty ProductProperty =
             DependencyProperty.Register("Product", typeof(BO.Product), typeof(Catalog));
 
+        public bool Click
+        {
+            get { return (bool)GetValue(ClickProperty); }
+            set { SetValue(ClickProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for Click.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ClickProperty =
+            DependencyProperty.Register("Click", typeof(bool), typeof(Catalog));
 
         private string groupName = "Category";
         PropertyGroupDescription propertyGroupDescription;
@@ -88,6 +96,7 @@ namespace PL
 
         public Catalog(BO.Cart cart)
         {
+            Click = false;
             InitializeComponent();
 
             Cart = cart;
@@ -110,18 +119,19 @@ namespace PL
         /// <param name="e"></param>
         private void ChooseB(object sender, RoutedEventArgs e)
         {
-            if (CategoryCB.SelectedItem is BO.Category.Clothing)
-            {
-                productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
-            }
-            else
-            {
-                productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
-            }
+            Click = true;
+            //if (CategoryCB.SelectedItem is BO.Category.Clothing)
+            //{
+            //    productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+            //    item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+            //    item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
+            //}
+            //else
+            //{
+            //    productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
+            //    item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+            //    item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
+            //}
         }
 
         /// <summary>

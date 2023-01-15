@@ -1,15 +1,10 @@
-﻿using DocumentFormat.OpenXml.Vml;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Controls;
 
 namespace PL.Converters
 {
-    public class IsEnabeleByTheTextLengthConverter : IValueConverter
+    public class ShowTypeByProductConverter : IValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -21,7 +16,10 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !(value is string strValue && string.IsNullOrWhiteSpace(strValue));
+            if (value is not null)
+                return ((BO.Product)value).Category is BO.Category.Clothing ? ((BO.Product)value).Clothing! :
+                    ((BO.Product)value).Shoes!;
+            return ((BO.Product)parameter).Category is BO.Category.Clothing ? BO.Clothing.Blazers : BO.Shoes.Sneakers;
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace PL.Converters
         /// <exception cref="NotImplementedException"></exception>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }

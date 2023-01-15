@@ -78,7 +78,7 @@ namespace PL.Product
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            ProductItems = new ObservableCollection<ProductItem?>(bl.Product.GrupingByChoos(Cart)!);
+            ProductItems = new ObservableCollection<ProductItem?>(bl.Product.GetAllOrderItems(Cart)!);
 
             CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductItems);
             propertyGroupDescription = new PropertyGroupDescription(groupName);
@@ -119,7 +119,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GrupingByChoos(Cart)!);
+            ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GetAllOrderItems(Cart)!);
         }
 
         private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)

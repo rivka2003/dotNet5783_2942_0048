@@ -7,7 +7,8 @@
       xmlns:converter="clr-namespace:PL.Converters"
       DataContext="{Binding RelativeSource={RelativeSource self}}"
       mc:Ignorable="d" 
-      d:DesignHeight="458" d:DesignWidth="800"
+      Width="800"
+      Height="458"
       Title="Catalog">
 
     <Page.Resources>
@@ -38,6 +39,7 @@
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
         <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
         <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
+        <converter:FilterForTheProductsListConverter x:Key="filterForTheProductsListConverter"/> 
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
 
     </Page.Resources>
@@ -69,12 +71,6 @@
                                  Converter="{StaticResource takeTheTypeByTheCategoryConverter}"/>
                     </ComboBox.SelectedValue>
                 </ComboBox>
-                <!--<ComboBox.SelectedItem>
-                        <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
-                            <Binding ElementName="CategoryCB" Path="SelectedItem"/>
-                            <Binding Product Mode="OneWayToSource"/>
-                        </MultiBinding>
-                    </ComboBox.SelectedItem>-->
 
                 <ComboBox x:Name="SizeCB" Height="30" ItemsSource="{Binding ElementName= CategoryCB, Path=SelectedItem,
                         Converter={StaticResource ChoosByCategory}}" SelectedValue="{Binding ElementName=CategoryCB, Path=SelectedItem,
@@ -84,22 +80,33 @@
                       SelectedIndex="0"  SelectedItem="{Binding Product.Color, Mode=OneWayToSource}"/>
             </StackPanel>
 
-            <Button x:Name="chooseB"  Content="Choose!" FontSize="16" Click="ChooseB" 
-                            Foreground="#FFB21616" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+            <Button x:Name="chooseB"  Content="Choose!" FontSize="16" Click="ChooseB" Foreground="#FFB21616" 
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
 
             <Button x:Name="clearB"  Content="Clear!" VerticalAlignment="Bottom" FontSize="16" 
-                            Click="ClearB" Foreground="#FFB21616" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                   Click="ClearB" Foreground="#FFB21616" HorizontalAlignment="Right" Margin="0,0,20,0"/>
         </Grid>
 
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
-                  FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding productForLists}">
+                  FontFamily="Elephant" Grid.Row="1" Foreground="White" ItemsSource="{Binding productForLists}"
+                  MouseDoubleClick="Update_DoubleClick" Margin="0,0,0,50">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+
+            <!--<ListView.ItemsSource>
+            <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource filterForTheProductsListConverter}">
+                <Binding ElementName="productForLists" Path="ItemSource"/>
+                <Binding ElementName="CategoryCB" Path="SelectedItem"/>
+                <Binding ElementName="GenderCB" Path="SelectedItem"/>
+                <Binding ElementName="TypeCB" Path="SelectedItem"/>
+                <Binding ElementName="SizeCB" Path="SelectedItem"/>
+                    <Binding ElementName="ColorCB" Path="SelectedItem"/>
+                </MultiBinding>
+        </ListView.ItemsSource>-->
 
             <ListView.GroupStyle>
                 <GroupStyle>
@@ -111,9 +118,9 @@
                                         <Expander IsExpanded="True">
                                             <Expander.Header>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="18" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource PrimaryHueLightBrush}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource PrimaryHueLightBrush}" FontStyle="Italic" VerticalAlignment="Bottom"  />
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource MaterialDesignBody}" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource MaterialDesignBody}" FontStyle="Italic" VerticalAlignment="Bottom"  />
                                                 </StackPanel>
                                             </Expander.Header>
                                             <ItemsPresenter />
@@ -127,9 +134,8 @@
             </ListView.GroupStyle>
         </ListView>
 
-
         <Button x:Name="AddProductWindow" Content="Add new product" Click="Add_Product_Button_Click" 
                 FontSize="25" Grid.Row="1" Foreground="#FFB21616" Background="White" HorizontalAlignment="Right" 
-                Margin="0,320,19,0" VerticalAlignment="Top"/>
+                Margin="0,361,26,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

@@ -12,8 +12,15 @@ namespace PL.Product
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public static readonly DependencyProperty PoductDep = DependencyProperty.Register(nameof(product), typeof(BO.Product), typeof(TheProductWindow));
-        BO.Product product { get => (BO.Product)GetValue(PoductDep); set => SetValue(PoductDep, value); }
+        public BO.Product product
+        {
+            get { return (BO.Product)GetValue(productProperty); }
+            set { SetValue(productProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for product.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty productProperty =
+            DependencyProperty.Register("product", typeof(BO.Product), typeof(TheProductWindow));
 
         public BO.Cart Cart
         {
@@ -56,6 +63,26 @@ namespace PL.Product
         public static readonly DependencyProperty WindowProperty =
             DependencyProperty.Register("Window", typeof(bool), typeof(TheProductWindow));
 
+        public string AddOrUpdate
+        {
+            get { return (string)GetValue(AddOrUpdateProperty); }
+            set { SetValue(AddOrUpdateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AddOrUpdate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AddOrUpdateProperty =
+            DependencyProperty.Register("AddOrUpdate", typeof(string), typeof(TheProductWindow));
+
+        public string AddOrUpdateTitle
+        {
+            get { return (string)GetValue(AddOrUpdateTitleProperty); }
+            set { SetValue(AddOrUpdateTitleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AddOrUpdate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AddOrUpdateTitleProperty =
+            DependencyProperty.Register("AddOrUpdateTitle", typeof(string), typeof(TheProductWindow));
+
         public IEnumerable<BO.Category> Category
         {
             get { return (IEnumerable<BO.Category>)GetValue(CategoryProperty); }
@@ -67,16 +94,32 @@ namespace PL.Product
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
         public TheProductWindow(bool window, BO.Cart cart, int ID = 0)
         {
-            if(!window)
-                product = bl.Product.ProductDetailsForManager(ID);
-            InitializeComponent();
-
-            Cart = cart;
-            Window = window;
             ///resets to show the current values
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
+            if (!window)
+            {
+                product = bl.Product.ProductDetailsForManager(ID);
+                AddOrUpdate = "UPDATE";
+                AddOrUpdateTitle = "Update your product:";
+            }
+            else
+            {
+                BO.Product Product = new();
+                Product.Category = BO.Category.Clothing;
+                Product.Clothing = BO.Clothing.Blazers;
+                Product.Shoes = BO.Shoes.Sneakers;
+                Product.SizeClothing = BO.SizeClothing.XS;
+                Product.SizeShoes = BO.SizeShoes.xs;
+                product = Product;
+                AddOrUpdate = "ADD";
+                AddOrUpdateTitle = "Add a new product:";
+            }
+            InitializeComponent();
+
+            Cart = cart;
+            Window = window;    
         }
 
         /// <summary>
@@ -179,37 +222,8 @@ namespace PL.Product
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (Exception ex)
             {
-                if (tbID.Text.Length < 6)
-                {
-                    MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (lblCHECK1 is null)
-                        return;
-
-                    lblCHECK1.Visibility = Visibility.Hidden;
-                    lblx1.Visibility = Visibility.Visible;
-                    return;
-                }
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        /// <summary>
-        /// checking and showing a small sign of v/x according to the user's typing. next to each text box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TbID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (lblCHECK1 is null || lblx1 is null)
-                return;
-            if (((TextBox)sender).Text.Length < 6)
-            {
-                lblCHECK1.Visibility = Visibility.Hidden;
-                lblx1.Visibility = Visibility.Visible;
-                return;
-            }
-            lblx1.Visibility = Visibility.Hidden;
-            lblCHECK1.Visibility = Visibility.Visible;
         }
     }
 }

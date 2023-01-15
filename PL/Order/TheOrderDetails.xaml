@@ -5,12 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL.Order"
       mc:Ignorable="d" 
+      Width="800"
+      Height="458"
       DataContext="{Binding RelativeSource={RelativeSource self}}"
       d:DesignHeight="458" d:DesignWidth="800"
       Title="TheOrderDetails">
 
     <Grid Background="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -29,18 +33,13 @@
 
         <Label Content="Order number:" FontSize="20" Grid.Row="1"/>
 
-        <Label Content="Address:" FontSize="20" Grid.Row="2"/>
+        <Label Content="Address:" FontSize="20" Grid.Row="2" HorizontalAlignment="Left" Margin="119,5,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="Name:" FontSize="20" Grid.Row="3"/>
+        <Label Content="Name:" FontSize="20" Grid.Row="3" HorizontalAlignment="Left" Margin="119,5,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="Order date:" FontSize="20" Grid.Row="4"/>
+        <Label Content="Email:" FontSize="20" Grid.Row="4" HorizontalAlignment="Left" Margin="119,0,0,0"/>
 
-        <Label Content="Ship date:" FontSize="20" Grid.Row="5"/>
-
-        <Label Content="Delivery date:" FontSize="20" Grid.Row="6"/>
-
-        <Label  x:Name="lblSHIPDATE" Grid.Column="1" Content="{Binding Order.ShipDate}" FontSize="15" Grid.Row="5" 
-                HorizontalAlignment="Left" Height="36"/>
+        <Label Content="Total price:" FontSize="20" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"/>
 
         <Label  x:Name="lblADDRESS" Grid.Column="1" Content="{Binding Order.CustomerAddress}" FontSize="15" Grid.Row="2"
                 HorizontalAlignment="Left" Height="36"/>
@@ -48,13 +47,25 @@
         <Label  x:Name="lblNAME" Grid.Column="1" Content="{Binding Order.CustomerName}" FontSize="15" Grid.Row="3"
                 HorizontalAlignment="Left" Height="36"/>
 
-        <Label  x:Name="lblORDERDATE" Grid.Column="1" Content="{Binding Order.OrderDate}" FontSize="15" Grid.Row="4"
-                HorizontalAlignment="Left" Height="42"/>
-
-        <Label  x:Name="lblDELIVERYDATE" Grid.Column="1" Content="{Binding Order.DeliveryDate}" FontSize="15" Grid.Row="6"
-                HorizontalAlignment="Left" Height="36"/>
-
         <Label  x:Name="lblID" Grid.Column="1" Content="{Binding Order.ID}" FontSize="15" Grid.Row="1"
                 HorizontalAlignment="Left" Height="36"/>
+
+        <Label  x:Name="lblEMAIL" Grid.Column="1" Content="{Binding Order.CustomerEmail}" FontSize="15" Grid.Row="4"
+                HorizontalAlignment="Left" Height="36"/>
+
+        <Label  x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Order.TotalPrice}" FontSize="15" Grid.Row="8"
+                HorizontalAlignment="Left" Height="36" Margin="161,13,0,0" VerticalAlignment="Top" ContentStringFormat=" {0}₪"/>
+
+        <ListView Grid.Row="5" Grid.RowSpan="5" ItemsSource="{Binding Order.Items}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Product ID" DisplayMemberBinding="{Binding ProductID}"/>
+
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"/>
+
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

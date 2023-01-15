@@ -16,7 +16,7 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="30"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
 
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
 
@@ -27,6 +27,9 @@
                     <GridViewColumn Header="TotalPrice" DisplayMemberBinding="{Binding TotalPrice}"/>
                 </GridView>
             </ListView.View>
+
+           
         </ListView>
+        <Button Content="Statistics" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" FontSize="18" Background="White" Margin="0,0,23,24"/>
     </Grid>
 </Page>

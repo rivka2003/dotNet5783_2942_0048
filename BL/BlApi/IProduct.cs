@@ -40,7 +40,7 @@ namespace BlApi
         /// <param name="UpdeteProduct"></param>
         public BO.Product UpdateProduct(BO.Product UpdeteProduct);
 
-        public IEnumerable<ProductItem?> GrupingByChoos(BO.Cart cart);
+        public IEnumerable<ProductItem?> GetAllOrderItems(BO.Cart cart);
 
     }
 }
