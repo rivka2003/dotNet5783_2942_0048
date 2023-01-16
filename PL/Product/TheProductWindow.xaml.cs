@@ -98,13 +98,13 @@ namespace PL.Product
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            if (!window)
+            if (!window)//in case its an update window
             {
                 product = bl.Product.ProductDetailsForManager(ID);
                 AddOrUpdate = "UPDATE";
                 AddOrUpdateTitle = "Update your product:";
             }
-            else
+            else//in case its an add window
             {
                 BO.Product Product = new();
                 Product.Category = BO.Category.Clothing;
@@ -143,7 +143,11 @@ namespace PL.Product
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
+        /// <summary>
+        /// The button that saves the new product (update/add)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes

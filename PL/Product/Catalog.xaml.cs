@@ -100,7 +100,7 @@ namespace PL
             InitializeComponent();
 
             Cart = cart;
-            /////resets the combo boxes options
+            ///resets the combo boxes options
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
@@ -146,6 +146,11 @@ namespace PL
             productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 
+        /// <summary>
+        /// removing a specific productfrom the catalog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Delete_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             BO.ProductForList selection = (BO.ProductForList)((Button)sender).DataContext;
@@ -154,12 +159,17 @@ namespace PL
                 bl!.Product.DeleteProduct(selection.ID);
                 productForLists.Remove(selection);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// button that opens a window for adding a new product to the product's category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainFrame.Navigate(new TheProductWindow(true, Cart));

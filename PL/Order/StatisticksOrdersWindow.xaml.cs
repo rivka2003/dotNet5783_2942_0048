@@ -1,20 +1,8 @@
 ﻿using BlImplementation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL.Order
 {
@@ -27,8 +15,6 @@ namespace PL.Order
 
         private string groupName = "MonthName";
         PropertyGroupDescription propertyGroupDescription;
-
-
 
         public ICollectionView CollectionViewblStatisticksOrderByMonths
         {
@@ -47,18 +33,15 @@ namespace PL.Order
         private static DependencyProperty statisticksOrderByMonthsDep = DependencyProperty.Register(nameof(statisticksOrderByMonths),
             typeof(IEnumerable<StatisticksOrderByMonth>), typeof(StatisticksOrdersWindow));
 
- 
+
         public StatisticksOrdersWindow()
-
-        { 
-             statisticksOrderByMonths = bl.Order.GetStatisticksOrderByMonths()!;
+        {
+            statisticksOrderByMonths = bl.Order.GetStatisticksOrderByMonths()!;
             CollectionViewblStatisticksOrderByMonths = CollectionViewSource.GetDefaultView(statisticksOrderByMonths);
-
+            ///do the visual group
             propertyGroupDescription = new PropertyGroupDescription(groupName);
-        CollectionViewblStatisticksOrderByMonths.GroupDescriptions.Add(propertyGroupDescription);
+            CollectionViewblStatisticksOrderByMonths.GroupDescriptions.Add(propertyGroupDescription);
             InitializeComponent();
-           
-           
         }
     }
 }

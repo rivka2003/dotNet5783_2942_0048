@@ -44,7 +44,7 @@ namespace PL.Product
         public ProductView(BO.Cart cart, int ID)
         {
             InitializeComponent();
-
+            //resets values of product to show
             Cart = cart;
             int index = Cart.Items!.FindIndex(item => item!.ProductID == ID);
             if (index == -1)
@@ -54,24 +54,34 @@ namespace PL.Product
             id = ID;
             product = bl.Product.ProductDetailsForCustomer(ID, Cart);
         }
-
+        //adding the current product to the cart
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl!.Cart.AddProductToCart(Cart, id, ProductAmount);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// raise amount
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             ProductAmount += 1;
         }
 
+        /// <summary>
+        /// decrease amount
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ProductAmount == 0)

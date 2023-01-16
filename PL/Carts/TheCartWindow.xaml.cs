@@ -28,6 +28,11 @@ namespace PL.Carts
             Cart = cart;
         }
 
+        /// <summary>
+        /// If he wanted to order
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -35,6 +40,7 @@ namespace PL.Carts
                BO.Order order = bl!.Cart.OrderMaking(Cart);
                 MessageBox.Show($"Your order have made! this is your tracking number: {order.ID}", "Ordered", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -42,6 +48,11 @@ namespace PL.Carts
 
         }
 
+        /// <summary>
+        /// ti increase the amount of the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -53,12 +64,18 @@ namespace PL.Carts
                 Cart = null!;
                 Cart = temp;
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// to decreas the amount of the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -73,12 +90,18 @@ namespace PL.Carts
                     Cart = temp;
                 }
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// a button to remove a product from the cart
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -89,12 +112,18 @@ namespace PL.Carts
                 Cart = null!;
                 Cart = temp;
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// showing the customer the product view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void List_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.OrderItem selection = (BO.OrderItem)((ListView)sender).SelectedItem;

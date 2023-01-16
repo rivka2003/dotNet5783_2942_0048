@@ -18,8 +18,8 @@ namespace PL.Converters
         {
             if (value is not null)
                 return ((BO.Product)value).Category is BO.Category.Clothing ? ((BO.Product)value).Clothing! :
-                    ((BO.Product)value).Shoes!;
-            return ((BO.Product)parameter).Category is BO.Category.Clothing ? BO.Clothing.Blazers : BO.Shoes.Sneakers;
+                        ((BO.Product)value).Shoes!;
+            return BO.Clothing.Blazers;
         }
 
         /// <summary>

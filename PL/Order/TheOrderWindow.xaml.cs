@@ -10,6 +10,7 @@ namespace PL.Order
     {
         private readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
+        // Using a DependencyProperty as the backing store for OrderTracking.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OrderDep = DependencyProperty.Register(nameof(order), 
             typeof(BO.Order), typeof(TheOrderWindow));
 
@@ -23,12 +24,18 @@ namespace PL.Order
                 /// resets to show the current values
                 order = bl.Order.OrderDetails(ID);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// button to update the window with the new values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (tbSHIPDATE.Text == "" || tbSHIPDATE.Text == " ")

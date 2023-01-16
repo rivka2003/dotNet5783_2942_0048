@@ -32,7 +32,7 @@ namespace PL.Converters
                         item.Color == (BO.Color)values[5]);
                 }
                 else
-                    return (ObservableCollection<BO.ProductForList>)values[0];
+                    return new ObservableCollection<BO.ProductForList>((BO.ProductForList)values[0]);
             }
             return 0;
         }

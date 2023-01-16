@@ -105,8 +105,12 @@ namespace PL.Product
                 item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
             }
         }
-
-        private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// function to show the customer the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void View_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
             MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
@@ -122,6 +126,11 @@ namespace PL.Product
             ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GetAllOrderItems(Cart)!);
         }
 
+        /// <summary>
+        /// adding the specific product to the cart 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -136,6 +145,7 @@ namespace PL.Product
                     ProductItems[ProductItems.IndexOf(p)] = bl!.Product.ProductDetailsForCustomer(productId, Cart);
                 }
             }
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);

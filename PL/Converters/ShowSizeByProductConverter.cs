@@ -19,7 +19,7 @@ namespace PL.Converters
             if (value is not null)
                 return ((BO.Product)value).Category is BO.Category.Clothing ? ((BO.Product)value).SizeClothing! :
                     System.Convert.ToInt32(((BO.Product)value).SizeShoes!);
-            return ((BO.Product)parameter).Category is BO.Category.Clothing ? BO.SizeClothing.XS : 36;
+            return BO.SizeClothing.XS;
         }
 
         /// <summary>
