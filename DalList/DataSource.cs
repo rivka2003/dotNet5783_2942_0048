@@ -185,6 +185,7 @@ namespace Dal
                     orderItem.ID = GetOrderItemSequenceID();
                     orderItem.ProductID = product.ID;
                     orderItem.Amount = random.Next(1, 6);
+                    orderItem.Image = product.Image;
                     orderItem.Price = orderItem.Amount * product.Price;
                     OrderItems.Add(orderItem);
                 }

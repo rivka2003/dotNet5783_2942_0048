@@ -225,5 +225,22 @@ namespace PL.Product
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTYPE is not null && cbSIZE is not null)
+            {
+                if (((ComboBox)sender).SelectedItem is BO.Category.Clothing)
+                {
+                    cbTYPE.SelectedValue = BO.Clothing.Blazers;
+                    cbSIZE.SelectedValue = BO.SizeClothing.XS;
+                }
+                else
+                {
+                    cbTYPE.SelectedValue = BO.Shoes.Sneakers;
+                    cbSIZE.SelectedValue = BO.SizeShoes.xs;
+                }
+            }
+        }
     }
 }

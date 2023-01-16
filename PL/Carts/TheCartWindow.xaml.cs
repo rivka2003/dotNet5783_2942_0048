@@ -32,7 +32,8 @@ namespace PL.Carts
         {
             try
             {
-                bl!.Cart.OrderMaking(Cart);
+               BO.Order order = bl!.Cart.OrderMaking(Cart);
+                MessageBox.Show($"Your order have made! this is your tracking number: {order.ID}", "Ordered", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

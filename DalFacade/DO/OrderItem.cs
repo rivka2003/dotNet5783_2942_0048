@@ -24,6 +24,10 @@ public struct OrderItem
     /// The amount that I have ordered from this product
     /// </summary>
     /// <returns></returns>
+    public string? Image { get; set; }
+    /// <summary>
+    /// The Imege of the product
+    /// </summary>
     public override string ToString() => this.ToStringProperty();
     ///printing order item details function
 }
