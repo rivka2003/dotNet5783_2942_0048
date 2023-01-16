@@ -36,10 +36,13 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public event PropertyChangedEventHandler PropertyChanged;
+        
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        //show catalog
         private void Products_Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainFrame.Navigate(new CatalogCustomer(Cart));

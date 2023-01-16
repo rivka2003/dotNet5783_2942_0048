@@ -92,19 +92,21 @@ namespace PL.Product
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
+  
+
         public TheProductWindow(bool window, BO.Cart cart, int ID = 0)
         {
             ///resets to show the current values
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            if (!window)
+            if (!window)//in case its an update window
             {
                 product = bl.Product.ProductDetailsForManager(ID);
                 AddOrUpdate = "UPDATE";
                 AddOrUpdateTitle = "Update your product:";
             }
-            else
+            else//in case its an add window
             {
                 BO.Product Product = new();
                 Product.Category = BO.Category.Clothing;
@@ -144,6 +146,7 @@ namespace PL.Product
             e.Handled = regex.IsMatch(e.Text);
         }
 
+
         private void BtnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes
@@ -173,34 +176,7 @@ namespace PL.Product
                 return;
             }
 
-            ///if pre checks are valid.put data in the product and send that to previous layers check.
-            //BO.Product product = new()
-            //{
-            //    ID = int.Parse(tbID.Text),
-            //    Name = tbNAME.Text,
-            //    InStock = int.Parse(tbINSTOCK.Text),
-            //    Category = (BO.Category)cbCATEGORY.SelectedItem,
-            //    Color = (BO.Color)cbCOLOR.SelectedItem,
-            //    Gender = (BO.Gender)cbGENDER.SelectedItem,
-            //    Description = tbDESCRIPTION.Text
-            //};
-
-            //if (tbPRICE.Text.Contains('.'))
-            //    product.Price = double.Parse(tbPRICE.Text);
-            //else
-            //    product.Price = int.Parse(tbPRICE.Text);
-
-            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            //{
-            //    product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-            //    product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            //}
-            //else
-            //{
-            //    product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-            //    product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            //}
-
+           
             /// a try to update or add
             try
             {
@@ -225,6 +201,7 @@ namespace PL.Product
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

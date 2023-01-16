@@ -42,12 +42,14 @@ namespace PL.Order
             InitializeComponent();
         }
 
+        //enables numbers only
         private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        //resets order tracking variable according to the id that was entered 
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
             string myId = ((TextBox)sender).Text;
@@ -58,38 +60,27 @@ namespace PL.Order
             {
                 OrderTracking = bl.Order.TrackingOrder(ID);
             }
-
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        //private void btnORDERTRACKING_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        MainWindow.mainFrame.Navigate(new TheOrderTrackingDetails(ID));
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
-
+        //button leads to detail's window of the current order to which the given id belongs to
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 MainWindow.mainFrame.Navigate(new TheOrderDetails(bl.Order.OrderDetails(ID)));
             }
-
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (BO.NonFoundObjectBo ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

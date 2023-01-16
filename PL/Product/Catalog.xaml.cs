@@ -120,18 +120,7 @@ namespace PL
         private void ChooseB(object sender, RoutedEventArgs e)
         {
             Click = true;
-            //if (CategoryCB.SelectedItem is BO.Category.Clothing)
-            //{
-            //    productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
-            //    item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-            //    item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
-            //}
-            //else
-            //{
-            //    productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item.Gender == (BO.Gender)GenderCB.SelectedItem &&
-            //    item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-            //    item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
-            //}
+           
         }
 
         /// <summary>
@@ -146,6 +135,11 @@ namespace PL
             productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
         }
 
+        /// <summary>
+        /// removing a specific productfrom the catalog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Delete_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             BO.ProductForList selection = (BO.ProductForList)((Button)sender).DataContext;
@@ -154,12 +148,18 @@ namespace PL
                 bl!.Product.DeleteProduct(selection.ID);
                 productForLists.Remove(selection);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// button that opens a window for adding a new product to the product's category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainFrame.Navigate(new TheProductWindow(true, Cart));

@@ -41,10 +41,11 @@ namespace PL.Product
         public static readonly DependencyProperty productProperty =
             DependencyProperty.Register("product", typeof(BO.ProductItem), typeof(ProductView));
 
+        
         public ProductView(BO.Cart cart, int ID)
         {
             InitializeComponent();
-
+            //resets values of product to show
             Cart = cart;
             int index = Cart.Items!.FindIndex(item => item!.ProductID == ID);
             if (index == -1)
@@ -55,23 +56,27 @@ namespace PL.Product
             product = bl.Product.ProductDetailsForCustomer(ID, Cart);
         }
 
+        //adding the current product to the cart
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl!.Cart.AddProductToCart(Cart, id, ProductAmount);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        //raise amount
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             ProductAmount += 1;
         }
 
+        //decrease amount
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ProductAmount == 0)

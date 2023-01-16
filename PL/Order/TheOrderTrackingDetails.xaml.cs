@@ -27,7 +27,8 @@ namespace PL.Order
             {
                 OrderTracking = bl.Order.TrackingOrder(ID);
             }
-            catch(Exception ex)
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

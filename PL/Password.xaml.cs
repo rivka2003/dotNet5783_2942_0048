@@ -14,6 +14,7 @@ namespace PL
             InitializeComponent();   
         }
 
+        //for submitting the password to a check
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.passwordText == "Fation")

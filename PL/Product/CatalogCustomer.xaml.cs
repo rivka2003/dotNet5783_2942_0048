@@ -122,6 +122,11 @@ namespace PL.Product
             ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GetAllOrderItems(Cart)!);
         }
 
+        /// <summary>
+        /// adding the specific product to the cart 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddToCart_Product_Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -136,6 +141,7 @@ namespace PL.Product
                     ProductItems[ProductItems.IndexOf(p)] = bl!.Product.ProductDetailsForCustomer(productId, Cart);
                 }
             }
+            ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
