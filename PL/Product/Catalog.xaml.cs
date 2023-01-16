@@ -92,7 +92,7 @@ namespace PL
 
         private string groupName = "Category";
         PropertyGroupDescription propertyGroupDescription;
-        public ICollectionView CollectionViewProductItemList { set; get; }
+        public ICollectionView CollectionViewproductForListsList { set; get; }
 
         public Catalog(BO.Cart cart)
         {
@@ -106,10 +106,10 @@ namespace PL
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
             productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
 
-            CollectionViewProductItemList = CollectionViewSource.GetDefaultView(productForLists);
+            CollectionViewproductForListsList = CollectionViewSource.GetDefaultView(productForLists);
 
             propertyGroupDescription = new PropertyGroupDescription(groupName);
-            CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
+            CollectionViewproductForListsList.GroupDescriptions.Add(propertyGroupDescription);
         }
 
         /// <summary>

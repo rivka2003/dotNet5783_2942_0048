@@ -27,6 +27,10 @@ namespace BO
         /// <summary>
         /// The total price of the product (by the price of it and the amount)
         /// </summary>
+        public string? Image { get; set; }
+        /// <summary>
+        /// The Imege of the product
+        /// </summary>
         public double TotalPrice { get; set; }
         public override string ToString() => this.ToStringProperty();
     }

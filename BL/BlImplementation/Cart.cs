@@ -40,6 +40,7 @@ namespace BlImplementation
                         ProductID = productID,
                         Name = productDo.Name,
                         Price = productDo.Price,
+                        Image = productDo.Image,
                         Amount = productAmount,
                         TotalPrice = productDo.Price * productAmount
                     });
@@ -86,8 +87,6 @@ namespace BlImplementation
                         throw new BO.NotValid("Error - Customer address box can't be empty!");
                     if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
                         throw new BO.NotValid("Error - The email address is not valid!");
-                    if (cart.Imege == " ")
-                        throw new BO.NotValid("Error - Imege box can't be empty!");
 
                     orderBo.Status = BO.OrderStatus.Confirmed;
                     orderBo.OrderDate = DateTime.Now;
@@ -108,6 +107,7 @@ namespace BlImplementation
                     orderItemBo.Name = cart.CustomerName;
                     orderItemBo.Price = cart.Items[i]!.Price;
                     orderItemBo.ProductID = cart.Items[i]!.ProductID;
+                    orderItemBo.Image = cart.Items[i]!.Image;
                     orderItemBo.Amount = cart.Items.Count();
                     orderItemBo.ID = cart.Items[i]!.ID;
                     orderItemBo.TotalPrice = cart.Items[i]!.TotalPrice;

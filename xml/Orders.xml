@@ -1,1 +1,183 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Order><ID>1</ID><CustomerName>Order1</CustomerName><CustomerEmail>Customer1@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin1</CustomerAddress><OrderDate>2023-01-13T00:58:37.2291405+02:00</OrderDate><ShipDate>2023-01-15T00:58:37.2291405+02:00</ShipDate><DeliveryDate>2023-01-18T00:58:37.2291405+02:00</DeliveryDate></Order><Order><ID>2</ID><CustomerName>Order2</CustomerName><CustomerEmail>Customer2@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin2</CustomerAddress><OrderDate>2023-01-13T16:54:30.2313767+02:00</OrderDate><ShipDate>2023-01-15T16:54:30.2313767+02:00</ShipDate><DeliveryDate>2023-01-17T16:54:30.2313767+02:00</DeliveryDate></Order><Order><ID>3</ID><CustomerName>Order3</CustomerName><CustomerEmail>Customer3@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin3</CustomerAddress><OrderDate>2023-01-13T05:42:31.2313891+02:00</OrderDate><ShipDate>2023-01-16T05:42:31.2313891+02:00</ShipDate><DeliveryDate>2023-01-19T05:42:31.2313891+02:00</DeliveryDate></Order><Order><ID>4</ID><CustomerName>Order4</CustomerName><CustomerEmail>Customer4@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin4</CustomerAddress><OrderDate>2023-01-13T16:44:54.2313913+02:00</OrderDate><ShipDate>2023-01-16T16:44:54.2313913+02:00</ShipDate><DeliveryDate>2023-01-18T16:44:54.2313913+02:00</DeliveryDate></Order><Order><ID>5</ID><CustomerName>Order5</CustomerName><CustomerEmail>Customer5@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin5</CustomerAddress><OrderDate>2023-01-13T02:13:13.231393+02:00</OrderDate><ShipDate>2023-01-16T02:13:13.231393+02:00</ShipDate><DeliveryDate>2023-01-19T02:13:13.231393+02:00</DeliveryDate></Order><Order><ID>6</ID><CustomerName>Order6</CustomerName><CustomerEmail>Customer6@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin6</CustomerAddress><OrderDate>2023-01-13T19:50:25.2313976+02:00</OrderDate><ShipDate>2023-01-15T19:50:25.2313976+02:00</ShipDate><DeliveryDate>2023-01-17T19:50:25.2313976+02:00</DeliveryDate></Order><Order><ID>7</ID><CustomerName>Order7</CustomerName><CustomerEmail>Customer7@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin7</CustomerAddress><OrderDate>2023-01-13T09:36:42.2313993+02:00</OrderDate><ShipDate>2023-01-16T09:36:42.2313993+02:00</ShipDate><DeliveryDate>2023-01-18T09:36:42.2313993+02:00</DeliveryDate></Order><Order><ID>8</ID><CustomerName>Order8</CustomerName><CustomerEmail>Customer8@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin8</CustomerAddress><OrderDate>2023-01-12T23:44:02.231401+02:00</OrderDate><ShipDate>2023-01-14T23:44:02.231401+02:00</ShipDate><DeliveryDate>2023-01-16T23:44:02.231401+02:00</DeliveryDate></Order><Order><ID>9</ID><CustomerName>Order9</CustomerName><CustomerEmail>Customer9@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin9</CustomerAddress><OrderDate>2023-01-13T12:12:38.2314026+02:00</OrderDate><ShipDate>2023-01-16T12:12:38.2314026+02:00</ShipDate><DeliveryDate>2023-01-19T12:12:38.2314026+02:00</DeliveryDate></Order><Order><ID>10</ID><CustomerName>Order10</CustomerName><CustomerEmail>Customer10@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin10</CustomerAddress><OrderDate>2023-01-13T08:03:32.231405+02:00</OrderDate><ShipDate>2023-01-15T08:03:32.231405+02:00</ShipDate><DeliveryDate>2023-01-17T08:03:32.231405+02:00</DeliveryDate></Order><Order><ID>11</ID><CustomerName>Order11</CustomerName><CustomerEmail>Customer11@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin11</CustomerAddress><OrderDate>2023-01-12T21:44:23.2314066+02:00</OrderDate><ShipDate>2023-01-14T21:44:23.2314066+02:00</ShipDate><DeliveryDate>2023-01-16T21:44:23.2314066+02:00</DeliveryDate></Order><Order><ID>12</ID><CustomerName>Order12</CustomerName><CustomerEmail>Customer12@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin12</CustomerAddress><OrderDate>2023-01-13T01:16:23.2314083+02:00</OrderDate><ShipDate>2023-01-15T01:16:23.2314083+02:00</ShipDate><DeliveryDate>2023-01-17T01:16:23.2314083+02:00</DeliveryDate></Order><Order><ID>13</ID><CustomerName>Order13</CustomerName><CustomerEmail>Customer13@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin13</CustomerAddress><OrderDate>2023-01-12T23:32:31.23141+02:00</OrderDate><ShipDate>2023-01-14T23:32:31.23141+02:00</ShipDate><DeliveryDate xsi:nil="true" /></Order><Order><ID>14</ID><CustomerName>Order14</CustomerName><CustomerEmail>Customer14@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin14</CustomerAddress><OrderDate>2023-01-13T15:12:36.2314116+02:00</OrderDate><ShipDate>2023-01-15T15:12:36.2314116+02:00</ShipDate><DeliveryDate xsi:nil="true" /></Order><Order><ID>15</ID><CustomerName>Order15</CustomerName><CustomerEmail>Customer15@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin15</CustomerAddress><OrderDate>2023-01-13T07:11:07.2314131+02:00</OrderDate><ShipDate>2023-01-16T07:11:07.2314131+02:00</ShipDate><DeliveryDate xsi:nil="true" /></Order><Order><ID>16</ID><CustomerName>Order16</CustomerName><CustomerEmail>Customer16@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin16</CustomerAddress><OrderDate>2023-01-13T07:16:59.2314146+02:00</OrderDate><ShipDate>2023-01-15T07:16:59.2314146+02:00</ShipDate><DeliveryDate xsi:nil="true" /></Order><Order><ID>17</ID><CustomerName>Order17</CustomerName><CustomerEmail>Customer17@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin17</CustomerAddress><OrderDate>2023-01-13T13:36:39.2314162+02:00</OrderDate><ShipDate xsi:nil="true" /><DeliveryDate xsi:nil="true" /></Order><Order><ID>18</ID><CustomerName>Order18</CustomerName><CustomerEmail>Customer18@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin18</CustomerAddress><OrderDate>2023-01-13T18:32:44.2314238+02:00</OrderDate><ShipDate xsi:nil="true" /><DeliveryDate xsi:nil="true" /></Order><Order><ID>19</ID><CustomerName>Order19</CustomerName><CustomerEmail>Customer19@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin19</CustomerAddress><OrderDate>2023-01-13T16:52:15.2314254+02:00</OrderDate><ShipDate xsi:nil="true" /><DeliveryDate xsi:nil="true" /></Order><Order><ID>20</ID><CustomerName>Order20</CustomerName><CustomerEmail>Customer20@gmail.com</CustomerEmail><CustomerAddress>Menachem Begin20</CustomerAddress><OrderDate>2023-01-13T09:14:56.2314268+02:00</OrderDate><ShipDate xsi:nil="true" /><DeliveryDate xsi:nil="true" /></Order></ArrayOfOrder>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <ID>1</ID>
+    <CustomerName>Order1</CustomerName>
+    <CustomerEmail>Customer1@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin1</CustomerAddress>
+    <OrderDate>2023-01-13T00:58:37.2291405+02:00</OrderDate>
+    <ShipDate>2023-01-15T00:58:37.2291405+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T00:58:37.2291405+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>2</ID>
+    <CustomerName>Order2</CustomerName>
+    <CustomerEmail>Customer2@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin2</CustomerAddress>
+    <OrderDate>2023-01-13T16:54:30.2313767+02:00</OrderDate>
+    <ShipDate>2023-01-15T16:54:30.2313767+02:00</ShipDate>
+    <DeliveryDate>2023-01-17T16:54:30.2313767+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>3</ID>
+    <CustomerName>Order3</CustomerName>
+    <CustomerEmail>Customer3@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin3</CustomerAddress>
+    <OrderDate>2023-01-13T05:42:31.2313891+02:00</OrderDate>
+    <ShipDate>2023-01-16T05:42:31.2313891+02:00</ShipDate>
+    <DeliveryDate>2023-01-19T05:42:31.2313891+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>4</ID>
+    <CustomerName>Order4</CustomerName>
+    <CustomerEmail>Customer4@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin4</CustomerAddress>
+    <OrderDate>2023-01-13T16:44:54.2313913+02:00</OrderDate>
+    <ShipDate>2023-01-16T16:44:54.2313913+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T16:44:54.2313913+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>5</ID>
+    <CustomerName>Order5</CustomerName>
+    <CustomerEmail>Customer5@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin5</CustomerAddress>
+    <OrderDate>2023-01-13T02:13:13.231393+02:00</OrderDate>
+    <ShipDate>2023-01-16T02:13:13.231393+02:00</ShipDate>
+    <DeliveryDate>2023-01-19T02:13:13.231393+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>6</ID>
+    <CustomerName>Order6</CustomerName>
+    <CustomerEmail>Customer6@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin6</CustomerAddress>
+    <OrderDate>2023-01-13T19:50:25.2313976+02:00</OrderDate>
+    <ShipDate>2023-01-15T19:50:25.2313976+02:00</ShipDate>
+    <DeliveryDate>2023-01-17T19:50:25.2313976+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>7</ID>
+    <CustomerName>Order7</CustomerName>
+    <CustomerEmail>Customer7@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin7</CustomerAddress>
+    <OrderDate>2023-01-13T09:36:42.2313993+02:00</OrderDate>
+    <ShipDate>2023-01-16T09:36:42.2313993+02:00</ShipDate>
+    <DeliveryDate>2023-01-18T09:36:42.2313993+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>8</ID>
+    <CustomerName>Order8</CustomerName>
+    <CustomerEmail>Customer8@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin8</CustomerAddress>
+    <OrderDate>2023-01-12T23:44:02.231401+02:00</OrderDate>
+    <ShipDate>2023-01-14T23:44:02.231401+02:00</ShipDate>
+    <DeliveryDate>2023-01-16T23:44:02.231401+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>9</ID>
+    <CustomerName>Order9</CustomerName>
+    <CustomerEmail>Customer9@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin9</CustomerAddress>
+    <OrderDate>2023-01-13T12:12:38.2314026+02:00</OrderDate>
+    <ShipDate>2023-01-16T12:12:38.2314026+02:00</ShipDate>
+    <DeliveryDate>2023-01-19T12:12:38.2314026+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>10</ID>
+    <CustomerName>Order10</CustomerName>
+    <CustomerEmail>Customer10@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin10</CustomerAddress>
+    <OrderDate>2023-01-13T08:03:32.231405+02:00</OrderDate>
+    <ShipDate>2023-01-15T08:03:32.231405+02:00</ShipDate>
+    <DeliveryDate>2023-01-17T08:03:32.231405+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>11</ID>
+    <CustomerName>Order11</CustomerName>
+    <CustomerEmail>Customer11@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin11</CustomerAddress>
+    <OrderDate>2023-01-12T21:44:23.2314066+02:00</OrderDate>
+    <ShipDate>2023-01-14T21:44:23.2314066+02:00</ShipDate>
+    <DeliveryDate>2023-01-16T21:44:23.2314066+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>12</ID>
+    <CustomerName>Order12</CustomerName>
+    <CustomerEmail>Customer12@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin12</CustomerAddress>
+    <OrderDate>2023-01-13T01:16:23.2314083+02:00</OrderDate>
+    <ShipDate>2023-01-15T01:16:23.2314083+02:00</ShipDate>
+    <DeliveryDate>2023-01-17T01:16:23.2314083+02:00</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>13</ID>
+    <CustomerName>Order13</CustomerName>
+    <CustomerEmail>Customer13@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin13</CustomerAddress>
+    <OrderDate>2023-01-12T23:32:31.23141+02:00</OrderDate>
+    <ShipDate>2023-01-14T23:32:31.23141+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>14</ID>
+    <CustomerName>Order14</CustomerName>
+    <CustomerEmail>Customer14@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin14</CustomerAddress>
+    <OrderDate>2023-01-13T15:12:36.2314116+02:00</OrderDate>
+    <ShipDate>2023-01-15T15:12:36.2314116+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>15</ID>
+    <CustomerName>Order15</CustomerName>
+    <CustomerEmail>Customer15@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin15</CustomerAddress>
+    <OrderDate>2023-01-13T07:11:07.2314131+02:00</OrderDate>
+    <ShipDate>2023-01-16T07:11:07.2314131+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>16</ID>
+    <CustomerName>Order16</CustomerName>
+    <CustomerEmail>Customer16@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin16</CustomerAddress>
+    <OrderDate>2023-01-13T07:16:59.2314146+02:00</OrderDate>
+    <ShipDate>2023-01-15T07:16:59.2314146+02:00</ShipDate>
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>17</ID>
+    <CustomerName>Order17</CustomerName>
+    <CustomerEmail>Customer17@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin17</CustomerAddress>
+    <OrderDate>2023-01-13T13:36:39.2314162+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>18</ID>
+    <CustomerName>Order18</CustomerName>
+    <CustomerEmail>Customer18@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin18</CustomerAddress>
+    <OrderDate>2023-01-13T18:32:44.2314238+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>19</ID>
+    <CustomerName>Order19</CustomerName>
+    <CustomerEmail>Customer19@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin19</CustomerAddress>
+    <OrderDate>2023-01-13T16:52:15.2314254+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+  <Order>
+    <ID>20</ID>
+    <CustomerName>Order20</CustomerName>
+    <CustomerEmail>Customer20@gmail.com</CustomerEmail>
+    <CustomerAddress>Menachem Begin20</CustomerAddress>
+    <OrderDate>2023-01-13T09:14:56.2314268+02:00</OrderDate>
+    <ShipDate xsi:nil="true" />
+    <DeliveryDate xsi:nil="true" />
+  </Order>
+</ArrayOfOrder>

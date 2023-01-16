@@ -163,7 +163,7 @@
                           SelectedItem="{Binding product.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <ComboBox x:Name="cbCATEGORY" Grid.Row="1" Grid.Column="1" SelectedIndex="0"  ItemsSource="{Binding Category}"
-                          SelectedItem="{Binding product.Category}" SelectedValue="{Binding Path=product.Category}"/>
+                          SelectedItem="{Binding product.Category}" SelectedValue="{Binding Path=product.Category}" SelectionChanged="cbCATEGORY_SelectionChanged"/>
 
                 <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1" 
                      SelectedItem="{Binding product, Converter={StaticResource showTypeByProductConverter}}">

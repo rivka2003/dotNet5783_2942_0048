@@ -86,7 +86,7 @@ namespace BlImplementation
                     BO.OrderItem? orderItemBo = new OrderItem();
                     orderItem.CopyPropTo(orderItemBo);
                     orderItemBo.Name = Dal.Product.RequestByPredicate(product => product?.ID == orderItem?.ProductID).Name;
-                    orderItemBo.TotalPrice = (((double)(orderItem?.Price * orderItem?.Amount)!));
+                    orderItemBo.TotalPrice = (double)(orderItem?.Price * orderItem?.Amount)!;
                     return orderItemBo;
                 }).ToList()!;
 
@@ -191,8 +191,10 @@ namespace BlImplementation
 
             return orderTracking;
         }
-
-
+        /// <summary>
+        /// A function that grups all the orders by the statistics
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths()
         {
             return from order in Dal!.Order.RequestAllByPredicate()
@@ -211,7 +213,9 @@ namespace BlImplementation
         }
     }
 
-
+    /// <summary>
+    /// A struct to present the orders by month, amount of orders and the total price for a month
+    /// </summary>
     public struct StatisticksOrderByMonth
     {
         public string MonthName { get; set; }

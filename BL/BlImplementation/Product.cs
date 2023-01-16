@@ -195,11 +195,6 @@ namespace BlImplementation
                                                          Description = item.Description,
                                                          Image = item.Image
                                                      };
-
-
-            //IEnumerable<IGrouping<Gender, ProductItem?>> result = from g in productItems
-            //                                                         group g by BO.Gender.Women into genderGroup
-            //                                                         select genderGroup;
             return productItems;
         }
     }

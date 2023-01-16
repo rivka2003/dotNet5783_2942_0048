@@ -23,32 +23,52 @@
         </Style>
 
         <DataTemplate x:Key="oneOrderItem" DataType="local: OrderItem">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical">
-                    <Label FontFamily="Elephant" 
-                           Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
-                    <Label Content="{Binding Path=TotalPrice}" 
-                           ContentStringFormat=" {0}₪" HorizontalAlignment="Left" />
-                </StackPanel>
-                <Button x:Name="IncreaseButton" Width="20" Height="20" 
-                        FontFamily="Elephant" FontSize="14"  Content="+" Background="#FFFAF9F9" 
-                        BorderBrush="Black" Click="IncreaseBtn_Click"/>
-                <Label x:Name="AmountLb" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16" 
-                       Content="{Binding Amount}" VerticalAlignment="Center" />
-                <Button x:Name="DecreaseButton" Width="20" Height="20" 
-                        FontFamily="Elephant" FontSize="14"  Content="-" Background="#FFFAF9F9" 
-                        BorderBrush="Black" Click="DecreaseBtn_Click" />
-                <Label Content="   "/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+
+                <Border Height="150"  Width="125" BorderBrush="Black">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=Image}" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+
                 <Button x:Name="RemoveButton" Foreground="White" Width="20" Height="20" 
                         FontFamily="Elephant" FontSize="14"  Content="x" Background="Black" 
-                        BorderBrush="Black" Click="RemoveBtn_Click" Tag="{Binding}">
+                        BorderBrush="Black" Click="RemoveBtn_Click" Tag="{Binding}" HorizontalAlignment="Right"
+                        VerticalAlignment="Top">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="20"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-            </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <StackPanel Orientation="Vertical" Width="100">
+                        <Label FontFamily="Elephant" Content="{Binding Path=Name}" HorizontalAlignment="Left" 
+                               FontSize="16"/>
+                        
+                        <Label Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0}₪" HorizontalAlignment="Left"
+                               FontSize="16"/>
+                    </StackPanel>
+                    
+                    <Button x:Name="IncreaseButton" Width="20" Height="20" 
+                        FontFamily="Elephant" FontSize="14"  Content="+" Background="#FFFAF9F9" 
+                        BorderBrush="Black" Click="IncreaseBtn_Click"/>
+                    
+                    <Label x:Name="AmountLb" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16" 
+                       Content="{Binding Amount}" VerticalAlignment="Center" />
+                    
+                    <Button x:Name="DecreaseButton" Width="20" Height="20" 
+                        FontFamily="Elephant" FontSize="14"  Content="-" Background="#FFFAF9F9" 
+                        BorderBrush="Black" Click="DecreaseBtn_Click" />
+
+                    <Label Content=" "/>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
 
@@ -75,7 +95,7 @@
             <Label Content="Address:" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="3"/>
 
             <Button x:Name="btnORDERMAKING" Content="Order!" HorizontalAlignment="Left" Margin="66,14,0,0"
-                    Grid.Row="6" VerticalAlignment="Top" FontSize="16" Click="Button_Click"/>
+                    Grid.Row="6" VerticalAlignment="Top" FontSize="16" Click="Button_Click" Foreground="#FF900707"/>
 
             <TextBox x:Name="tbNAME" HorizontalAlignment="Left" Margin="147,0,0,0" Grid.Row="1" Height="26" 
                      Text="{Binding Cart.CustomerName, Mode=TwoWay}"/>
@@ -88,17 +108,17 @@
         </Grid>
 
         <ListView x:Name="cartView" Background="{x:Null}" FontSize="22" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  Margin="0,0,0,111" Grid.Column="1" ScrollViewer.CanContentScroll="True"
+                  Margin="0,0,0,83" Grid.Column="1" ScrollViewer.CanContentScroll="True"
                   FontFamily="Elephant" Foreground="White" ItemsSource="{Binding Cart.Items, Mode=TwoWay}"  
                   ItemTemplate="{StaticResource oneOrderItem}" MouseDoubleClick="List_DoubleClick">
         </ListView>
 
         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Your basket is currently empty Waiting for your next purchase!" 
-                       Style="{StaticResource EmptyCartTextBox}" Foreground="Black" Grid.Column="1" Margin="0,197,0,216"/>
+                       Style="{StaticResource EmptyCartTextBox}" Foreground="Black" Grid.Column="1" Margin="0,142,0,271"/>
 
-        <Label Content="Total price:" Grid.Column="1" HorizontalAlignment="Left" Margin="51,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,-0.062"/>
+        <Label Content="Total price:" Grid.Column="1" HorizontalAlignment="Left" Margin="51,380,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.421,-0.062"/>
 
-        <Label x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Cart.TotalPrice, Mode=TwoWay}" Margin="155,355,0,0" VerticalAlignment="Top" 
+        <Label x:Name="lblTOTALPRICE" Grid.Column="1" Content="{Binding Cart.TotalPrice, Mode=TwoWay}" Margin="155,383,0,0" VerticalAlignment="Top" 
                HorizontalAlignment="Left" ContentStringFormat=" {0}₪"/>
     </Grid>
 </Page>
