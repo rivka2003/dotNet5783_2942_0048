@@ -23,17 +23,19 @@ namespace PL.Converters
                 {
                     if (((BO.Category)values[1]) is BO.Category.Clothing)
                     {
-                        var newobservableCollection = observableCollection.Where(item => item.Category == (BO.Category)values[1]
+                        var list = observableCollection.ToList();
+                        ObservableCollection<BO.ProductForList> newobservableCollection = new(list.Where(item => item.Category == (BO.Category)values[1]
                             && item.Gender == (BO.Gender)values[2] && item.Clothing == (BO.Clothing)values[3]
-                            && item.SizeClothing == (BO.SizeClothing)values[4] && item.Color == (BO.Color)values[5]);
+                            && item.SizeClothing == (BO.SizeClothing)values[4] && item.Color == (BO.Color)values[5]));
                         return newobservableCollection;
                     }
                     else
                     {
-                        var newobservableCollection = observableCollection.Where(item => item.Category ==
+                        var list = observableCollection.ToList();
+                        ObservableCollection<BO.ProductForList> newobservableCollection = new(list.Where(item => item.Category ==
                              (BO.Category)values[1] && item.Gender == (BO.Gender)values[2] && item.Shoes ==
                              (BO.Shoes)values[3] && item.SizeShoes == (BO.SizeShoes)values[4] &&
-                             item.Color == (BO.Color)values[5]);
+                             item.Color == (BO.Color)values[5]));
                         return newobservableCollection;
                     }
                 }
@@ -43,16 +45,16 @@ namespace PL.Converters
             return 0;
         }
 
-        /// <summary>
-        /// convert from target property type to source property type
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="targetType"></param>
-        /// <param name="parameter"></param>
-        /// <param name="culture"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+            /// <summary>
+            /// convert from target property type to source property type
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="targetType"></param>
+            /// <param name="parameter"></param>
+            /// <param name="culture"></param>
+            /// <returns></returns>
+            /// <exception cref="NotImplementedException"></exception>
+            public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
