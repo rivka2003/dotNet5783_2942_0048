@@ -32,9 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{005DC01F-694
 	ProjectSection(SolutionItems) = preProject
 		xml\config.xml = xml\config.xml
 		xml\dal-config.xml = xml\dal-config.xml
-		bin\xml\OrderItems.xml = bin\xml\OrderItems.xml
-		bin\xml\Orders.xml = bin\xml\Orders.xml
-		bin\xml\Products.xml = bin\xml\Products.xml
+		xml\OrderItems.xml = xml\OrderItems.xml
+		xml\Orders.xml = xml\Orders.xml
+		xml\Products.xml = xml\Products.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{96069916-9215-4200-8B88-7863F540D5E6}"
@@ -43,6 +43,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLPrepareFiles", "XMLPrepareFiles\XMLPrepareFiles.csproj", "{608EFCC2-E4F4-4BA0-A922-4D00FC5366ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simulator.csproj", "{F3672218-F925-4185-A7EB-6E6D25A76B90}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7194E25-6636-4E53-8DBC-0D6A87D267C7} = {B7194E25-6636-4E53-8DBC-0D6A87D267C7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +91,10 @@ Global
 		{608EFCC2-E4F4-4BA0-A922-4D00FC5366ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{608EFCC2-E4F4-4BA0-A922-4D00FC5366ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{608EFCC2-E4F4-4BA0-A922-4D00FC5366ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3672218-F925-4185-A7EB-6E6D25A76B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3672218-F925-4185-A7EB-6E6D25A76B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3672218-F925-4185-A7EB-6E6D25A76B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3672218-F925-4185-A7EB-6E6D25A76B90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

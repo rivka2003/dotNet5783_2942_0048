@@ -1,6 +1,5 @@
 ﻿using BO;
 using CopyPropertisTo;
-
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
