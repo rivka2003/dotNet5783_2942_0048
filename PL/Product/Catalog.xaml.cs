@@ -119,8 +119,19 @@ namespace PL
         /// <param name="e"></param>
         private void ChooseB(object sender, RoutedEventArgs e)
         {
-            Click = true;
-           
+            //Click = true;
+            if (CategoryCB.SelectedItem is BO.Category.Clothing)
+            {
+                productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+                item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
+            }
+            else
+            {
+                productForLists = new ObservableCollection<BO.ProductForList>(productForLists.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
+                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
+                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
+            }
         }
 
         /// <summary>
