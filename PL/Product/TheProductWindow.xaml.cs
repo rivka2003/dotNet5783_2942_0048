@@ -145,8 +145,11 @@ namespace PL.Product
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
-
+        /// <summary>
+        /// The button that saves the new product (update/add)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSAVE_Click(object sender, RoutedEventArgs e)
         {
             ///general pre checkings over the text boxes
@@ -176,7 +179,35 @@ namespace PL.Product
                 return;
             }
 
-           
+            ///if pre checks are valid.put data in the product and send that to previous layers check.
+            BO.Product product = new()
+            {
+                ID = int.Parse(tbID.Text),
+                Name = tbNAME.Text,
+                InStock = int.Parse(tbINSTOCK.Text),
+                Category = (BO.Category)cbCATEGORY.SelectedItem,
+                Color = (BO.Color)cbCOLOR.SelectedItem,
+                Gender = (BO.Gender)cbGENDER.SelectedItem,
+                Description = tbDESCRIPTION.Text,
+                Image = tbIMAGE.Text
+            };
+
+            if (tbPRICE.Text.Contains('.'))
+                product.Price = double.Parse(tbPRICE.Text);
+            else
+                product.Price = int.Parse(tbPRICE.Text);
+
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            }
+            else
+            {
+                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            }
+
             /// a try to update or add
             try
             {
@@ -215,7 +246,7 @@ namespace PL.Product
                 else
                 {
                     cbTYPE.SelectedValue = BO.Shoes.Sneakers;
-                    cbSIZE.SelectedValue = BO.SizeShoes.xs;
+                    cbSIZE.SelectedValue = 36;
                 }
             }
         }

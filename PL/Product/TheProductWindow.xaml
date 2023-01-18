@@ -160,31 +160,51 @@
                        Grid.Column="0"/>
 
                 <ComboBox x:Name="cbGENDER" Grid.Row="0" Grid.Column="1" SelectedIndex="0" ItemsSource="{Binding Gender}"
-                          SelectedItem="{Binding product.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                          SelectedItem="{Binding product.Gender, Mode=OneWay}"/>
 
                 <ComboBox x:Name="cbCATEGORY" Grid.Row="1" Grid.Column="1" SelectedIndex="0"  ItemsSource="{Binding Category}"
-                          SelectedItem="{Binding product.Category}" SelectedValue="{Binding Path=product.Category}" SelectionChanged="cbCATEGORY_SelectionChanged"/>
+                          SelectedItem="{Binding product.Category, Mode=OneWay}" SelectedValue="{Binding Path=product.Category}" SelectionChanged="cbCATEGORY_SelectionChanged"/>
 
-                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1" 
-                     SelectedItem="{Binding product, Converter={StaticResource showTypeByProductConverter}}">
+                <ComboBox x:Name="cbTYPE" Grid.Row="2" Grid.Column="1" SelectedIndex="0">
                     <ComboBox.ItemsSource>
                         <MultiBinding Converter="{StaticResource comboBoxItemSourceConverter}">
                             <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
                             <Binding ElementName="cbGENDER" Path="SelectedItem" />
                         </MultiBinding>
                     </ComboBox.ItemsSource>
+                    
+                    <ComboBox.SelectedItem>
+                        <MultiBinding Converter="{StaticResource showTypeByProductConverter}" Mode="OneWay">
+                            <Binding Path="product"/>
+                            <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
+                        </MultiBinding>
+                    </ComboBox.SelectedItem>
                 </ComboBox>
                 <!--SelectedValue="{Binding ElementName=cbCATEGORY, 
                     Path=SelectedItem, Converter={StaticResource takeTheTypeByTheCategoryConverter}}"-->
 
                 <ComboBox x:Name="cbCOLOR" Grid.Row="3" Grid.Column="1" SelectedIndex="0"
-                          ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color}" 
+                          ItemsSource="{Binding Color}" SelectedItem="{Binding product.Color, Mode=OneWay}" 
                            />
 
                 <ComboBox x:Name="cbSIZE" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ElementName= cbCATEGORY, 
-                    Path=SelectedItem, Converter={StaticResource ChoosByCategory}}" 
-                       SelectedItem="{Binding product, Converter={StaticResource showSizeByProductConverter}, 
-                    ConverterParameter=cbCATEGORY}"/>
+                    Path=SelectedItem, Converter={StaticResource ChoosByCategory}}">
+
+                    <ComboBox.SelectedItem>
+                        <MultiBinding Converter="{StaticResource showSizeByProductConverter}" Mode="OneWay">
+                            <Binding Path="product"/>
+                            <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
+                        </MultiBinding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+
+                <!--<ComboBox.SelectedItem>
+                        <MultiBinding Converter="{StaticResource showSizeByProductConverter}">
+                            <Binding Path="product"/>
+                            <Binding ElementName="cbCATEGORY" Path="SelectedItem"/>
+                        </MultiBinding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>-->
                 <!--SelectedValue="{Binding ElementName=cbCATEGORY, 
                     Path=SelectedItem, Converter={StaticResource takeTheSizeByTheCategoryConverter}}"-->
 

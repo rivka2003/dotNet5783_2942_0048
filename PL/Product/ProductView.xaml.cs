@@ -55,7 +55,6 @@ namespace PL.Product
             id = ID;
             product = bl.Product.ProductDetailsForCustomer(ID, Cart);
         }
-
         //adding the current product to the cart
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
@@ -69,14 +68,21 @@ namespace PL.Product
                 MessageBox.Show(ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        //raise amount
+        /// <summary>
+        /// raise amount
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             ProductAmount += 1;
         }
 
-        //decrease amount
+        /// <summary>
+        /// decrease amount
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ProductAmount == 0)

@@ -11,10 +11,6 @@ namespace PL.Order
     {
         private BlApi.IBl? bl = BlApi.Factory.Get();
 
-        //private string groupName = "Status";
-
-        //private PropertyGroupDescription groupDescription;
-
         private ObservableCollection<BO.OrderForList?> OrderList
         { get => (ObservableCollection<BO.OrderForList?>)GetValue(OrderListDep); set => SetValue(OrderListDep, value); }
 
@@ -48,7 +44,11 @@ namespace PL.Order
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// a Button that shows the statistics of the order - how many orders have made that month
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainFrame.Navigate(new StatisticksOrdersWindow());

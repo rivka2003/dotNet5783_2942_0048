@@ -1,4 +1,4 @@
-﻿using BO;
+﻿
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,22 +38,31 @@ namespace PL.Order
 
         public TheOrderTrackingWindow()
         {
+            ///The button didnot clicked yet so it is falls
             IsClicked = false;
             InitializeComponent();
         }
 
-        //enables numbers only
+        /// <summary>
+        /// enables numbers only
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviewTextInputDigitsIDInStock(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        //resets order tracking variable according to the id that was entered 
+        /// <summary>
+        /// resets order tracking variable according to the id that was entered
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbID_TextChanged(object sender, TextChangedEventArgs e)
         {
             string myId = ((TextBox)sender).Text;
-            if (string.IsNullOrEmpty(myId))
+            if (string.IsNullOrEmpty(myId)) /// if there was no id that was entered
                 return;
             ID = int.Parse(((TextBox)sender).Text);
             try
@@ -67,7 +76,11 @@ namespace PL.Order
             }
         }
 
-        //button leads to detail's window of the current order to which the given id belongs to
+        /// <summary>
+        /// button leads to detail's window of the current order to which the given id belongs to
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnORDERDETAILS_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -81,7 +94,11 @@ namespace PL.Order
             }
         }
 
-
+        /// <summary>
+        /// if the button was clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             IsClicked = true;

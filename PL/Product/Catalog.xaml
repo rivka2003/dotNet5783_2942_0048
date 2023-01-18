@@ -39,7 +39,7 @@
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
         <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
         <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
-        <converter:FilterForTheProductsListConverter x:Key="filterForTheProductsListConverter"/> 
+        <converter:FilterForTheProductsListConverter x:Key="filterForTheProductsListConverter"/>
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
 
     </Page.Resources>
@@ -89,7 +89,7 @@
 
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
-                  FontFamily="Elephant" Grid.Row="1" Foreground="White" ItemsSource="{Binding productForLists}"
+                  FontFamily="Elephant" Grid.Row="1" Foreground="White"
                   MouseDoubleClick="Update_DoubleClick" Margin="0,0,0,50">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -97,16 +97,17 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
-            <!--<ListView.ItemsSource>
-            <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource filterForTheProductsListConverter}">
-                <Binding ElementName="productForLists" Path="ItemSource"/>
-                <Binding ElementName="CategoryCB" Path="SelectedItem"/>
-                <Binding ElementName="GenderCB" Path="SelectedItem"/>
-                <Binding ElementName="TypeCB" Path="SelectedItem"/>
-                <Binding ElementName="SizeCB" Path="SelectedItem"/>
+            <ListView.ItemsSource>
+                <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource filterForTheProductsListConverter}">
+                    <Binding Path="productForLists"/>
+                    <Binding ElementName="CategoryCB" Path="SelectedItem"/>
+                    <Binding ElementName="GenderCB" Path="SelectedItem"/>
+                    <Binding ElementName="TypeCB" Path="SelectedItem"/>
+                    <Binding ElementName="SizeCB" Path="SelectedItem"/>
                     <Binding ElementName="ColorCB" Path="SelectedItem"/>
+                    <Binding Path="Click"/>
                 </MultiBinding>
-        </ListView.ItemsSource>-->
+            </ListView.ItemsSource>
 
             <ListView.GroupStyle>
                 <GroupStyle>

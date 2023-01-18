@@ -96,15 +96,15 @@ namespace PL
 
         public Catalog(BO.Cart cart)
         {
+            productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
             Click = false;
             InitializeComponent();
 
             Cart = cart;
-            /////resets the combo boxes options
+            ///resets the combo boxes options
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            productForLists = new ObservableCollection<BO.ProductForList>(bl.Product.GetAll()!);
 
             CollectionViewproductForListsList = CollectionViewSource.GetDefaultView(productForLists);
 
@@ -130,9 +130,12 @@ namespace PL
         /// <param name="e"></param>
         private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            BO.ProductForList selection = (BO.ProductForList)((ListView)sender).SelectedItem;
-            MainWindow.mainFrame.Navigate(new TheProductWindow(false, Cart, selection.ID));
-            productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
+            if (((ListView)sender) is not null)
+            {
+                BO.ProductForList selection = (BO.ProductForList)((ListView)sender).SelectedItem;
+                MainWindow.mainFrame.Navigate(new TheProductWindow(false, Cart, selection.ID));
+                productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
+            }
         }
 
         /// <summary>
@@ -154,7 +157,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         /// <summary>
         /// button that opens a window for adding a new product to the product's category
         /// </summary>

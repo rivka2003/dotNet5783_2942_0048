@@ -105,11 +105,18 @@ namespace PL.Product
                 item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
             }
         }
-
-        private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// function to show the customer the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void View_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
-            MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
+            if (((ListView)sender) is not null)
+            {
+                BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
+                MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
+            }
         }
 
         /// <summary>

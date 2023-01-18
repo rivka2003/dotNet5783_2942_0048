@@ -88,7 +88,7 @@
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
                   FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="Update_DoubleClick" ItemsSource="{Binding ProductItems}">
+                  MouseDoubleClick="View_DoubleClick" ItemsSource="{Binding ProductItems}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

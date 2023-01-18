@@ -57,7 +57,6 @@ namespace PL.Converters
             }
             return Enum.GetValues(typeof(BO.Clothing));
         }
-
         /// <summary>
         /// convert from target property type to source property type
         /// </summary>

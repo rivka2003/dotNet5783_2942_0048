@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace PL.Converters
 {
 
     public class InCorrectPasswordToVisibleConverter : IValueConverter
     {
-        int val = 0;
         /// <summary>
         /// convert from source property type to target property type
         /// </summary>
@@ -24,9 +17,8 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is "Fation" ? Visibility.Visible : Visibility.Hidden;
+            return value is "Fashion" ? Visibility.Visible : Visibility.Hidden;
         }
-
         /// <summary>
         /// convert from target property type to source property type
         /// </summary>

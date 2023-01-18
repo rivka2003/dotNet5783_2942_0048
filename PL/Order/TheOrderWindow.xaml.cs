@@ -31,7 +31,11 @@ namespace PL.Order
             }
         }
 
-        //button to update the window with the new values
+        /// <summary>
+        /// button to update the window with the new values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (tbSHIPDATE.Text == "" || tbSHIPDATE.Text == " ")
