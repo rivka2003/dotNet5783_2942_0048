@@ -62,11 +62,14 @@ namespace PL
             IsMenuOpen = !IsMenuOpen;
         }
 
+        //in order to have options of a manager - a password is bein requierd
         private void BTManager_Click(object sender, RoutedEventArgs e)
         {
             new Password().ShowDialog();
             PasswordText = passwordText;
         }
+
+       //opens the window according to the hamburger's selection:
 
         private void BTOrderTracking_Click(object sender, RoutedEventArgs e)
         {
@@ -92,7 +95,10 @@ namespace PL
         {
             mainFrame.Navigate(new HomePage(cart));
         }
-
+        private void BTGeneralDes_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(new StoreDescription());
+        }
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(new TheCartWindow(cart));

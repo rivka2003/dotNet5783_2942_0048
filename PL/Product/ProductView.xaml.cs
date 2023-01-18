@@ -41,6 +41,7 @@ namespace PL.Product
         public static readonly DependencyProperty productProperty =
             DependencyProperty.Register("product", typeof(BO.ProductItem), typeof(ProductView));
 
+        
         public ProductView(BO.Cart cart, int ID)
         {
             InitializeComponent();

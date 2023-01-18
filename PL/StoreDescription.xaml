@@ -1,0 +1,19 @@
+﻿<Page x:Class="PL.StoreDescription"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StoreDescription">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Image1.png" Opacity="0.6"/>
+        </Grid.Background>
+        <TextBlock Margin="98,88,98,88" TextWrapping="Wrap" Text="Welcome to the Streets of fasion!, where you'll find high-style fashion for all genders, ages, and categories. We offer a diverse collection of timeless and sophisticated garments, crafted from premium materials and designed to exude elegance and class. From elegant evening wear to classic office attire, we have something to suit every style and body type. Complete your look with our selection of accessories and footwear. Browse our collection today and elevate your style." FontSize="24" Foreground="Black" Width="604" FontFamily="Bodoni MT"/>
+
+    </Grid>
+</Page>
+

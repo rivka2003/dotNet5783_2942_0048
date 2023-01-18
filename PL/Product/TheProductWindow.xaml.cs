@@ -92,6 +92,8 @@ namespace PL.Product
         // Using a DependencyProperty as the backing store for Category.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(TheProductWindow));
+  
+
         public TheProductWindow(bool window, BO.Cart cart, int ID = 0)
         {
             ///resets to show the current values
@@ -231,6 +233,7 @@ namespace PL.Product
             }
         }
 
+
         private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbTYPE is not null && cbSIZE is not null)
@@ -249,3 +252,4 @@ namespace PL.Product
         }
     }
 }
+//good

@@ -53,6 +53,8 @@
 
                 <Button x:Name="BTCatalog"  Grid.Column="1" Content="Catalog" FontSize="12" Grid.Row="1" Foreground="White" 
                         Click="BTCatalog_Click" />
+                
+                <Button x:Name="BTGeneralDes" Content="About us!" FontSize="12" Foreground="White" Click="BTGeneralDes_Click" />
 
                 <Button x:Name="BTManager" Content="Manager" FontSize="12" Foreground="White" Click="BTManager_Click" />
 

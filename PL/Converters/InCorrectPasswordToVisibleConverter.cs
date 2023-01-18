@@ -4,6 +4,7 @@ using System.Windows;
 
 namespace PL.Converters
 {
+
     public class InCorrectPasswordToVisibleConverter : IValueConverter
     {
         /// <summary>
