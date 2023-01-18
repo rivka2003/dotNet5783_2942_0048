@@ -16,7 +16,7 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is "Fation" ? Visibility.Visible : Visibility.Hidden;
+            return value is "Fashion" ? Visibility.Visible : Visibility.Hidden;
         }
         /// <summary>
         /// convert from target property type to source property type

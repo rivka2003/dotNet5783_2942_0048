@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class ShowSizeByProductConverter : IValueConverter
+    public class ShowSizeByProductConverter : IMultiValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -14,12 +14,12 @@ namespace PL.Converters
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not null)
-                return ((BO.Product)value).Category is BO.Category.Clothing ? ((BO.Product)value).SizeClothing! :
-                    System.Convert.ToInt32(((BO.Product)value).SizeShoes!);
-            return BO.SizeClothing.XS;
+            if (values[0] is not null)
+                return ((BO.Product)values[0]).Category is BO.Category.Clothing ? ((BO.Product)values[0]).SizeClothing! :
+                    System.Convert.ToInt32(((BO.Product)values[0]).SizeShoes!);
+            return values[1] is BO.Category.Clothing?  BO.SizeClothing.XS : 36;
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace PL.Converters
         /// <param name="culture"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return value;
+            return targetTypes;
         }
     }
 }

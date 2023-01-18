@@ -16,7 +16,7 @@ namespace PL
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.passwordText == "Fation")
+            if (MainWindow.passwordText == "Fashion")
                 Close();
             else
                 MainWindow.passwordText = "";

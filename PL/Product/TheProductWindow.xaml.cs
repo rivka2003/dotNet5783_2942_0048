@@ -178,32 +178,33 @@ namespace PL.Product
             }
 
             ///if pre checks are valid.put data in the product and send that to previous layers check.
-            //BO.Product product = new()
-            //{
-            //    ID = int.Parse(tbID.Text),
-            //    Name = tbNAME.Text,
-            //    InStock = int.Parse(tbINSTOCK.Text),
-            //    Category = (BO.Category)cbCATEGORY.SelectedItem,
-            //    Color = (BO.Color)cbCOLOR.SelectedItem,
-            //    Gender = (BO.Gender)cbGENDER.SelectedItem,
-            //    Description = tbDESCRIPTION.Text
-            //};
+            BO.Product product = new()
+            {
+                ID = int.Parse(tbID.Text),
+                Name = tbNAME.Text,
+                InStock = int.Parse(tbINSTOCK.Text),
+                Category = (BO.Category)cbCATEGORY.SelectedItem,
+                Color = (BO.Color)cbCOLOR.SelectedItem,
+                Gender = (BO.Gender)cbGENDER.SelectedItem,
+                Description = tbDESCRIPTION.Text,
+                Image = tbIMAGE.Text
+            };
 
-            //if (tbPRICE.Text.Contains('.'))
-            //    product.Price = double.Parse(tbPRICE.Text);
-            //else
-            //    product.Price = int.Parse(tbPRICE.Text);
+            if (tbPRICE.Text.Contains('.'))
+                product.Price = double.Parse(tbPRICE.Text);
+            else
+                product.Price = int.Parse(tbPRICE.Text);
 
-            //if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            //{
-            //    product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-            //    product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            //}
-            //else
-            //{
-            //    product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-            //    product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            //}
+            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
+            {
+                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
+                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
+            }
+            else
+            {
+                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
+                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
+            }
 
             /// a try to update or add
             try
@@ -242,7 +243,7 @@ namespace PL.Product
                 else
                 {
                     cbTYPE.SelectedValue = BO.Shoes.Sneakers;
-                    cbSIZE.SelectedValue = BO.SizeShoes.xs;
+                    cbSIZE.SelectedValue = 36;
                 }
             }
         }
