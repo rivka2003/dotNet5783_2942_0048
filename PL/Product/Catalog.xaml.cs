@@ -1,6 +1,4 @@
-﻿using BO;
-using PL.Carts;
-using PL.Product;
+﻿using PL.Product;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
