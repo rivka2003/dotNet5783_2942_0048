@@ -1,5 +1,8 @@
 ﻿using BO;
 using CopyPropertisTo;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using System.Reflection.Metadata.Ecma335;
+
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
@@ -198,18 +201,19 @@ namespace BlImplementation
         {
             return from order in Dal!.Order.RequestAllByPredicate()
                    let _order = order.GetValueOrDefault()
-                   let orderDate = _order.OrderDate.GetValueOrDefault() 
+                   let orderDate = _order.OrderDate.GetValueOrDefault()
                    group order by orderDate.Month.ToString("MMMM") into newGroup
                    select new StatisticksOrderByMonth
                    {
                        MonthName = newGroup.Key,
                        CountOrders = newGroup.Count(),
                        OrdersTotalPrice = (from order in newGroup
-                                          let totalPriceOfOrder = Dal.OrderItem?.RequestAllByPredicate(orderItem => orderItem?.ID == order?.ID)
-                                          .Sum(orderItem => orderItem?.Price)
-                                          select totalPriceOfOrder).Sum()
+                                           let totalPriceOfOrder = Dal.OrderItem?.RequestAllByPredicate(orderItem => orderItem?.ID == order?.ID)
+                                           .Sum(orderItem => orderItem?.Price)
+                                           select totalPriceOfOrder).Sum()
                    };
         }
+
     }
 
     /// <summary>
@@ -223,4 +227,6 @@ namespace BlImplementation
 
         public double? OrdersTotalPrice { get; set; }
     }
+
+   
 }

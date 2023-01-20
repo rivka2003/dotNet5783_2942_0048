@@ -44,5 +44,7 @@ namespace BlApi
         /// </summary>
         /// <returns></returns>
         public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths();
+
+      
     }
 }

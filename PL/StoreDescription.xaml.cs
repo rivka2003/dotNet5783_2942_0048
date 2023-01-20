@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for StoreDescription.xaml
+    /// Interaction logic for StoreDescription.xaml..
     /// </summary>
     public partial class StoreDescription : Page
     {

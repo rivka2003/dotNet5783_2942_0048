@@ -15,9 +15,9 @@ namespace Simulator
     {
         public static bool flag = true;
         //NEED TO LEARN HOW TO DEFINE AN EVENT
-        static event report1(BlApi.IOrder? order, int time);
-        static event report2(BlApi.IOrder? order, int time);
-        static event report3(BlApi.IOrder? order, int time);
+        static event report1(BlApi.IOrder? order, DateTime time);
+        static event report2(BlApi.IOrder? order, DateTime time);
+        static event report3(BlApi.IOrder? order, DateTime time);
         public static void startsim()
         {
             Random ran = new Random();
@@ -27,17 +27,17 @@ namespace Simulator
             {
                 while (flag)
                 {
-                    ord = Bl.getlatestorder();
+                    ord = Bl.LatestOrder();
                     if (ord != null)
                     {
-                      report1(ord, time);
+                      report1(ord, DateTime.Now);
                       delay = ran.Next(3, 10);
                       Thread.Sleep(1000 * delay);
                       bl.updateStatus();//NEED TO CREAT A METHOD OF FINDING LATEST ORDER IN THE LIST
-                      report2(ord, time);
+                      report2(ord, DateTime.Now);
                     }
                     Thread.Sleep(1000 * delay);
-                    report3(ord, time);
+                    report3(ord, DateTime.Now);
                 }
             }).Start();
 
