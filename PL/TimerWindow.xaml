@@ -6,16 +6,17 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
-        Title="TimerWindow" Height="150" Width="400">
+        Title="TimerWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         
-        <Button Name="Stop" Content="Stop" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-        <TextBlock Name="timerTextBlock"  Text="00:00:00" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="45" 
-                   TextAlignment="Center" Foreground="#FFF10E0E"/>
+        <Button Name="Stop" Content="Stop" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+        
+        <TextBlock Name="timerTextBlock"  Text="00:00:00" VerticalAlignment="Top"  Grid.ColumnSpan="2" FontSize="45" 
+                   TextAlignment="Center" Foreground="#FFF10E0E" />
 
     </Grid>
 </Window>

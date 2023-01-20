@@ -1,5 +1,4 @@
-﻿
-namespace Simulator
+﻿namespace Simulator
 {
     enum SimulationProgress { UpdateDone = 1, Done }
     public static class Simulator
@@ -7,26 +6,24 @@ namespace Simulator
         private static BlApi.IBl? bl = BlApi.Factory.Get();
 
         private const int seconds = 1000;
-        private static volatile bool disposed = false;
+        private static volatile bool run = false;
         private static int delay = 0;
         private static Random rand = new();
         public static event EventHandler? Report;
         public static void startsim()
         {
-            Random ran = new Random();
-            int delay;
-            BO.Order ord;
+            BO.Order ord = new();
+            run = true;
 
-            disposed = false;
             new Thread(() =>
             {
-                while (!disposed)
+                while (run)
                 {
-                    ord = bl!.Order.GetLastOrder();
+                    ord = bl!.Order.GettingLatestOrder();
                     if (ord != null)
                     {
                         delay = rand.Next(2, 10) * seconds;
-                        Report!(Thread.CurrentThread, new TupleSimulatorArgs(Simulator.delay, ord));
+                        Report!(Thread.CurrentThread, new TupleSimulatorArgs(delay, ord));
 
                         Thread.Sleep(delay);
                         if (ord.Status is BO.OrderStatus.Confirmed)
@@ -41,7 +38,7 @@ namespace Simulator
 
         public static void stopsim()
         {
-            disposed = true;
+            run = false;
         }
     }
 }

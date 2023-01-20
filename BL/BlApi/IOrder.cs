@@ -44,5 +44,10 @@ namespace BlApi
         /// </summary>
         /// <returns></returns>
         public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths();
+        /// <summary>
+        /// Returning the latest order that have been handled
+        /// </summary>
+        /// <returns></returns>
+        public BO.Order GettingLatestOrder();
     }
 }

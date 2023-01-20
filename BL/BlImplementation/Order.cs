@@ -1,5 +1,7 @@
 ﻿using BO;
 using CopyPropertisTo;
+using DO;
+
 namespace BlImplementation
 {
     internal class Order : BlApi.IOrder
@@ -190,6 +192,35 @@ namespace BlImplementation
 
             return orderTracking;
         }
+
+        public BO.Order GettingLatestOrder()
+        {
+            IEnumerable<BO.Order> OrdersBO;
+            BO.Order Order;
+            OrdersBO = Dal!.Order.RequestAllByPredicate().CopyPropToList<DO.Order?, BO.Order>()!;
+            List<BO.Order> shippedOrders = (from order in OrdersBO
+                                            where order.Status is BO.OrderStatus.Shipped
+                                            orderby order.ShipDate
+                                            select order).ToList();
+
+            List<BO.Order> confirmedOrders = (from order in OrdersBO
+                                              where order.Status is BO.OrderStatus.Confirmed
+                                              orderby order.OrderDate
+                                              select order).ToList();
+
+            if (shippedOrders[0].ShipDate > confirmedOrders[0].OrderDate)
+            {
+                Order = confirmedOrders[0];
+                confirmedOrders.RemoveAt(0);
+            }
+            else
+            {
+                Order = shippedOrders[0];
+                shippedOrders.RemoveAt(0);
+            }
+            return Order;
+        }
+
         /// <summary>
         /// A function that grups all the orders by the statistics
         /// </summary>
@@ -198,16 +229,16 @@ namespace BlImplementation
         {
             return from order in Dal!.Order.RequestAllByPredicate()
                    let _order = order.GetValueOrDefault()
-                   let orderDate = _order.OrderDate.GetValueOrDefault() 
+                   let orderDate = _order.OrderDate.GetValueOrDefault()
                    group order by orderDate.Month.ToString("MMMM") into newGroup
                    select new StatisticksOrderByMonth
                    {
                        MonthName = newGroup.Key,
                        CountOrders = newGroup.Count(),
                        OrdersTotalPrice = (from order in newGroup
-                                          let totalPriceOfOrder = Dal.OrderItem?.RequestAllByPredicate(orderItem => orderItem?.ID == order?.ID)
-                                          .Sum(orderItem => orderItem?.Price)
-                                          select totalPriceOfOrder).Sum()
+                                           let totalPriceOfOrder = Dal.OrderItem?.RequestAllByPredicate(orderItem => orderItem?.ID == order?.ID)
+                                           .Sum(orderItem => orderItem?.Price)
+                                           select totalPriceOfOrder).Sum()
                    };
         }
     }
