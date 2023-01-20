@@ -73,7 +73,7 @@ namespace PL.Product
 
         // Using a DependencyProperty as the backing store for Click.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ClickProperty =
-            DependencyProperty.Register("Click", typeof(bool), typeof(Catalog));
+            DependencyProperty.Register("Click", typeof(bool), typeof(CatalogCustomer));
 
         private readonly string groupName = "Category";
         readonly PropertyGroupDescription propertyGroupDescription;
@@ -103,19 +103,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ChooseB(object sender, RoutedEventArgs e)
         {
-            //Click = true;
-            if (CategoryCB.SelectedItem is BO.Category.Clothing)
-            {
-                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
-            }
-            else
-            {
-                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
-            }
+            Click = true;
         }
         /// <summary>
         /// function to show the customer the product
@@ -138,7 +126,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GetAllOrderItems(Cart)!);
+            Click = false;
         }
 
         /// <summary>

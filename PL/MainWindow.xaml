@@ -56,6 +56,8 @@
                 
                 <Button x:Name="BTGeneralDes" Content="About us!" FontSize="12" Foreground="White" Click="BTGeneralDes_Click" />
 
+                <Button Content="Start time" FontSize="12" Foreground="White" Click="StartButton_Click"/>
+
                 <Button x:Name="BTManager" Content="Manager" FontSize="12" Foreground="White" Click="BTManager_Click" />
 
                 <Button x:Name="BTOrders" Content="Orders" FontSize="12" Click="BTOrders_Click" Foreground="White"

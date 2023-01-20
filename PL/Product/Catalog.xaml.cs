@@ -172,7 +172,7 @@ namespace PL
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
+            Click = false;
         }
     }
 }

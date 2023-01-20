@@ -98,7 +98,7 @@
             </ItemsControl.ItemsPanel>
 
             <ListView.ItemsSource>
-                <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource filterForTheProductsListConverter}">
+                <MultiBinding Converter="{StaticResource filterForTheProductsListConverter}">
                     <Binding Path="productForLists"/>
                     <Binding ElementName="CategoryCB" Path="SelectedItem"/>
                     <Binding ElementName="GenderCB" Path="SelectedItem"/>

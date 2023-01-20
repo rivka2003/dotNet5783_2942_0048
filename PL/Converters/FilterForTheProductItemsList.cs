@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace PL.Converters
 {
-    public class FilterForTheProductsListConverter : IMultiValueConverter
+    public class FilterForTheProductItemsList : IMultiValueConverter
     {
         /// <summary>
         /// convert from source property type to target property type
@@ -18,13 +18,13 @@ namespace PL.Converters
         {
             if (values.Length > 1)
             {
-                var observableCollection = (ObservableCollection<BO.ProductForList>)values[0];
+                var observableCollection = (ObservableCollection<BO.ProductItem>)values[0];
                 if ((bool)values[6])
                 {
                     if (((BO.Category)values[1]) is BO.Category.Clothing)
                     {
                         var list = observableCollection.ToList();
-                        ObservableCollection<BO.ProductForList> newobservableCollection = new(list.Where(item => item.Category == (BO.Category)values[1]
+                        ObservableCollection<BO.ProductItem> newobservableCollection = new(list.Where(item => item.Category == (BO.Category)values[1]
                             && item.Gender == (BO.Gender)values[2] && item.Clothing == (BO.Clothing)values[3]
                             && item.SizeClothing == (BO.SizeClothing)values[4] && item.Color == (BO.Color)values[5]));
                         return newobservableCollection;
@@ -32,7 +32,7 @@ namespace PL.Converters
                     else
                     {
                         var list = observableCollection.ToList();
-                        ObservableCollection<BO.ProductForList> newobservableCollection = new(list.Where(item => item.Category ==
+                        ObservableCollection<BO.ProductItem> newobservableCollection = new(list.Where(item => item.Category ==
                              (BO.Category)values[1] && item.Gender == (BO.Gender)values[2] && item.Shoes ==
                              (BO.Shoes)values[3] && item.SizeShoes == (BO.SizeShoes)values[4] &&
                              item.Color == (BO.Color)values[5]));

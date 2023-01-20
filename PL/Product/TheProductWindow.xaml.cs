@@ -179,35 +179,6 @@ namespace PL.Product
                 return;
             }
 
-            ///if pre checks are valid.put data in the product and send that to previous layers check.
-            BO.Product product = new()
-            {
-                ID = int.Parse(tbID.Text),
-                Name = tbNAME.Text,
-                InStock = int.Parse(tbINSTOCK.Text),
-                Category = (BO.Category)cbCATEGORY.SelectedItem,
-                Color = (BO.Color)cbCOLOR.SelectedItem,
-                Gender = (BO.Gender)cbGENDER.SelectedItem,
-                Description = tbDESCRIPTION.Text,
-                Image = tbIMAGE.Text
-            };
-
-            if (tbPRICE.Text.Contains('.'))
-                product.Price = double.Parse(tbPRICE.Text);
-            else
-                product.Price = int.Parse(tbPRICE.Text);
-
-            if (cbCATEGORY.SelectedItem is BO.Category.Clothing)
-            {
-                product.Clothing = (BO.Clothing)cbTYPE.SelectedItem;
-                product.SizeClothing = (BO.SizeClothing)cbSIZE.SelectedItem;
-            }
-            else
-            {
-                product.Shoes = (BO.Shoes)cbTYPE.SelectedItem;
-                product.SizeShoes = (BO.SizeShoes)cbSIZE.SelectedItem;
-            }
-
             /// a try to update or add
             try
             {
@@ -232,24 +203,5 @@ namespace PL.Product
                 MessageBox.Show(ex.Message, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-        private void cbCATEGORY_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbTYPE is not null && cbSIZE is not null)
-            {
-                if (((ComboBox)sender).SelectedItem is BO.Category.Clothing)
-                {
-                    cbTYPE.SelectedValue = BO.Clothing.Blazers;
-                    cbSIZE.SelectedValue = BO.SizeClothing.XS;
-                }
-                else
-                {
-                    cbTYPE.SelectedValue = BO.Shoes.Sneakers;
-                    cbSIZE.SelectedValue = 36;
-                }
-            }
-        }
     }
 }
-//good
