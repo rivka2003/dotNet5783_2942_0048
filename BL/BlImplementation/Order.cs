@@ -1,6 +1,7 @@
 ﻿using BO;
 using CopyPropertisTo;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation
 {
@@ -11,6 +12,7 @@ namespace BlImplementation
         /// Returns the entier list of products
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.OrderForList?> GetAll()
         {
             /// geting the entier list from the Dal
@@ -33,6 +35,7 @@ namespace BlImplementation
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private (IEnumerable<DO.OrderItem?>, double) getData(DO.Order order)
         {
             ///returns ienumerable of all the order items that are in the same order id
@@ -45,6 +48,7 @@ namespace BlImplementation
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private OrderStatus getOrderStatus(DO.Order order)
         {
             ///checks the case
@@ -62,6 +66,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.NotValid"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order OrderDetails(int ID)
         {
             BO.Order OrderBo = new BO.Order();
@@ -106,6 +111,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.AlreadyUpdated"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order UpdateShipDate(int ID)
         {
             DO.Order OrderDo;
@@ -137,6 +143,7 @@ namespace BlImplementation
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.AlreadyUpdated"></exception>
         /// <exception cref="BO.NotValid"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order UpdateDeliveryDate(int ID)
         {
             DO.Order OrderDo;
@@ -167,6 +174,7 @@ namespace BlImplementation
         /// <param name="ID"></param>
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.OrderTracking TrackingOrder(int ID)
         {
             BO.Order OrderBo;
@@ -192,7 +200,11 @@ namespace BlImplementation
 
             return orderTracking;
         }
-
+        /// <summary>
+        /// Returns the latest order by the katest date
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order GettingLatestOrder()
         {
             IEnumerable<BO.Order> OrdersBO;
@@ -209,22 +221,16 @@ namespace BlImplementation
                                               select order).ToList();
 
             if (shippedOrders[0].ShipDate > confirmedOrders[0].OrderDate)
-            {
                 Order = confirmedOrders[0];
-                confirmedOrders.RemoveAt(0);
-            }
             else
-            {
                 Order = shippedOrders[0];
-                shippedOrders.RemoveAt(0);
-            }
             return Order;
         }
-
         /// <summary>
         /// A function that grups all the orders by the statistics
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StatisticksOrderByMonth> GetStatisticksOrderByMonths()
         {
             return from order in Dal!.Order.RequestAllByPredicate()
@@ -242,7 +248,6 @@ namespace BlImplementation
                    };
         }
     }
-
     /// <summary>
     /// A struct to present the orders by month, amount of orders and the total price for a month
     /// </summary>

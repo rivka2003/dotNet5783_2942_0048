@@ -1,6 +1,4 @@
 ﻿using DalApi;
-using DO;
-using System.Collections.Generic;
 
 namespace Dal
 {

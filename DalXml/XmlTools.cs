@@ -1,7 +1,6 @@
 ﻿using System.Xml.Serialization;
-
+using System.Runtime.CompilerServices;
 namespace Dal;
-using static Dal.DataSource;
 
 /// <summary>
 /// A helper class with useful functions for xml files
@@ -27,6 +26,7 @@ public class XmlTools
     /// <param name="filePath"></param>
     /// <exception cref="Exception"></exception>
     #region SaveLoadWithXMLSerializer
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
     {
         try
@@ -51,6 +51,7 @@ public class XmlTools
     /// <param name="filePath"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public static List<T> LoadListFromXMLSerializer<T>(string filePath)
     {
         try

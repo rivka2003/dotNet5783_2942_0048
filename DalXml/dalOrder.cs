@@ -1,8 +1,7 @@
 ﻿using DalApi;
 using DO;
-using System.Diagnostics;
-using System.Globalization;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 namespace Dal;
 
 
@@ -48,6 +47,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="Or"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order Or)
     {
         ///Read config file
@@ -75,37 +75,34 @@ internal class DalOrder : IOrder
 
         return Or.ID;
     }
-
-
     /// <summary>
     /// Delete function to remove an order from the list
     /// </summary>
     /// <param name="ID"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         GetOrL(ID).Remove();
 
         ordersRoot!.Save(path);
     }
-
-
     /// <summary>
     /// A helper method that returns a single order according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order does not exist");
     }
-
-
     /// <summary>
     /// A helper method that returns a partial list according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null)
     {
         /// using linq to initialize the order
@@ -122,12 +119,11 @@ internal class DalOrder : IOrder
                     DeliveryDate = DateTime.TryParse(element.Element("DeliveryDate")!.Value, out DateTime DeliveryDate) ? DeliveryDate : null,
                 }).Where(order => predicate is null || predicate!(order));
     }
-
-
     /// <summary>
     /// Update function to update the order
     /// </summary>
     /// <param name="order"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order order)
     {
         XElement orderElement = GetOrL(order.ID);
@@ -141,12 +137,12 @@ internal class DalOrder : IOrder
 
         ordersRoot!.Save(path);
     }
-
     /// <summary>
     /// returns an order from the xml file according to the recieved id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public XElement GetOrL(int id)
     {
         return (from or in ordersRoot!.Elements()
