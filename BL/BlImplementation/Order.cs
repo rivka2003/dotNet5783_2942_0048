@@ -1,7 +1,6 @@
 ﻿using BO;
 using CopyPropertisTo;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using System.Reflection.Metadata.Ecma335;
+using DO;
 
 namespace BlImplementation
 {
@@ -193,6 +192,35 @@ namespace BlImplementation
 
             return orderTracking;
         }
+
+        public BO.Order GettingLatestOrder()
+        {
+            IEnumerable<BO.Order> OrdersBO;
+            BO.Order Order;
+            OrdersBO = Dal!.Order.RequestAllByPredicate().CopyPropToList<DO.Order?, BO.Order>()!;
+            List<BO.Order> shippedOrders = (from order in OrdersBO
+                                            where order.Status is BO.OrderStatus.Shipped
+                                            orderby order.ShipDate
+                                            select order).ToList();
+
+            List<BO.Order> confirmedOrders = (from order in OrdersBO
+                                              where order.Status is BO.OrderStatus.Confirmed
+                                              orderby order.OrderDate
+                                              select order).ToList();
+
+            if (shippedOrders[0].ShipDate > confirmedOrders[0].OrderDate)
+            {
+                Order = confirmedOrders[0];
+                confirmedOrders.RemoveAt(0);
+            }
+            else
+            {
+                Order = shippedOrders[0];
+                shippedOrders.RemoveAt(0);
+            }
+            return Order;
+        }
+
         /// <summary>
         /// A function that grups all the orders by the statistics
         /// </summary>

@@ -65,12 +65,24 @@ namespace PL.Product
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Category", typeof(IEnumerable<BO.Category>), typeof(CatalogCustomer));
 
+        public bool Click
+        {
+            get { return (bool)GetValue(ClickProperty); }
+            set { SetValue(ClickProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Click.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ClickProperty =
+            DependencyProperty.Register("Click", typeof(bool), typeof(CatalogCustomer));
+
         private readonly string groupName = "Category";
         readonly PropertyGroupDescription propertyGroupDescription;
         public ICollectionView CollectionViewProductItemList { set; get; }
 
         public CatalogCustomer(BO.Cart cart)
         {
+            ProductItems = new ObservableCollection<ProductItem?>(bl.Product.GetAllOrderItems(Cart)!);
+            Click = false;
             InitializeComponent();
 
             Cart = cart;
@@ -78,7 +90,6 @@ namespace PL.Product
             Color = Enum.GetValues(typeof(BO.Color)).Cast<BO.Color>();
             Gender = Enum.GetValues(typeof(BO.Gender)).Cast<BO.Gender>();
             Category = Enum.GetValues(typeof(BO.Category)).Cast<BO.Category>();
-            ProductItems = new ObservableCollection<ProductItem?>(bl.Product.GetAllOrderItems(Cart)!);
 
             CollectionViewProductItemList = CollectionViewSource.GetDefaultView(ProductItems);
             propertyGroupDescription = new PropertyGroupDescription(groupName);
@@ -92,18 +103,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ChooseB(object sender, RoutedEventArgs e)
         {
-            if (CategoryCB.SelectedItem is BO.Category.Clothing)
-            {
-                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Clothing == (BO.Clothing)TypeCB.SelectedItem && item.SizeClothing == (BO.SizeClothing)SizeCB.SelectedItem));
-            }
-            else
-            {
-                ProductItems = new ObservableCollection<ProductItem?>(ProductItems.Where(item => item!.Gender == (BO.Gender)GenderCB.SelectedItem &&
-                item.Category == (BO.Category)CategoryCB.SelectedItem && item.Color == (BO.Color)ColorCB.SelectedItem &&
-                item.Shoes == (BO.Shoes)TypeCB.SelectedItem && item.SizeShoes == (BO.SizeShoes)SizeCB.SelectedItem));
-            }
+            Click = true;
         }
         /// <summary>
         /// function to show the customer the product
@@ -126,7 +126,7 @@ namespace PL.Product
         /// <param name="e"></param>
         private void ClearB(object sender, RoutedEventArgs e)
         {
-            ProductItems = new ObservableCollection<ProductItem?>(bl!.Product.GetAllOrderItems(Cart)!);
+            Click = false;
         }
 
         /// <summary>

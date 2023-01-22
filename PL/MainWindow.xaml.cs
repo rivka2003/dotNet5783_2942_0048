@@ -1,8 +1,8 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using PL.Carts;
+﻿using PL.Carts;
 using PL.Order;
 using PL.Product;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -95,13 +95,20 @@ namespace PL
         {
             mainFrame.Navigate(new HomePage(cart));
         }
+
         private void BTGeneralDes_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(new StoreDescription());
         }
+
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(new TheCartWindow(cart));
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            new TimerWindow().ShowDialog();
         }
     }
 }

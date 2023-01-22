@@ -17,6 +17,7 @@
         <converter:ComboBoxItemSourceConverter x:Key="comboBoxItemSourceConverter"/>
         <converter:TakeTheSizeByTheCategoryConverter x:Key="takeTheSizeByTheCategoryConverter"/>
         <converter:TakeTheTypeByTheCategoryConverter x:Key="takeTheTypeByTheCategoryConverter"/>
+        <converter:FilterForTheProductItemsList x:Key="filterForTheProductItemsList"/>
         <local:ChoosByCategory x:Key="ChoosByCategory"/>
 
         <DataTemplate x:Key="oneProduct">
@@ -88,12 +89,24 @@
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
                   FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="View_DoubleClick" ItemsSource="{Binding ProductItems}">
+                  MouseDoubleClick="View_DoubleClick">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+            
+            <ListView.ItemsSource>
+                <MultiBinding Converter="{StaticResource filterForTheProductItemsList}">
+                    <Binding Path="ProductItems"/>
+                    <Binding ElementName="CategoryCB" Path="SelectedItem"/>
+                    <Binding ElementName="GenderCB" Path="SelectedItem"/>
+                    <Binding ElementName="TypeCB" Path="SelectedItem"/>
+                    <Binding ElementName="SizeCB" Path="SelectedItem"/>
+                    <Binding ElementName="ColorCB" Path="SelectedItem"/>
+                    <Binding Path="Click"/>
+                </MultiBinding>
+            </ListView.ItemsSource>
 
             <ListView.GroupStyle>
                 <GroupStyle>

@@ -6,6 +6,7 @@ namespace PL.Converters
 {
     public class ShowSizeByProductConverter : IMultiValueConverter
     {
+        private BO.Product product { get; set; }
         /// <summary>
         /// convert from source property type to target property type
         /// </summary>
@@ -16,7 +17,8 @@ namespace PL.Converters
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values[0] is not null)
+            product = (values[0] as BO.Product)!;
+            if (product is not null)
                 return ((BO.Product)values[0]).Category is BO.Category.Clothing ? ((BO.Product)values[0]).SizeClothing! :
                     System.Convert.ToInt32(((BO.Product)values[0]).SizeShoes!);
             return values[1] is BO.Category.Clothing?  BO.SizeClothing.XS : 36;
@@ -33,7 +35,16 @@ namespace PL.Converters
         /// <exception cref="NotImplementedException"></exception>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return targetTypes;
+            int? sizeShoes = value as int?;
+            BO.SizeClothing? sizeClothing = value as BO.SizeClothing?;
+
+            if (sizeShoes is not null)
+                product.SizeShoes = (BO.SizeShoes)sizeShoes;
+            else
+                product.SizeClothing = sizeClothing;
+
+
+            return new object[] { product };
         }
     }
 }
