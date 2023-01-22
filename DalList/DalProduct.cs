@@ -1,6 +1,7 @@
 ﻿using DO;
 using DalApi;
 namespace Dal;
+using System.Runtime.CompilerServices;
 
 internal class DalProduct : IProduct
 {
@@ -10,6 +11,7 @@ internal class DalProduct : IProduct
     /// A function to add product, and return the ID
     /// </summary>
     /// <param name="pro"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product pro)
     {
         //if product exist throw exception 
@@ -23,6 +25,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product pro)
     {
         ///if product dosnt exist throw exception 
@@ -40,6 +43,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         DataSource.Products.Remove(RequestByPredicate(product => product?.ID == id));
@@ -50,6 +54,7 @@ internal class DalProduct : IProduct
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? predicate = null)
     {
         return DataSource.Products.Where(product => predicate is null? true : predicate!(product));
@@ -60,6 +65,7 @@ internal class DalProduct : IProduct
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The product does not exist");

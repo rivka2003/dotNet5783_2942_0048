@@ -2,6 +2,7 @@
 namespace Dal;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using System;
 
 
@@ -18,6 +19,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="orI"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem orI)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -40,13 +42,12 @@ internal class DalOrderItem : IOrderItem
 
         return orI.ID;
     }
-
-
     /// <summary>
     /// Delete function to remove an orderItem from the list
     /// </summary>
     /// <param name="ID"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -58,35 +59,33 @@ internal class DalOrderItem : IOrderItem
 
         XmlTools.SaveListToXMLSerializer(orderItemList, path);
     }
-
-
     /// <summary>
     /// A helper method that returns a single orderItem according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem RequestByPredicate(Func<OrderItem?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order item does not exist");
     }
-
     /// <summary>
     /// A helper method that returns a partial list according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> RequestAllByPredicate(Func<OrderItem?, bool>? predicate = null)
     {
         return XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path).Where(orderItem => predicate is null || predicate!(orderItem));
     }
-
-
     /// <summary>
     /// Update function to update the orderItem
     /// </summary>
     /// <param name="orI"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem orI)
     {
         List<OrderItem?> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem?>(path);

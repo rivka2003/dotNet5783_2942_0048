@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
-        Title="TimerWindow" Height="450" Width="800">
+        Title="TimerWindow" Closed="Window_Closed" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         
         <Button Name="Stop" Content="Stop" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>

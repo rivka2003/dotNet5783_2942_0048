@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -16,6 +17,7 @@ internal class DalProduct : IProduct
     /// <param name="pro"></param>
     /// <returns></returns>
     /// <exception cref="ExistingObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Product pro)
     {
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
@@ -29,13 +31,12 @@ internal class DalProduct : IProduct
 
         return pro.ID;
     }
-
-
     /// <summary>
     /// Delete function to remove a product from the list
     /// </summary>
     /// <param name="ID"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int ID)
     {
         List<Product?> productLst = XmlTools.LoadListFromXMLSerializer<Product?>(path);
@@ -47,34 +48,33 @@ internal class DalProduct : IProduct
 
         XmlTools.SaveListToXMLSerializer(productLst, path);
     }
-
     /// <summary>
     /// A helper method that returns a partial list according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> RequestAllByPredicate(Func<Product?, bool>? predicate = null)///list i enumerable.
     {
         return XmlTools.LoadListFromXMLSerializer<DO.Product?>(path).Where(product => predicate is null || predicate(product));
     }
-
     /// <summary>
     /// A helper method that returns a single object according to the requested filter
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product RequestByPredicate(Func<Product?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The product does not exist");
     }
-
-
     /// <summary>
     /// Update function to update the product
     /// </summary>
     /// <param name="pro"></param>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product pro)
     {
         List<Product?> productList = XmlTools.LoadListFromXMLSerializer<Product?>(path);

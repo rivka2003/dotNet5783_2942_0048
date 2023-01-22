@@ -1,6 +1,7 @@
 ﻿using BO;
 using CopyPropertisTo;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation
 {
@@ -12,6 +13,7 @@ namespace BlImplementation
         /// returning all the products as a collection
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ProductForList?> GetAll()
         {
             return Dal!.Product.RequestAllByPredicate().CopyPropToList<DO.Product?, ProductForList>();
@@ -24,6 +26,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.NotValid"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Product ProductDetailsForManager(int ID)
         {
             /// if the ID is not valid..
@@ -52,6 +55,7 @@ namespace BlImplementation
         /// <param name="ID"></param>
         /// <param name="product"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.ProductItem ProductDetailsForCustomer(int ID, BO.Cart cart)
         {
             /// if the ID is not valid..
@@ -87,6 +91,7 @@ namespace BlImplementation
         /// <param name="productBo"></param>
         /// <exception cref="BO.ExistingObjectBo"></exception>
         /// <exception cref="BO.NotValid"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddProduct(BO.Product productBo)
         {
             /// checking if all the product details are valid
@@ -121,6 +126,7 @@ namespace BlImplementation
         /// <param name="ID"></param>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.ExistingObjectBo"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteProduct(int ID)
         {
             /// checking by predicat if there are any orders that contains this product right now
@@ -143,6 +149,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.NotValid"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Product UpdateProduct(BO.Product updateProduct)
         {
             /// checking if all the product details are valid
@@ -173,7 +180,12 @@ namespace BlImplementation
 
             return updateProduct;
         }
-
+        /// <summary>
+        /// Returns the list of product items
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ProductItem?> GetAllOrderItems(BO.Cart cart)
         {
           

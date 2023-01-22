@@ -1,6 +1,7 @@
 ﻿using DO;
 using DalApi;
 using static Dal.DataSource;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -12,6 +13,7 @@ internal class DalOrder : IOrder
     /// A function to add order, and return the ID
     /// </summary>
     /// <param name="or"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order or)
     {
         or.ID = GetOrderSequenceID();
@@ -23,6 +25,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order or)
     {
         ///if Order dosnt exist throw exception 
@@ -39,6 +42,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         Orders.Remove(RequestByPredicate(order => order?.ID == id)); 
@@ -49,6 +53,7 @@ internal class DalOrder : IOrder
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> RequestAllByPredicate(Func<Order?, bool>? predicate = null!)
     {
         return Orders.Where(order => predicate is null ? true : predicate!(order));
@@ -59,6 +64,7 @@ internal class DalOrder : IOrder
     /// <param name="predicate"></param>
     /// <returns></returns>
     /// <exception cref="NonFoundObjectDo"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestByPredicate(Func<Order?, bool>? predicate)
     {
         return RequestAllByPredicate(predicate).SingleOrDefault() ?? throw new NonFoundObjectDo("Error - The order does not exist");

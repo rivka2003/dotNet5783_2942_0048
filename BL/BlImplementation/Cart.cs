@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using BlApi;
 using CopyPropertisTo;
 
@@ -20,6 +21,7 @@ namespace BlImplementation
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.NotInStock"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart AddProductToCart(BO.Cart cart, int productID, int productAmount)
         {
             DO.Product productDo;
@@ -64,6 +66,7 @@ namespace BlImplementation
         /// <param name="cart"></param>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
         /// <exception cref="BO.ExistingObjectBo"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order OrderMaking(BO.Cart cart)
         {
             BO.Order orderBo = new();
@@ -138,7 +141,6 @@ namespace BlImplementation
             cart.TotalPrice = 0;
             return orderBo;
         }
-
         /// <summary>
         /// updating the amount in the recieved cart with the given id to the new amount
         /// </summary>
@@ -147,6 +149,7 @@ namespace BlImplementation
         /// <param name="Amount"></param>
         /// <returns></returns>
         /// <exception cref="BO.NonFoundObjectBo"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Cart UpdateAmountProduct(BO.Cart cart, int productId, int Amount)
         {
             if (!cart.Items!.Exists(i => i!.ProductID == productId))///if this product is actually excisting in the given cart
