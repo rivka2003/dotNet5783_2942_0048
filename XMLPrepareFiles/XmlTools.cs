@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace XMLPrapareFiles
+namespace XMLPrepareFiles
 {
     /// <summary>
     /// A helper class with useful functions for xml files
@@ -28,8 +28,8 @@ namespace XMLPrapareFiles
         {
             try
             {
-                FileStream file = new (filePath, FileMode.Create);
-                XmlSerializer x = new (list.GetType());
+                FileStream file = new(filePath, FileMode.Create);
+                XmlSerializer x = new(list.GetType());
                 x.Serialize(file, list);
                 file.Close();
             }
@@ -54,8 +54,8 @@ namespace XMLPrapareFiles
                 if (File.Exists(filePath))
                 {
                     List<T> list;
-                    XmlSerializer x = new (typeof(List<T>));
-                    FileStream file = new (filePath, FileMode.Open);
+                    XmlSerializer x = new(typeof(List<T>));
+                    FileStream file = new(filePath, FileMode.Open);
                     list = (List<T?>)x.Deserialize(file);
                     file.Close();
                     return list!;

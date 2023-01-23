@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using BlApi;
-using CopyPropertisTo;
+using ToolsForProject;
 
 namespace BlImplementation
 {

@@ -1,4 +1,4 @@
-﻿using CopyPropertisTo;
+﻿using ToolsForProject;
 
 namespace BO
 {

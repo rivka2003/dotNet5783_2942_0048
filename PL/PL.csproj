@@ -50,10 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Image1.png" />
     <Content Include="Image2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -122,6 +118,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <PackageReference Include="MaterialDesignThemes" Version="4.7.0" />
+    <ProjectReference Include="..\BL\BL.csproj" />
+    <ProjectReference Include="..\Simulator\Simulator.csproj" />
     <Resource Include="Untitled_Artwork (2).png" />
   </ItemGroup>
 
