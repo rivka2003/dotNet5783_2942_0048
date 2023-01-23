@@ -41,7 +41,7 @@
 
 
         <Button Content="Stop" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"  Click="EndSimulationClick" Margin="20,0"/>
-        <ProgressBar HorizontalAlignment="Left" Value="{Binding TimeProgress}" Height="19" Margin="50,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="250" Background="#FF99D698" BorderBrush="Black" Foreground="#FF2DD72A"/>
+        <ProgressBar HorizontalAlignment="Left" Value="{Binding TimeProgress}" Height="19" Margin="50,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="330" Background="#FF99D698" BorderBrush="Black" Foreground="#FF2DD72A"/>
 
     </Grid>
 </Window>
