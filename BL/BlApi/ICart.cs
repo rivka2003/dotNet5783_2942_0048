@@ -10,13 +10,13 @@ namespace BlApi
     public interface ICart
     {
         /// <summary>
-        /// Adding an item to the cart
+        /// Adding a product to the cart and returns the full cart
         /// </summary>
         /// <param name="Item"></param>
         /// <returns></returns>
         public BO.Cart AddProductToCart(BO.Cart cart, int productID, int productAmount);
         /// <summary>
-        /// Updetes the amount of the item in the cart
+        /// Updetes the amount of the item in the cart and returns the full cart
         /// </summary>
         /// <param name="Item"></param>
         /// <param name="ID"></param>

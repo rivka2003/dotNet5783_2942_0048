@@ -16,19 +16,19 @@ internal class DalOrder : IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order or)
     {
-        or.ID = GetOrderSequenceID();
+        or.ID = GetOrderSequenceID();//init the id with a runing num
         Orders.Add(or);
         return or.ID;
     }
     /// <summary>
-    /// A function that updats the order by the new parameter that we received
+    /// A function that updats the order by the new parameter that was received
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order or)
     {
-        ///if Order dosnt exist throw exception 
+        ///if Order doesn't exist throw exception 
         if (!Orders.Exists(i => i?.ID == or.ID))
             throw new NonFoundObjectDo("Error - The order does not exist - can't update");
         for (int i = 0; i < Orders.Count; i++)

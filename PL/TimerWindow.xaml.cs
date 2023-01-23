@@ -40,22 +40,22 @@ namespace PL
         {
             InitializeComponent();
 
-            Closing += (s, e) => e.Cancel = true;
-            stopWatch = new Stopwatch();
-            stopWatch.Start();
-            isTimerRun = true;
+            //Closing += (s, e) => e.Cancel = true;
+            //stopWatch = new Stopwatch();
+            //stopWatch.Start();
+            //isTimerRun = true;
 
-            timerWorker = new BackgroundWorker();
-            timerWorker.DoWork += Worker_DoWork;
-            timerWorker.ProgressChanged += ;
-            timerWorker.WorkerReportsProgress = true;
-            timerWorker.RunWorkerAsync();
+            //timerWorker = new BackgroundWorker();
+            //timerWorker.DoWork += Worker_DoWork;
+            //timerWorker.ProgressChanged += ;
+            //timerWorker.WorkerReportsProgress = true;
+            //timerWorker.RunWorkerAsync();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            CancelEventArgs args = e as CancelEventArgs;
-            args!.Cancel = true;
+            //CancelEventArgs args = e as CancelEventArgs;
+            //args!.Cancel = true;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -81,40 +81,40 @@ namespace PL
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            switch (e.ProgressPercentage)
-            {
-                case 0:
-                    string timer = stopWatch.Elapsed.ToString();
-                    TimerText = timer.Substring(0, 8);
-                    break;
-                case 1:
-                    Dispatcher.Invoke(() =>
-                    {
+            //switch (e.ProgressPercentage)
+            //{
+            //    case 0:
+            //        string timer = stopWatch.Elapsed.ToString();
+            //        TimerText = timer.Substring(0, 8);
+            //        break;
+            //    case 1:
+            //        Dispatcher.Invoke(() =>
+            //        {
 
-                    });
-                default:
-                    break;
-            }
+            //        });
+            //    default:
+            //        break;
+            //}
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Simulator.Report += ChangingOrder;
-            Simulator.startsim();
-            while(isTimerRun)
-            {
-                timerWorker.ReportProgress(0);
-                Thread.Sleep(1000);
-            }
+            //Simulator.Report += ChangingOrder;
+            //Simulator.startsim();
+            //while(isTimerRun)
+            //{
+            //    timerWorker.ReportProgress(0);
+            //    Thread.Sleep(1000);
+            //}
         }
 
         private void ChangingOrder(object sender, EventArgs e)
         {
-            int delay = (e as TupleSimulatorArgs).delay;
-            BO.Order order = (e as TupleSimulatorArgs).ord;
-            Tuple<int, BO.Order> localTuple = new(delay, order);
-            ProgressChangedEventArgs progress = new(1, localTuple);
-            Worker_ProgressChanged(sender, progress);
+            //int delay = (e as TupleSimulatorArgs).delay;
+            //BO.Order order = (e as TupleSimulatorArgs).ord;
+            //Tuple<int, BO.Order> localTuple = new(delay, order);
+            //ProgressChangedEventArgs progress = new(1, localTuple);
+            //Worker_ProgressChanged(sender, progress);
         }
 
         private void runTimer()
