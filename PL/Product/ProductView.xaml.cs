@@ -60,7 +60,8 @@ namespace PL.Product
         {
             try
             {
-                bl!.Cart.AddProductToCart(Cart, id, ProductAmount);
+                if(ProductAmount != 0)
+                    bl!.Cart.AddProductToCart(Cart, id, ProductAmount);
             }
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (Exception ex)

@@ -16,7 +16,7 @@ internal class DalOrder : IOrder
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order or)
     {
-        or.ID = GetOrderSequenceID();
+        or.ID = Config.GetOrderSequenceID();
         Orders.Add(or);
         return or.ID;
     }

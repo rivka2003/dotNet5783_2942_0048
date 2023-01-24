@@ -16,8 +16,8 @@ internal class DalOrderItem : IOrderItem
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem orIt)
     {
-        orIt.ID = GetOrderItemSequenceID();
-        DataSource.OrderItems.Add(orIt);
+        orIt.ID = Config.GetOrderItemSequenceID();
+        OrderItems.Add(orIt);
         return orIt.ID;
     }
     /// <summary>
