@@ -180,4 +180,13 @@
     <ShipDate xsi:nil="true">23/01/2023 21:24:43</ShipDate>
     <DeliveryDate xsi:nil="true">23/01/2023 21:25:45</DeliveryDate>
   </Order>
+  <Order>
+    <ID>21</ID>
+    <CustomerName>Sarit tik</CustomerName>
+    <CustomerEmail>Saritik16@gmail.com</CustomerEmail>
+    <CustomerAddress>fgbuegvbreu</CustomerAddress>
+    <OrderDate>23/01/2023 23:51:43</OrderDate>
+    <ShipDate>23/01/2023 23:52:34</ShipDate>
+    <DeliveryDate>23/01/2023 23:52:34</DeliveryDate>
+  </Order>
 </ArrayOfOrder>

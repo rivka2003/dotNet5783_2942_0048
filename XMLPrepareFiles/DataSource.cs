@@ -49,23 +49,24 @@ namespace XMLPrepareFiles
         private static void InitProduct()
         {
             ///Building arrays that receive the contents of all enums
-            Array Categories = Enum.GetValues(typeof(Category)), Clothes = Enum.GetValues(typeof(Clothing)), Shoe = Enum.GetValues(typeof(Shoes));
+            Array Categories = Enum.GetValues(typeof(Category)), Clothes = Enum.GetValues(typeof(Clothing)), 
+                Shoe = Enum.GetValues(typeof(Shoes));
             Array Colors = Enum.GetValues(typeof(Color)), Genders = Enum.GetValues(typeof(Gender));
             Array SizeShoe = Enum.GetValues(typeof(SizeShoes)), SizeCloth = Enum.GetValues(typeof(SizeClothing));
+
             ///Creating a variable from all the types of the enums to get a value drawn from each enum
-            Category randomCategory = new (); Clothing randomClothes = new ();
-            Shoes randomShoes = new (); Color randomColor = new ();
-            Gender randomGender = new (); SizeClothing randomSizeClothes = new ();
-            SizeShoes randomSizeShoes = new ();
+            Clothing randomClothes = new ();
+            Shoes randomShoes = new ();
+
             ///A loop that goes through each element in the list
             ///
             for (int i = 1; i <= 10; i++)
             {
                 Product value = new ();
-                randomCategory = (Category)Categories.GetValue(random.Next(Categories.Length))!;
-                randomGender = (Gender)Genders.GetValue(random.Next(Genders.Length))!;
-                randomColor = (Color)Colors.GetValue(random.Next(Colors.Length))!;
-                value.Category = randomCategory;
+                value.Category = (Category)Categories.GetValue(random.Next(Categories.Length))!;
+                value.Gender = (Gender)Genders.GetValue(random.Next(Genders.Length))!;
+                value.Color = (Color)Colors.GetValue(random.Next(Colors.Length))!;
+
                 value.ID = random.Next(100000, 999999);
 
                 /// A loop that says that as long as the id exists in the list, it is necessary to generate a new id
@@ -86,47 +87,34 @@ namespace XMLPrepareFiles
 
                 value.Name = "Product" + i;
                 value.Price = 100;
-                value.Color = randomColor;
                 value.Description = "New!";
                 value.Image = "/Image2.png";
 
                 ///If the drawn Category is "Clothing"
-                if (randomCategory is Category.Clothing)
+                if (value.Category is Category.Clothing)
                 {
-                    randomSizeClothes = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length))!;
-                    value.SizeClothing = randomSizeClothes;
+                    value.SizeClothing = (SizeClothing)SizeCloth.GetValue(random.Next(SizeCloth.Length))!;
+
                     /// If the Category drawn is "men" or "boys"
-                    if (randomGender is Gender.Men or Gender.Boys)
-                    {
+                    if (value.Gender is Gender.Men or Gender.Boys)
                         randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length - 2))!;
-                        value.Gender = randomGender;
-                        value.Clothing = randomClothes;
-                    }
                     else
-                    {
                         randomClothes = (Clothing)Clothes.GetValue(random.Next(Clothes.Length))!;
-                        value.Gender = randomGender;
-                        value.Clothing = randomClothes;
-                    }
+
+                    value.Clothing = randomClothes;
                 }
                 ///If the Category is "Shoes"
                 else
                 {
-                    randomSizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length))!;
-                    value.SizeShoes = randomSizeShoes;
+                    value.SizeShoes = (SizeShoes)SizeShoe.GetValue(random.Next(SizeShoe.Length))!;
+
                     /// If the Category is "Men" or "Boys" or "Girls"
-                    if (randomGender is not Gender.Women)
-                    {
+                    if (value.Gender is not Gender.Women)
                         randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length - 1))!;
-                        value.Gender = randomGender;
-                        value.Shoes = randomShoes;
-                    }
                     else
-                    {
                         randomShoes = (Shoes)Shoe.GetValue(random.Next(Shoe.Length))!;
-                        value.Gender = randomGender;
-                        value.Shoes = randomShoes;
-                    }
+
+                    value.Shoes = randomShoes;
                 }
 
                 Products.Add(value);
