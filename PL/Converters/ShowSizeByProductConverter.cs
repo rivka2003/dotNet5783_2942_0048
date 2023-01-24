@@ -8,7 +8,7 @@ namespace PL.Converters
     {
         private BO.Product product { get; set; }
         /// <summary>
-        /// convert from source property type to target property type
+        /// convert from source property type to target property type. resets with a default first value of enum the cb
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>

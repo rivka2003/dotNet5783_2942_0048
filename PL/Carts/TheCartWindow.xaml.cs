@@ -13,7 +13,7 @@ namespace PL.Carts
 
         public BO.Cart Cart
         {
-            get { return (BO.Cart)GetValue(cartProperty); }//casting from dp to regular bo
+            get { return (BO.Cart)GetValue(cartProperty); }//casting from do to regular bo
             set { SetValue(cartProperty, value); }
         }
 
