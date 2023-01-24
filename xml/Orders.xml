@@ -191,19 +191,19 @@
   </Order>
   <Order>
     <ID>22</ID>
-    <CustomerName></CustomerName>
-    <CustomerEmail></CustomerEmail>
-    <CustomerAddress></CustomerAddress>
-    <OrderDate>24/01/2023 13:18:14</OrderDate>
-    <ShipDate>24/01/2023 13:18:30</ShipDate>
-    <DeliveryDate>24/01/2023 13:20:29</DeliveryDate>
+    <CustomerName>sarit tik</CustomerName>
+    <CustomerEmail>guijni@gmail.com</CustomerEmail>
+    <CustomerAddress>nfughiewbgui</CustomerAddress>
+    <OrderDate>2023-01-24T16:26:06.8804456+02:00</OrderDate>
+    <ShipDate />
+    <DeliveryDate />
   </Order>
   <Order>
     <ID>23</ID>
-    <CustomerName>rivka</CustomerName>
-    <CustomerEmail>rivka@gmail.com</CustomerEmail>
-    <CustomerAddress>street ten 10</CustomerAddress>
-    <OrderDate>2023-01-24T16:22:40.672243+02:00</OrderDate>
+    <CustomerName>nguis</CustomerName>
+    <CustomerEmail>gheiudbriue@gmail.com</CustomerEmail>
+    <CustomerAddress>dngusruh</CustomerAddress>
+    <OrderDate>2023-01-24T16:29:35.8626147+02:00</OrderDate>
     <ShipDate />
     <DeliveryDate />
   </Order>

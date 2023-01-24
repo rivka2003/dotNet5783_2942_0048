@@ -7,7 +7,8 @@ namespace Dal
     /// </summary>
     internal sealed class DalXml : IDal
     {
-        public static IDal Instance { get; } = new DalXml();
+        private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
+        public static IDal Instance { get { return lazy.Value; } }
 
         public IProduct Product { get; }
         public IOrder Order { get; }

@@ -39,6 +39,7 @@ namespace PL.Carts
             {
                BO.Order order = bl!.Cart.OrderMaking(Cart);
                 MessageBox.Show($"Your order have made! this is your tracking number: {order.ID}", "Ordered", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow.mainFrame.Navigate(new HomePage(Cart));
             }
             ///recieving error information from previous layer and showing the user with a message accordingly in case there is something wrong.
             catch (Exception ex)

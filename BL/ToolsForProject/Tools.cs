@@ -37,6 +37,7 @@ namespace ToolsForProject
                             propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, Enum.ToObject(t, sourceValue));
                         else if (propertyInfoTarget[sourcePropertyInfo.Name].PropertyType == sourcePropertyInfo.PropertyType)
                             propertyInfoTarget[sourcePropertyInfo.Name].SetValue(target, sourceValue);
+
                     }
                 }
             }

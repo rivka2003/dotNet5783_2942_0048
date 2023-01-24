@@ -81,12 +81,13 @@ public static class Simulator
             else
             {
                 int timeOfTreatment = _random.Next(3, 10);
-                int nextStatus = ((int)order.Status! + 1);
+                int nextStatus = (int)order.Status! + 1;
                 BO.OrderStatus? oRDER_STATUS = (OrderStatus)nextStatus;
 
 
                 Tuple<Order, BO.OrderStatus?, string, string> items =
-                    Tuple.Create(order, oRDER_STATUS, DateTime.Now.ToString(), DateTime.Now.AddSeconds(timeOfTreatment).ToString());
+                    Tuple.Create(order, oRDER_STATUS, DateTime.Now.ToString(), 
+                    DateTime.Now.AddSeconds(timeOfTreatment).ToString());
 
                 beginInvoke(delegates, 1, items);
 
@@ -100,7 +101,7 @@ public static class Simulator
                         : _bl.Order.UpdateDeliveryDate(order.ID);
 
                 items =
-                     Tuple.Create(order, (order.Status == OrderStatus.Shipped ? (OrderStatus?)OrderStatus.Delivered : null), "", "");
+                     Tuple.Create(order, order.Status == OrderStatus.Shipped ? (OrderStatus?)OrderStatus.Delivered : null, "", "");
 
                 beginInvoke(delegates, 1, items);
             }
@@ -146,7 +147,7 @@ public static class Simulator
     /// <param name="objects">Objects to pass to the event</param>
     private static void beginInvoke(Delegate[]? delegates, params object[]? objects)
     {
-        foreach (var @delegate in delegates!)
-            @delegate?.DynamicInvoke(objects);
+        foreach (var _delegate in delegates!)
+            _delegate?.DynamicInvoke(objects);
     }
 }

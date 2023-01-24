@@ -117,7 +117,6 @@ namespace PL
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            //new TimerWindow().ShowDialog();
             _simulatorClick = false;
             new SimulatorWindow(() => _simulatorClick = !_simulatorClick).Show();
         }
