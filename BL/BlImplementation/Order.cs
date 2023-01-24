@@ -61,16 +61,6 @@ namespace BlImplementation
             };
         }
 
-        private OrderStatus getOrderStatus(BO.Order order)
-        {
-            ///checks the case
-            return order switch
-            {
-                BO.Order _order when _order.DeliveryDate is not null => OrderStatus.Delivered,
-                BO.Order _order when _order.ShipDate is not null => OrderStatus.Shipped,
-                _ => OrderStatus.Confirmed,
-            };
-        }
         /// <summary>
         /// a function that returns the order details by the id
         /// </summary>
@@ -86,13 +76,15 @@ namespace BlImplementation
             /// checks if the input is valid
             if (ID > 0)
             {
-                ///tryng to get the order from the DO
+                ///trying to get the order from the DO
                 try
                 {
                     OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
                 }
                 catch (DO.NonFoundObjectDo ex)
-                { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+                { 
+                    throw new BO.NonFoundObjectBo(ex.Message, ex); 
+                }
 
                 OrderDo.CopyPropTo(OrderBo);/// copying the order details from the DO ti the order details from the BO
 
@@ -132,18 +124,20 @@ namespace BlImplementation
             {
                 OrderDo = Dal!.Order.RequestByPredicate(order => order?.ID == ID);
 
-                /// checking that the Ship date didnt updated yet
-                if (OrderDo.ShipDate is not null)
-                    throw new BO.AlreadyUpdated("Error - The order has been shiped!");
-
+                /// checking that the Ship date didnt updated yet 
                 if (OrderDo.DeliveryDate is not null)
                     throw new BO.AlreadyUpdated("Error - The order has been delivered!");
+
+                if (OrderDo.ShipDate is not null)
+                    throw new BO.AlreadyUpdated("Error - The order has been shiped!");
 
                 OrderDo.ShipDate = DateTime.Now;
                 Dal.Order.Update(OrderDo);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             return OrderDetails(ID);
         }
@@ -176,7 +170,9 @@ namespace BlImplementation
                 Dal.Order.Update(OrderDo);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             return OrderDetails(ID);
         }
@@ -196,7 +192,9 @@ namespace BlImplementation
                 OrderBo = OrderDetails(ID);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             BO.OrderTracking orderTracking = new BO.OrderTracking()
             {
@@ -222,10 +220,16 @@ namespace BlImplementation
             IEnumerable<BO.Order> ordersInLine = from order in GetAll()
                                                  where order.Status != BO.OrderStatus.Delivered
                                                  select OrderDetails(order.ID);
-            return ordersInLine.Where(order => GetLatestDate(order) == ordersInLine.Min(_order => GetLatestDate(_order))).FirstOrDefault();
 
-
+            return ordersInLine.Where(order => GetLatestDate(order) == ordersInLine.Min(_order => GetLatestDate(_order))).FirstOrDefault()!;
         }
+        /// <summary>
+        /// Returning the latests update of the order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        private static DateTime? GetLatestDate(BO.Order order) => order.DeliveryDate is not null ?
+    order.DeliveryDate : order.ShipDate is not null ? order.ShipDate : order.OrderDate;
         /// <summary>
         /// A function that grups all the orders by the statistics
         /// </summary>
@@ -247,16 +251,11 @@ namespace BlImplementation
                                            select totalPriceOfOrder).Sum()
                    };
         }
-        private static DateTime? GetLatestDate(BO.Order order) =>
-order.DeliveryDate is not null ? order.DeliveryDate : order.ShipDate is not null ? order.ShipDate : order.OrderDate;
 
     }
     /// <summary>
     /// A struct to present the orders by month, amount of orders and the total price for a month
     /// </summary>
-
-
-
 
     public struct StatisticksOrderByMonth
     {
