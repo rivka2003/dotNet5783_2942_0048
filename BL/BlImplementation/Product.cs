@@ -43,7 +43,9 @@ namespace BlImplementation
                 productDo = Dal!.Product.RequestByPredicate(product => product?.ID == ID);
             }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             productDo.CopyPropTo(productBo); ///copyng product from DO to BO
 
@@ -68,9 +70,13 @@ namespace BlImplementation
             DO.Product proDo;
 
             try /// tryng to get the product from the Dal
-            { proDo = Dal!.Product.RequestByPredicate(product => product?.ID == ID); }
+            { 
+                proDo = Dal!.Product.RequestByPredicate(product => product?.ID == ID); 
+            }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             proDo.CopyPropTo(proItm);
             BO.OrderItem orderItem = cart.Items!.FirstOrDefault(i => i!.ID == ID)!;
@@ -114,11 +120,15 @@ namespace BlImplementation
 
             productDo = productBo.CopyPropToStruct(productDo);
             productDo.Status = DO.Status.Exist;
-
+           
             try /// tryng to add the product in to the list in the DO
-            { Dal!.Product.Add(productDo); }
+            { 
+                Dal!.Product.Add(productDo); 
+            }
             catch (DO.ExistingObjectDo ex)
-            { throw new BO.ExistingObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.ExistingObjectBo(ex.Message, ex); 
+            }
         }
         /// <summary>
         /// deleting a product that its id was given, from the products list
@@ -137,7 +147,9 @@ namespace BlImplementation
                     Dal.Product.Delete(ID);
                 }
                 catch (DO.NonFoundObjectDo ex)
-                { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+                { 
+                    throw new BO.NonFoundObjectBo(ex.Message, ex); 
+                }
             }
             else /// if there is any order with this product
                 throw new BO.InExistingOrder("The product exists in another order - can't delete");
@@ -171,12 +183,22 @@ namespace BlImplementation
             DO.Product productDo = new();
 
             productDo = updateProduct.CopyPropToStruct(productDo);
+            if (productDo.InStock == 0)
+            {
+                DeleteProduct(productDo.ID);
+                productDo.Status = DO.Status.NotExist;
+                return updateProduct;
+            }
             productDo.Status = DO.Status.Exist;
 
             try /// trying to update the product in the DO
-            { Dal!.Product.Update(productDo); }
+            { 
+                Dal!.Product.Update(productDo); 
+            }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             return updateProduct;
         }
@@ -188,7 +210,6 @@ namespace BlImplementation
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ProductItem?> GetAllOrderItems(BO.Cart cart)
         {
-          
             IEnumerable<ProductItem?> productItems = from DO.Product item in Dal!.Product.RequestAllByPredicate()
                                                      select new ProductItem
                                                      {

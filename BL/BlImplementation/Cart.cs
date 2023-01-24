@@ -27,9 +27,13 @@ namespace BlImplementation
             DO.Product productDo;
 
             try///making sure the oroduct exists in the products list
-            { productDo = Dal!.Product.RequestByPredicate(product => product?.ID == productID); }
+            { 
+                productDo = Dal!.Product.RequestByPredicate(product => product?.ID == productID); 
+            }
             catch (DO.NonFoundObjectDo ex)
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
 
             if (productDo.InStock > 0) /// making sure that ther is any product in stock
             {
@@ -46,6 +50,7 @@ namespace BlImplementation
                         Amount = productAmount,
                         TotalPrice = productDo.Price * productAmount
                     });
+
                     cart.TotalPrice += productDo.Price * productAmount;
                 }
                 else /// if the cart is not empty
@@ -130,9 +135,13 @@ namespace BlImplementation
                 }
             }
             catch (DO.NonFoundObjectDo ex)///if run into issue throw error message
-            { throw new BO.NonFoundObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.NonFoundObjectBo(ex.Message, ex); 
+            }
             catch (DO.ExistingObjectDo ex)
-            { throw new BO.ExistingObjectBo(ex.Message, ex); }
+            { 
+                throw new BO.ExistingObjectBo(ex.Message, ex); 
+            }
 
             cart.Items.Clear();
             cart.CustomerName = "";
