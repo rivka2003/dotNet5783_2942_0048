@@ -101,7 +101,7 @@ namespace BlImplementation
                     cart.CopyPropTo(orderBo);/// copy the datails from the otder to the cart (the same values)
 
                     DO.Order orderDo = new ();
-                    orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy froBO to DO(from class to struct)
+                    orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy from BO to DO(from class to struct)
 
                     orderBo.ID = Dal!.Order.Add(orderDo);
 

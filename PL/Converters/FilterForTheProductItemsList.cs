@@ -45,7 +45,7 @@ namespace PL.Converters
             return 0;
         }
 
-        /// <summary>
+        /// <summary>.
         /// convert from target property type to source property type
         /// </summary>
         /// <param name="value"></param>

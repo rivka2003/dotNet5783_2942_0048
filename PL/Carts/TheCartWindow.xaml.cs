@@ -13,7 +13,7 @@ namespace PL.Carts
 
         public BO.Cart Cart
         {
-            get { return (BO.Cart)GetValue(cartProperty); }
+            get { return (BO.Cart)GetValue(cartProperty); }//casting from dp to regular bo
             set { SetValue(cartProperty, value); }
         }
 
@@ -29,7 +29,7 @@ namespace PL.Carts
         }
 
         /// <summary>
-        /// If he wanted to order
+        /// submitting an order
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -49,7 +49,7 @@ namespace PL.Carts
         }
 
         /// <summary>
-        /// ti increase the amount of the product
+        /// to increase the amount of the product
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
