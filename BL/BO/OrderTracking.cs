@@ -1,5 +1,4 @@
-﻿using CopyPropertisTo;
-
+﻿
 namespace BO
 {
     public class OrderTracking

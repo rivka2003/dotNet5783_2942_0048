@@ -5,19 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="SimulatorWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="start" HorizontalAlignment="Left" Margin="131,319,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button Content="stop" HorizontalAlignment="Left" Margin="621,319,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Content="order id:" HorizontalAlignment="Left" Margin="189,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="order date:" HorizontalAlignment="Left" Margin="189,145,0,0" VerticalAlignment="Top"/>
-        <Label Content="ship date:" HorizontalAlignment="Left" Margin="189,0,0,0"/>
-        <Label Content="delivery date:" HorizontalAlignment="Left" Margin="182,269,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="300,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="300,145,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="300,0,0,0"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="300,269,0,0" VerticalAlignment="Top"/>
-        <Label Content="current order" Margin="0,42,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Timer, Mode=OneWay}" FontSize="60" Margin="20,0" />
+
+        <TextBlock Grid.Row="1" Text="Currently handling order:" TextAlignment="Left" Margin="50,0" />
+        <TextBlock Grid.Row="1" Text="{Binding Data.CurrentOrderInLine.ID}" TextAlignment="right"   Margin="0,0,40,0"/>
+
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Current status:" TextAlignment="left"  Margin="50,0" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Data.CurrentOrderInLine.Status}" TextAlignment="Right"  Margin="0,0,50,0" />
+
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Processing start time:" TextAlignment="left"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Data.StartTime}" FontSize="15" TextAlignment="Right" Margin="0,0,25,0" />
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Next status:" TextAlignment="left"   Margin="50,0" />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Data.NextStatus}" TextAlignment="Right" Margin="0,0,50,0" />
+
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Estimated handling time:" TextAlignment="left"  />
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Data.HandleTime}" FontSize="15" TextAlignment="Right"  Margin="0,0,20,0" />
+
+
+        <Button Content="Stop" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"  Click="EndSimulationClick" Margin="20,0"/>
+        <ProgressBar HorizontalAlignment="Left" Value="{Binding TimeProgress}" Height="19" Margin="50,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="330" Background="#FF99D698" BorderBrush="Black" Foreground="#FF2DD72A"/>
 
     </Grid>
 </Window>

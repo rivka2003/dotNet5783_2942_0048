@@ -38,6 +38,15 @@ namespace PL
         public static readonly DependencyProperty PasswordTextProperty =
             DependencyProperty.Register("PasswordText", typeof(string), typeof(MainWindow));
 
+        private bool _simulatorClick
+        {
+            get { return (bool)GetValue(_simulatorClickProperty); }
+            set { SetValue(_simulatorClickProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty _simulatorClickProperty =
+            DependencyProperty.Register("_simulatorClick", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
 
         public MainWindow()
         {
@@ -108,7 +117,9 @@ namespace PL
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            new TimerWindow().ShowDialog();
+            //new TimerWindow().ShowDialog();
+            _simulatorClick = false;
+            new SimulatorWindow(() => _simulatorClick = !_simulatorClick).Show();
         }
     }
 }

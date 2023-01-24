@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace CopyPropertisTo
+namespace ToolsForProject
 {
     static internal class Tools
     {
@@ -25,7 +25,7 @@ namespace CopyPropertisTo
                 ///checks if the target conteins the property info to reset the property
                 if (propertyInfoTarget.ContainsKey(sourcePropertyInfo.Name)
                     && (sourcePropertyInfo.PropertyType == propertyInfoTarget[sourcePropertyInfo.Name].PropertyType
-                    && (sourcePropertyInfo.PropertyType == typeof(string)) || !sourcePropertyInfo.PropertyType.IsClass))
+                    && sourcePropertyInfo.PropertyType == typeof(string) || !sourcePropertyInfo.PropertyType.IsClass))
                 {
                     Type s = Nullable.GetUnderlyingType(sourcePropertyInfo.PropertyType)!;
                     Type t = Nullable.GetUnderlyingType(propertyInfoTarget[sourcePropertyInfo.Name].PropertyType)!;
@@ -89,7 +89,7 @@ namespace CopyPropertisTo
                 if (item.GetValue(property, null) is IEnumerable<object>)
                 {
                     IEnumerable<object> lst = (IEnumerable<object>)item.GetValue(obj: property, null)!;
-                    str += String.Join(" ", lst);
+                    str += string.Join(" ", lst);
                 }
                 else
                     str += item.GetValue(property, null);

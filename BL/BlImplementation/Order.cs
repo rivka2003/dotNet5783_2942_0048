@@ -1,7 +1,8 @@
 ﻿using BO;
-using CopyPropertisTo;
 using DO;
+using DocumentFormat.OpenXml.Bibliography;
 using System.Runtime.CompilerServices;
+using ToolsForProject;
 
 namespace BlImplementation
 {
@@ -59,6 +60,17 @@ namespace BlImplementation
                 _ => OrderStatus.Confirmed,
             };
         }
+
+        private OrderStatus getOrderStatus(BO.Order order)
+        {
+            ///checks the case
+            return order switch
+            {
+                BO.Order _order when _order.DeliveryDate is not null => OrderStatus.Delivered,
+                BO.Order _order when _order.ShipDate is not null => OrderStatus.Shipped,
+                _ => OrderStatus.Confirmed,
+            };
+        }
         /// <summary>
         /// a function that returns the order details by the id
         /// </summary>
@@ -89,7 +101,7 @@ namespace BlImplementation
                 ///for every order item that is in the order copy all the details from DO to BO and make them a list
                 OrderBo.Items = Dal.OrderItem.RequestAllByPredicate(orderItem => orderItem?.OrderID == ID).Select(orderItem =>
                 {
-                    BO.OrderItem? orderItemBo = new OrderItem();
+                    BO.OrderItem? orderItemBo = new BO.OrderItem();
                     orderItem.CopyPropTo(orderItemBo);
                     orderItemBo.Name = Dal.Product.RequestByPredicate(product => product?.ID == orderItem?.ProductID).Name;
                     orderItemBo.TotalPrice = (double)(orderItem?.Price * orderItem?.Amount)!;
@@ -207,24 +219,12 @@ namespace BlImplementation
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BO.Order GettingLatestOrder()
         {
-            IEnumerable<BO.Order> OrdersBO;
-            BO.Order Order;
-            OrdersBO = Dal!.Order.RequestAllByPredicate().CopyPropToList<DO.Order?, BO.Order>()!;
-            List<BO.Order> shippedOrders = (from order in OrdersBO
-                                            where order.Status is BO.OrderStatus.Shipped
-                                            orderby order.ShipDate
-                                            select order).ToList();
+            IEnumerable<BO.Order> ordersInLine = from order in GetAll()
+                                                 where order.Status != BO.OrderStatus.Delivered
+                                                 select OrderDetails(order.ID);
+            return ordersInLine.Where(order => GetLatestDate(order) == ordersInLine.Min(_order => GetLatestDate(_order))).FirstOrDefault();
 
-            List<BO.Order> confirmedOrders = (from order in OrdersBO
-                                              where order.Status is BO.OrderStatus.Confirmed
-                                              orderby order.OrderDate
-                                              select order).ToList();
 
-            if (shippedOrders[0].ShipDate > confirmedOrders[0].OrderDate)
-                Order = confirmedOrders[0];
-            else
-                Order = shippedOrders[0];
-            return Order;
         }
         /// <summary>
         /// A function that grups all the orders by the statistics
@@ -247,11 +247,17 @@ namespace BlImplementation
                                            select totalPriceOfOrder).Sum()
                    };
         }
+        private static DateTime? GetLatestDate(BO.Order order) =>
+order.DeliveryDate is not null ? order.DeliveryDate : order.ShipDate is not null ? order.ShipDate : order.OrderDate;
 
     }
     /// <summary>
     /// A struct to present the orders by month, amount of orders and the total price for a month
     /// </summary>
+
+
+
+
     public struct StatisticksOrderByMonth
     {
         public string MonthName { get; set; }
