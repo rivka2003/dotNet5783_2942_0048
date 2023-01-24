@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using BO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PL;
 
@@ -104,11 +103,8 @@ public partial class SimulatorWindow : Window
     public SimulatorWindow(Action _onClosingWindow)
     {
         InitializeComponent();
-        WindowStyle = WindowStyle.None;
 
         this._onClosingWindow = _onClosingWindow;
-        //    if(Data.CurrentOrderInLine != null) 
-        //        Data.NextStatus = Data.CurrentOrderInLine.Status == ORDER_STATUS.PENDING ? ORDER_STATUS.SHIPPED : ORDER_STATUS.DELIVERED;
 
         Watch = new Stopwatch();
 
@@ -133,12 +129,11 @@ public partial class SimulatorWindow : Window
     /// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
     private void _backgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
-
         Watch!.Stop();
         Simulator.Simulator.s_StopSimulation -= cancelAsync;
         Simulator.Simulator.s_UpdateSimulation -= reportProgress;
         _onClosingWindow?.Invoke();
-        this.Close();
+        Close();
     }
 
     /// <summary>
@@ -222,14 +217,5 @@ public partial class SimulatorWindow : Window
     private void EndSimulationClick(object sender, RoutedEventArgs e)
     {
         Simulator.Simulator.StopSimulation();
-    }
-
-    /// <summary>
-    /// Window_MouseDown method is used to move the window when left-clicked and dragged.
-    /// </summary>
-    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.ChangedButton == MouseButton.Left)
-            this.DragMove();
     }
 }

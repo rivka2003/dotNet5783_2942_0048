@@ -1,6 +1,7 @@
 ﻿using BO;
 using DO;
 using DocumentFormat.OpenXml.Bibliography;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using ToolsForProject;
 
@@ -240,7 +241,8 @@ namespace BlImplementation
             return from order in Dal!.Order.RequestAllByPredicate()
                    let _order = order.GetValueOrDefault()
                    let orderDate = _order.OrderDate.GetValueOrDefault()
-                   group order by orderDate.Month.ToString("MMMM") into newGroup
+                   let monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(orderDate.Month)
+                   group order by monthName into newGroup
                    select new StatisticksOrderByMonth
                    {
                        MonthName = newGroup.Key,
