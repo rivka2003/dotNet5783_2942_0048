@@ -82,11 +82,12 @@ namespace BlImplementation
                 for (int i = 0; i < cart.Items!.Count; i++)///for each item
                 {
                     productBo = product.ProductDetailsForManager(cart.Items![i]!.ProductID);
-
+                    //validety checks
                     if(cart.Items[i]!.Amount < 0)
                         throw new BO.NotValid("Error - Amount can't be a negative number!");
                     if(productBo.InStock <= 0)
                         throw new BO.NotValid("Error - The product is out of stock!");
+                    //could b outside the for loop
                     if(cart.CustomerEmail == " ")
                         throw new BO.NotValid("Error - Customer email box can't be empty!");
                     if(cart.CustomerName == " ")
@@ -103,7 +104,7 @@ namespace BlImplementation
                     orderBo.ShipDate = null;
                     orderBo.Items = cart.Items;
 
-                    cart.CopyPropTo(orderBo);/// copy the datails from the otder to the cart (the same values)
+                    cart.CopyPropTo(orderBo);/// copy the datails from the order to the cart (the same values)
 
                     DO.Order orderDo = new ();
                     orderDo = orderBo.CopyPropToStruct(orderDo); /// using the function that copy from BO to DO(from class to struct)
