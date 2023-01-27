@@ -143,7 +143,6 @@ public partial class SimulatorWindow : Window
     /// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance containing the event data.</param>
     private void _backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
     {
-
         if (_backgroundWorker.IsBusy)
         {
             int action = e.ProgressPercentage;
@@ -217,5 +216,13 @@ public partial class SimulatorWindow : Window
     private void EndSimulationClick(object sender, RoutedEventArgs e)
     {
         Simulator.Simulator.StopSimulation();
+    }
+    /// <summary>
+    /// A function to make the x to be cancaled
+    /// </summary>
+    /// <param name="e"></param>
+    private void SimulatorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        e.Cancel = true;
     }
 }

@@ -194,17 +194,35 @@
     <CustomerName>sarit tik</CustomerName>
     <CustomerEmail>guijni@gmail.com</CustomerEmail>
     <CustomerAddress>nfughiewbgui</CustomerAddress>
-    <OrderDate>2023-01-24T16:26:06.8804456+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>24/01/2023 16:26:06</OrderDate>
+    <ShipDate>24/01/2023 17:20:39</ShipDate>
+    <DeliveryDate>24/01/2023 17:31:04</DeliveryDate>
   </Order>
   <Order>
     <ID>23</ID>
     <CustomerName>nguis</CustomerName>
     <CustomerEmail>gheiudbriue@gmail.com</CustomerEmail>
     <CustomerAddress>dngusruh</CustomerAddress>
-    <OrderDate>2023-01-24T16:29:35.8626147+02:00</OrderDate>
-    <ShipDate />
-    <DeliveryDate />
+    <OrderDate>24/01/2023 16:29:35</OrderDate>
+    <ShipDate>24/01/2023 17:20:48</ShipDate>
+    <DeliveryDate>24/01/2023 17:31:09</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>24</ID>
+    <CustomerName>sarit tik</CustomerName>
+    <CustomerEmail>saritik16@gmail.com</CustomerEmail>
+    <CustomerAddress>vdiosbgusrhig</CustomerAddress>
+    <OrderDate>24/01/2023 17:16:04</OrderDate>
+    <ShipDate>24/01/2023 17:20:58</ShipDate>
+    <DeliveryDate>25/01/2023 11:33:23</DeliveryDate>
+  </Order>
+  <Order>
+    <ID>25</ID>
+    <CustomerName>sarit tik</CustomerName>
+    <CustomerEmail>saritik16@gmail.com</CustomerEmail>
+    <CustomerAddress>vdiosbgusrhig</CustomerAddress>
+    <OrderDate>24/01/2023 17:16:04</OrderDate>
+    <ShipDate>24/01/2023 17:30:58</ShipDate>
+    <DeliveryDate>25/01/2023 11:33:27</DeliveryDate>
   </Order>
 </ArrayOfOrder>

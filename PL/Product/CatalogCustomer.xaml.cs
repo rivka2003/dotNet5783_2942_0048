@@ -115,7 +115,8 @@ namespace PL.Product
             if (((ListView)sender) is not null)
             {
                 BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
-                MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
+                if(selection is not null)
+                    MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
             }
         }
 
