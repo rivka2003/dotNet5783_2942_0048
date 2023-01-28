@@ -1,5 +1,4 @@
 ﻿using BO;
-
 namespace Simulator;
 
 /// <summary>
