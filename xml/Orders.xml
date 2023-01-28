@@ -195,8 +195,8 @@
     <CustomerEmail>guijni@gmail.com</CustomerEmail>
     <CustomerAddress>nfughiewbgui</CustomerAddress>
     <OrderDate>24/01/2023 16:26:06</OrderDate>
-    <ShipDate>24/01/2023 17:14:38</ShipDate>
-    <DeliveryDate>24/01/2023 17:14:55</DeliveryDate>
+    <ShipDate>24/01/2023 17:20:39</ShipDate>
+    <DeliveryDate>24/01/2023 17:31:04</DeliveryDate>
   </Order>
   <Order>
     <ID>23</ID>
@@ -204,25 +204,25 @@
     <CustomerEmail>gheiudbriue@gmail.com</CustomerEmail>
     <CustomerAddress>dngusruh</CustomerAddress>
     <OrderDate>24/01/2023 16:29:35</OrderDate>
-    <ShipDate>24/01/2023 17:14:42</ShipDate>
-    <DeliveryDate>24/01/2023 17:15:04</DeliveryDate>
+    <ShipDate>24/01/2023 17:20:48</ShipDate>
+    <DeliveryDate>24/01/2023 17:31:09</DeliveryDate>
   </Order>
   <Order>
     <ID>24</ID>
-    <CustomerName>rivka</CustomerName>
-    <CustomerEmail>rivka@gmail.com</CustomerEmail>
-    <CustomerAddress>gsgsgsh</CustomerAddress>
-    <OrderDate>24/01/2023 16:34:55</OrderDate>
-    <ShipDate>24/01/2023 17:14:49</ShipDate>
-    <DeliveryDate>24/01/2023 17:15:11</DeliveryDate>
+    <CustomerName>sarit tik</CustomerName>
+    <CustomerEmail>saritik16@gmail.com</CustomerEmail>
+    <CustomerAddress>vdiosbgusrhig</CustomerAddress>
+    <OrderDate>24/01/2023 17:16:04</OrderDate>
+    <ShipDate>24/01/2023 17:20:58</ShipDate>
+    <DeliveryDate>25/01/2023 11:33:23</DeliveryDate>
   </Order>
   <Order>
     <ID>25</ID>
-    <CustomerName></CustomerName>
-    <CustomerEmail></CustomerEmail>
-    <CustomerAddress></CustomerAddress>
-    <OrderDate>25/01/2023 11:14:18</OrderDate>
-    <ShipDate>25/01/2023 11:15:09</ShipDate>
-    <DeliveryDate>25/01/2023 11:15:18</DeliveryDate>
+    <CustomerName>sarit tik</CustomerName>
+    <CustomerEmail>saritik16@gmail.com</CustomerEmail>
+    <CustomerAddress>vdiosbgusrhig</CustomerAddress>
+    <OrderDate>24/01/2023 17:16:04</OrderDate>
+    <ShipDate>24/01/2023 17:30:58</ShipDate>
+    <DeliveryDate>25/01/2023 11:33:27</DeliveryDate>
   </Order>
 </ArrayOfOrder>

@@ -85,7 +85,9 @@ namespace BlImplementation
                     //validety checks
                     if(cart.Items[i]!.Amount < 0)
                         throw new BO.NotValid("Error - Amount can't be a negative number!");
-                    if(productBo.InStock <= 0)
+                    if(cart.Items[i]!.Amount == 0)
+                        throw new BO.NotValid("Error - There are no products in the cart!");
+                    if (productBo.InStock <= 0)
                         throw new BO.NotValid("Error - The product is out of stock!");
                     //could b outside the for loop
                     if(cart.CustomerEmail == " ")
