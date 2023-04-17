@@ -112,12 +112,9 @@ namespace PL.Product
         /// <param name="e"></param>
         private void View_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (((ListView)sender) is not null)
-            {
-                BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
-                if(selection is not null)
-                    MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
-            }
+            BO.ProductItem selection = (BO.ProductItem)((ListView)sender).SelectedItem;
+            if (selection is not null)
+                MainWindow.mainFrame.Navigate(new ProductView(Cart, selection.ID));
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PL"
       xmlns:converter="clr-namespace:PL.Converters"
       Width="800"
-      Height="458"
+      Height="558"
       DataContext="{Binding RelativeSource={RelativeSource self}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -52,7 +52,7 @@
             <RowDefinition Height="470"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="White">
+        <Grid Background="White" Grid.Row="0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <ComboBox x:Name="GenderCB" Height="30" 
                       ItemsSource="{Binding Gender}" SelectedIndex="0"/>
@@ -85,11 +85,12 @@
 
             <Button x:Name="clearB"  Content="Clear!" VerticalAlignment="Bottom" FontSize="16" 
                             Click="ClearB" Foreground="#FFB21616" HorizontalAlignment="Right" Margin="0,0,20,0"/>
-        </Grid>
+        </Grid >
+        
         <ListView x:Name="productsLv"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                  ScrollViewer.CanContentScroll="True"  ItemTemplate="{StaticResource oneProduct}"
+                  ScrollViewer.CanContentScroll="False"  ItemTemplate="{StaticResource oneProduct}"
                   FontFamily="Elephant" Grid.Row="1" Foreground="White"
-                  MouseDoubleClick="View_DoubleClick">
+                  MouseDoubleClick="View_DoubleClick" Height="435" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

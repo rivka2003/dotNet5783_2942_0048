@@ -103,7 +103,7 @@ public partial class SimulatorWindow : Window
     public SimulatorWindow(Action _onClosingWindow)
     {
         InitializeComponent();
-
+        this.WindowStyle = WindowStyle.None;
         this._onClosingWindow = _onClosingWindow;
 
         Watch = new Stopwatch();
@@ -221,8 +221,9 @@ public partial class SimulatorWindow : Window
     /// A function to make the x to be cancaled
     /// </summary>
     /// <param name="e"></param>
-    private void SimulatorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-        e.Cancel = true;
-    }
+    //protected override void OnClosing(CancelEventArgs e)
+    //{
+    //    base.OnClosing(e);
+    //    e.Cancel = true;
+    //}
 }

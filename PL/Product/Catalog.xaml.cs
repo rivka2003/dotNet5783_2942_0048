@@ -127,9 +127,9 @@ namespace PL
         /// <param name="e"></param>
         private void Update_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (((ListView)sender) is not null)
+            BO.ProductForList selection = (BO.ProductForList)((ListView)sender).SelectedItem;
+            if (selection is not null)
             {
-                BO.ProductForList selection = (BO.ProductForList)((ListView)sender).SelectedItem;
                 MainWindow.mainFrame.Navigate(new TheProductWindow(false, Cart, selection.ID));
                 productForLists = new ObservableCollection<BO.ProductForList>(bl!.Product.GetAll()!);
             }
@@ -144,7 +144,7 @@ namespace PL
         {
             BO.ProductForList selection = (BO.ProductForList)((Button)sender).DataContext;
             try
-            {  
+            {
                 bl!.Product.DeleteProduct(selection.ID);
                 productForLists.Remove(selection);
             }
@@ -155,7 +155,7 @@ namespace PL
             }
         }
         /// <summary>
-        /// button that opens a window for adding a new product to the product's category
+        /// button that opens a window for adding a new product to the product's category.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
