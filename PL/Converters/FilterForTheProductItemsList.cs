@@ -7,7 +7,7 @@ namespace PL.Converters
     public class FilterForTheProductItemsList : IMultiValueConverter
     {
         /// <summary>
-        /// convert from source property type to target property type
+        /// convert from all categories in cb to the ones matching according to the cb chosen
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -45,7 +45,7 @@ namespace PL.Converters
             return 0;
         }
 
-        /// <summary>
+        /// <summary>.
         /// convert from target property type to source property type
         /// </summary>
         /// <param name="value"></param>

@@ -38,7 +38,7 @@ namespace PL.Order
 
         public TheOrderTrackingWindow()
         {
-            ///The button didnot clicked yet so it is falls
+            ///The button didnot clicked yet so it is false
             IsClicked = false;
             InitializeComponent();
         }

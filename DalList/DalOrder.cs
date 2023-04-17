@@ -21,14 +21,14 @@ internal class DalOrder : IOrder
         return or.ID;
     }
     /// <summary>
-    /// A function that updats the order by the new parameter that we received
+    /// A function that updats the order by the new parameter that was received
     /// </summary>
     /// <param name="or"></param>
     /// <exception cref="Exception"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order or)
     {
-        ///if Order dosnt exist throw exception 
+        ///if Order doesn't exist throw exception 
         if (!Orders.Exists(i => i?.ID == or.ID))
             throw new NonFoundObjectDo("Error - The order does not exist - can't update");
         for (int i = 0; i < Orders.Count; i++)

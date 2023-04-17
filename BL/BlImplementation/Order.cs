@@ -267,4 +267,6 @@ namespace BlImplementation
 
         public double? OrdersTotalPrice { get; set; }
     }
+
+   
 }
